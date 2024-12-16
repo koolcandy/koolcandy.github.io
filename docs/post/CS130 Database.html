@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html data-color-mode="light" data-dark-theme="dark" data-light-theme="light" lang="zh-CN">
+<head>
+    <meta content="text/html; charset=utf-8" http-equiv="content-type" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link href='https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/Primer/21.0.7/primer.css' rel='stylesheet' />
+    
+    <link rel="icon" href="https://github.githubassets.com/favicons/favicon.svg"><script>
+        let theme = localStorage.getItem("meek_theme") || "light";
+        document.documentElement.setAttribute("data-color-mode", theme);
+    </script>
+<meta name="description" content="## 数据库
+
+---
+
+### 概念性内容
+
+#### 使用文件系统存储数据的缺点
+- 数据以多种不同文件格式重复存储
+- 数据访问困难
+- 数据分散于多个文件或不同文件格式中
+- 难以对数据取值范围设定限制，且修改限制不便
+- 数据修改操作可能因异常而中途停止
+- 多用户并发操作可能导致意外结果
+
+#### 数据库管理系统 (DBMS) 的优缺点
+
+##### 优点
+- 安全：未认证用户无法访问系统
+- 完整性：确保数据之间无矛盾冲突
+- 并发性：支持多用户共享数据库
+- 可恢复：能够回滚到之前的版本
+
+##### 缺点
+- 占用空间较大
+- 需要额外硬件资源
+- 数据可能需要转换
+
+#### 数据定义语言 (DDL)
+- 用于指定数据库中的数据类型、结构和约束
+
+#### 数据操纵语言 (DML)
+- 包括对数据库的插入、更新、删除和查询操作
+
+#### ER 图
+
+ER 图是设计数据库的关键
+
+**基数比**
+
+基数，意思就是这一列的所有值，如果扔到一个集合里面去，集合大小是多少。">
+<meta property="og:title" content="CS130 Database">
+<meta property="og:description" content="## 数据库
+
+---
+
+### 概念性内容
+
+#### 使用文件系统存储数据的缺点
+- 数据以多种不同文件格式重复存储
+- 数据访问困难
+- 数据分散于多个文件或不同文件格式中
+- 难以对数据取值范围设定限制，且修改限制不便
+- 数据修改操作可能因异常而中途停止
+- 多用户并发操作可能导致意外结果
+
+#### 数据库管理系统 (DBMS) 的优缺点
+
+##### 优点
+- 安全：未认证用户无法访问系统
+- 完整性：确保数据之间无矛盾冲突
+- 并发性：支持多用户共享数据库
+- 可恢复：能够回滚到之前的版本
+
+##### 缺点
+- 占用空间较大
+- 需要额外硬件资源
+- 数据可能需要转换
+
+#### 数据定义语言 (DDL)
+- 用于指定数据库中的数据类型、结构和约束
+
+#### 数据操纵语言 (DML)
+- 包括对数据库的插入、更新、删除和查询操作
+
+#### ER 图
+
+ER 图是设计数据库的关键
+
+**基数比**
+
+基数，意思就是这一列的所有值，如果扔到一个集合里面去，集合大小是多少。">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://koolcandy.github.io/post/CS130%20Database.html">
+<meta property="og:image" content="https://github.githubassets.com/favicons/favicon.svg">
+<title>CS130 Database</title>
+<link href="//unpkg.com/@wooorm/starry-night@2.1.1/style/both.css" rel="stylesheet" />
+
+
+</head>
+<style>
+body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;padding: 45px;font-size: 16px;font-family: sans-serif;line-height: 1.25;}
+#header{display:flex;padding-bottom:8px;border-bottom: 1px solid var(--borderColor-muted, var(--color-border-muted));margin-bottom: 16px;}
+#footer {margin-top:64px; text-align: center;font-size: small;}
+
+</style>
+
+<style>
+.postTitle{margin: auto 0;font-size:40px;font-weight:bold;}
+.title-right{display:flex;margin:auto 0 0 auto;}
+.title-right .circle{padding: 14px 16px;margin-right:8px;}
+#postBody{border-bottom: 1px solid var(--color-border-default);padding-bottom:36px;}
+#postBody hr{height:2px;}
+#cmButton{height:48px;margin-top:48px;}
+#comments{margin-top:64px;}
+.g-emoji{font-size:24px;}
+@media (max-width: 600px) {
+    body {padding: 8px;}
+    .postTitle{font-size:24px;}
+}
+.copy-feedback {
+    display: none;
+    position: absolute;
+    top: 10px;
+    right: 50px;
+    color: var(--color-fg-on-emphasis);
+    background-color: var(--color-fg-muted);
+    border-radius: 3px;
+    padding: 5px 8px;
+    font-size: 12px;
+}
+</style>
+<style>.markdown-alert{padding:0.5rem 1rem;margin-bottom:1rem;border-left:.25em solid var(--borderColor-default,var(--color-border-default));}.markdown-alert .markdown-alert-title {display:flex;font-weight:var(--base-text-weight-medium,500);align-items:center;line-height:1;}.markdown-alert>:first-child {margin-top:0;}.markdown-alert>:last-child {margin-bottom:0;}</style><style>.markdown-alert.markdown-alert-important {border-left-color:var(--borderColor-done-emphasis, var(--color-done-emphasis));background-color:var(--color-done-subtle);}.markdown-alert.markdown-alert-important .markdown-alert-title {color: var(--fgColor-done,var(--color-done-fg));}</style>
+
+
+
+<body>
+    <div id="header">
+<h1 class="postTitle">CS130 Database</h1>
+<div class="title-right">
+    <a href="https://koolcandy.github.io" id="buttonHome" class="btn btn-invisible circle" title="首页">
+        <svg class="octicon" width="16" height="16">
+            <path id="pathHome" fill-rule="evenodd"></path>
+        </svg>
+    </a>
+    
+    <a href="https://github.com/koolcandy/koolcandy.github.io/issues/1" target="_blank" class="btn btn-invisible circle" title="Issue">
+        <svg class="octicon" width="16" height="16">
+            <path id="pathIssue" fill-rule="evenodd"></path>
+        </svg>
+    </a>
+    
+
+    <a class="btn btn-invisible circle" onclick="modeSwitch();" title="切换主题">
+        <svg class="octicon" width="16" height="16" >
+            <path id="themeSwitch" fill-rule="evenodd"></path>
+        </svg>
+    </a>
+
+</div>
+</div>
+    <div id="content">
+<div class="markdown-body" id="postBody"><h2>数据库</h2>
+<hr>
+<h3>概念性内容</h3>
+<h4>使用文件系统存储数据的缺点</h4>
+<ul>
+<li>数据以多种不同文件格式重复存储</li>
+<li>数据访问困难</li>
+<li>数据分散于多个文件或不同文件格式中</li>
+<li>难以对数据取值范围设定限制，且修改限制不便</li>
+<li>数据修改操作可能因异常而中途停止</li>
+<li>多用户并发操作可能导致意外结果</li>
+</ul>
+<h4>数据库管理系统 (DBMS) 的优缺点</h4>
+<h5>优点</h5>
+<ul>
+<li>安全：未认证用户无法访问系统</li>
+<li>完整性：确保数据之间无矛盾冲突</li>
+<li>并发性：支持多用户共享数据库</li>
+<li>可恢复：能够回滚到之前的版本</li>
+</ul>
+<h5>缺点</h5>
+<ul>
+<li>占用空间较大</li>
+<li>需要额外硬件资源</li>
+<li>数据可能需要转换</li>
+</ul>
+<h4>数据定义语言 (DDL)</h4>
+<ul>
+<li>用于指定数据库中的数据类型、结构和约束</li>
+</ul>
+<h4>数据操纵语言 (DML)</h4>
+<ul>
+<li>包括对数据库的插入、更新、删除和查询操作</li>
+</ul>
+<h4>ER 图</h4>
+<p>ER 图是设计数据库的关键</p>
+<p><strong>基数比</strong></p>
+<p>基数，意思就是这一列的所有值，如果扔到一个集合里面去，集合大小是多少。</p>
+<p>对于二元关系，基数比可以是：</p>
+<ul>
+<li>一对一（1:1）：每当一个实体出现时，另一个实体就会恰好出现一次。</li>
+<li>一对多（1:m）：每当一个实体出现时，另一个实体就会出现多次。</li>
+<li>多对多（m:m）：对于一个实体的每次出现，另一个实体可能会出现一次或多次，反之亦然。</li>
+</ul>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/56731387ae899017555087bc5d384b0189e82569e1a0619a88ae136e46d00e52/68747470733a2f2f73322e6c6f6c692e6e65742f323032332f30332f31382f4f6235477a42416e6b5a695657394b2e706e67"><img src="https://camo.githubusercontent.com/56731387ae899017555087bc5d384b0189e82569e1a0619a88ae136e46d00e52/68747470733a2f2f73322e6c6f6c692e6e65742f323032332f30332f31382f4f6235477a42416e6b5a695657394b2e706e67" alt="image-20220928232444081" data-canonical-src="https://s2.loli.net/2023/03/18/Ob5GzBAnkZiVW9K.png" style="max-width: 100%;"></a></p>
+<h4>SQL 注入攻击</h4>
+<p>比如，在一个 web 页面当中，用户搜索一个产品名字，然后 Perl 查询 SQL 返回对应信息。假如 PHP 代码是这样写的：</p>
+<div class="highlight highlight-source-sql"><pre class="notranslate">$query <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">"</span>SELECT info FROM table WHERE name = '&lt;用户输入&gt;';<span class="pl-pds">"</span></span>;</pre></div>
+<p>结果用户乱搞事儿，输入的不是正常的名字，而是输入了一个 <code class="notranslate">blabla' OR 'x' = 'x</code>（前后各缺了一个引号，正好跟 PHP 当中的引号补齐），那么就相当于产生了这样一条 SQL 语句：</p>
+<div class="highlight highlight-source-sql"><pre class="notranslate"><span class="pl-k">SELECT</span> info <span class="pl-k">FROM</span> table <span class="pl-k">WHERE</span> name <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">'</span>blabla<span class="pl-pds">'</span></span> <span class="pl-k">OR</span> <span class="pl-s"><span class="pl-pds">'</span>x<span class="pl-pds">'</span></span> <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">'</span>x<span class="pl-pds">'</span></span>;</pre></div>
+<p>由于 <code class="notranslate">'x' = 'x'</code> 是满足的，所以这个 <code class="notranslate">WHERE</code> 永远真，于是整个表的内容都被返回了。</p>
+<p>防御方法: 使用<code class="notranslate">prepared queries</code></p>
+<h4><code class="notranslate">JOIN</code> 类型</h4>
+<ul>
+<li><code class="notranslate">INNER JOIN</code>: 只返回两个表中满足连接条件的匹配行</li>
+<li><code class="notranslate">LEFT JOIN</code>: 返回左表中的所有记录,对于右表中没有匹配的记录,结果集中会包含 NULL 值</li>
+<li><code class="notranslate">RIGHT JOIN</code>: 同上</li>
+<li><code class="notranslate">FULL JOIN</code>: 返回两个表中的所有记录,对于没有匹配的记录,结果集中会包含 NULL 值</li>
+<li><code class="notranslate">CARTESIAN JOIN</code>: 返回两个表的笛卡尔积,即第一个表的每一行与第二个表的每一行组合,也就是全组合</li>
+</ul>
+<h4>数据库标准化</h4>
+<p><strong>标准化数据表，有以下功效</strong>：</p>
+<ul>
+<li>减少重复数据 (save typing repetitive data)</li>
+<li>增加询问、排序等操作的灵活性 (increase flexibility)</li>
+<li>避免频繁的表重构 (avoid frequent restructuring)</li>
+<li>减少硬盘空间占用 (less disk consuming)</li>
+</ul>
+<p><strong>例子:</strong></p>
+<p>比如这个表，有一大堆的重复数据</p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/f575e6f5fb499464aee3734177b163fb07418f2f453c9aceaa9bba26ba82bf62/68747470733a2f2f73322e6c6f6c692e6e65742f323032332f30312f30342f6b494e794c34424d574764666f6c5a2e706e67"><img src="https://camo.githubusercontent.com/f575e6f5fb499464aee3734177b163fb07418f2f453c9aceaa9bba26ba82bf62/68747470733a2f2f73322e6c6f6c692e6e65742f323032332f30312f30342f6b494e794c34424d574764666f6c5a2e706e67" alt="img" data-canonical-src="https://s2.loli.net/2023/01/04/kINyL4BMWGdfolZ.png" style="max-width: 100%;"></a></p>
+<p>为了避免重复，可以考虑把这个大的表，拆分成三个小的表，然后这三个表通过主键（外键）联系起来</p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/cbc2d56a1f7d09b3d674688ccdd51af12786fabca06129db2f66b2a9fabd40cd/68747470733a2f2f73322e6c6f6c692e6e65742f323032332f30312f30342f706c4b773755525834546d594238362e706e67"><img src="https://camo.githubusercontent.com/cbc2d56a1f7d09b3d674688ccdd51af12786fabca06129db2f66b2a9fabd40cd/68747470733a2f2f73322e6c6f6c692e6e65742f323032332f30312f30342f706c4b773755525834546d594238362e706e67" alt="img" data-canonical-src="https://s2.loli.net/2023/01/04/plKw7URX4TmYB86.png" style="max-width: 100%;"></a></p>
+<h4>First normal form（一阶范式）</h4>
+<ol>
+<li>每个 field 只包含最小单位的有意义的值。比如，姓名拆成姓和名。</li>
+<li>表不包含重复的 groups of fields，同一个 field 不包含重复的数据</li>
+</ol>
+<p>对于第一个条件（每个列不能包含多个值），可以这样修改（上表不满足条件，下表满足）</p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/1a387bad7bbe57a652fca2af03ac698ab8fdbdd64b90b99aa27e5ca3677e7e81/68747470733a2f2f73322e6c6f6c692e6e65742f323032332f30312f30342f50316c4f64426546714435435a72322e706e67"><img src="https://camo.githubusercontent.com/1a387bad7bbe57a652fca2af03ac698ab8fdbdd64b90b99aa27e5ca3677e7e81/68747470733a2f2f73322e6c6f6c692e6e65742f323032332f30312f30342f50316c4f64426546714435435a72322e706e67" alt="img" data-canonical-src="https://s2.loli.net/2023/01/04/P1lOdBeFqD5CZr2.png" style="max-width: 100%;"></a></p>
+<p>但是虽然下面那张表满足了第一个条件，仍然不满足第二个条件。比如如果新增了一个 WH E，所有的行都要发生改动。相当于，repeating fields. 所以应该进一步改成这样：</p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/3a7b879515309bf9525f8236b0638a9916369e908dee68982ad71aa51a6bb324/68747470733a2f2f73322e6c6f6c692e6e65742f323032332f30312f30342f3572616c665455505246684e4c596a2e706e67"><img src="https://camo.githubusercontent.com/3a7b879515309bf9525f8236b0638a9916369e908dee68982ad71aa51a6bb324/68747470733a2f2f73322e6c6f6c692e6e65742f323032332f30312f30342f3572616c665455505246684e4c596a2e706e67" alt="img" data-canonical-src="https://s2.loli.net/2023/01/04/5ralfTUPRFhNLYj.png" style="max-width: 100%;"></a></p>
+<p>但是主键也要修改。之前的主键是 PART 一个属性，现在的主键是 (Part, WH) 二元组。</p>
+<h4>Second normal form（二阶范式）</h4>
+<p>二阶范式，是一阶的加强版。</p>
+<ol>
+<li>usually used in tables with a multiple-fieled primary key(composite key)</li>
+<li>每一个 non-key field 都跟整个主键有关系</li>
+<li>每一个与主键无关的东西，都放在别的表里面</li>
+</ol>
+<p>主要就是，用多个表，消除表当中的冗余数据（redundant data）</p>
+<p>像这个表，不满足二阶范式。</p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/07e8bf48028096f0e4ff804a67f4686046c002dd73d4fd13bbbe61862e95619b/68747470733a2f2f73322e6c6f6c692e6e65742f323032332f30312f30342f517050647237386773766e746d344e2e706e67"><img src="https://camo.githubusercontent.com/07e8bf48028096f0e4ff804a67f4686046c002dd73d4fd13bbbe61862e95619b/68747470733a2f2f73322e6c6f6c692e6e65742f323032332f30312f30342f517050647237386773766e746d344e2e706e67" alt="img" data-canonical-src="https://s2.loli.net/2023/01/04/QpPdr78gsvntm4N.png" style="max-width: 100%;"></a></p>
+<p>发现 WH B 出现了两次，且对应的地址（address）相等。这就意味着表格出现了冗余数据，要拆表。所有的 WH 只要编号相同，地址应当也是相同的。所以可以把地址拆出去，用 WH 作为主键连接：</p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/7d9f0f494190c13459e824f87940958b06faf8ba2e4be9dfb805a0939b4c190c/68747470733a2f2f73322e6c6f6c692e6e65742f323032332f30312f30342f53556844394f67486f786b356c54722e706e67"><img src="https://camo.githubusercontent.com/7d9f0f494190c13459e824f87940958b06faf8ba2e4be9dfb805a0939b4c190c/68747470733a2f2f73322e6c6f6c692e6e65742f323032332f30312f30342f53556844394f67486f786b356c54722e706e67" alt="img" data-canonical-src="https://s2.loli.net/2023/01/04/SUhD9OgHoxk5lTr.png" style="max-width: 100%;"></a></p>
+<p>这样，就满足二阶范式了。</p>
+<h4>Third normal form（三阶范式）</h4>
+<p>三阶范式，仅考虑主键只有一列的表。</p>
+<ol>
+<li>表当中，通常使用 single-field primary key</li>
+<li>记录 do not depend on anything other than 主键</li>
+<li>每一个 non-key field is a fact about the key</li>
+</ol>
+<p>来看一个不满足三阶范式的例子</p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/f7df8a53a84aad412b7b9f3a6dc48fb21a32f4fe0412b8c72d059524914825ce/68747470733a2f2f73322e6c6f6c692e6e65742f323032332f30312f30342f7a594262646345616749686d3850582e706e67"><img src="https://camo.githubusercontent.com/f7df8a53a84aad412b7b9f3a6dc48fb21a32f4fe0412b8c72d059524914825ce/68747470733a2f2f73322e6c6f6c692e6e65742f323032332f30312f30342f7a594262646345616749686d3850582e706e67" alt="img" data-canonical-src="https://s2.loli.net/2023/01/04/zYBbdcEagIhm8PX.png" style="max-width: 100%;"></a></p>
+<p>在这个表当中，DeptName 跟主键 EmpNo 好像没啥关系，只跟 WorkDept 有关。所以 DeptName 应该拆到别的表当中去。</p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/14ff6011c6f15f8383a78ef44824fa41c832c326bb000cd921505d5b6496671d/68747470733a2f2f73322e6c6f6c692e6e65742f323032332f30312f30342f56765378386b6f7457664735416c312e706e67"><img src="https://camo.githubusercontent.com/14ff6011c6f15f8383a78ef44824fa41c832c326bb000cd921505d5b6496671d/68747470733a2f2f73322e6c6f6c692e6e65742f323032332f30312f30342f56765378386b6f7457664735416c312e706e67" alt="img" data-canonical-src="https://s2.loli.net/2023/01/04/VvSx8kotWfG5Al1.png" style="max-width: 100%;"></a></p>
+<hr>
+<h3>语法部分</h3>
+<h4><code class="notranslate">CREATE</code> 语句</h4>
+<div class="highlight highlight-source-sql"><pre class="notranslate">CREATE TABLE <span class="pl-k">&lt;</span>table name<span class="pl-k">&gt;</span> (
+    <span class="pl-k">&lt;</span>column name<span class="pl-k">&gt;</span> <span class="pl-k">&lt;</span>data type<span class="pl-k">&gt;</span> [(<span class="pl-k">&lt;</span>size<span class="pl-k">&gt;</span>)] <span class="pl-k">&lt;</span>column <span class="pl-k">constraint</span><span class="pl-k">&gt;</span>,
+    ...
+    <span class="pl-k">&lt;</span>keys<span class="pl-k">&gt;</span>
+);</pre></div>
+<h5>数据类型 (<code class="notranslate">&lt;data type&gt;</code>)</h5>
+<ul>
+<li><code class="notranslate">INTEGER</code>: 存储整数值</li>
+<li><code class="notranslate">DATE</code>: 存储日期（年-月-日）</li>
+<li><code class="notranslate">TIME</code>: 存储时间（时:分:秒）</li>
+<li><code class="notranslate">TIMESTAMP</code>: 存储日期和时间（年-月-日 时:分:秒）</li>
+<li><code class="notranslate">VARCHAR(N)</code>: 存储可变长度字符串，<code class="notranslate">N</code>为最大长度</li>
+</ul>
+<h5>列约束 (<code class="notranslate">&lt;column constraint&gt;</code>)</h5>
+<ul>
+<li><code class="notranslate">UNIQUE</code>: 确保列值唯一，不允许重复</li>
+<li><code class="notranslate">NOT NULL</code>: 列不允许NULL值</li>
+<li><code class="notranslate">PRIMARY KEY</code>: 唯一标识表中每一行记录，结合了<code class="notranslate">UNIQUE</code>和<code class="notranslate">NOT NULL</code></li>
+<li><code class="notranslate">REFERENCES &lt;table name&gt;(&lt;column name&gt;) [ON DELETE CASCADE ON UPDATE CASCADE]</code>: 定义外键约束，维护参照完整性, 考虑级联删除、级联更新</li>
+<li><code class="notranslate">DEFAULT &lt;data value&gt;</code>: 指定默认值</li>
+<li><code class="notranslate">CHECK &lt;condition&gt;</code>: 确保列值满足特定条件</li>
+</ul>
+<h5>键定义 (<code class="notranslate">&lt;keys&gt;</code>)</h5>
+<ul>
+<li><code class="notranslate">CONSTRAINT table_name_pkey PRIMARY KEY (id)</code>: 主键约束，确保唯一性和非空性</li>
+<li><code class="notranslate">CONSTRAINT table_name_fkey FOREIGN KEY (column_name) REFERENCES other_table(other_column)</code>: 外键约束，建立表间引用关系</li>
+<li><code class="notranslate">CONSTRAINT unique_constraint UNIQUE (column1, column2, ...)</code>: 确保列组合值唯一</li>
+<li><code class="notranslate">CONSTRAINT check_constraint CHECK (condition)</code>: 确保值满足特定条件</li>
+</ul>
+<h4><code class="notranslate">SELECT</code> 语句</h4>
+<div class="highlight highlight-source-sql"><pre class="notranslate"><span class="pl-k">SELECT</span> <span class="pl-k">&lt;</span>column name1<span class="pl-k">&gt;</span>, [<span class="pl-k">&lt;</span>column name2<span class="pl-k">&gt;</span>, ...]
+<span class="pl-k">FROM</span> <span class="pl-k">&lt;</span>table name<span class="pl-k">&gt;</span>
+[<span class="pl-k">WHERE</span> <span class="pl-k">&lt;</span>expr<span class="pl-k">&gt;</span>];
+[<span class="pl-c1">count</span>()] <span class="pl-c"><span class="pl-c">--</span> 返回行数</span>
+[<span class="pl-k">ORDER BY</span> <span class="pl-k">&lt;</span>column name<span class="pl-k">&gt;</span> <span class="pl-k">&lt;</span>method<span class="pl-k">&gt;</span>(<span class="pl-k">asc</span>, <span class="pl-k">desc</span>)] <span class="pl-c"><span class="pl-c">--</span> 排序方式</span></pre></div>
+<p><strong>实用函数</strong></p>
+<ul>
+<li><code class="notranslate">char_length(colName)</code>：计算字符串长度</li>
+<li><code class="notranslate">power(a, b)</code>：计算$a^b$</li>
+<li><code class="notranslate">log(x)</code>：计算$\log_{10}x$</li>
+<li><code class="notranslate">BETWEEN ... AND ...</code>：表示一个区间，如<code class="notranslate">a between x and y</code>意味着$x≤a≤y$</li>
+<li><code class="notranslate">... IN (...)</code>：表示在一个集合中，例如<code class="notranslate">col in (4,5,6)</code>等价于<code class="notranslate">(col = 4) or (col = 5) or (col = 6)</code></li>
+</ul>
+<h4>时间和日期处理</h4>
+<ul>
+<li><code class="notranslate">now()</code>：返回当前带时区的时间戳</li>
+<li><code class="notranslate">date_part(text, timestamp)</code>：从时间戳提取特定信息</li>
+<li><code class="notranslate">extract(field from timestamp)</code>：从时间戳中提取特定信息</li>
+</ul>
+<p><code class="notranslate">field</code>可以是<code class="notranslate">century</code>, <code class="notranslate">day</code>, <code class="notranslate">decade</code>, <code class="notranslate">dow</code>(星期天是第0天), <code class="notranslate">doy</code>(一年的第几天)  ···</p>
+<h4>匹配语法</h4>
+<ul>
+<li><code class="notranslate">LIKE</code>: 使用通配符进行模式匹配，如<code class="notranslate">where &lt;col name&gt; LIKE 'A%'</code></li>
+<li><code class="notranslate">SIMILAR TO</code>: 支持更复杂的模式匹配，包括字符类</li>
+<li><code class="notranslate">~/~*</code>: POSIX正则表达式匹配，<code class="notranslate">*</code>表示不区分大小写</li>
+</ul>
+<p>可参考 <a href="https://www.postgresql.org/docs/current/functions-matching.htm" rel="nofollow">官方文档</a></p>
+<h4><code class="notranslate">GROUP BY</code> 和 <code class="notranslate">ORDER BY</code> 关键字</h4>
+<p>把所有属性值相同的行放在一起，再按照这个值排序，统计每个属性有多少行</p>
+<div class="highlight highlight-source-sql"><pre class="notranslate"><span class="pl-k">SELECT</span> <span class="pl-k">&lt;</span>colName1<span class="pl-k">&gt;</span>, <span class="pl-k">&lt;</span>colName2<span class="pl-k">&gt;</span>, <span class="pl-c1">COUNT</span>(<span class="pl-k">*</span>)
+<span class="pl-k">FROM</span> <span class="pl-k">&lt;</span>tableName<span class="pl-k">&gt;</span>
+[<span class="pl-k">WHERE</span> <span class="pl-k">&lt;</span>condition<span class="pl-k">&gt;</span>]
+<span class="pl-k">GROUP BY</span> <span class="pl-k">&lt;</span>colName1<span class="pl-k">&gt;</span>, <span class="pl-k">&lt;</span>colName2<span class="pl-k">&gt;</span>
+<span class="pl-k">HAVING</span> <span class="pl-k">&lt;</span>aggFunc()<span class="pl-k">&gt;</span> <span class="pl-k">&lt;</span>condition<span class="pl-k">&gt;</span> <span class="pl-c"><span class="pl-c">--</span> HAVING 语法, 用aggregate函数</span>
+<span class="pl-k">ORDER BY</span> <span class="pl-k">&lt;</span>colName1<span class="pl-k">&gt;</span>, <span class="pl-k">&lt;</span>colName2<span class="pl-k">&gt;</span>;</pre></div>
+<h4>列别名和表别名</h4>
+<div class="highlight highlight-source-sql"><pre class="notranslate"><span class="pl-k">SELECT</span> <span class="pl-c1">Guest</span>.<span class="pl-c1">dob</span> <span class="pl-k">AS</span> <span class="pl-s"><span class="pl-pds">"</span>date of brith<span class="pl-pds">"</span></span> 
+<span class="pl-k">FROM</span> <span class="pl-k">&lt;</span>tableName<span class="pl-k">&gt;</span> <span class="pl-k">AS</span> <span class="pl-s"><span class="pl-pds">"</span>Guest<span class="pl-pds">"</span></span>;
+<span class="pl-k">ORDER BY</span> <span class="pl-c1">Guest</span>.<span class="pl-c1">dob</span> <span class="pl-k">DESC</span>;</pre></div>
+<div class="markdown-alert markdown-alert-important"><p class="markdown-alert-title"><svg class="octicon octicon-report mr-2" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="M0 1.75C0 .784.784 0 1.75 0h12.5C15.216 0 16 .784 16 1.75v9.5A1.75 1.75 0 0 1 14.25 13H8.06l-2.573 2.573A1.458 1.458 0 0 1 3 14.543V13H1.75A1.75 1.75 0 0 1 0 11.25Zm1.75-.25a.25.25 0 0 0-.25.25v9.5c0 .138.112.25.25.25h2a.75.75 0 0 1 .75.75v2.19l2.72-2.72a.749.749 0 0 1 .53-.22h6.5a.25.25 0 0 0 .25-.25v-9.5a.25.25 0 0 0-.25-.25Zm7 2.25v2.5a.75.75 0 0 1-1.5 0v-2.5a.75.75 0 0 1 1.5 0ZM9 9a1 1 0 1 1-2 0 1 1 0 0 1 2 0Z"></path></svg>Important</p>
+<p><strong>这里需要双引号,字符串,时间戳等都是单引号</strong></p>
+</div>
+<h4><code class="notranslate">aggregate</code> 函数</h4>
+<div class="highlight highlight-source-sql"><pre class="notranslate"><span class="pl-k">SELECT</span> Region <span class="pl-k">as</span> RegionName, <span class="pl-c1">SUM</span>(Pop2015) <span class="pl-k">as</span> TotalPopulation2015
+    <span class="pl-k">FROM</span> PopulationEU
+    <span class="pl-k">GROUP BY</span> Region
+    <span class="pl-k">ORDER BY</span> TotalPopulation2015 <span class="pl-k">desc</span>;</pre></div>
+<p><strong>例子:</strong></p>
+<ul>
+<li><code class="notranslate">MIN()</code></li>
+<li><code class="notranslate">MAX()</code></li>
+<li><code class="notranslate">AVG()</code></li>
+<li><code class="notranslate">SUM()</code></li>
+<li><code class="notranslate">STDDEV()</code></li>
+</ul>
+<h4><code class="notranslate">INSERT</code> 语句</h4>
+<div class="highlight highlight-source-sql"><pre class="notranslate"><span class="pl-k">INSERT INTO</span> <span class="pl-k">&lt;</span>tableName<span class="pl-k">&gt;</span> (<span class="pl-k">&lt;</span>column list<span class="pl-k">&gt;</span>) <span class="pl-k">VALUES</span> (<span class="pl-k">&lt;</span>value list<span class="pl-k">&gt;</span>);</pre></div>
+<h4><code class="notranslate">DROP TABLE</code> 删除表</h4>
+<div class="highlight highlight-source-sql"><pre class="notranslate"><span class="pl-k">DROP</span> <span class="pl-k">TABLE</span> IF EXISTS <span class="pl-k">&lt;</span>tableName<span class="pl-k">&gt;</span>;</pre></div>
+<h4><code class="notranslate">DELETE</code> 语句</h4>
+<div class="highlight highlight-source-sql"><pre class="notranslate"><span class="pl-k">DELETE</span> <span class="pl-k">FROM</span> <span class="pl-k">&lt;</span>tableName<span class="pl-k">&gt;</span> <span class="pl-k">WHERE</span> <span class="pl-k">&lt;</span>conditions<span class="pl-k">&gt;</span>;  <span class="pl-c"><span class="pl-c">#</span> 删满足条件的</span>
+<span class="pl-k">DELETE</span> <span class="pl-k">FROM</span> <span class="pl-k">&lt;</span>tableName<span class="pl-k">&gt;</span>;                     <span class="pl-c"><span class="pl-c">#</span> 全部删除</span></pre></div>
+<h4><code class="notranslate">ALTER TABLE</code>修改表</h4>
+<div class="highlight highlight-source-sql"><pre class="notranslate"><span class="pl-k">ALTER</span> <span class="pl-k">TABLE</span> <span class="pl-k">&lt;</span>tableName<span class="pl-k">&gt;</span> RENAME TO <span class="pl-k">&lt;</span>newName<span class="pl-k">&gt;</span>; <span class="pl-c"><span class="pl-c">--</span> 改表名</span>
+<span class="pl-k">ALTER</span> <span class="pl-k">TABLE</span> <span class="pl-k">&lt;</span>tableName<span class="pl-k">&gt;</span> RENAME COLUMN <span class="pl-k">&lt;</span>oldColName<span class="pl-k">&gt;</span> TO <span class="pl-k">&lt;</span>newColName<span class="pl-k">&gt;</span>; <span class="pl-c"><span class="pl-c">--</span> 改列名 </span>
+<span class="pl-k">ALTER</span> <span class="pl-k">TABLE</span> <span class="pl-k">&lt;</span>tableName<span class="pl-k">&gt;</span> DROP COLUMN <span class="pl-k">&lt;</span>colName<span class="pl-k">&gt;</span>; <span class="pl-c"><span class="pl-c">--</span> 删除列</span>
+<span class="pl-k">ALTER</span> <span class="pl-k">TABLE</span> <span class="pl-k">&lt;</span>tableName<span class="pl-k">&gt;</span> ADD COLUMN <span class="pl-k">&lt;</span>colName<span class="pl-k">&gt;</span> <span class="pl-k">&lt;</span>colType<span class="pl-k">&gt;</span>; <span class="pl-c"><span class="pl-c">--</span> 新增列</span>
+<span class="pl-k">ALTER</span> <span class="pl-k">TABLE</span> <span class="pl-k">&lt;</span>tableName<span class="pl-k">&gt;</span> ALTER COLUMN <span class="pl-k">&lt;</span>colName<span class="pl-k">&gt;</span> TYPE <span class="pl-k">&lt;</span>newColType<span class="pl-k">&gt;</span>; <span class="pl-c"><span class="pl-c">--</span> 修改列的类型</span>
+<span class="pl-k">ALTER</span> <span class="pl-k">TABLE</span> <span class="pl-k">&lt;</span>tableName<span class="pl-k">&gt;</span> ADD <span class="pl-k">PRIMARY KEY</span> <span class="pl-k">&lt;</span>colName<span class="pl-k">&gt;</span>; <span class="pl-c"><span class="pl-c">--</span> 增加主键</span></pre></div>
+<h4><code class="notranslate">UPDATE</code> 命令</h4>
+<div class="highlight highlight-source-sql"><pre class="notranslate"><span class="pl-k">UPDATE</span> <span class="pl-k">&lt;</span>tableName<span class="pl-k">&gt;</span>
+    <span class="pl-k">SET</span>
+        <span class="pl-k">&lt;</span>colName1<span class="pl-k">&gt;</span> <span class="pl-k">=</span> {<span class="pl-k">&lt;</span>expr1<span class="pl-k">&gt;</span>},
+        <span class="pl-k">&lt;</span>colName2<span class="pl-k">&gt;</span> <span class="pl-k">=</span> {<span class="pl-k">&lt;</span>expr2<span class="pl-k">&gt;</span>},
+        <span class="pl-k">&lt;</span>colName3<span class="pl-k">&gt;</span> <span class="pl-k">=</span> {<span class="pl-k">&lt;</span>expr3<span class="pl-k">&gt;</span>},
+        ...
+    [<span class="pl-k">WHERE</span> <span class="pl-k">&lt;</span>coldition<span class="pl-k">&gt;</span>];</pre></div>
+<h4>事务控制</h4>
+<div class="highlight highlight-source-sql"><pre class="notranslate"><span class="pl-k">BEGIN</span> TRANSACTION;
+<span class="pl-c"><span class="pl-c">--</span> blabla</span>
+<span class="pl-k">COMMIT</span>;
+END TRANSACTION;
+<span class="pl-c"><span class="pl-c">--</span> 正常执行</span>
+
+<span class="pl-k">BEGIN</span>;
+<span class="pl-c"><span class="pl-c">--</span> blabla</span>
+<span class="pl-k">ROLLBACK</span>;
+<span class="pl-c"><span class="pl-c">--</span> 回滚</span></pre></div>
+<h4>JOIN 语句</h4>
+<div class="highlight highlight-source-sql"><pre class="notranslate"><span class="pl-k">SELECT</span> table1.<span class="pl-k">&lt;</span>colName<span class="pl-k">&gt;</span>, table1.<span class="pl-k">&lt;</span>colName<span class="pl-k">&gt;</span>, ···
+<span class="pl-k">FROM</span> <span class="pl-k">&lt;</span>tableName1<span class="pl-k">&gt;</span> <span class="pl-k">AS</span> table1
+<span class="pl-k">JOIN</span> <span class="pl-k">&lt;</span>tableName2<span class="pl-k">&gt;</span> <span class="pl-k">AS</span> table2 <span class="pl-k">ON</span> table2.<span class="pl-k">&lt;</span>colName<span class="pl-k">&gt;</span> <span class="pl-k">=</span> table1.<span class="pl-k">&lt;</span>colName<span class="pl-k">&gt;</span>
+<span class="pl-k">JOIN</span> <span class="pl-k">&lt;</span>tableName3<span class="pl-k">&gt;</span> <span class="pl-k">AS</span> table3 <span class="pl-k">ON</span> table3.<span class="pl-k">&lt;</span>colName<span class="pl-k">&gt;</span> <span class="pl-k">=</span> table1.<span class="pl-k">&lt;</span>colName<span class="pl-k">&gt;</span>;</pre></div>
+<h4>视图创建</h4>
+<div class="highlight highlight-source-sql"><pre class="notranslate"><span class="pl-k">CREATE</span> <span class="pl-k">VIEW</span> <span class="pl-en">viewname</span> <span class="pl-k">AS</span>
+    <span class="pl-k">SELECT</span> field1, field2, field3, ..., <span class="pl-k">FROM</span> table1, table2
+    <span class="pl-k">WHERE</span> ;</pre></div>
+<h4>SQL 表集合</h4>
+<div class="highlight highlight-source-sql"><pre class="notranslate"><span class="pl-k">SELECT DISTINCT</span> salary <span class="pl-k">FROM</span> tableName; <span class="pl-c"><span class="pl-c">--</span> 去除重复</span>
+
+(<span class="pl-k">SELECT DISTINCT</span> Pnumber
+<span class="pl-k">FROM</span> PROJECT, DEPARTMENT, EMPLOYEE
+<span class="pl-k">WHERE</span> Dnum <span class="pl-k">=</span> Dnumber <span class="pl-k">AND</span> Mgr_ssn <span class="pl-k">=</span> Ssn
+<span class="pl-k">AND</span> Lname <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">'</span>Smith<span class="pl-pds">'</span></span>)
+
+<span class="pl-k">UNION</span>
+
+(<span class="pl-k">SELECT DISTINCT</span> Pnumber
+<span class="pl-k">FROM</span> PROJECT, WORKS_ON, EMPLOYEE
+<span class="pl-k">WHERE</span> Pnumber <span class="pl-k">=</span> Pno <span class="pl-k">AND</span> Essn <span class="pl-k">=</span> Ssn
+<span class="pl-k">AND</span> Lname <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">'</span>Smith<span class="pl-pds">'</span></span>); <span class="pl-c"><span class="pl-c">--</span> 并集</span>
+
+<span class="pl-k">SELECT</span> emp_name, salary
+<span class="pl-k">FROM</span> employees e1
+<span class="pl-k">WHERE</span> salary <span class="pl-k">&gt;</span> ALL (
+    <span class="pl-k">SELECT</span> <span class="pl-c1">AVG</span>(salary)
+    <span class="pl-k">FROM</span> employees e2
+    <span class="pl-k">WHERE</span> <span class="pl-c1">e2</span>.<span class="pl-c1">department</span> <span class="pl-k">=</span> <span class="pl-c1">e1</span>.<span class="pl-c1">department</span>
+    <span class="pl-k">GROUP BY</span> department
+); <span class="pl-c"><span class="pl-c">--</span> 比较运算符</span></pre></div></div>
+<div style="font-size:small;margin-top:8px;float:right;"></div>
+
+<button class="btn btn-block" type="button" onclick="openComments()" id="cmButton">评论</button>
+<div class="comments" id="comments"></div>
+
+</div>
+    <div id="footer"><div id="footer1">Copyright © <span id="copyrightYear"></span> <a href="https://koolcandy.github.io">Blog Title</a></div>
+<div id="footer2">
+    <span id="runday"></span><span>Powered by <a href="https://meekdai.com/Gmeek.html" target="_blank">Gmeek</a></span>
+</div>
+
+<script>
+var now=new Date();
+document.getElementById("copyrightYear").innerHTML=now.getFullYear();
+
+if(""!=""){
+    var startSite=new Date("");
+    var diff=now.getTime()-startSite.getTime();
+    var diffDay=Math.floor(diff/(1000*60*60*24));
+    document.getElementById("runday").innerHTML="网站运行"+diffDay+"天"+" • ";
+}
+</script></div>
+</body>
+<script>
+var IconList={'sun': 'M8 10.5a2.5 2.5 0 100-5 2.5 2.5 0 000 5zM8 12a4 4 0 100-8 4 4 0 000 8zM8 0a.75.75 0 01.75.75v1.5a.75.75 0 01-1.5 0V.75A.75.75 0 018 0zm0 13a.75.75 0 01.75.75v1.5a.75.75 0 01-1.5 0v-1.5A.75.75 0 018 13zM2.343 2.343a.75.75 0 011.061 0l1.06 1.061a.75.75 0 01-1.06 1.06l-1.06-1.06a.75.75 0 010-1.06zm9.193 9.193a.75.75 0 011.06 0l1.061 1.06a.75.75 0 01-1.06 1.061l-1.061-1.06a.75.75 0 010-1.061zM16 8a.75.75 0 01-.75.75h-1.5a.75.75 0 010-1.5h1.5A.75.75 0 0116 8zM3 8a.75.75 0 01-.75.75H.75a.75.75 0 010-1.5h1.5A.75.75 0 013 8zm10.657-5.657a.75.75 0 010 1.061l-1.061 1.06a.75.75 0 11-1.06-1.06l1.06-1.06a.75.75 0 011.06 0zm-9.193 9.193a.75.75 0 010 1.06l-1.06 1.061a.75.75 0 11-1.061-1.06l1.06-1.061a.75.75 0 011.061 0z', 'moon': 'M9.598 1.591a.75.75 0 01.785-.175 7 7 0 11-8.967 8.967.75.75 0 01.961-.96 5.5 5.5 0 007.046-7.046.75.75 0 01.175-.786zm1.616 1.945a7 7 0 01-7.678 7.678 5.5 5.5 0 107.678-7.678z', 'sync': 'M1.705 8.005a.75.75 0 0 1 .834.656 5.5 5.5 0 0 0 9.592 2.97l-1.204-1.204a.25.25 0 0 1 .177-.427h3.646a.25.25 0 0 1 .25.25v3.646a.25.25 0 0 1-.427.177l-1.38-1.38A7.002 7.002 0 0 1 1.05 8.84a.75.75 0 0 1 .656-.834ZM8 2.5a5.487 5.487 0 0 0-4.131 1.869l1.204 1.204A.25.25 0 0 1 4.896 6H1.25A.25.25 0 0 1 1 5.75V2.104a.25.25 0 0 1 .427-.177l1.38 1.38A7.002 7.002 0 0 1 14.95 7.16a.75.75 0 0 1-1.49.178A5.5 5.5 0 0 0 8 2.5Z', 'home': 'M6.906.664a1.749 1.749 0 0 1 2.187 0l5.25 4.2c.415.332.657.835.657 1.367v7.019A1.75 1.75 0 0 1 13.25 15h-3.5a.75.75 0 0 1-.75-.75V9H7v5.25a.75.75 0 0 1-.75.75h-3.5A1.75 1.75 0 0 1 1 13.25V6.23c0-.531.242-1.034.657-1.366l5.25-4.2Zm1.25 1.171a.25.25 0 0 0-.312 0l-5.25 4.2a.25.25 0 0 0-.094.196v7.019c0 .138.112.25.25.25H5.5V8.25a.75.75 0 0 1 .75-.75h3.5a.75.75 0 0 1 .75.75v5.25h2.75a.25.25 0 0 0 .25-.25V6.23a.25.25 0 0 0-.094-.195Z', 'github': 'M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 0 1-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27-.68 0-1.36.09-2 .27-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.34.19.73.9.82 1.13.16.45.68 1.31 2.69.94 0 .67.01 1.3.01 1.49 0 .21-.15.45-.55.38A7.995 7.995 0 0 1 0 8c0-4.42 3.58-8 8-8Z', 'copy': 'M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 0 1 0 1.5h-1.5a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-1.5a.75.75 0 0 1 1.5 0v1.5A1.75 1.75 0 0 1 9.25 16h-7.5A1.75 1.75 0 0 1 0 14.25Z M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0 1 14.25 11h-7.5A1.75 1.75 0 0 1 5 9.25Zm1.75-.25a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-7.5a.25.25 0 0 0-.25-.25Z', 'check': 'M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0Z'};
+var utterancesLoad=0;
+
+let themeSettings={
+    "dark": ["dark","moon","#00f0ff","dark-blue"],
+    "light": ["light","sun","#ff5000","github-light"],
+    "auto": ["auto","sync","","preferred-color-scheme"]
+};
+function changeTheme(mode, icon, color, utheme){
+    document.documentElement.setAttribute("data-color-mode",mode);
+    document.getElementById("themeSwitch").setAttribute("d",value=IconList[icon]);
+    document.getElementById("themeSwitch").parentNode.style.color=color;
+    if(utterancesLoad==1){utterancesTheme(utheme);}
+}
+function modeSwitch(){
+    let currentMode=document.documentElement.getAttribute('data-color-mode');
+    let newMode = currentMode === "light" ? "dark" : currentMode === "dark" ? "auto" : "light";
+    localStorage.setItem("meek_theme", newMode);
+    if(themeSettings[newMode]){
+        changeTheme(...themeSettings[newMode]);
+    }
+}
+function utterancesTheme(theme){
+    const message={type:'set-theme',theme: theme};
+    const iframe=document.getElementsByClassName('utterances-frame')[0];
+    iframe.contentWindow.postMessage(message,'https://utteranc.es');
+}
+if(themeSettings[theme]){changeTheme(...themeSettings[theme]);}
+console.log("\n %c Gmeek last https://github.com/Meekdai/Gmeek \n","padding:5px 0;background:#02d81d;color:#fff");
+</script>
+
+<script>
+document.getElementById("pathHome").setAttribute("d",IconList["home"]);
+document.getElementById("pathIssue").setAttribute("d",IconList["github"]);
+
+
+
+function openComments(){
+    cm=document.getElementById("comments");
+    cmButton=document.getElementById("cmButton");
+    cmButton.innerHTML="loading";
+    span=document.createElement("span");
+    span.setAttribute("class","AnimatedEllipsis");
+    cmButton.appendChild(span);
+
+    script=document.createElement("script");
+    script.setAttribute("src","https://utteranc.es/client.js");
+    script.setAttribute("repo","koolcandy/koolcandy.github.io");
+    script.setAttribute("issue-term","title");
+    
+    if(localStorage.getItem("meek_theme")=="dark"){script.setAttribute("theme","dark-blue");}
+    else if(localStorage.getItem("meek_theme")=="light") {script.setAttribute("theme","github-light");}
+    else{script.setAttribute("theme","preferred-color-scheme");}
+    
+    script.setAttribute("crossorigin","anonymous");
+    script.setAttribute("async","");
+    cm.appendChild(script);
+
+    int=self.setInterval("iFrameLoading()",200);
+}
+
+function iFrameLoading(){
+    var utterances=document.getElementsByClassName('utterances');
+    if(utterances.length==1){
+        if(utterances[0].style.height!=""){
+            utterancesLoad=1;
+            int=window.clearInterval(int);
+            document.getElementById("cmButton").style.display="none";
+            console.log("utterances Load OK");
+        }
+    }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    const createClipboardHTML = (codeContent, additionalClasses = '') => `
+        <pre class="notranslate"><code class="notranslate">${codeContent}</code></pre>
+        <div class="clipboard-container position-absolute right-0 top-0 ${additionalClasses}">
+            <clipboard-copy class="ClipboardButton btn m-2 p-0" role="button" style="display: inherit;">
+                <svg height="16" width="16" class="octicon octicon-copy m-2"><path d="${IconList["copy"]}"></path></svg>
+                <svg height="16" width="16" class="octicon octicon-check color-fg-success m-2 d-none"><path d="${IconList["check"]}"></path></svg>
+            </clipboard-copy>
+            <div class="copy-feedback">Copied!</div>
+        </div>
+    `;
+
+    const handleCodeElements = (selector = '') => {
+        document.querySelectorAll(selector).forEach(codeElement => {
+            const codeContent = codeElement.innerHTML;
+            const newStructure = document.createElement('div');
+            newStructure.className = 'snippet-clipboard-content position-relative overflow-auto';
+            newStructure.innerHTML = createClipboardHTML(codeContent);
+
+            const parentElement = codeElement.parentElement;
+            if (selector.includes('highlight')) {
+                parentElement.insertBefore(newStructure, codeElement.nextSibling);
+                parentElement.removeChild(codeElement);
+            } else {
+                parentElement.parentElement.replaceChild(newStructure, parentElement);
+            }
+        });
+    };
+
+    handleCodeElements('pre.notranslate > code.notranslate');
+    handleCodeElements('div.highlight > pre.notranslate');
+
+    let currentFeedback = null;
+    document.querySelectorAll('clipboard-copy').forEach(copyButton => {
+        copyButton.addEventListener('click', () => {
+            const codeContent = copyButton.closest('.snippet-clipboard-content').innerText;
+            const tempTextArea = document.createElement('textarea');
+            tempTextArea.value = codeContent;
+            document.body.appendChild(tempTextArea);
+            tempTextArea.select();
+            document.execCommand('copy');
+            document.body.removeChild(tempTextArea);
+
+            const copyIcon = copyButton.querySelector('.octicon-copy');
+            const checkIcon = copyButton.querySelector('.octicon-check');
+            const copyFeedback = copyButton.nextElementSibling;
+
+            if (currentFeedback && currentFeedback !== copyFeedback) {currentFeedback.style.display = 'none';}
+            currentFeedback = copyFeedback;
+
+            copyIcon.classList.add('d-none');
+            checkIcon.classList.remove('d-none');
+            copyFeedback.style.display = 'block';
+            copyButton.style.borderColor = 'var(--color-success-fg)';
+
+            setTimeout(() => {
+                copyIcon.classList.remove('d-none');
+                checkIcon.classList.add('d-none');
+                copyFeedback.style.display = 'none';
+                copyButton.style.borderColor = '';
+            }, 2000);
+        });
+    });
+});
+
+</script>
+
+
+</html>
