@@ -1,3 +1,45 @@
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+**Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
+
+- [数据库](#%E6%95%B0%E6%8D%AE%E5%BA%93)
+  - [概念性内容](#%E6%A6%82%E5%BF%B5%E6%80%A7%E5%86%85%E5%AE%B9)
+    - [使用文件系统存储数据的缺点](#%E4%BD%BF%E7%94%A8%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%E5%AD%98%E5%82%A8%E6%95%B0%E6%8D%AE%E7%9A%84%E7%BC%BA%E7%82%B9)
+    - [数据库管理系统 (DBMS) 的优缺点](#%E6%95%B0%E6%8D%AE%E5%BA%93%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F-dbms-%E7%9A%84%E4%BC%98%E7%BC%BA%E7%82%B9)
+      - [优点](#%E4%BC%98%E7%82%B9)
+      - [缺点](#%E7%BC%BA%E7%82%B9)
+    - [数据定义语言 (DDL)](#%E6%95%B0%E6%8D%AE%E5%AE%9A%E4%B9%89%E8%AF%AD%E8%A8%80-ddl)
+    - [数据操纵语言 (DML)](#%E6%95%B0%E6%8D%AE%E6%93%8D%E7%BA%B5%E8%AF%AD%E8%A8%80-dml)
+    - [ER 图](#er-%E5%9B%BE)
+    - [SQL 注入攻击](#sql-%E6%B3%A8%E5%85%A5%E6%94%BB%E5%87%BB)
+    - [`JOIN` 类型](#join-%E7%B1%BB%E5%9E%8B)
+    - [数据库标准化](#%E6%95%B0%E6%8D%AE%E5%BA%93%E6%A0%87%E5%87%86%E5%8C%96)
+    - [First normal form（一阶范式）](#first-normal-form%E4%B8%80%E9%98%B6%E8%8C%83%E5%BC%8F)
+    - [Second normal form（二阶范式）](#second-normal-form%E4%BA%8C%E9%98%B6%E8%8C%83%E5%BC%8F)
+    - [Third normal form（三阶范式）](#third-normal-form%E4%B8%89%E9%98%B6%E8%8C%83%E5%BC%8F)
+  - [语法部分](#%E8%AF%AD%E6%B3%95%E9%83%A8%E5%88%86)
+    - [`CREATE` 语句](#create-%E8%AF%AD%E5%8F%A5)
+      - [数据类型 (`<data type>`)](#%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B-data-type)
+      - [列约束 (`<column constraint>`)](#%E5%88%97%E7%BA%A6%E6%9D%9F-column-constraint)
+      - [键定义 (`<keys>`)](#%E9%94%AE%E5%AE%9A%E4%B9%89-keys)
+    - [`SELECT` 语句](#select-%E8%AF%AD%E5%8F%A5)
+    - [时间和日期处理](#%E6%97%B6%E9%97%B4%E5%92%8C%E6%97%A5%E6%9C%9F%E5%A4%84%E7%90%86)
+    - [匹配语法](#%E5%8C%B9%E9%85%8D%E8%AF%AD%E6%B3%95)
+    - [`GROUP BY` 和 `ORDER BY` 关键字](#group-by-%E5%92%8C-order-by-%E5%85%B3%E9%94%AE%E5%AD%97)
+    - [列别名和表别名](#%E5%88%97%E5%88%AB%E5%90%8D%E5%92%8C%E8%A1%A8%E5%88%AB%E5%90%8D)
+    - [`aggregate` 函数](#aggregate-%E5%87%BD%E6%95%B0)
+    - [`INSERT` 语句](#insert-%E8%AF%AD%E5%8F%A5)
+    - [`DROP TABLE` 删除表](#drop-table-%E5%88%A0%E9%99%A4%E8%A1%A8)
+    - [`DELETE` 语句](#delete-%E8%AF%AD%E5%8F%A5)
+    - [`ALTER TABLE`修改表](#alter-table%E4%BF%AE%E6%94%B9%E8%A1%A8)
+    - [`UPDATE` 命令](#update-%E5%91%BD%E4%BB%A4)
+    - [事务控制](#%E4%BA%8B%E5%8A%A1%E6%8E%A7%E5%88%B6)
+    - [JOIN 语句](#join-%E8%AF%AD%E5%8F%A5)
+    - [视图创建](#%E8%A7%86%E5%9B%BE%E5%88%9B%E5%BB%BA)
+    - [SQL 表集合](#sql-%E8%A1%A8%E9%9B%86%E5%90%88)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
 ## 数据库
 
 ---
@@ -354,4 +396,3 @@ WHERE salary > ALL (
     GROUP BY department
 ); -- 比较运算符
 ```
-
