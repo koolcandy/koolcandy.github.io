@@ -223,7 +223,7 @@ $\frac{\partial \mathcal{L}}{\partial \lambda} = -(x^2 + y^2 + z^2 - 81) = 0$
 
 **夹逼定理**
 
-例如证明$\{c_n\} = \left\{ (-1)^n \frac{1}{n!} \right\}$收敛
+例如证明$\{c_n\} = \{ (-1)^n \frac{1}{n!} \}$收敛
 
 因为在$n$趋于无穷的时候$\frac1{n!}$趋近于0，对$-\frac1{n!}$同理
 
