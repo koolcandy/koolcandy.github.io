@@ -105,9 +105,9 @@ $\frac{\partial z}{\partial x} = \frac{-2xz}{x^2 + 2z}$
 
 $ D_{\mathbf{u}} f(x, y) = \nabla f(x, y) \cdot \mathbf{u} $
 
-例如设 $f(x, y) = x^2 + y^2$，求在点(1, 1)处沿向量 $\mathbf{u} = \left< \frac{1}{\sqrt{2}}, \frac{1}{\sqrt{2}} \right>$ 的方向导数。
+例如设 $f(x, y) = x^2 + y^2$，求在点(1, 1)处沿向量 $\mathbf{u} = \left\langle \frac{1}{\sqrt{2}}, \frac{1}{\sqrt{2}} \right\rangle$ 的方向导数。
 
-先计算梯度 $\nabla f = \langle 2x, 2y \rangle$，然后代入点(1, 1)得到 $\nabla f(1, 1) = \langle 2, 2 \rangle$。接下来计算点积 $\langle 2, 2 \rangle \cdot \left< \frac{1}{\sqrt{2}}, \frac{1}{\sqrt{2}} \right> = 2\sqrt{2}$。
+先计算梯度 $\nabla f = \langle 2x, 2y \rangle$，然后代入点(1, 1)得到 $\nabla f(1, 1) = \langle 2, 2 \rangle$。接下来计算点积 $\langle 2, 2 \rangle \cdot \left\langle \frac{1}{\sqrt{2}}, \frac{1}{\sqrt{2}} \right\rangle = 2\sqrt{2}$。
 
 ### L7. maximum and minimum
 
@@ -128,18 +128,16 @@ $ D_{\mathbf{u}} f(x, y) = \nabla f(x, y) \cdot \mathbf{u} $
 对于临界点 $(a, b)$，通过计算二阶偏导数可以使用第二导数测试来确定该点是否为局部极值或鞍点。
 
 测试基于判别式 $D = f_{xx}(a,b)f_{yy}(a,b) - [f_{xy}(a,b)]^2$：
-
-- 如果 $D > 0$ 且 $f_{xx}(a,b) > 0$，则 $(a, b)$ 是局部极小值；
-- 如果 $D > 0$ 且 $f_{xx}(a,b) < 0$，则 $(a, b)$ 是局部极大值；
-- 如果 $D < 0$，则 $(a, b)$ 是鞍点；
-- 如果 $D = 0$，则测试无效，需要其他方法进一步分析。
+- 如果 $D>0$ 且 $f_{xx}(a,b)>0$，则 $(a, b)$ 是局部极小值；
+- 如果 $D>0$ 且 $f_{xx}(a,b)<0$，则 $(a, b)$ 是局部极大值；
+- 如果 $D<0$，则 $(a, b)$ 是鞍点；
+- 如果 $D=0$，则测试无效，需要其他方法进一步分析。
 
 **全局极值**
 
 对于连续函数 $f$ 在闭合有界集 $D$ 上，$f$ 必定取得全局最大值和最小值，这些值可能出现在临界点或边界上。
 
 找到全局极值的方法包括：
-
 1. 寻找 $D$ 内所有临界点处的函数值；
 2. 确定 $D$ 边界上的极值；
 3. 比较上述两步得到的所有值，其中最大者为全局最大值，最小者为全局最小值。
@@ -162,24 +160,24 @@ $x = \pm 1, \quad y = 0, \quad \pm 1$
 **分析每个驻点**：
 
 - 对于点 $(1, 0)$：
-  $f_{xx}(1, 0) = -6 < 0, \quad D = 24(1 - 3 \cdot 0^2) = 24 > 0$
+  $f_{xx}(1, 0) = -6<0, \quad D = 24(1 - 3 \cdot 0^2) = 24>0$
   根据二阶导数测试，$(1, 0)$ 是一个局部极大值。
-
+  
 - 对于点$(1, 1)$ 和 $(1, -1)$
 
-  $f_{xx}(1, \pm 1) = -6 < 0, \quad D = 24(1 - 3 \cdot (\pm 1)^2) = -48 < 0$
+  $f_{xx}(1, \pm 1) = -6<0, \quad D = 24(1 - 3 \cdot (\pm 1)^2) = -48<0$
 
   根据二阶导数测试，$(1, 1)$和$(1, -1)$ 是鞍点。
 
 - 对于点$(-1, 0)$
 
-  $f_{xx}(-1, 0) = 6 > 0, \quad D = -24(1 - 3 \cdot 0^2) = -24 < 0$
+  $f_{xx}(-1, 0) = 6>0, \quad D = -24(1 - 3 \cdot 0^2) = -24<0$
 
   根据二阶导数测试，$(-1, 0)$是鞍点。
-
+  
 - 对于点$(-1, 1)$ 和 $(-1, -1)$
 
-  $f_{xx}(-1, \pm 1) = 6 > 0, \quad D = -24(1 - 3 \cdot (\pm 1)^2) = 48 > 0$
+  $f_{xx}(-1, \pm 1) = 6>0, \quad D = -24(1 - 3 \cdot (\pm 1)^2) = 48>0$
 
   根据二阶导数测试，$(-1, 1)$ 和 $(-1, -1)$ 是局部极小值点。
 
@@ -219,7 +217,7 @@ $ \frac{\partial \mathcal{L}}{\partial \lambda} = -(x^2 + y^2 + z^2 - 81) = 0 $
 
 **夹逼定理**
 
-例如证明$\{c_n\}=\left\{(-1)^n\frac1{n!}\right\}$收敛
+例如证明$\{c_n\} = \left\{ (-1)^n \frac{1}{n!} \right\}$收敛
 
 因为在$n$趋于无穷的时候$\frac1{n!}$趋近于0，对$-\frac1{n!}$同理
 
@@ -233,7 +231,7 @@ $-\frac1{n!}\leq(-1)^n\frac1{n!}\leq\frac1{n!}$
 
 几何级数的形式为 $\sum ar^{n-1}$，其中 $r$ 是比值。
 
-当 $|r| < 1$ 时，几何级数收敛，其和为 $\frac{a}{1-r}$；当 $|r| \geq 1$ 时，几何级数发散。
+当 $|r|<1$ 时，几何级数收敛，其和为 $\frac{a}{1-r}$；当 $|r| \geq 1$ 时，几何级数发散。
 
 特例：调和级数 $\sum \frac{1}{n}$ 发散
 
@@ -249,7 +247,7 @@ $-\frac1{n!}\leq(-1)^n\frac1{n!}\leq\frac1{n!}$
 
 **交错级数测试（Leibniz's Test）**：用于判断交错级数的收敛性。交错级数是指符号在正负之间交替变化的级数。例如，$ \sum_{n=1}^{\infty} (-1)^{n+1} / n $ 是一个交错级数。该测试要求级数满足两个条件：(a) 绝对值逐渐减小，(b) 极限为0。
 
-**p-级数测试**：形式为 $ \sum 1/n^p $，其中 $ p $ 是一个常数。若 $ p > 1 $，则级数收敛；若 $ p \leq 1 $，则级数发散。
+**p-级数测试**：形式为 $ \sum 1/n^p $，其中 $ p $ 是一个常数。若 $ p>1 $，则级数收敛；若 $ p \leq 1 $，则级数发散。
 
 ### L12. Convergence tests for postive series
 
@@ -261,7 +259,7 @@ $-\frac1{n!}\leq(-1)^n\frac1{n!}\leq\frac1{n!}$
 
 ​	例如考虑级数 $\sum \frac{1}{n!}$。
 
-​	对于 $n>3$，我们知道 $2^n < n!$，因此 $\sum \frac{1}{2^n} > \sum \frac{1}{n!}$。由于几何级数 $\sum \frac{1}{2^n}$ 收敛，所以由比较测试可知 $\sum \frac{1}{n!}$ 也收	敛。
+​	对于 $n>3$，我们知道 $2^n<n!$，因此 $\sum \frac{1}{2^n}>\sum \frac{1}{n!}$。由于几何级数 $\sum \frac{1}{2^n}$ 收敛，所以由比较测试可知 $\sum \frac{1}{n!}$ 也收	敛。
 
 - **积分测试（Integral Test）**
 
@@ -273,19 +271,19 @@ $-\frac1{n!}\leq(-1)^n\frac1{n!}\leq\frac1{n!}$
 
 - **P-级数测试（P-Series Test）**
 
-​	P-级数是指形如 $\sum \frac{1}{n^p}$ 的级数，其中 $p$ 是常数。P-级数在 $p > 1$ 时收敛，在 $p \leq 1$ 时发散。
+​	P-级数是指形如 $\sum \frac{1}{n^p}$ 的级数，其中 $p$ 是常数。P-级数在 $p>1$ 时收敛，在 $p \leq 1$ 时发散。
 
 ​	例如$\sum\frac1{n^2}\cos\left(\frac1{n^2}\right)$，可以考虑使用p-级数$\sum\frac1{n^2}$因为$\cos\left(\frac1{n^2}\right)< 1$,所以$\frac1{n^2}\cos\left(\frac1{n^2}\right)<\frac1{n^2}$，故收敛
 
 - **极限比较测试（Limit Comparison Test）**
 
-​	极限比较测试是改进后的比较测试，允许忽略小项。例如，有两个正项级数 $\sum a_n$ 和 $\sum b_n$，并且$\lim_{n\to\infty} \frac{a_n}{b_n} = L$，	其中 $0 < L < \infty$，则两个级数要么都收敛，要么都发散。
+​	极限比较测试是改进后的比较测试，允许忽略小项。例如，有两个正项级数 $\sum a_n$ 和 $\sum b_n$，并且$\lim_{n\to\infty} \frac{a_n}{b_n} = L$，	其中 $0<L<\infty$，则两个级数要么都收敛，要么都发散。
 
 ​	例如 $\sum a_n = \sum \frac{3n^2 + 2n + 1}{n^3 + 1}$ 的收敛性。选择已知发散的调和级数 $\sum b_n = \sum \frac{1}{n}$ 进行比较。
 
 ​	计算比值 $\frac{a_n}{b_n}$ 并取极限：
 
-​	$\lim_{n \to \infty} \frac{a_n}{b_n} = \lim_{n \to \infty} \frac{3n^3 + 2n^2 + n}{n^3 + 1} = \lim_{n \to \infty} \frac{3 + \frac{2}{n} + \frac{1}{n^2}}{1 + \frac{1}{n^3}} = 3 $，$0 < 3 < \infty$ 满足条件，发散
+​	$\lim_{n \to \infty} \frac{a_n}{b_n} = \lim_{n \to \infty} \frac{3n^3 + 2n^2 + n}{n^3 + 1} = \lim_{n \to \infty} \frac{3 + \frac{2}{n} + \frac{1}{n^2}}{1 + \frac{1}{n^3}} = 3 $，$0<3<\infty$ 满足条件，发散
 
 - **比值测试（Ratio Test）**
 
@@ -299,15 +297,15 @@ $-\frac1{n!}\leq(-1)^n\frac1{n!}\leq\frac1{n!}$
 
 - **根测试（Root Test）**
 
-​	设有一个正项级数 $\sum_{n=1}^{\infty} a_n$，其中 $a_n > 0$ 对所有 $n$ 成立。定义：
+​	设有一个正项级数 $\sum_{n=1}^{\infty} a_n$，其中 $a_n>0$ 对所有 $n$ 成立。定义：
 
 ​	$ L = \limsup_{n \to \infty} \sqrt[n]{|a_n|} $
 
 ​	这里使用了上极限（$\limsup$）的概念，这是因为有时极限可能不存在，但是上极限总是存在的。根据 $L$ 的值，可以	得出以下结论：
 
-​	如果 $L < 1$，那么级数绝对收敛。
+​	如果 $L<1$，那么级数绝对收敛。
 
-​	如果 $L > 1$ 或 $L = +\infty$，那么级数发散。
+​	如果 $L>1$ 或 $L = +\infty$，那么级数发散。
 
 ​	如果 $L = 1$，根值测试无法给出关于级数收敛或发散的确切信息，这时需要采用其他测试方法。
 
