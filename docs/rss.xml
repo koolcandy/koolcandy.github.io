@@ -1,5 +1,13 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0"><channel><title>win8!</title><link>https://koolcandy.github.io</link><description>一些碎碎念</description><copyright>win8!</copyright><docs>http://www.rssboard.org/rss-specification</docs><generator>python-feedgen</generator><image><url>https://github.githubassets.com/favicons/favicon.svg</url><title>avatar</title><link>https://koolcandy.github.io</link></image><lastBuildDate>Tue, 17 Dec 2024 05:03:01 +0000</lastBuildDate><managingEditor>win8!</managingEditor><ttl>60</ttl><webMaster>win8!</webMaster><item><title>CS130 Database</title><link>https://koolcandy.github.io/post/CS130%20Database.html</link><description>## 数据库&#13;
+<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0"><channel><title>win8!</title><link>https://koolcandy.github.io</link><description>一些碎碎念</description><copyright>win8!</copyright><docs>http://www.rssboard.org/rss-specification</docs><generator>python-feedgen</generator><image><url>https://github.githubassets.com/favicons/favicon.svg</url><title>avatar</title><link>https://koolcandy.github.io</link></image><lastBuildDate>Tue, 17 Dec 2024 12:17:51 +0000</lastBuildDate><managingEditor>win8!</managingEditor><ttl>60</ttl><webMaster>win8!</webMaster><item><title>Math</title><link>https://koolcandy.github.io/post/Math.html</link><description>### L1. Functions of sevral variables&#13;
+&#13;
+画等高线图&#13;
+&#13;
+### L2. Limits and continuity&#13;
+&#13;
+### 1. 极限&#13;
+&#13;
+**定义**：对于一个二元函数f，在点(a, b)处的极限L意味着当(x, y)无限接近于(a, b)时，f(x, y)无限接近于L。</description><guid isPermaLink="true">https://koolcandy.github.io/post/Math.html</guid><pubDate>Tue, 17 Dec 2024 12:17:26 +0000</pubDate></item><item><title>CS130 Database</title><link>https://koolcandy.github.io/post/CS130%20Database.html</link><description>## 数据库&#13;
 &#13;
 ---&#13;
 &#13;
