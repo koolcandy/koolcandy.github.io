@@ -241,7 +241,6 @@ $$</p>
 <p><strong>几何级数 (Geometric Series)</strong></p>
 <p>几何级数的形式为$\sum ar^{n-1}$，其中$r$是比值。</p>
 <p>当$|r|&lt;1$时，几何级数收敛，其和为$\frac{a}{1-r}$；当$|r| \geq 1$时，几何级数发散。</p>
-<p>特例：调和级数$\sum \frac{1}{n}$发散</p>
 <p><strong>第$n$项判别法 (n-th term test for divergence)</strong></p>
 <p>如果级数$\sum a_n$收敛，则$\lim_{n \to \infty} a_n = 0$。反之，如果$\lim_{n \to \infty} a_n \neq 0$，则级数必定发散。</p>
 <p>注意，$\lim_{n \to \infty} a_n = 0$并不是级数收敛的充分条件。</p>
@@ -254,20 +253,21 @@ $$</p>
 <ul>
 <li><strong>比较测试（Comparison Test）</strong></li>
 </ul>
-<p>​	比较测试是通过与已知收敛或发散的级数进行比较来判断一个级数是否收敛的方法。例如：</p>
-<p>​	例如考虑级数$\sum \frac{1}{n!}$。</p>
-<p>​	对于$n&gt;3$，我们知道$2^n&lt;n!$，因此$\sum \frac{1}{2^n}&gt;\sum \frac{1}{n!}$。由于几何级数$\sum \frac{1}{2^n}$收敛，所以由比较测试可知$\sum \frac{1}{n!}$也收	敛。</p>
+<p>​  比较测试是通过与已知收敛或发散的级数进行比较来判断一个级数是否收敛的方法。例如：</p>
+<p>​  例如考虑级数$\sum \frac{1}{n!}$。</p>
+<p>​  对于$n&gt;3$，我们知道$2^n&lt;n!$，因此$\sum \frac{1}{2^n}&gt;\sum \frac{1}{n!}$。由于几何级数$\sum \frac{1}{2^n}$收敛，所以由比较测试可知$\sum \frac{1}{n!}$也收	敛。</p>
 <ul>
 <li>
 <p><strong>积分测试（Integral Test）</strong></p>
-<p>​积分测试适用于连续、正且非增函数$f(x)$的级数。如果对应的反常积分$\int f(x) dx$收敛，则级数$\sum f(n)$也收敛。	例如：</p>
-<p>​例如考虑级数$\sum \frac{1}{x^2 \ln(x)}$。</p>
-<p>​设$f(x) = \frac{1}{x^2 \ln(x)}$，计算得到$\int_2^\infty \frac{1}{x^2 \ln(x)} dx = -\frac{1}{\ln(x)}\Big|_2^\infty = \ln(2)$。因为积分收敛，所以根据积分测试，该级数收	敛。</p>
+<p>积分测试适用于连续、正且非增函数$f(x)$的级数。如果对应的反常积分$\int f(x) dx$收敛，则级数$\sum f(n)$也收敛。	例如：</p>
+<p>例如考虑级数$\sum \frac{1}{x^2 \ln(x)}$。</p>
+<p>设$f(x) = \frac{1}{x^2 \ln(x)}$，计算得到$\int_2^\infty \frac{1}{x^2 \ln(x)} dx = -\frac{1}{\ln(x)}\Big|_2^\infty = \ln(2)$。因为积分收敛，所以根据积分测试，该级数收	敛。</p>
 </li>
 <li>
 <p><strong>P-级数测试（P-Series Test）</strong></p>
-<p>​P-级数是指形如$\sum \frac{1}{n^p}$的级数，其中$p$是常数。P-级数在$p&gt;1$时收敛，在$p \leq 1$时发散。</p>
-<p>​例如$\sum\frac1{n^2}\cos\left(\frac1{n^2}\right)$，可以考虑使用p-级数$\sum\frac1{n^2}$因为$\cos\left(\frac1{n^2}\right)&lt; 1$,所以$\frac1{n^2}\cos\left(\frac1{n^2}\right)&lt;\frac1{n^2}$，故收敛</p>
+<p>P-级数是指形如$\sum \frac{1}{n^p}$的级数，其中$p$是常数。P-级数在$p&gt;1$时收敛，在$p \leq 1$时发散。</p>
+<p>例如$\sum\frac1{n^2}\cos\left(\frac1{n^2}\right)$，可以考虑使用p-级数$\sum\frac1{n^2}$因为$\cos\left(\frac1{n^2}\right)&lt; 1$,所以$\frac1{n^2}\cos\left(\frac1{n^2}\right)&lt;\frac1{n^2}$，故收敛</p>
+<p>特例：调和级数$\sum \frac{1}{n}$发散</p>
 </li>
 <li>
 <p><strong>极限比较测试（Limit Comparison Test）</strong></p>

@@ -73,9 +73,9 @@ $\frac{\partial}{\partial x}(x^2z) + \frac{\partial}{\partial x}(y^3) + \frac{\p
 计算每一项：
 
 1. 对$x^2z$使用乘积法则求导：$\frac{\partial}{\partial x}(x^2z) = 2xz + x^2\frac{\partial z}{\partial x}$（这里$x$，$z$不是无关项，得应用乘积法则求导）
-2.$y^3$是一个与$x$无关的常数，所以它的偏导是 0。
-3. 对$z^2$使用链式法则求导：$\frac{\partial}{\partial x}(z^2) = 2z\frac{\partial z}{\partial x}$
-4. 右边是一个常数，其偏导为 0。
+   2.$y^3$是一个与$x$无关的常数，所以它的偏导是 0。
+2. 对$z^2$使用链式法则求导：$\frac{\partial}{\partial x}(z^2) = 2z\frac{\partial z}{\partial x}$
+3. 右边是一个常数，其偏导为 0。
 
 因此，我们有：
 
@@ -126,6 +126,7 @@ $D_{\mathbf{u}} f(x, y) = \nabla f(x, y) \cdot \mathbf{u}$
 对于临界点$(a, b)$，通过计算二阶偏导数可以使用第二导数测试来确定该点是否为局部极值或鞍点。
 
 测试基于判别式$D = f_{xx}(a,b)f_{yy}(a,b) - [f_{xy}(a,b)]^2$：
+
 - 如果$D>0$且$f_{xx}(a,b)>0$，则$(a, b)$是局部极小值；
 - 如果$D>0$且$f_{xx}(a,b)<0$，则$(a, b)$是局部极大值；
 - 如果$D<0$，则$(a, b)$是鞍点；
@@ -136,6 +137,7 @@ $D_{\mathbf{u}} f(x, y) = \nabla f(x, y) \cdot \mathbf{u}$
 对于连续函数$f$在闭合有界集$D$上，$f$必定取得全局最大值和最小值，这些值可能出现在临界点或边界上。
 
 找到全局极值的方法包括：
+
 1. 寻找$D$内所有临界点处的函数值；
 2. 确定$D$边界上的极值；
 3. 比较上述两步得到的所有值，其中最大者为全局最大值，最小者为全局最小值。
@@ -239,8 +241,6 @@ $-\frac1{n!}\leq(-1)^n\frac1{n!}\leq\frac1{n!}$
 
 当$|r|<1$时，几何级数收敛，其和为$\frac{a}{1-r}$；当$|r| \geq 1$时，几何级数发散。
 
-特例：调和级数$\sum \frac{1}{n}$发散
-
 **第$n$项判别法 (n-th term test for divergence)**
 
 如果级数$\sum a_n$收敛，则$\lim_{n \to \infty} a_n = 0$。反之，如果$\lim_{n \to \infty} a_n \neq 0$，则级数必定发散。
@@ -261,25 +261,27 @@ $-\frac1{n!}\leq(-1)^n\frac1{n!}\leq\frac1{n!}$
 
 - **比较测试（Comparison Test）**
 
-​	比较测试是通过与已知收敛或发散的级数进行比较来判断一个级数是否收敛的方法。例如：
+​  比较测试是通过与已知收敛或发散的级数进行比较来判断一个级数是否收敛的方法。例如：
 
-​	例如考虑级数$\sum \frac{1}{n!}$。
+​  例如考虑级数$\sum \frac{1}{n!}$。
 
-​	对于$n>3$，我们知道$2^n<n!$，因此$\sum \frac{1}{2^n}>\sum \frac{1}{n!}$。由于几何级数$\sum \frac{1}{2^n}$收敛，所以由比较测试可知$\sum \frac{1}{n!}$也收	敛。
+​  对于$n>3$，我们知道$2^n<n!$，因此$\sum \frac{1}{2^n}>\sum \frac{1}{n!}$。由于几何级数$\sum \frac{1}{2^n}$收敛，所以由比较测试可知$\sum \frac{1}{n!}$也收	敛。
 
 - **积分测试（Integral Test）**
 
-  ​积分测试适用于连续、正且非增函数$f(x)$的级数。如果对应的反常积分$\int f(x) dx$收敛，则级数$\sum f(n)$也收敛。	例如：
+  积分测试适用于连续、正且非增函数$f(x)$的级数。如果对应的反常积分$\int f(x) dx$收敛，则级数$\sum f(n)$也收敛。	例如：
 
-  ​例如考虑级数$\sum \frac{1}{x^2 \ln(x)}$。
+  例如考虑级数$\sum \frac{1}{x^2 \ln(x)}$。
 
-  ​设$f(x) = \frac{1}{x^2 \ln(x)}$，计算得到$\int_2^\infty \frac{1}{x^2 \ln(x)} dx = -\frac{1}{\ln(x)}\Big|_2^\infty = \ln(2)$。因为积分收敛，所以根据积分测试，该级数收	敛。
+  设$f(x) = \frac{1}{x^2 \ln(x)}$，计算得到$\int_2^\infty \frac{1}{x^2 \ln(x)} dx = -\frac{1}{\ln(x)}\Big|_2^\infty = \ln(2)$。因为积分收敛，所以根据积分测试，该级数收	敛。
 
 - **P-级数测试（P-Series Test）**
 
-  ​P-级数是指形如$\sum \frac{1}{n^p}$的级数，其中$p$是常数。P-级数在$p>1$时收敛，在$p \leq 1$时发散。
+  P-级数是指形如$\sum \frac{1}{n^p}$的级数，其中$p$是常数。P-级数在$p>1$时收敛，在$p \leq 1$时发散。
 
-  ​例如$\sum\frac1{n^2}\cos\left(\frac1{n^2}\right)$，可以考虑使用p-级数$\sum\frac1{n^2}$因为$\cos\left(\frac1{n^2}\right)< 1$,所以$\frac1{n^2}\cos\left(\frac1{n^2}\right)<\frac1{n^2}$，故收敛
+  例如$\sum\frac1{n^2}\cos\left(\frac1{n^2}\right)$，可以考虑使用p-级数$\sum\frac1{n^2}$因为$\cos\left(\frac1{n^2}\right)< 1$,所以$\frac1{n^2}\cos\left(\frac1{n^2}\right)<\frac1{n^2}$，故收敛
+
+  特例：调和级数$\sum \frac{1}{n}$发散
 
 - **极限比较测试（Limit Comparison Test）**
 
