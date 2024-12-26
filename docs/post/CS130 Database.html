@@ -212,7 +212,12 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 <p>结果用户乱搞事儿，输入的不是正常的名字，而是输入了一个 <code class="notranslate">blabla' OR 'x' = 'x</code>（前后各缺了一个引号，正好跟 PHP 当中的引号补齐），那么就相当于产生了这样一条 SQL 语句：</p>
 <div class="highlight highlight-source-sql"><pre class="notranslate"><span class="pl-k">SELECT</span> info <span class="pl-k">FROM</span> table <span class="pl-k">WHERE</span> name <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">'</span>blabla<span class="pl-pds">'</span></span> <span class="pl-k">OR</span> <span class="pl-s"><span class="pl-pds">'</span>x<span class="pl-pds">'</span></span> <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">'</span>x<span class="pl-pds">'</span></span>;</pre></div>
 <p>由于 <code class="notranslate">'x' = 'x'</code> 是满足的，所以这个 <code class="notranslate">WHERE</code> 永远真，于是整个表的内容都被返回了。</p>
-<p>防御方法: 使用<code class="notranslate">prepared queries</code></p>
+<p>防御方法:</p>
+<ul>
+<li>使用<code class="notranslate">prepared queries</code></li>
+<li>检查用户输入内容是否合法，例如让用户只能输入字母和数字</li>
+<li>检查输入内容是否包含 SQL 关键字</li>
+</ul>
 <h4><code class="notranslate">JOIN</code> 类型</h4>
 <ul>
 <li><code class="notranslate">INNER JOIN</code>: 只返回两个表中满足连接条件的匹配行</li>

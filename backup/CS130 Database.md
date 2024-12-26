@@ -63,7 +63,10 @@ SELECT info FROM table WHERE name = 'blabla' OR 'x' = 'x';
 
 由于 `'x' = 'x'` 是满足的，所以这个 `WHERE` 永远真，于是整个表的内容都被返回了。
 
-防御方法: 使用`prepared queries`
+防御方法: 
+- 使用`prepared queries`
+- 检查用户输入内容是否合法，例如让用户只能输入字母和数字
+- 检查输入内容是否包含 SQL 关键字
 
 #### `JOIN` 类型
 
