@@ -5,6 +5,7 @@
 ### 概念性内容
 
 #### 使用文件系统存储数据的缺点
+
 - 数据以多种不同文件格式重复存储
 - 数据访问困难
 - 数据分散于多个文件或不同文件格式中
@@ -15,20 +16,24 @@
 #### 数据库管理系统 (DBMS) 的优缺点
 
 ##### 优点
+
 - 安全：未认证用户无法访问系统
 - 完整性：确保数据之间无矛盾冲突
 - 并发性：支持多用户共享数据库
 - 可恢复：能够回滚到之前的版本
 
 ##### 缺点
+
 - 占用空间较大
 - 需要额外硬件资源
 - 数据可能需要转换
 
 #### 数据定义语言 (DDL)
+
 - 用于指定数据库中的数据类型、结构和约束
 
 #### 数据操纵语言 (DML)
+
 - 包括对数据库的插入、更新、删除和查询操作
 
 #### ER 图
@@ -49,21 +54,32 @@ ER 图是设计数据库的关键
 
 #### SQL 注入攻击
 
-比如，在一个 web 页面当中，用户搜索一个产品名字，然后 Perl 查询 SQL 返回对应信息。假如 PHP 代码是这样写的：
+比如，在一个 web 页面当中，用户搜索一个产品名字，然后 Perl 查询 SQL 返回对应信息。假如 Python 代码是这样写的：
 
-```sql
-$query = "SELECT info FROM table WHERE name = '<用户输入>';";
+```python
+user_input = input("请输入产品名称: ")
+
+query = f"SELECT * FROM products WHERE name = '{user_input}'"
+
+print("生成的SQL查询:", query)
 ```
 
-结果用户乱搞事儿，输入的不是正常的名字，而是输入了一个 `blabla' OR 'x' = 'x`（前后各缺了一个引号，正好跟 PHP 当中的引号补齐），那么就相当于产生了这样一条 SQL 语句：
+现在，如果用户输入的是正常的产品名称，比如`product1`，那么生成的SQL查询将是正常的：
 
 ```sql
-SELECT info FROM table WHERE name = 'blabla' OR 'x' = 'x';
+SELECT * FROM products WHERE name = 'product1'
 ```
 
-由于 `'x' = 'x'` 是满足的，所以这个 `WHERE` 永远真，于是整个表的内容都被返回了。
+但是，如果用户输入恶意代码，例如`' OR '1'='1`，则生成的SQL查询变为：
+
+```sql
+SELECT * FROM products WHERE name = '' OR '1'='1'
+```
+
+这将导致查询返回表中所有的记录，因为 `'1'='1'` 总是为真。
 
 防御方法: 
+
 - 使用`prepared queries`
 - 检查用户输入内容是否合法，例如让用户只能输入字母和数字
 - 检查输入内容是否包含 SQL 关键字
@@ -161,6 +177,7 @@ CREATE TABLE <table name> (
 ```
 
 ##### 数据类型 (`<data type>`)
+
 - `INTEGER`: 存储整数值
 - `DATE`: 存储日期（年-月-日）
 - `TIME`: 存储时间（时:分:秒）
@@ -168,6 +185,7 @@ CREATE TABLE <table name> (
 - `VARCHAR(N)`: 存储可变长度字符串，`N`为最大长度
 
 ##### 列约束 (`<column constraint>`)
+
 - `UNIQUE`: 确保列值唯一，不允许重复
 - `NOT NULL`: 列不允许NULL值
 - `PRIMARY KEY`: 唯一标识表中每一行记录，结合了`UNIQUE`和`NOT NULL`
@@ -176,6 +194,7 @@ CREATE TABLE <table name> (
 - `CHECK <condition>`: 确保列值满足特定条件
 
 ##### 键定义 (`<keys>`)
+
 - `CONSTRAINT table_name_pkey PRIMARY KEY (id)`: 主键约束，确保唯一性和非空性
 - `CONSTRAINT table_name_fkey FOREIGN KEY (column_name) REFERENCES other_table(other_column)`: 外键约束，建立表间引用关系
 - `CONSTRAINT unique_constraint UNIQUE (column1, column2, ...)`: 确保列组合值唯一
@@ -213,7 +232,7 @@ FROM <table name>
 - `SIMILAR TO`: 支持更复杂的模式匹配，包括字符类
 - `~/~*`: POSIX正则表达式匹配，`*`表示不区分大小写
 
-可参考 [官方文档](https://www.postgresql.org/docs/current/functions-matching.htm)
+可参考 [[官方文档](https://www.postgresql.org/docs/current/functions-matching.htm)](https://www.postgresql.org/docs/current/functions-matching.htm)
 
 #### `GROUP BY` 和 `ORDER BY` 关键字
 

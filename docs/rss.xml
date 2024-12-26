@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0"><channel><title>win8!</title><link>https://koolcandy.github.io</link><description>一些碎碎念</description><copyright>win8!</copyright><docs>http://www.rssboard.org/rss-specification</docs><generator>python-feedgen</generator><image><url>https://s2.loli.net/2024/12/26/m9oanbD6ikhuSlN.png</url><title>avatar</title><link>https://koolcandy.github.io</link></image><lastBuildDate>Thu, 26 Dec 2024 05:08:11 +0000</lastBuildDate><managingEditor>win8!</managingEditor><ttl>60</ttl><webMaster>win8!</webMaster><item><title>Math</title><link>https://koolcandy.github.io/post/Math.html</link><description>### L1. Functions of sevral variables&#13;
+<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0"><channel><title>win8!</title><link>https://koolcandy.github.io</link><description>一些碎碎念</description><copyright>win8!</copyright><docs>http://www.rssboard.org/rss-specification</docs><generator>python-feedgen</generator><image><url>https://s2.loli.net/2024/12/26/m9oanbD6ikhuSlN.png</url><title>avatar</title><link>https://koolcandy.github.io</link></image><lastBuildDate>Thu, 26 Dec 2024 06:44:07 +0000</lastBuildDate><managingEditor>win8!</managingEditor><ttl>60</ttl><webMaster>win8!</webMaster><item><title>Math</title><link>https://koolcandy.github.io/post/Math.html</link><description>### L1. Functions of sevral variables&#13;
 &#13;
 画等高线图&#13;
 &#13;
@@ -14,6 +14,7 @@
 ### 概念性内容&#13;
 &#13;
 #### 使用文件系统存储数据的缺点&#13;
+&#13;
 - 数据以多种不同文件格式重复存储&#13;
 - 数据访问困难&#13;
 - 数据分散于多个文件或不同文件格式中&#13;
@@ -24,20 +25,24 @@
 #### 数据库管理系统 (DBMS) 的优缺点&#13;
 &#13;
 ##### 优点&#13;
+&#13;
 - 安全：未认证用户无法访问系统&#13;
 - 完整性：确保数据之间无矛盾冲突&#13;
 - 并发性：支持多用户共享数据库&#13;
 - 可恢复：能够回滚到之前的版本&#13;
 &#13;
 ##### 缺点&#13;
+&#13;
 - 占用空间较大&#13;
 - 需要额外硬件资源&#13;
 - 数据可能需要转换&#13;
 &#13;
 #### 数据定义语言 (DDL)&#13;
+&#13;
 - 用于指定数据库中的数据类型、结构和约束&#13;
 &#13;
 #### 数据操纵语言 (DML)&#13;
+&#13;
 - 包括对数据库的插入、更新、删除和查询操作&#13;
 &#13;
 #### ER 图&#13;

@@ -17,6 +17,7 @@
 ### 概念性内容
 
 #### 使用文件系统存储数据的缺点
+
 - 数据以多种不同文件格式重复存储
 - 数据访问困难
 - 数据分散于多个文件或不同文件格式中
@@ -27,20 +28,24 @@
 #### 数据库管理系统 (DBMS) 的优缺点
 
 ##### 优点
+
 - 安全：未认证用户无法访问系统
 - 完整性：确保数据之间无矛盾冲突
 - 并发性：支持多用户共享数据库
 - 可恢复：能够回滚到之前的版本
 
 ##### 缺点
+
 - 占用空间较大
 - 需要额外硬件资源
 - 数据可能需要转换
 
 #### 数据定义语言 (DDL)
+
 - 用于指定数据库中的数据类型、结构和约束
 
 #### 数据操纵语言 (DML)
+
 - 包括对数据库的插入、更新、删除和查询操作
 
 #### ER 图
@@ -58,6 +63,7 @@ ER 图是设计数据库的关键
 ### 概念性内容
 
 #### 使用文件系统存储数据的缺点
+
 - 数据以多种不同文件格式重复存储
 - 数据访问困难
 - 数据分散于多个文件或不同文件格式中
@@ -68,20 +74,24 @@ ER 图是设计数据库的关键
 #### 数据库管理系统 (DBMS) 的优缺点
 
 ##### 优点
+
 - 安全：未认证用户无法访问系统
 - 完整性：确保数据之间无矛盾冲突
 - 并发性：支持多用户共享数据库
 - 可恢复：能够回滚到之前的版本
 
 ##### 缺点
+
 - 占用空间较大
 - 需要额外硬件资源
 - 数据可能需要转换
 
 #### 数据定义语言 (DDL)
+
 - 用于指定数据库中的数据类型、结构和约束
 
 #### 数据操纵语言 (DML)
+
 - 包括对数据库的插入、更新、删除和查询操作
 
 #### ER 图
@@ -207,11 +217,17 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 </ul>
 <p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/56731387ae899017555087bc5d384b0189e82569e1a0619a88ae136e46d00e52/68747470733a2f2f73322e6c6f6c692e6e65742f323032332f30332f31382f4f6235477a42416e6b5a695657394b2e706e67"><img src="https://camo.githubusercontent.com/56731387ae899017555087bc5d384b0189e82569e1a0619a88ae136e46d00e52/68747470733a2f2f73322e6c6f6c692e6e65742f323032332f30332f31382f4f6235477a42416e6b5a695657394b2e706e67" alt="image-20220928232444081" data-canonical-src="https://s2.loli.net/2023/03/18/Ob5GzBAnkZiVW9K.png" style="max-width: 100%;"></a></p>
 <h4>SQL 注入攻击</h4>
-<p>比如，在一个 web 页面当中，用户搜索一个产品名字，然后 Perl 查询 SQL 返回对应信息。假如 PHP 代码是这样写的：</p>
-<div class="highlight highlight-source-sql"><pre class="notranslate">$query <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">"</span>SELECT info FROM table WHERE name = '&lt;用户输入&gt;';<span class="pl-pds">"</span></span>;</pre></div>
-<p>结果用户乱搞事儿，输入的不是正常的名字，而是输入了一个 <code class="notranslate">blabla' OR 'x' = 'x</code>（前后各缺了一个引号，正好跟 PHP 当中的引号补齐），那么就相当于产生了这样一条 SQL 语句：</p>
-<div class="highlight highlight-source-sql"><pre class="notranslate"><span class="pl-k">SELECT</span> info <span class="pl-k">FROM</span> table <span class="pl-k">WHERE</span> name <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">'</span>blabla<span class="pl-pds">'</span></span> <span class="pl-k">OR</span> <span class="pl-s"><span class="pl-pds">'</span>x<span class="pl-pds">'</span></span> <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">'</span>x<span class="pl-pds">'</span></span>;</pre></div>
-<p>由于 <code class="notranslate">'x' = 'x'</code> 是满足的，所以这个 <code class="notranslate">WHERE</code> 永远真，于是整个表的内容都被返回了。</p>
+<p>比如，在一个 web 页面当中，用户搜索一个产品名字，然后 Perl 查询 SQL 返回对应信息。假如 Python 代码是这样写的：</p>
+<div class="highlight highlight-source-python"><pre class="notranslate"><span class="pl-s1">user_input</span> <span class="pl-c1">=</span> <span class="pl-en">input</span>(<span class="pl-s">"请输入产品名称: "</span>)
+
+<span class="pl-s1">query</span> <span class="pl-c1">=</span> <span class="pl-s">f"SELECT * FROM products WHERE name = '<span class="pl-s1"><span class="pl-kos">{</span><span class="pl-s1">user_input</span><span class="pl-kos">}</span></span>'"</span>
+
+<span class="pl-en">print</span>(<span class="pl-s">"生成的SQL查询:"</span>, <span class="pl-s1">query</span>)</pre></div>
+<p>现在，如果用户输入的是正常的产品名称，比如<code class="notranslate">product1</code>，那么生成的SQL查询将是正常的：</p>
+<div class="highlight highlight-source-sql"><pre class="notranslate"><span class="pl-k">SELECT</span> <span class="pl-k">*</span> <span class="pl-k">FROM</span> products <span class="pl-k">WHERE</span> name <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">'</span>product1<span class="pl-pds">'</span></span></pre></div>
+<p>但是，如果用户输入恶意代码，例如<code class="notranslate">' OR '1'='1</code>，则生成的SQL查询变为：</p>
+<div class="highlight highlight-source-sql"><pre class="notranslate"><span class="pl-k">SELECT</span> <span class="pl-k">*</span> <span class="pl-k">FROM</span> products <span class="pl-k">WHERE</span> name <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">'</span><span class="pl-pds">'</span></span> <span class="pl-k">OR</span> <span class="pl-s"><span class="pl-pds">'</span>1<span class="pl-pds">'</span></span><span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">'</span>1<span class="pl-pds">'</span></span></pre></div>
+<p>这将导致查询返回表中所有的记录，因为 <code class="notranslate">'1'='1'</code> 总是为真。</p>
 <p>防御方法:</p>
 <ul>
 <li>使用<code class="notranslate">prepared queries</code></li>
@@ -332,7 +348,7 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 <li><code class="notranslate">SIMILAR TO</code>: 支持更复杂的模式匹配，包括字符类</li>
 <li><code class="notranslate">~/~*</code>: POSIX正则表达式匹配，<code class="notranslate">*</code>表示不区分大小写</li>
 </ul>
-<p>可参考 <a href="https://www.postgresql.org/docs/current/functions-matching.htm" rel="nofollow">官方文档</a></p>
+<p>可参考 [<a href="https://www.postgresql.org/docs/current/functions-matching.htm" rel="nofollow">官方文档</a>](<a href="https://www.postgresql.org/docs/current/functions-matching.htm" rel="nofollow">https://www.postgresql.org/docs/current/functions-matching.htm</a>)</p>
 <h4><code class="notranslate">GROUP BY</code> 和 <code class="notranslate">ORDER BY</code> 关键字</h4>
 <p>把所有属性值相同的行放在一起，再按照这个值排序，统计每个属性有多少行</p>
 <div class="highlight highlight-source-sql"><pre class="notranslate"><span class="pl-k">SELECT</span> <span class="pl-k">&lt;</span>colName1<span class="pl-k">&gt;</span>, <span class="pl-k">&lt;</span>colName2<span class="pl-k">&gt;</span>, <span class="pl-c1">COUNT</span>(<span class="pl-k">*</span>)
