@@ -141,7 +141,7 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
     font-size: 12px;
 }
 </style>
-<style>.markdown-alert{padding:0.5rem 1rem;margin-bottom:1rem;border-left:.25em solid var(--borderColor-default,var(--color-border-default));}.markdown-alert .markdown-alert-title {display:flex;font-weight:var(--base-text-weight-medium,500);align-items:center;line-height:1;}.markdown-alert>:first-child {margin-top:0;}.markdown-alert>:last-child {margin-bottom:0;}</style><style>.markdown-alert.markdown-alert-important {border-left-color:var(--borderColor-done-emphasis, var(--color-done-emphasis));background-color:var(--color-done-subtle);}.markdown-alert.markdown-alert-important .markdown-alert-title {color: var(--fgColor-done,var(--color-done-fg));}</style>
+<style>.markdown-alert{padding:0.5rem 1rem;margin-bottom:1rem;border-left:.25em solid var(--borderColor-default,var(--color-border-default));}.markdown-alert .markdown-alert-title {display:flex;font-weight:var(--base-text-weight-medium,500);align-items:center;line-height:1;}.markdown-alert>:first-child {margin-top:0;}.markdown-alert>:last-child {margin-bottom:0;}</style><style>.markdown-alert.markdown-alert-note {border-left-color:var(--borderColor-accent-emphasis, var(--color-accent-emphasis));background-color:var(--color-accent-subtle);}.markdown-alert.markdown-alert-note .markdown-alert-title {color: var(--fgColor-accent,var(--color-accent-fg));}</style>
 
 
 
@@ -329,11 +329,20 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 [<span class="pl-k">ORDER BY</span> <span class="pl-k">&lt;</span>column name<span class="pl-k">&gt;</span> <span class="pl-k">&lt;</span>method<span class="pl-k">&gt;</span>(<span class="pl-k">asc</span>, <span class="pl-k">desc</span>)] <span class="pl-c"><span class="pl-c">--</span> 排序方式</span></pre></div>
 <p><strong>实用函数</strong></p>
 <ul>
-<li><code class="notranslate">char_length(colName)</code>：计算字符串长度</li>
-<li><code class="notranslate">power(a, b)</code>：计算$a^b$</li>
-<li><code class="notranslate">log(x)</code>：计算$\log_{10}x$</li>
-<li><code class="notranslate">BETWEEN ... AND ...</code>：表示一个区间，如<code class="notranslate">a between x and y</code>意味着$x≤a≤y$</li>
-<li><code class="notranslate">... IN (...)</code>：表示在一个集合中，例如<code class="notranslate">col in (4,5,6)</code>等价于<code class="notranslate">(col = 4) or (col = 5) or (col = 6)</code></li>
+<li>
+<code class="notranslate">char_length(colName)</code>：计算字符串长度</li>
+<li>
+<code class="notranslate">power(a, b)</code>：计算 $a^b$
+</li>
+<li>
+<code class="notranslate">log(x)</code>：计算 $\log_{10}x$
+</li>
+<li>
+<code class="notranslate">BETWEEN ... AND ...</code>：表示一个区间，如<code class="notranslate">a between x and y</code>意味着 $x≤a≤y$
+</li>
+<li>
+<code class="notranslate">... IN (...)</code>：表示在一个集合中，例如<code class="notranslate">col in (4,5,6)</code>等价于<code class="notranslate">(col = 4) or (col = 5) or (col = 6)</code>
+</li>
 </ul>
 <h4>时间和日期处理</h4>
 <ul>
@@ -344,9 +353,19 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 <p><code class="notranslate">field</code>可以是<code class="notranslate">century</code>, <code class="notranslate">day</code>, <code class="notranslate">decade</code>, <code class="notranslate">dow</code>(星期天是第0天), <code class="notranslate">doy</code>(一年的第几天)  ···</p>
 <h4>匹配语法</h4>
 <ul>
-<li><code class="notranslate">LIKE</code>: 使用通配符进行模式匹配，如<code class="notranslate">where &lt;col name&gt; LIKE 'A%'</code></li>
-<li><code class="notranslate">SIMILAR TO</code>: 支持更复杂的模式匹配，包括字符类</li>
-<li><code class="notranslate">~/~*</code>: POSIX正则表达式匹配，<code class="notranslate">*</code>表示不区分大小写</li>
+<li>
+<p><code class="notranslate">LIKE</code>: 使用通配符进行模式匹配，如<code class="notranslate">where &lt;col name&gt; LIKE 'A%'</code></p>
+</li>
+<li>
+<p><code class="notranslate">SIMILAR TO</code>: 支持更复杂的模式匹配，包括字符类</p>
+</li>
+<li>
+<p><code class="notranslate">~/~*</code>: POSIX正则表达式匹配，<code class="notranslate">*</code>表示不区分大小写</p>
+<blockquote>
+<p>[!NOTE]</p>
+<p>正则表达式要记得使用<code class="notranslate">^</code>来表示开始和使用<code class="notranslate">$</code>来表示结尾</p>
+</blockquote>
+</li>
 </ul>
 <p>可参考 [<a href="https://www.postgresql.org/docs/current/functions-matching.htm" rel="nofollow">官方文档</a>](<a href="https://www.postgresql.org/docs/current/functions-matching.htm" rel="nofollow">https://www.postgresql.org/docs/current/functions-matching.htm</a>)</p>
 <h4><code class="notranslate">GROUP BY</code> 和 <code class="notranslate">ORDER BY</code> 关键字</h4>
@@ -361,7 +380,7 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 <div class="highlight highlight-source-sql"><pre class="notranslate"><span class="pl-k">SELECT</span> <span class="pl-c1">Guest</span>.<span class="pl-c1">dob</span> <span class="pl-k">AS</span> <span class="pl-s"><span class="pl-pds">"</span>date of brith<span class="pl-pds">"</span></span> 
 <span class="pl-k">FROM</span> <span class="pl-k">&lt;</span>tableName<span class="pl-k">&gt;</span> <span class="pl-k">AS</span> <span class="pl-s"><span class="pl-pds">"</span>Guest<span class="pl-pds">"</span></span>;
 <span class="pl-k">ORDER BY</span> <span class="pl-c1">Guest</span>.<span class="pl-c1">dob</span> <span class="pl-k">DESC</span>;</pre></div>
-<div class="markdown-alert markdown-alert-important"><p class="markdown-alert-title"><svg class="octicon octicon-report mr-2" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="M0 1.75C0 .784.784 0 1.75 0h12.5C15.216 0 16 .784 16 1.75v9.5A1.75 1.75 0 0 1 14.25 13H8.06l-2.573 2.573A1.458 1.458 0 0 1 3 14.543V13H1.75A1.75 1.75 0 0 1 0 11.25Zm1.75-.25a.25.25 0 0 0-.25.25v9.5c0 .138.112.25.25.25h2a.75.75 0 0 1 .75.75v2.19l2.72-2.72a.749.749 0 0 1 .53-.22h6.5a.25.25 0 0 0 .25-.25v-9.5a.25.25 0 0 0-.25-.25Zm7 2.25v2.5a.75.75 0 0 1-1.5 0v-2.5a.75.75 0 0 1 1.5 0ZM9 9a1 1 0 1 1-2 0 1 1 0 0 1 2 0Z"></path></svg>Important</p>
+<div class="markdown-alert markdown-alert-note"><p class="markdown-alert-title"><svg class="octicon octicon-info mr-2" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8Zm8-6.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13ZM6.5 7.75A.75.75 0 0 1 7.25 7h1a.75.75 0 0 1 .75.75v2.75h.25a.75.75 0 0 1 0 1.5h-2a.75.75 0 0 1 0-1.5h.25v-2h-.25a.75.75 0 0 1-.75-.75ZM8 6a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z"></path></svg>Note</p>
 <p><strong>这里需要双引号,字符串,时间戳等都是单引号</strong></p>
 </div>
 <h4><code class="notranslate">aggregate</code> 函数</h4>
@@ -605,6 +624,6 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 </script>
-<script src='https://blog.meekdai.com/Gmeek/plugins/GmeekTOC.js'></script>
+<script src='https://blog.meekdai.com/Gmeek/plugins/GmeekTOC.js'></script><script>MathJax = {tex: {inlineMath: [["$", "$"]]}};</script><script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 
 </html>

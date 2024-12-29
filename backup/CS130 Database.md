@@ -213,9 +213,9 @@ FROM <table name>
 **实用函数**
 
 - `char_length(colName)`：计算字符串长度
-- `power(a, b)`：计算$a^b$
-- `log(x)`：计算$\log_{10}x$
-- `BETWEEN ... AND ...`：表示一个区间，如`a between x and y`意味着$x≤a≤y$
+- `power(a, b)`：计算 $a^b$
+- `log(x)`：计算 $\log_{10}x$
+- `BETWEEN ... AND ...`：表示一个区间，如`a between x and y`意味着 $x≤a≤y$
 - `... IN (...)`：表示在一个集合中，例如`col in (4,5,6)`等价于`(col = 4) or (col = 5) or (col = 6)`
 
 #### 时间和日期处理
@@ -229,8 +229,16 @@ FROM <table name>
 #### 匹配语法
 
 - `LIKE`: 使用通配符进行模式匹配，如`where <col name> LIKE 'A%'`
+
 - `SIMILAR TO`: 支持更复杂的模式匹配，包括字符类
+
 - `~/~*`: POSIX正则表达式匹配，`*`表示不区分大小写
+
+  > [!NOTE]
+  >
+  > 正则表达式要记得使用`^`来表示开始和使用`$`来表示结尾
+
+  
 
 可参考 [[官方文档](https://www.postgresql.org/docs/current/functions-matching.htm)](https://www.postgresql.org/docs/current/functions-matching.htm)
 
@@ -255,7 +263,7 @@ FROM <tableName> AS "Guest";
 ORDER BY Guest.dob DESC;
 ```
 
-> [!IMPORTANT]
+> [!NOTE]
 >
 > **这里需要双引号,字符串,时间戳等都是单引号**
 
