@@ -3,7 +3,7 @@ name: Update or Create Issue from Markdown
 on:
   push:
     paths:
-      - 'docs/md/*.md'
+      - 'backup/*.md'
   workflow_dispatch:
 
 jobs:
