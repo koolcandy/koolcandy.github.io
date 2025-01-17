@@ -295,10 +295,10 @@ EU包含ALU和控制电路</p>
 <p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/7a7d30653c86fcb12ac109486226b1736d38c972d0683a108da38834419f7bd2/68747470733a2f2f73322e6c6f6c692e6e65742f323032332f30342f30362f6f7368674b4c3661553959494145572e706e67"><img src="https://camo.githubusercontent.com/7a7d30653c86fcb12ac109486226b1736d38c972d0683a108da38834419f7bd2/68747470733a2f2f73322e6c6f6c692e6e65742f323032332f30342f30362f6f7368674b4c3661553959494145572e706e67" alt="img" data-canonical-src="https://s2.loli.net/2023/04/06/oshgKL6aU9YIAEW.png" style="max-width: 100%;"></a></p>
 <h4>8086寻址模式</h4>
 <p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/63fffb1cb732efd7fd31a8461fa974ae14e6b49c8c5b4bbf76f89631d3e46473/68747470733a2f2f73322e6c6f6c692e6e65742f323032352f30312f31332f6353715a556f4954324f66317459342e706e67"><img src="https://camo.githubusercontent.com/63fffb1cb732efd7fd31a8461fa974ae14e6b49c8c5b4bbf76f89631d3e46473/68747470733a2f2f73322e6c6f6c692e6e65742f323032352f30312f31332f6353715a556f4954324f66317459342e706e67" alt="image-20250113221258650" data-canonical-src="https://s2.loli.net/2025/01/13/cSqZUoIT2Of1tY4.png" style="max-width: 100%;"></a></p>
-<p>**Mod=00:**表示 <strong>没有偏移量</strong>，或者仅仅是使用寄存器进行内存间接寻址</p>
-<p>**Mod=01:**表示 <strong>8 位偏移量</strong> (d8)， 需要额外的 1 个字节来存储偏移量</p>
-<p>**Mod=10:**表示 <strong>16 位偏移量</strong> (d16)， 需要额外的 2 个字节来存储偏移量</p>
-<p>**Mod=11:**表示 <strong>寄存器寻址</strong>，直接使用寄存器作为操作数，不涉及内存访问</p>
+<p><strong>Mod=00</strong>： <strong>没有偏移量</strong>，或者仅仅是使用寄存器进行内存间接寻址</p>
+<p><strong>Mod=01</strong>： <strong>8 位偏移量</strong> (d8)， 需要额外的 1 个字节来存储偏移量</p>
+<p><strong>Mod=10</strong>： <strong>16 位偏移量</strong> (d16)， 需要额外的 2 个字节来存储偏移量</p>
+<p><strong>Mod=11</strong>： <strong>寄存器寻址</strong>，直接使用寄存器作为操作数，不涉及内存访问</p>
 <p><strong>例如</strong></p>
 <p><code class="notranslate">mov SP, BX</code> 的二进制指令是：</p>
 <markdown-accessiblity-table><table role="table">
@@ -832,11 +832,11 @@ C_{T}=C_{0}+N(C_{BK}){-12}<br>
 $$<br>
 先计算内循环：<br>
 $$<br>
-\begin{aligned}&amp;C_T=C_0+N(C_{<em>{BK}}){-12}\&amp;C_T=4+3000(20)-12\&amp;C_T=599992\end{aligned}<br>
+C_T=C_0+N(C_{<em>{BK}}){-12}\C_T=4+3000(20)-12\C_T=599992<br>
 $$<br>
 然后计算外循环<br>
 $$<br>
-\begin{aligned}&amp;C_T=C_0+N(C</em>{_BK})-12\&amp;C_T=4+30000(59992+2+16)-12\&amp;C_T=1.8\times10^{10}\text{Clock cycles}\end{aligned}<br>
+C_T=C_0+N(C</em>{_BK})-12\C_T=4+30000(59992+2+16)-12\C_T=1.8\times10^{10}\text{Clock cycles}<br>
 $$<br>
 实际上程序只花了15s来运行，计算出来的时钟频率是1200MHz，是目标机器的时钟频率(300MHz)的4倍,原因是现代处理器使用 <strong>指令并行</strong> 技术</p>
 <h4>打印数字的方法</h4>
@@ -1084,7 +1084,9 @@ $$</li>
 <h4>浮点数的计算</h4>
 <p>浮点数做加减法运算遵循一个原则，那就是<strong>先对齐，再计算</strong>。</p>
 <p>「对齐」指的是对齐指数位 e。两个浮点数相加时，如果 e 不一样，就要先把 e 对齐再做加法运算。如何对齐呢？对齐的原则就是把 e 都统一成其中较大的一个。</p>
-<p>比如 0.5 与 0.125 相加，这两个数表示成浮点数分别是$$(-1)^0\times1.0\times2^{-1}$$ 和 $$(-1)^0\times1.0\times2^{-3}$$，由于 0.5 的指数大于 0.125 的指数，所以要把 0.125 的指数统一成和 0.5 一样的 -1，指数增大，那么有效数位要右移，因为 f 前面默认有个 1，所以右移之后，0.125 的有效数位变成了 0.01，然后将 0.5 的有效数位与 0.125 的有效数位相加，结果是 1.01，最终表示成浮点数就是$$(-1)^0\times1.01\times2^{-1}$$。</p></div>
+<p>比如 0.5 与 0.125 相加，这两个数表示成浮点数分别是$$(-1)^0\times1.0\times2^{-1}$$ 和 $$(-1)^0\times1.0\times2^{-3}$$，由于 0.5 的指数大于 0.125 的指数，所以要把 0.125 的指数统一成和 0.5 一样的 -1，指数增大，那么有效数位要右移，因为 f 前面默认有个 1，所以右移之后，0.125 的有效数位变成了 0.01，然后将 0.5 的有效数位与 0.125 的有效数位相加，结果是 1.01，最终表示成浮点数就是$$(-1)^0\times1.01\times2^{-1}$$。</p>
+<h4>8087 协处理器</h4>
+<p>比如 8087 协处理器，FPU 用来处理浮点数</p></div>
 <div style="font-size:small;margin-top:8px;float:right;"></div>
 
 <button class="btn btn-block" type="button" onclick="openComments()" id="cmButton">评论</button>
