@@ -1,0 +1,1253 @@
+<!DOCTYPE html>
+<html data-color-mode="light" data-dark-theme="dark" data-light-theme="light" lang="zh-CN">
+<head>
+    <meta content="text/html; charset=utf-8" http-equiv="content-type" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link href='https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/Primer/21.0.7/primer.css' rel='stylesheet' />
+    
+    <link rel="icon" href="https://s2.loli.net/2024/12/26/m9oanbD6ikhuSlN.png"><script>
+        let theme = localStorage.getItem("meek_theme") || "light";
+        document.documentElement.setAttribute("data-color-mode", theme);
+    </script>
+<meta name="description" content="## CS253 Architectures II
+
+### Lecture 1: CPU
+
+计算机信号分为**模拟信号**和**数字信号**
+
+#### 计算机架构
+
+计算机有两种主要类型：
+
+**冯诺伊曼架构**和**Harvard架构**
+
+![image-20250113150019146](https://s2.loli.net/2025/01/13/sJDwESPr8o4dnvm.png)
+
+冯诺依曼结构的处理器使用**同一个存储器，经由同一个总线传输**
+
+> 现代高性能CPU芯片在设计上包含了哈佛和冯诺依曼结构的特点。">
+<meta property="og:title" content="CS253 Architectures II">
+<meta property="og:description" content="## CS253 Architectures II
+
+### Lecture 1: CPU
+
+计算机信号分为**模拟信号**和**数字信号**
+
+#### 计算机架构
+
+计算机有两种主要类型：
+
+**冯诺伊曼架构**和**Harvard架构**
+
+![image-20250113150019146](https://s2.loli.net/2025/01/13/sJDwESPr8o4dnvm.png)
+
+冯诺依曼结构的处理器使用**同一个存储器，经由同一个总线传输**
+
+> 现代高性能CPU芯片在设计上包含了哈佛和冯诺依曼结构的特点。">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://koolcandy.github.io/post/CS253%20Architectures%20II.html">
+<meta property="og:image" content="https://s2.loli.net/2024/12/26/m9oanbD6ikhuSlN.png">
+<title>CS253 Architectures II</title>
+<link href="//unpkg.com/@wooorm/starry-night@2.1.1/style/both.css" rel="stylesheet" />
+
+
+</head>
+<style>
+body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;padding: 45px;font-size: 16px;font-family: sans-serif;line-height: 1.25;}
+#header{display:flex;padding-bottom:8px;border-bottom: 1px solid var(--borderColor-muted, var(--color-border-muted));margin-bottom: 16px;}
+#footer {margin-top:64px; text-align: center;font-size: small;}
+
+</style>
+
+<style>
+.postTitle{margin: auto 0;font-size:40px;font-weight:bold;}
+.title-right{display:flex;margin:auto 0 0 auto;}
+.title-right .circle{padding: 14px 16px;margin-right:8px;}
+#postBody{border-bottom: 1px solid var(--color-border-default);padding-bottom:36px;}
+#postBody hr{height:2px;}
+#cmButton{height:48px;margin-top:48px;}
+#comments{margin-top:64px;}
+.g-emoji{font-size:24px;}
+@media (max-width: 600px) {
+    body {padding: 8px;}
+    .postTitle{font-size:24px;}
+}
+.copy-feedback {
+    display: none;
+    position: absolute;
+    top: 10px;
+    right: 50px;
+    color: var(--color-fg-on-emphasis);
+    background-color: var(--color-fg-muted);
+    border-radius: 3px;
+    padding: 5px 8px;
+    font-size: 12px;
+}
+</style>
+<style>.markdown-alert{padding:0.5rem 1rem;margin-bottom:1rem;border-left:.25em solid var(--borderColor-default,var(--color-border-default));}.markdown-alert .markdown-alert-title {display:flex;font-weight:var(--base-text-weight-medium,500);align-items:center;line-height:1;}.markdown-alert>:first-child {margin-top:0;}.markdown-alert>:last-child {margin-bottom:0;}</style><style>.markdown-alert.markdown-alert-note {border-left-color:var(--borderColor-accent-emphasis, var(--color-accent-emphasis));background-color:var(--color-accent-subtle);}.markdown-alert.markdown-alert-note .markdown-alert-title {color: var(--fgColor-accent,var(--color-accent-fg));}</style><style>.markdown-alert.markdown-alert-caution {border-left-color:var(--borderColor-danger-emphasis, var(--color-danger-emphasis));background-color:var(--color-danger-subtle);}.markdown-alert.markdown-alert-caution .markdown-alert-title {color: var(--fgColor-danger,var(--color-danger-fg));}</style>
+
+
+
+<body>
+    <div id="header">
+<h1 class="postTitle">CS253 Architectures II</h1>
+<div class="title-right">
+    <a href="https://koolcandy.github.io" id="buttonHome" class="btn btn-invisible circle" title="首页">
+        <svg class="octicon" width="16" height="16">
+            <path id="pathHome" fill-rule="evenodd"></path>
+        </svg>
+    </a>
+    
+    <a href="https://github.com/koolcandy/koolcandy.github.io/issues/3" target="_blank" class="btn btn-invisible circle" title="Issue">
+        <svg class="octicon" width="16" height="16">
+            <path id="pathIssue" fill-rule="evenodd"></path>
+        </svg>
+    </a>
+    
+
+    <a class="btn btn-invisible circle" onclick="modeSwitch();" title="切换主题">
+        <svg class="octicon" width="16" height="16" >
+            <path id="themeSwitch" fill-rule="evenodd"></path>
+        </svg>
+    </a>
+
+</div>
+</div>
+    <div id="content">
+<div class="markdown-body" id="postBody"><h2>CS253 Architectures II</h2>
+<h3>Lecture 1: CPU</h3>
+<p>计算机信号分为<strong>模拟信号</strong>和<strong>数字信号</strong></p>
+<h4>计算机架构</h4>
+<p>计算机有两种主要类型：</p>
+<p><strong>冯诺伊曼架构</strong>和<strong>Harvard架构</strong></p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/e427bca9d059866bcc4c78e09c1b0d204f60ccf1c0a17b93f3c94028c7903edd/68747470733a2f2f73322e6c6f6c692e6e65742f323032352f30312f31332f734a447745535072386f34646e766d2e706e67"><img src="https://camo.githubusercontent.com/e427bca9d059866bcc4c78e09c1b0d204f60ccf1c0a17b93f3c94028c7903edd/68747470733a2f2f73322e6c6f6c692e6e65742f323032352f30312f31332f734a447745535072386f34646e766d2e706e67" alt="image-20250113150019146" data-canonical-src="https://s2.loli.net/2025/01/13/sJDwESPr8o4dnvm.png" style="max-width: 100%;"></a></p>
+<p>冯诺依曼结构的处理器使用<strong>同一个存储器，经由同一个总线传输</strong></p>
+<blockquote>
+<p>现代高性能CPU芯片在设计上包含了哈佛和冯诺依曼结构的特点。特别是，“拆分缓存”这种改进型的哈佛架构版本是很常见的。  CPU的缓存分为指令缓存和数据缓存。CPU访问缓存时使用哈佛体系结构。然而当高速缓存未命中时，数据从主存储器中检索，却并不分为独立的指令和数据部分，虽然它有独立的内存控制器用于访问RAM，ROM和（NOR）闪存。 因此，在一些情况下可以看到冯诺依曼架构，比如当数据和代码通过相同的内存控制器时，这种硬件通过哈佛架构在缓存访问或至少主内存访问方面提高了执行效率。 此外，在写非缓存区之后，CPU经常拥有写缓存使CPU可以继续执行。当指令被CPU当作数据写入，且软件必须确保在试图执行这些刚写入的指令之前，高速缓存（指令和数据）和写缓存是同步的，这时冯诺依曼结构的内存特点就出现了。</p>
+</blockquote>
+<h4>8086的硬件组成</h4>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/25e6c0c3effcff54b360ede4676b1396e31ef53818f85e4764b43a238456c047/68747470733a2f2f73322e6c6f6c692e6e65742f323032352f30312f31332f6d326b646f54746277384d5963577a2e706e67"><img src="https://camo.githubusercontent.com/25e6c0c3effcff54b360ede4676b1396e31ef53818f85e4764b43a238456c047/68747470733a2f2f73322e6c6f6c692e6e65742f323032352f30312f31332f6d326b646f54746277384d5963577a2e706e67" alt="image-20250113154827835" data-canonical-src="https://s2.loli.net/2025/01/13/m2kdoTtbw8MYcWz.png" style="max-width: 100%;"></a></p>
+<p><strong>BIU：总线接口单元</strong><br>
+BIU发送地址，从内存中获取指令，并对端口和内存进行读写操作</p>
+<p><strong>EU：执行单元</strong><br>
+EU指示BIU从哪里获取指令，它解码指令并执行指令<br>
+EU包含ALU和控制电路</p>
+<p>**指令周期 (<em>instruction cycle</em>)**就是 fetch-decode-execute 的过程通常一个指令大概占用 4 个指令周期，所以一个 1GHz 的处理器，一秒内大约可以执行 2.5 亿行汇编代码</p>
+<h4>ALU</h4>
+<p>8086 的 ALU 可以执行:</p>
+<ul>
+<li><strong>ADD</strong>: 加法</li>
+<li><strong>Subtract</strong>: 减法</li>
+<li><strong>AND</strong>: 逻辑与</li>
+<li><strong>OR</strong>: 逻辑或</li>
+<li><strong>XOR</strong>: 逻辑异或</li>
+<li><strong>increment</strong>: 自增</li>
+<li><strong>decrement</strong>: 自减</li>
+<li><strong>complement</strong>: 取反</li>
+<li><strong>shift 16-bit binary numbers</strong>: 移位（16位二进制数）</li>
+</ul>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/db659fd291b7b98c4d5b576ee74715da5f6cd3c095c0d4332a4eed9284dc317f/68747470733a2f2f73322e6c6f6c692e6e65742f323032352f30312f31332f6a716f4778706341685277514475532e706e67"><img src="https://camo.githubusercontent.com/db659fd291b7b98c4d5b576ee74715da5f6cd3c095c0d4332a4eed9284dc317f/68747470733a2f2f73322e6c6f6c692e6e65742f323032352f30312f31332f6a716f4778706341685277514475532e706e67" alt="image-20250113155637195" data-canonical-src="https://s2.loli.net/2025/01/13/jqoGxpcAhRwQDuS.png" style="max-width: 100%;"></a></p>
+<p>左移右移的实现方法:</p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/26c2b7623e17585d1dae26f60c7abc73050a0a9506b9418d0dfcc1ed5d2b3784/68747470733a2f2f73322e6c6f6c692e6e65742f323032352f30312f31332f6a7138444f4b37586c65566279366d2e706e67"><img src="https://camo.githubusercontent.com/26c2b7623e17585d1dae26f60c7abc73050a0a9506b9418d0dfcc1ed5d2b3784/68747470733a2f2f73322e6c6f6c692e6e65742f323032352f30312f31332f6a7138444f4b37586c65566279366d2e706e67" alt="image-20250113160040331" data-canonical-src="https://s2.loli.net/2025/01/13/jq8DOK7XleVby6m.png" style="max-width: 100%;"></a></p>
+<hr>
+<h3>Lecture 2: Assembly Language (Ⅰ)</h3>
+<h4>寄存器们</h4>
+<p><strong>通用寄存器</strong></p>
+<p>8086 有 8 个通用寄存器，可以将它们视为 8 个变量，某些指令可以成对使用 registers，从而提供 16 位操作，当用作寄存器对时，它们被赋予集体名称 AX、BX、CX、DX</p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/75278f6b33827f604d991c21a24827751906129b3057703d59c04a1a681637f1/68747470733a2f2f73322e6c6f6c692e6e65742f323032352f30312f31332f3658757343697a507679456c6461352e706e67"><img src="https://camo.githubusercontent.com/75278f6b33827f604d991c21a24827751906129b3057703d59c04a1a681637f1/68747470733a2f2f73322e6c6f6c692e6e65742f323032352f30312f31332f3658757343697a507679456c6461352e706e67" alt="image-20250113160807554" data-canonical-src="https://s2.loli.net/2025/01/13/6XusCizPvyElda5.png" style="max-width: 100%;"></a></p>
+<p><strong>标志位寄存器</strong></p>
+<p>8086 在特殊的 16 位标志寄存器中跟踪某些计算的结果</p>
+<ul>
+<li><strong>U: Undefined (未定义)</strong></li>
+<li><strong>OF: Overflow flag (溢出标志)</strong></li>
+<li><strong>DF: String direction flag (字符串方向标志)</strong></li>
+<li><strong>IF: Interrupt enable flag (中断启用标志)</strong></li>
+<li><strong>TF: Single step trap flag (单步陷阱标志)</strong></li>
+<li><strong>SF: Sign flag (符号标志，结果的最高有效位)</strong></li>
+<li><strong>ZF: Zero flag, set if result=0 (零标志，如果结果为零则设置)</strong></li>
+<li><strong>AF: BCD Carry flag (BCD 进位标志)</strong></li>
+<li><strong>PF: Parity flag (奇偶校验标志)</strong></li>
+<li><strong>CF: Carry flag (进位标志)</strong></li>
+</ul>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/65cbfdfc5f8627b04258b5c909b9175675b844c16775a43bb6776dd55827b3e0/68747470733a2f2f73322e6c6f6c692e6e65742f323032352f30312f31332f674b444c61476f37626b78384170562e706e67"><img src="https://camo.githubusercontent.com/65cbfdfc5f8627b04258b5c909b9175675b844c16775a43bb6776dd55827b3e0/68747470733a2f2f73322e6c6f6c692e6e65742f323032352f30312f31332f674b444c61476f37626b78384170562e706e67" alt="image-20250113164111767" data-canonical-src="https://s2.loli.net/2025/01/13/gKDLaGo7bkx8ApV.png" style="max-width: 100%;"></a></p>
+<h4>8086的分段内存模型</h4>
+<p>因为8086的寄存器只有16位，为了让它能访问20位的地址，需要使用CS 寄存器给出代码段地址，IP 寄存器给出偏移距离，然后计算出指令的内存地址位置</p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/6db4cde54f84cc2f71fc28d07ab3ff8c52d030a9c108cbdd05ef1b96526bba35/68747470733a2f2f73322e6c6f6c692e6e65742f323032352f30312f31332f6a56546d594876676f357957716e342e706e67"><img src="https://camo.githubusercontent.com/6db4cde54f84cc2f71fc28d07ab3ff8c52d030a9c108cbdd05ef1b96526bba35/68747470733a2f2f73322e6c6f6c692e6e65742f323032352f30312f31332f6a56546d594876676f357957716e342e706e67" alt="image-20250113165505161" data-canonical-src="https://s2.loli.net/2025/01/13/jVTmYHvgo5yWqn4.png" style="max-width: 100%;"></a></p>
+<p>类似的，这些段寄存器也都是为了使用8086的分段内存模型</p>
+<ul>
+<li>
+<p><strong>DS (Data Segment Register):</strong> 数据段寄存器</p>
+<p>指向程序的数据所在的内存段，DS 寄存器存储程序数据段的起始地址访问数据时，需要指定一个偏移量，指明数据在数据段内的位置，通过<code class="notranslate">DS:偏移量</code>配合工作</p>
+<p><strong>偏移量的来源:</strong></p>
+<ul>
+<li><strong>直接寻址:</strong> 偏移量可以是指令中直接给出的一个常量例如 mov ax, [0x1234]，这里 0x1234 是一个偏移量</li>
+<li><strong>寄存器寻址:</strong> 偏移量可以使用通用寄存器 (例如 BX, SI, DI) 例如 mov ax, [bx]，这里 bx 存储偏移量</li>
+<li><strong>寄存器 + 常量：</strong> 偏移量可以是寄存器值 + 常量例如 mov ax, [bx+0x10]，这里 bx 存储偏移量，0x10 是常量</li>
+</ul>
+</li>
+<li>
+<p><strong>SS (Stack Segment Register):</strong> 堆栈段寄存器</p>
+<p>指向堆栈所在的内存段，SS 寄存器存储堆栈段的起始地址</p>
+<p><strong>SP 寄存器</strong>指向当前栈顶的地址它始终指向栈中最后一个被压入 (pushed) 的值的位置</p>
+<p><strong>BP 寄存器</strong>通常指向当前栈帧的基地址，主要用途是：</p>
+<ul>
+<li>在函数调用过程中，BP 作为访问函数局部变量、函数参数的基址</li>
+<li>方便函数内部访问栈上的数据</li>
+<li>可以在函数返回时恢复栈帧</li>
+</ul>
+</li>
+<li>
+<p><strong>ES (Extra Segment Register):</strong> 附加段寄存器</p>
+<p>用于字符串操作的额外数据段，通常作为目标段使用，通过<code class="notranslate">ES:DI</code>配合工作</p>
+</li>
+</ul>
+<h4>MASM 程序结构</h4>
+<p><strong>程序结构</strong></p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/d8b6eb745d1500e9886381766bed91af1d503b9fb6843297834ce3d38186e27f/68747470733a2f2f73322e6c6f6c692e6e65742f323032352f30312f31332f75704d387450544a5a5637473659732e706e67"><img src="https://camo.githubusercontent.com/d8b6eb745d1500e9886381766bed91af1d503b9fb6843297834ce3d38186e27f/68747470733a2f2f73322e6c6f6c692e6e65742f323032352f30312f31332f75704d387450544a5a5637473659732e706e67" alt="image-20250113174933390" data-canonical-src="https://s2.loli.net/2025/01/13/upM8tPTJZV7G6Ys.png" style="max-width: 100%;"></a></p>
+<p><strong>编译过程</strong></p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/8a00e362ffb4fb75776c28fe4e770bb709a903110534673b2e1e36ff4fd8a846/68747470733a2f2f73322e6c6f6c692e6e65742f323032352f30312f31332f4b676e466f66317441326d474f56792e706e67"><img src="https://camo.githubusercontent.com/8a00e362ffb4fb75776c28fe4e770bb709a903110534673b2e1e36ff4fd8a846/68747470733a2f2f73322e6c6f6c692e6e65742f323032352f30312f31332f4b676e466f66317441326d474f56792e706e67" alt="image-20250113175235627" data-canonical-src="https://s2.loli.net/2025/01/13/KgnFof1tA2mGOVy.png" style="max-width: 100%;"></a></p>
+<p><strong>运算符和操作数</strong></p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/4f98c0bc5cf1be3018144d2aaad6a95401c6f001142bef3603bda0ecf9601dee/68747470733a2f2f73322e6c6f6c692e6e65742f323032352f30312f31332f78696842534e7163524775707635562e706e67"><img src="https://camo.githubusercontent.com/4f98c0bc5cf1be3018144d2aaad6a95401c6f001142bef3603bda0ecf9601dee/68747470733a2f2f73322e6c6f6c692e6e65742f323032352f30312f31332f78696842534e7163524775707635562e706e67" alt="image-20250113175349702" data-canonical-src="https://s2.loli.net/2025/01/13/xihBSNqcRGupv5V.png" style="max-width: 100%;"></a></p>
+<p>这里的Operand也可以称作<code class="notranslate">立即数</code></p>
+<h4>Hello, world !</h4>
+<div class="highlight highlight-source-assembly"><pre class="notranslate"><span class="pl-en">.MODEL medium</span>
+<span class="pl-en">.STACK</span>
+<span class="pl-en">.DATA</span>
+
+<span class="pl-en">msg1 db </span><span class="pl-s">"Hello, world.$"</span>
+
+<span class="pl-en">.CODE</span>
+<span class="pl-en">.STARTUP</span>
+
+<span class="pl-k">mov</span><span class="pl-en"> </span><span class="pl-v">ax</span><span class="pl-s1">,</span><span class="pl-en">@data</span><span class="pl-c">                    ; 将 ax 寄存器的值设置为 @data 段的值</span>
+<span class="pl-k">mov</span><span class="pl-en"> </span><span class="pl-v">ds</span><span class="pl-s1">,</span><span class="pl-v">ax</span><span class="pl-c">                       ; 将 DS 寄存器的值设置为 @data 段的值</span>
+<span class="pl-k">lea</span><span class="pl-en"> </span><span class="pl-v">bx</span><span class="pl-s1">,</span><span class="pl-en">msg1</span><span class="pl-c">                     ; 获得msg1的偏移地址，在这个情况下(DS&lt;&lt;4+BX)就是实际的存储msg1的地址</span>
+
+<span class="pl-en">back:</span>
+<span class="pl-en">    </span><span class="pl-k">mov</span><span class="pl-en"> </span><span class="pl-v">dl</span><span class="pl-s1">,[</span><span class="pl-v">bx</span><span class="pl-s1">]</span><span class="pl-c">                 ; 间接寻址，获取bx寄存器对应的内存地址的第一个值到dx寄存器</span>
+<span class="pl-en">    </span><span class="pl-k">cmp</span><span class="pl-en"> </span><span class="pl-v">dl</span><span class="pl-s1">,</span><span class="pl-s">'$'</span><span class="pl-c">                  ; 将 dl 寄存器中的字符与字符 $ 进行比较</span>
+<span class="pl-en">    </span><span class="pl-k">jz</span><span class="pl-en"> done</span><span class="pl-c">                     ; 如果 dl 寄存器中的字符和$相等（即 ZF 标志位为 1），则跳转到done执行</span>
+
+<span class="pl-en">    </span><span class="pl-k">mov</span><span class="pl-en"> </span><span class="pl-v">ah</span><span class="pl-s1">,</span><span class="pl-c1">02h</span><span class="pl-c">                  ; 设置 DOS 中断 21h 的功能号为 02h，表示调用显示字符的功能</span>
+<span class="pl-en">    </span><span class="pl-k">int</span><span class="pl-en"> </span><span class="pl-c1">21h</span><span class="pl-c">                     ; 调用 DOS 中断 21h，将 dl 寄存器中的字符显示在屏幕上</span>
+
+<span class="pl-en">    </span><span class="pl-k">inc</span><span class="pl-en"> </span><span class="pl-v">bx</span><span class="pl-c">                      ; 将 bx 寄存器的值加 1，指向字符串 msg1 的下一个字符</span>
+<span class="pl-en">    </span><span class="pl-k">jmp</span><span class="pl-en"> back</span><span class="pl-c">                    ; 无条件跳转到 back 标签处</span>
+
+<span class="pl-en">done:</span>
+<span class="pl-en">    </span><span class="pl-k">nop</span><span class="pl-c">                         ; 空操作指令</span>
+
+<span class="pl-en">.EXIT</span>
+
+<span class="pl-en">END</span></pre></div>
+<p><strong>常用 21h 功能号</strong></p>
+<ul>
+<li><strong>01h:</strong> 从键盘读取一个字符，并将字符存入 AL 寄存器</li>
+<li><strong>02h:</strong> 在屏幕上输出 DL 寄存器中的字符</li>
+<li><strong>09h:</strong> 在屏幕上输出以 DS:DX 指向的、以 $ 结尾的字符串</li>
+<li><strong>0Ah:</strong> 从键盘读取一个字符串</li>
+<li><strong>3Ch:</strong> 创建一个文件</li>
+<li><strong>3Dh:</strong> 打开一个文件</li>
+<li><strong>3Eh:</strong> 关闭一个文件</li>
+<li><strong>3Fh:</strong> 从文件中读取数据</li>
+<li><strong>40h:</strong> 向文件中写入数据</li>
+<li><strong>4Ch:</strong> 退出程序</li>
+</ul>
+<p><strong>一些重要ASCII码</strong></p>
+<p><strong>0x0A: Line Feed,LF, 换行</strong> 等价于<code class="notranslate">\n</code></p>
+<p><strong>0x0D: Carriage Return,CR,回车</strong> 等价于<code class="notranslate">\r</code></p>
+<hr>
+<h3>Lecture 3: Assembly Language (Ⅱ)</h3>
+<h4>寻址模式</h4>
+<p><strong>立即寻址</strong><br>
+运算数以 <strong>字面量</strong> 形式写在指令里面，如 <code class="notranslate">mov ax, 10</code>，这里的运算数也称作 <em>立即数</em></p>
+<p><strong>寄存器寻址</strong><br>
+指运算数保存在某个通用寄存器当中，如 <code class="notranslate">mov ax, bx</code><br>
+寄存器的访问是在 CPU 内部的，非常非常快，不需要寻址</p>
+<p><strong>直接寻址</strong><br>
+比如 <code class="notranslate">mov ax, Count</code>，就把 data 段当中的变量 <code class="notranslate">Count</code> 作为操作数<br>
+实际上，变量 <code class="notranslate">Count</code> 在汇编器的眼里，只不过是对应数据所在的地址罢了所以相当于把 <code class="notranslate">Count</code> 所在地址的值赋给 <code class="notranslate">ax</code><br>
+如果要指定其他的段，可以写作 <code class="notranslate">mov ax, ES:Count</code>，即表示在额外段上的内容</p>
+<p><strong>寄存器间接寻址</strong><br>
+相对于直接寻址（把偏移地址直接以字面量的形式写在指令当中），寄存器间接寻址是 <strong>把偏移地址存在寄存器（通常是索引寄存器 BX，BP，SI 或 DI）当中</strong>如果是 BP，那对应的段就是栈段，否则就是数据段<br>
+这种寻址方式的写法，跟高级语言当中的数组比较类似：</p>
+<ul>
+<li><code class="notranslate">mov ax, [bx]</code> 表示 <code class="notranslate">ax = array[bx]</code></li>
+<li><code class="notranslate">mov [bx], ax</code> 表示 <code class="notranslate">array[bx] = ax</code></li>
+</ul>
+<h4>8086 指令格式</h4>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/7e31862b8650fe9acca3ddaafa281faddbcb14223222e0b63dc3bec833d677cb/68747470733a2f2f73322e6c6f6c692e6e65742f323032352f30312f31332f454e4176715142776837654d74664f2e706e67"><img src="https://camo.githubusercontent.com/7e31862b8650fe9acca3ddaafa281faddbcb14223222e0b63dc3bec833d677cb/68747470733a2f2f73322e6c6f6c692e6e65742f323032352f30312f31332f454e4176715142776837654d74664f2e706e67" alt="image-20250113220000605" data-canonical-src="https://s2.loli.net/2025/01/13/ENAvqQBwh7eMtfO.png" style="max-width: 100%;"></a></p>
+<p><strong>Byte 1：</strong></p>
+<ul>
+<li><strong>Opcode (操作码)：</strong> 决定指令的动作（如 MOV）</li>
+<li><strong>D (方向)：</strong> 数据传输方向，源到目标，还是目标到源</li>
+</ul>
+<p><strong>Byte 2：</strong></p>
+<ul>
+<li><strong>W (字/字节)：</strong> 数据大小，16 位字还是 8 位字节</li>
+<li><strong>Mod (寻址模式)：</strong> 如何确定操作数地址</li>
+<li><strong>Reg (寄存器)：</strong> 指示一个寄存器</li>
+<li><strong>R/M (寄存器/内存)：</strong> 指示另一个操作数是寄存器还是内存</li>
+</ul>
+<p><strong>Low Byte/High Byte：</strong> 可选，如果指令需要，用来存放立即数或内存地址偏移量</p>
+<h4>8086寄存器编号</h4>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/7a7d30653c86fcb12ac109486226b1736d38c972d0683a108da38834419f7bd2/68747470733a2f2f73322e6c6f6c692e6e65742f323032332f30342f30362f6f7368674b4c3661553959494145572e706e67"><img src="https://camo.githubusercontent.com/7a7d30653c86fcb12ac109486226b1736d38c972d0683a108da38834419f7bd2/68747470733a2f2f73322e6c6f6c692e6e65742f323032332f30342f30362f6f7368674b4c3661553959494145572e706e67" alt="img" data-canonical-src="https://s2.loli.net/2023/04/06/oshgKL6aU9YIAEW.png" style="max-width: 100%;"></a></p>
+<h4>8086寻址模式</h4>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/63fffb1cb732efd7fd31a8461fa974ae14e6b49c8c5b4bbf76f89631d3e46473/68747470733a2f2f73322e6c6f6c692e6e65742f323032352f30312f31332f6353715a556f4954324f66317459342e706e67"><img src="https://camo.githubusercontent.com/63fffb1cb732efd7fd31a8461fa974ae14e6b49c8c5b4bbf76f89631d3e46473/68747470733a2f2f73322e6c6f6c692e6e65742f323032352f30312f31332f6353715a556f4954324f66317459342e706e67" alt="image-20250113221258650" data-canonical-src="https://s2.loli.net/2025/01/13/cSqZUoIT2Of1tY4.png" style="max-width: 100%;"></a></p>
+<p>**Mod=00:**表示 <strong>没有偏移量</strong>，或者仅仅是使用寄存器进行内存间接寻址</p>
+<p>**Mod=01:**表示 <strong>8 位偏移量</strong> (d8)， 需要额外的 1 个字节来存储偏移量</p>
+<p>**Mod=10:**表示 <strong>16 位偏移量</strong> (d16)， 需要额外的 2 个字节来存储偏移量</p>
+<p>**Mod=11:**表示 <strong>寄存器寻址</strong>，直接使用寄存器作为操作数，不涉及内存访问</p>
+<p><strong>例如</strong></p>
+<p><code class="notranslate">mov SP, BX</code> 的二进制指令是：</p>
+<markdown-accessiblity-table><table role="table">
+<thead>
+<tr>
+<th>opcode</th>
+<th>D</th>
+<th>W</th>
+<th>Mod</th>
+<th>Reg</th>
+<th>R/M</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>100010</td>
+<td>1</td>
+<td>1</td>
+<td>11</td>
+<td>100</td>
+<td>011</td>
+</tr>
+<tr>
+<td><code class="notranslate">mov</code></td>
+<td>to register</td>
+<td>word</td>
+<td>寄存器寻址模式</td>
+<td>to SP</td>
+<td>to BX</td>
+</tr>
+</tbody>
+</table></markdown-accessiblity-table>
+<hr>
+<h3>Lecture 4: Assembly Language (Ⅲ)</h3>
+<h4>算数运算命令</h4>
+<markdown-accessiblity-table><table role="table">
+<thead>
+<tr>
+<th><strong>指令</strong></th>
+<th><strong>代码</strong></th>
+<th><strong>作用</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>ADD</strong></td>
+<td><code class="notranslate">ADD AX, BX</code></td>
+<td>加法运算，将 AX 和 BX 相加，结果存入 AX</td>
+</tr>
+<tr>
+<td><strong>ADC</strong></td>
+<td><code class="notranslate">ADC AX, BX</code></td>
+<td>带进位的加法运算，将 AX, BX, CF 相加，结果存入 AX</td>
+</tr>
+<tr>
+<td><strong>SUB</strong></td>
+<td><code class="notranslate">SUB AX, BX</code></td>
+<td>减法运算，将 AX 减去 BX，结果存入 AX</td>
+</tr>
+<tr>
+<td><strong>MUL</strong></td>
+<td><code class="notranslate">MUL BX</code></td>
+<td>无符号乘法，将 AX 和 BX 相乘，结果存入 DX:AX</td>
+</tr>
+<tr>
+<td><strong>IMUL</strong></td>
+<td><code class="notranslate">IMUL BX</code></td>
+<td>有符号乘法，将 AX 和 BX 相乘，结果存入 DX:AX</td>
+</tr>
+<tr>
+<td><strong>DIV</strong></td>
+<td><code class="notranslate">DIV BX</code></td>
+<td>无符号除法，将 DX:AX 除以 BX，商存入 AX，余数存入 DX</td>
+</tr>
+<tr>
+<td><strong>IDIV</strong></td>
+<td><code class="notranslate">IDIV BX</code></td>
+<td>有符号除法，将 DX:AX 除以 BX，商存入 AX，余数存入 DX</td>
+</tr>
+<tr>
+<td><strong>INC</strong></td>
+<td><code class="notranslate">INC AX</code></td>
+<td>自增运算，将 AX 的值加 1</td>
+</tr>
+<tr>
+<td><strong>DEC</strong></td>
+<td><code class="notranslate">DEC AX</code></td>
+<td>自减运算，将 AX 的值减 1</td>
+</tr>
+<tr>
+<td><strong>NEG</strong></td>
+<td><code class="notranslate">NEG AX</code></td>
+<td>取负运算，将 AX 的值取负（相当于 <code class="notranslate">0 - AX</code>）</td>
+</tr>
+<tr>
+<td><strong>CMP</strong></td>
+<td><code class="notranslate">CMP AX, BX</code></td>
+<td>比较运算，比较 AX 和 BX 的值，结果影响标志寄存器(ZF)</td>
+</tr>
+<tr>
+<td><strong>CBW</strong></td>
+<td><code class="notranslate">CBW</code></td>
+<td>将 AL 符号扩展到 AH（字节到字）</td>
+</tr>
+<tr>
+<td><strong>CWD</strong></td>
+<td><code class="notranslate">CWD</code></td>
+<td>将 AX 符号扩展到 DX（字到双字）</td>
+</tr>
+</tbody>
+</table></markdown-accessiblity-table>
+<div class="markdown-alert markdown-alert-caution"><p class="markdown-alert-title"><svg class="octicon octicon-stop mr-2" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="M4.47.22A.749.749 0 0 1 5 0h6c.199 0 .389.079.53.22l4.25 4.25c.141.14.22.331.22.53v6a.749.749 0 0 1-.22.53l-4.25 4.25A.749.749 0 0 1 11 16H5a.749.749 0 0 1-.53-.22L.22 11.53A.749.749 0 0 1 0 11V5c0-.199.079-.389.22-.53Zm.84 1.28L1.5 5.31v5.38l3.81 3.81h5.38l3.81-3.81V5.31L10.69 1.5ZM8 4a.75.75 0 0 1 .75.75v3.5a.75.75 0 0 1-1.5 0v-3.5A.75.75 0 0 1 8 4Zm0 8a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z"></path></svg>Caution</p>
+<p><code class="notranslate">DIV</code> 与 <code class="notranslate">IDIV</code>在除数是word(16bit)的时候，被除数是 32 位的 <code class="notranslate">DX:AX</code>,<code class="notranslate">DX</code>的值可能会产生意想不到的结果</p>
+<p><code class="notranslate">MUL</code> 与 <code class="notranslate">IMUL</code>在乘数是word(16bit)的时候，结果是32位的，低 16 位保存在 <code class="notranslate">AX</code> 里面，高 16 位保存到 <code class="notranslate">DX</code> 里面，导致<code class="notranslate">DX</code>寄存器的值被覆盖</p>
+</div>
+<h4>十进制算数</h4>
+<p>了解即可，看不懂，去死吧！<a href="https://goo.su/Q3MVxu" rel="nofollow">介绍</a></p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/3b90a9531d5df4b5cb0b87a21043055a96fadcf24eb9585cf0f404749aaf42a1/68747470733a2f2f73322e6c6f6c692e6e65742f323032352f30312f31342f6746635a6c56756b6272454d377a742e706e67"><img src="https://camo.githubusercontent.com/3b90a9531d5df4b5cb0b87a21043055a96fadcf24eb9585cf0f404749aaf42a1/68747470733a2f2f73322e6c6f6c692e6e65742f323032352f30312f31342f6746635a6c56756b6272454d377a742e706e67" alt="image-20250114140014523" data-canonical-src="https://s2.loli.net/2025/01/14/gFcZlVukbrEM7zt.png" style="max-width: 100%;"></a></p>
+<p><strong>AAA (加法后的ASCII调整)</strong></p>
+<div class="highlight highlight-source-assembly"><pre class="notranslate"><span class="pl-k">mov</span><span class="pl-en"> </span><span class="pl-v">al</span><span class="pl-s1">,</span><span class="pl-en"> </span><span class="pl-s">'9'</span><span class="pl-c">  ; AL = 39h ('9'的ASCII码)</span>
+<span class="pl-k">add</span><span class="pl-en"> </span><span class="pl-v">al</span><span class="pl-s1">,</span><span class="pl-en"> </span><span class="pl-s">'8'</span><span class="pl-c">  ; AL = 39h + 38h = 71h</span>
+<span class="pl-k">aaa</span><span class="pl-c">          ; 调整AL为09h，AH += 1 (AH = 01h)</span>
+<span class="pl-c">; 结果: AL = 09h, AH = 01h (表示BCD格式的17)</span></pre></div>
+<p><strong>AAD (除法前的ASCII调整)</strong></p>
+<div class="highlight highlight-source-assembly"><pre class="notranslate"><span class="pl-k">mov</span><span class="pl-en"> </span><span class="pl-v">ax</span><span class="pl-s1">,</span><span class="pl-en"> </span><span class="pl-c1">0507h</span><span class="pl-c">  ; AH = 05h, AL = 07h (表示未压缩BCD的57)</span>
+<span class="pl-k">aad</span><span class="pl-c">            ; AX = 0037h (37的二进制形式)</span>
+<span class="pl-k">mov</span><span class="pl-en"> </span><span class="pl-v">bl</span><span class="pl-s1">,</span><span class="pl-en"> </span><span class="pl-c1">6</span><span class="pl-c">      ; BL = 6</span>
+<span class="pl-k">div</span><span class="pl-en"> </span><span class="pl-v">bl</span><span class="pl-c">         ; AX / BL, AL = 6 (商), AH = 1 (余数)</span>
+<span class="pl-c">; 结果: AL = 06h, AH = 01h</span></pre></div>
+<p><strong>AAM (乘法后的ASCII调整)</strong></p>
+<div class="highlight highlight-source-assembly"><pre class="notranslate"><span class="pl-k">mov</span><span class="pl-en"> </span><span class="pl-v">al</span><span class="pl-s1">,</span><span class="pl-en"> </span><span class="pl-c1">9</span><span class="pl-c">      ; AL = 09h</span>
+<span class="pl-k">mov</span><span class="pl-en"> </span><span class="pl-v">bl</span><span class="pl-s1">,</span><span class="pl-en"> </span><span class="pl-c1">7</span><span class="pl-c">      ; BL = 07h</span>
+<span class="pl-k">mul</span><span class="pl-en"> </span><span class="pl-v">bl</span><span class="pl-c">         ; AX = AL * BL = 003Fh (63的二进制形式)</span>
+<span class="pl-k">aam</span><span class="pl-c">            ; AH = 06h, AL = 03h (表示未压缩BCD的63)</span>
+<span class="pl-c">; 结果: AH = 06h, AL = 03h</span></pre></div>
+<p><strong>AAS (减法后的ASCII调整)</strong></p>
+<div class="highlight highlight-source-assembly"><pre class="notranslate"><span class="pl-k">mov</span><span class="pl-en"> </span><span class="pl-v">al</span><span class="pl-s1">,</span><span class="pl-en"> </span><span class="pl-s">'3'</span><span class="pl-c">  ; AL = 33h ('3'的ASCII码)</span>
+<span class="pl-k">sub</span><span class="pl-en"> </span><span class="pl-v">al</span><span class="pl-s1">,</span><span class="pl-en"> </span><span class="pl-s">'9'</span><span class="pl-c">  ; AL = 33h - 39h = FAh (借位发生)</span>
+<span class="pl-k">aas</span><span class="pl-c">          ; 调整AL为04h，AH -= 1 (AH = FFh)</span>
+<span class="pl-c">; 结果: AL = 04h, AH = FFh (表示借位后的结果)</span></pre></div>
+<p><strong>DAA (加法后的十进制调整)</strong></p>
+<div class="highlight highlight-source-assembly"><pre class="notranslate"><span class="pl-k">mov</span><span class="pl-en"> </span><span class="pl-v">al</span><span class="pl-s1">,</span><span class="pl-en"> </span><span class="pl-c1">59h</span><span class="pl-c">  ; AL = 59h (59的压缩BCD格式)</span>
+<span class="pl-k">add</span><span class="pl-en"> </span><span class="pl-v">al</span><span class="pl-s1">,</span><span class="pl-en"> </span><span class="pl-c1">27h</span><span class="pl-c">  ; AL = 59h + 27h = 80h</span>
+<span class="pl-k">daa</span><span class="pl-c">          ; 调整AL为86h (86的压缩BCD格式)</span>
+<span class="pl-c">; 结果: AL = 86h</span></pre></div>
+<p><strong>DAS (减法后的十进制调整)</strong></p>
+<div class="highlight highlight-source-assembly"><pre class="notranslate"><span class="pl-k">mov</span><span class="pl-en"> </span><span class="pl-v">al</span><span class="pl-s1">,</span><span class="pl-en"> </span><span class="pl-c1">47h</span><span class="pl-c">  ; AL = 47h (47的压缩BCD格式)</span>
+<span class="pl-k">sub</span><span class="pl-en"> </span><span class="pl-v">al</span><span class="pl-s1">,</span><span class="pl-en"> </span><span class="pl-c1">59h</span><span class="pl-c">  ; AL = 47h - 59h = EEh (借位发生)</span>
+<span class="pl-k">das</span><span class="pl-c">          ; 调整AL为88h (88的压缩BCD格式)</span>
+<span class="pl-c">; 结果: AL = 88h</span></pre></div>
+<h4>逻辑指令</h4>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/8b00d7d065500dcf2b4e99bd317ec0f7337cb0bd6b6b131c0890716dc1fd1b91/68747470733a2f2f73322e6c6f6c692e6e65742f323032352f30312f31342f32316a7462356d786c574c73494b6b2e706e67"><img src="https://camo.githubusercontent.com/8b00d7d065500dcf2b4e99bd317ec0f7337cb0bd6b6b131c0890716dc1fd1b91/68747470733a2f2f73322e6c6f6c692e6e65742f323032352f30312f31342f32316a7462356d786c574c73494b6b2e706e67" alt="image-20250114192610412" data-canonical-src="https://s2.loli.net/2025/01/14/21jtb5mxlWLsIKk.png" style="max-width: 100%;"></a></p>
+<markdown-accessiblity-table><table role="table">
+<thead>
+<tr>
+<th>指令</th>
+<th>示例</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code class="notranslate">AND</code></td>
+<td><code class="notranslate">AND A, B</code></td>
+<td>按位与</td>
+</tr>
+<tr>
+<td><code class="notranslate">OR</code></td>
+<td><code class="notranslate">OR A, B</code></td>
+<td>按位或</td>
+</tr>
+<tr>
+<td><code class="notranslate">XOR</code></td>
+<td><code class="notranslate">XOR A, B</code></td>
+<td>异或</td>
+</tr>
+<tr>
+<td><code class="notranslate">BT</code></td>
+<td><code class="notranslate">BT Base, Offset</code></td>
+<td>指定地址的值赋给 CF</td>
+</tr>
+<tr>
+<td><code class="notranslate">BTC</code></td>
+<td><code class="notranslate">BTC Base, Offset</code></td>
+<td>指定地址位的值赋给 CF，该位取反</td>
+</tr>
+<tr>
+<td><code class="notranslate">BTR</code></td>
+<td><code class="notranslate">BTR Base, Offset</code></td>
+<td>指定地址位的值赋给 CF，该位设零</td>
+</tr>
+<tr>
+<td><code class="notranslate">BTS</code></td>
+<td><code class="notranslate">BTS Base, Offset</code></td>
+<td>指定地址位的值赋给 CF，该位设一</td>
+</tr>
+<tr>
+<td><code class="notranslate">BSF</code></td>
+<td><code class="notranslate">BSF A, B</code></td>
+<td>B 最低的 1 是第几位，赋给 A</td>
+</tr>
+<tr>
+<td><code class="notranslate">BSR</code></td>
+<td><code class="notranslate">BSR A, B</code></td>
+<td>B 最高的 1 是第几位，赋给 A</td>
+</tr>
+</tbody>
+</table></markdown-accessiblity-table>
+<h4>逻辑偏移</h4>
+<p><a target="_blank" rel="noopener noreferrer" href="/Users/hitt/Library/Application%20Support/typora-user-images/image-20250114194130264.png"><img src="/Users/hitt/Library/Application%20Support/typora-user-images/image-20250114194130264.png" alt="image-20250114194130264" style="max-width: 100%;"></a></p>
+<markdown-accessiblity-table><table role="table">
+<thead>
+<tr>
+<th>指令</th>
+<th>示例</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>SHL</td>
+<td><code class="notranslate">SHL AX, 1</code></td>
+<td>将AX寄存器的内容逻辑左移1位，空出的位用0填充</td>
+</tr>
+<tr>
+<td>SHR</td>
+<td><code class="notranslate">SHR BX, 2</code></td>
+<td>将BX寄存器的内容逻辑右移2位，空出的位用0填充</td>
+</tr>
+<tr>
+<td>SAL</td>
+<td><code class="notranslate">SAL CX, 1</code></td>
+<td>将CX寄存器的内容算术左移1位，空出的位用0填充（与SHL相同）</td>
+</tr>
+<tr>
+<td>SAR</td>
+<td><code class="notranslate">SAR DX, 3</code></td>
+<td>将DX寄存器的内容算术右移3位，空出的位用符号位填充</td>
+</tr>
+<tr>
+<td>ROL</td>
+<td><code class="notranslate">ROL AL, 1</code></td>
+<td>将AL寄存器的内容循环左移1位，移出的位重新填充到右侧</td>
+</tr>
+<tr>
+<td>ROR</td>
+<td><code class="notranslate">ROR BL, 2</code></td>
+<td>将BL寄存器的内容循环右移2位，移出的位重新填充到左侧</td>
+</tr>
+<tr>
+<td>RCL</td>
+<td><code class="notranslate">RCL AX, 1</code></td>
+<td>将AX寄存器的内容带进位循环左移1位，进位标志 (CF) 参与循环</td>
+</tr>
+<tr>
+<td>RCR</td>
+<td><code class="notranslate">RCR BX, 1</code></td>
+<td>将BX寄存器的内容带进位循环右移1位，进位标志 (CF) 参与循环</td>
+</tr>
+<tr>
+<td>SHLD</td>
+<td><code class="notranslate">SHLD AX, BX, 4</code></td>
+<td>将AX和BX寄存器的内容一起逻辑左移4位，AX的高位由BX的低位填充</td>
+</tr>
+<tr>
+<td>SHRD</td>
+<td><code class="notranslate">SHRD CX, DX, 3</code></td>
+<td>将CX和DX寄存器的内容一起逻辑右移3位，CX的低位由DX的高位填充</td>
+</tr>
+</tbody>
+</table></markdown-accessiblity-table>
+<div class="markdown-alert markdown-alert-note"><p class="markdown-alert-title"><svg class="octicon octicon-info mr-2" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8Zm8-6.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13ZM6.5 7.75A.75.75 0 0 1 7.25 7h1a.75.75 0 0 1 .75.75v2.75h.25a.75.75 0 0 1 0 1.5h-2a.75.75 0 0 1 0-1.5h.25v-2h-.25a.75.75 0 0 1-.75-.75ZM8 6a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z"></path></svg>Note</p>
+<p><strong>逻辑右移（SHR）用0填充空出的高位，而算术右移（SAR）用符号位填充空出的高位</strong></p>
+</div>
+<h4>标志位指令</h4>
+<markdown-accessiblity-table><table role="table">
+<thead>
+<tr>
+<th>指令</th>
+<th>示例</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code class="notranslate">CLC</code></td>
+<td><code class="notranslate">CLC</code></td>
+<td>进位标志置零</td>
+</tr>
+<tr>
+<td><code class="notranslate">STC</code></td>
+<td><code class="notranslate">STC</code></td>
+<td>进位标志设一</td>
+</tr>
+<tr>
+<td><code class="notranslate">CMC</code></td>
+<td><code class="notranslate">CMC</code></td>
+<td>进位标志取反</td>
+</tr>
+<tr>
+<td><code class="notranslate">CLD</code></td>
+<td><code class="notranslate">CLD</code></td>
+<td>方向标志置零</td>
+</tr>
+<tr>
+<td><code class="notranslate">STD</code></td>
+<td><code class="notranslate">STD</code></td>
+<td>方向标志设一</td>
+</tr>
+<tr>
+<td><code class="notranslate">CLI</code></td>
+<td><code class="notranslate">CLI</code></td>
+<td>IF 置零，关闭中断</td>
+</tr>
+<tr>
+<td><code class="notranslate">STI</code></td>
+<td><code class="notranslate">STI</code></td>
+<td>IF 设一，打开中断</td>
+</tr>
+</tbody>
+</table></markdown-accessiblity-table>
+<h4>分支控制</h4>
+<p>条件跳转是短跳转，操作数是一个字节，允许向后跳转 -128 或向前跳转 +127</p>
+<p>无条件跳跃可以跳得更远，可以直接地址跳转，允许 +/-32K 的跳转，甚至允许跳转到AX寄存器！</p>
+<p><strong>常用的一些指令</strong></p>
+<markdown-accessiblity-table><table role="table">
+<thead>
+<tr>
+<th>指令</th>
+<th>含义</th>
+<th>flag</th>
+<th>反指令</th>
+<th>反含义</th>
+<th>反 flag</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code class="notranslate">JA</code></td>
+<td>Above</td>
+<td><code class="notranslate">ZF=0 and CF=0</code></td>
+<td><code class="notranslate">JNA</code></td>
+<td>Not Above</td>
+<td><code class="notranslate">ZF=1 or CF=1</code></td>
+</tr>
+<tr>
+<td><code class="notranslate">JAE</code></td>
+<td>Above or Equal</td>
+<td><code class="notranslate">CF=0</code></td>
+<td><code class="notranslate">JNAE</code></td>
+<td>Not Above or Equal</td>
+<td><code class="notranslate">CF=1</code></td>
+</tr>
+<tr>
+<td><code class="notranslate">JB</code></td>
+<td>Below</td>
+<td><code class="notranslate">CF=1</code></td>
+<td><code class="notranslate">JNB</code></td>
+<td>Not Below</td>
+<td><code class="notranslate">CF=0</code></td>
+</tr>
+<tr>
+<td><code class="notranslate">JBE</code></td>
+<td>Below or Equal</td>
+<td><code class="notranslate">ZF=1 or CF=1</code></td>
+<td><code class="notranslate">JNBE</code></td>
+<td>Not Below or Equal</td>
+<td><code class="notranslate">ZF=0 and CF=0</code></td>
+</tr>
+<tr>
+<td><code class="notranslate">JC</code></td>
+<td><strong>Carry</strong></td>
+<td><code class="notranslate">CF=1</code></td>
+<td><code class="notranslate">JNC</code></td>
+<td><strong>Not Carry</strong></td>
+<td><code class="notranslate">CF=0</code></td>
+</tr>
+<tr>
+<td><code class="notranslate">JCXZ</code></td>
+<td>CX is Zero</td>
+<td><code class="notranslate">CX=0</code></td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+</tr>
+<tr>
+<td><code class="notranslate">JE</code></td>
+<td>Equal</td>
+<td><code class="notranslate">ZF=1</code></td>
+<td><code class="notranslate">JNE</code></td>
+<td>Not Equal</td>
+<td><code class="notranslate">ZF=0</code></td>
+</tr>
+<tr>
+<td><code class="notranslate">JG</code></td>
+<td>Greater</td>
+<td><code class="notranslate">ZF=0 and SF=OF</code></td>
+<td><code class="notranslate">JNG</code></td>
+<td>Not Greater</td>
+<td><code class="notranslate">ZF=1 or SF!=OF</code></td>
+</tr>
+<tr>
+<td><code class="notranslate">JGE</code></td>
+<td>Greater or Equal</td>
+<td><code class="notranslate">SF = OF</code></td>
+<td><code class="notranslate">JNGE</code></td>
+<td>Not Greater or Equal</td>
+<td><code class="notranslate">SF != OF</code></td>
+</tr>
+<tr>
+<td><code class="notranslate">JL</code></td>
+<td>Less</td>
+<td><code class="notranslate">SF != OF</code></td>
+<td><code class="notranslate">JNL</code></td>
+<td>Not Less</td>
+<td><code class="notranslate">SF = OF</code></td>
+</tr>
+<tr>
+<td><code class="notranslate">JLE</code></td>
+<td>Less or Equal</td>
+<td><code class="notranslate">ZF=1 or SF!=OF</code></td>
+<td><code class="notranslate">JNLE</code></td>
+<td>Not Less or Equal</td>
+<td><code class="notranslate">ZF=0 and SF=OF</code></td>
+</tr>
+<tr>
+<td><code class="notranslate">JO</code></td>
+<td>Overflow</td>
+<td><code class="notranslate">OF=1</code></td>
+<td><code class="notranslate">JNO</code></td>
+<td>No Overflow</td>
+<td><code class="notranslate">OF=0</code></td>
+</tr>
+<tr>
+<td><code class="notranslate">JP</code></td>
+<td>Parity</td>
+<td><code class="notranslate">PF=1</code></td>
+<td><code class="notranslate">JNP</code></td>
+<td>Not Parity</td>
+<td><code class="notranslate">PF=0</code></td>
+</tr>
+<tr>
+<td><code class="notranslate">JPE</code></td>
+<td>Parity is Even</td>
+<td><code class="notranslate">PF=1</code></td>
+<td><code class="notranslate">JPO</code></td>
+<td>Parity is Odd</td>
+<td><code class="notranslate">PF=0</code></td>
+</tr>
+<tr>
+<td><code class="notranslate">JS</code></td>
+<td>Signed</td>
+<td><code class="notranslate">SF=1</code></td>
+<td><code class="notranslate">JNS</code></td>
+<td>Not Signed</td>
+<td><code class="notranslate">SF=0</code></td>
+</tr>
+<tr>
+<td><code class="notranslate">JZ</code></td>
+<td><strong>Zero</strong></td>
+<td><code class="notranslate">ZF=1</code></td>
+<td><code class="notranslate">JNZ</code></td>
+<td>Not Zero</td>
+<td><code class="notranslate">ZF=0</code></td>
+</tr>
+</tbody>
+</table></markdown-accessiblity-table>
+<h4>循环</h4>
+<p>主要有三种：</p>
+<ul>
+<li>
+<p><code class="notranslate">LOOP</code>，相当于</p>
+<div class="highlight highlight-source-c"><pre class="notranslate"><span class="pl-k">do</span> {
+    <span class="pl-c">// 循环体代码</span>
+    <span class="pl-c1">CX</span><span class="pl-c1">--</span>;
+} <span class="pl-k">while</span> (<span class="pl-c1">CX</span> <span class="pl-c1">!=</span> <span class="pl-c1">0</span>);</pre></div>
+</li>
+<li>
+<p><code class="notranslate">LOOPZ</code>，相当于</p>
+<div class="highlight highlight-source-c"><pre class="notranslate"><span class="pl-k">do</span> {
+    <span class="pl-c">// 循环体代码</span>
+    <span class="pl-c1">CX</span><span class="pl-c1">--</span>;
+} <span class="pl-k">while</span> (<span class="pl-c1">CX</span> <span class="pl-c1">!=</span> <span class="pl-c1">0</span> <span class="pl-c1">&amp;&amp;</span> <span class="pl-c1">ZF</span> <span class="pl-c1">==</span> <span class="pl-c1">1</span>);</pre></div>
+</li>
+<li>
+<p><code class="notranslate">LOOPNZ</code>，相当于</p>
+<div class="highlight highlight-source-c"><pre class="notranslate"><span class="pl-k">do</span> {
+    <span class="pl-c">// 循环体代码</span>
+    <span class="pl-c1">CX</span><span class="pl-c1">--</span>;
+} <span class="pl-k">while</span> (<span class="pl-c1">CX</span> <span class="pl-c1">!=</span> <span class="pl-c1">0</span> <span class="pl-c1">&amp;&amp;</span> <span class="pl-c1">ZF</span> <span class="pl-c1">==</span> <span class="pl-c1">0</span>);</pre></div>
+</li>
+</ul>
+<h4>短延迟</h4>
+<p>对于如下程序</p>
+<div class="highlight highlight-source-assembly"><pre class="notranslate"><span class="pl-en">  </span><span class="pl-k">mov</span><span class="pl-en"> </span><span class="pl-v">cx</span><span class="pl-s1">,</span><span class="pl-en"> N</span><span class="pl-c">  ; 消耗 4 时钟周期，这里 N 是字面量，但是取值还未确定</span>
+<span class="pl-en">tag:</span>
+<span class="pl-en">  </span><span class="pl-k">nop</span><span class="pl-c">        ; 消耗 3 时钟周期</span>
+<span class="pl-en">  </span><span class="pl-k">nop</span><span class="pl-c">        ; 消耗 3 时钟周期</span>
+<span class="pl-en">  </span><span class="pl-k">loop</span><span class="pl-en"> tag</span><span class="pl-c">   ; 消耗 17 个时钟周期，退出循环时仅 5 个时钟周期</span></pre></div>
+<p>总延迟时间的计算公式为：$$C = 4 + N \times 23 - 12$$</p>
+<p>假设需要延迟 1000 个时钟周期，可以通过以下步骤计算循环次数 ( N )：</p>
+<p>$$1000 = 4 + N \times 23 - 12$$</p>
+<p>解方程得到：</p>
+<p>$$N = \frac{1000 - 4 + 12}{23} \approx 43.65$$</p>
+<p>因此，设置 ( N = 44 ) 即可实现大约 1000 个时钟周期的延迟</p>
+<h4>长延迟</h4>
+<p>考虑如下程序</p>
+<div class="highlight highlight-source-assembly"><pre class="notranslate"><span class="pl-en">.STARTUP</span>
+<span class="pl-k">mov</span><span class="pl-en"> </span><span class="pl-v">ah</span><span class="pl-s1">,</span><span class="pl-c1">02</span>
+<span class="pl-k">mov</span><span class="pl-en"> </span><span class="pl-v">dl</span><span class="pl-s1">,</span><span class="pl-s">'S'</span>
+<span class="pl-k">int</span><span class="pl-en"> </span><span class="pl-c1">021h</span>
+
+<span class="pl-k">mov</span><span class="pl-en"> </span><span class="pl-v">bx</span><span class="pl-s1">,</span><span class="pl-en"> </span><span class="pl-c1">30000</span><span class="pl-c"> ;4</span>
+
+<span class="pl-en">back2: </span>
+<span class="pl-en">	</span><span class="pl-k">mov</span><span class="pl-en"> </span><span class="pl-v">cx</span><span class="pl-s1">,</span><span class="pl-en"> </span><span class="pl-c1">30000</span><span class="pl-c"> ;4</span>
+<span class="pl-en">back1: </span>
+<span class="pl-en">	</span><span class="pl-k">nop</span><span class="pl-c"> ;3</span>
+<span class="pl-en">	</span><span class="pl-k">loop</span><span class="pl-en"> back1</span>
+
+<span class="pl-en">	</span><span class="pl-k">dec</span><span class="pl-en"> </span><span class="pl-v">bx</span>
+<span class="pl-en">	</span><span class="pl-k">jnz</span><span class="pl-en"> back2</span>
+
+<span class="pl-en">	</span><span class="pl-k">mov</span><span class="pl-en"> </span><span class="pl-v">ah</span><span class="pl-s1">,</span><span class="pl-c1">02</span>
+<span class="pl-en">	</span><span class="pl-k">mov</span><span class="pl-en"> </span><span class="pl-v">dl</span><span class="pl-s1">,</span><span class="pl-s">'F'</span>
+<span class="pl-en">	</span><span class="pl-k">int</span><span class="pl-en"> </span><span class="pl-c1">021h</span>
+<span class="pl-en">EXIT</span></pre></div>
+<p>延迟计算公式为：<br>
+$$<br>
+C_{T}=C_{0}+N(C_{BK}){-12}<br>
+$$<br>
+先计算内循环：<br>
+$$<br>
+\begin{aligned}&amp;C_T=C_0+N(C_{<em>{BK}}){-12}\&amp;C_T=4+3000(20)-12\&amp;C_T=599992\end{aligned}<br>
+$$<br>
+然后计算外循环<br>
+$$<br>
+\begin{aligned}&amp;C_T=C_0+N(C</em>{_BK})-12\&amp;C_T=4+30000(59992+2+16)-12\&amp;C_T=1.8\times10^{10}\text{Clock cycles}\end{aligned}<br>
+$$<br>
+实际上程序只花了15s来运行，计算出来的时钟频率是1200MHz，是目标机器的时钟频率(300MHz)的4倍,原因是现代处理器使用 <strong>指令并行</strong> 技术</p>
+<h4>打印数字的方法</h4>
+<p>基于栈的实现：</p>
+<div class="highlight highlight-source-assembly"><pre class="notranslate"><span class="pl-en">.MODEL medium</span>
+<span class="pl-en">.STACK</span>
+<span class="pl-en">.DATA</span>
+<span class="pl-en">ten db </span><span class="pl-c1">10</span>
+<span class="pl-en">.CODE</span>
+<span class="pl-en">.STARTUP</span>
+<span class="pl-k">mov</span><span class="pl-en"> </span><span class="pl-v">ax</span><span class="pl-s1">,</span><span class="pl-en"> </span><span class="pl-c1">12345</span>
+<span class="pl-k">call</span><span class="pl-en"> Print</span>
+<span class="pl-en">.EXIT</span>
+
+<span class="pl-en">Print:</span>
+<span class="pl-en">    </span><span class="pl-k">push</span><span class="pl-en"> </span><span class="pl-v">bx</span><span class="pl-c">        ; 函数调用，储存原来寄存器的值，固定操作</span>
+<span class="pl-en">    </span><span class="pl-k">push</span><span class="pl-en"> </span><span class="pl-v">cx</span>
+<span class="pl-en">    </span><span class="pl-k">push</span><span class="pl-en"> </span><span class="pl-v">dx</span>
+<span class="pl-en">    </span><span class="pl-k">mov</span><span class="pl-en"> </span><span class="pl-v">cx</span><span class="pl-s1">,</span><span class="pl-en"> </span><span class="pl-c1">5</span><span class="pl-c">      ; 初始化循环计数器为5</span>
+<span class="pl-en">    </span><span class="pl-k">mov</span><span class="pl-en"> </span><span class="pl-v">bx</span><span class="pl-s1">,</span><span class="pl-en"> </span><span class="pl-c1">10000</span>
+
+<span class="pl-en">again:</span>
+<span class="pl-en">    </span><span class="pl-k">mov</span><span class="pl-en"> </span><span class="pl-v">dx</span><span class="pl-s1">,</span><span class="pl-en"> </span><span class="pl-c1">0h</span><span class="pl-c">     ; 除法前清空 dx</span>
+<span class="pl-en">    </span><span class="pl-k">div</span><span class="pl-en"> </span><span class="pl-v">bx</span><span class="pl-c">         ; dx:ax /= bx</span>
+<span class="pl-en">    </span><span class="pl-k">or</span><span class="pl-en"> </span><span class="pl-v">al</span><span class="pl-s1">,</span><span class="pl-en"> </span><span class="pl-c1">030h</span><span class="pl-c">    ; 数字转 ASCII</span>
+<span class="pl-en">    </span><span class="pl-k">push</span><span class="pl-en"> </span><span class="pl-v">dx</span><span class="pl-c">        ; 保存余数</span>
+<span class="pl-en">    </span><span class="pl-k">mov</span><span class="pl-en"> </span><span class="pl-v">dl</span><span class="pl-s1">,</span><span class="pl-en"> </span><span class="pl-v">al</span><span class="pl-c">     ; 传参给 21h 中断</span>
+<span class="pl-en">    </span><span class="pl-k">mov</span><span class="pl-en"> </span><span class="pl-v">ah</span><span class="pl-s1">,</span><span class="pl-en"> </span><span class="pl-c1">02h</span><span class="pl-c">    ; 输出字符模式</span>
+<span class="pl-en">    </span><span class="pl-k">int</span><span class="pl-en"> </span><span class="pl-c1">021h</span>
+<span class="pl-en">    </span><span class="pl-k">mov</span><span class="pl-en"> </span><span class="pl-v">dx</span><span class="pl-s1">,</span><span class="pl-en"> </span><span class="pl-c1">0h</span><span class="pl-c">     ; 除法前清空 dx</span>
+<span class="pl-en">    </span><span class="pl-k">mov</span><span class="pl-en"> </span><span class="pl-v">ax</span><span class="pl-s1">,</span><span class="pl-en"> </span><span class="pl-v">bx</span><span class="pl-c">     ; bx /= 10</span>
+<span class="pl-en">    </span><span class="pl-k">div</span><span class="pl-en"> ten</span>
+<span class="pl-en">    </span><span class="pl-k">mov</span><span class="pl-en"> </span><span class="pl-v">bx</span><span class="pl-s1">,</span><span class="pl-en"> </span><span class="pl-v">ax</span>
+<span class="pl-en">    </span><span class="pl-k">pop</span><span class="pl-en"> </span><span class="pl-v">ax</span>
+<span class="pl-en">    </span><span class="pl-k">loop</span><span class="pl-en"> again</span><span class="pl-c">     ; cx自动减1,不为0则跳转</span>
+<span class="pl-en">    </span><span class="pl-k">pop</span><span class="pl-en"> </span><span class="pl-v">dx</span><span class="pl-c">         ; 函数调用结束，恢复原来寄存器的值，固定操作</span>
+<span class="pl-en">    </span><span class="pl-k">pop</span><span class="pl-en"> </span><span class="pl-v">cx</span>
+<span class="pl-en">    </span><span class="pl-k">pop</span><span class="pl-en"> </span><span class="pl-v">bx</span>
+<span class="pl-en">    </span><span class="pl-k">ret</span>
+
+<span class="pl-en">END</span></pre></div>
+<h3>Lecture 5: Assembly Language (Ⅳ)</h3>
+<h4>打印负数</h4>
+<div class="highlight highlight-source-assembly"><pre class="notranslate"><span class="pl-en">.MODEL medium</span>
+<span class="pl-en">.STACK</span>
+<span class="pl-en">.DATA</span>
+<span class="pl-en">ten word </span><span class="pl-c1">10</span>
+<span class="pl-en">    .CODE</span>
+<span class="pl-en">    .STARTUP</span>
+<span class="pl-en">    </span><span class="pl-k">mov</span><span class="pl-en"> </span><span class="pl-v">ax</span><span class="pl-s1">,</span><span class="pl-en"> </span><span class="pl-c1">32768</span>
+<span class="pl-en">    </span><span class="pl-k">call</span><span class="pl-en"> Print</span>
+<span class="pl-en">    .EXIT</span>
+<span class="pl-en">Print:</span>
+<span class="pl-en">    </span><span class="pl-k">push</span><span class="pl-en"> </span><span class="pl-v">bx</span>
+<span class="pl-en">    </span><span class="pl-k">push</span><span class="pl-en"> </span><span class="pl-v">cx</span>
+<span class="pl-en">    </span><span class="pl-k">push</span><span class="pl-en"> </span><span class="pl-v">dx</span>
+<span class="pl-en">    </span><span class="pl-k">mov</span><span class="pl-en"> </span><span class="pl-v">cx</span><span class="pl-s1">,</span><span class="pl-en"> </span><span class="pl-c1">5</span>
+<span class="pl-en">    </span><span class="pl-k">mov</span><span class="pl-en"> </span><span class="pl-v">bx</span><span class="pl-s1">,</span><span class="pl-en"> </span><span class="pl-c1">10000</span>
+<span class="pl-en">    </span><span class="pl-k">test</span><span class="pl-en"> </span><span class="pl-v">ax</span><span class="pl-s1">,</span><span class="pl-en"> </span><span class="pl-c1">8000h</span>
+<span class="pl-en">    </span><span class="pl-k">jz</span><span class="pl-en"> Positive</span><span class="pl-c"> ; 如果是负数,要打印负号,然后取反加一</span>
+<span class="pl-en">    </span><span class="pl-k">push</span><span class="pl-en"> </span><span class="pl-v">ax</span>
+<span class="pl-en">    </span><span class="pl-k">mov</span><span class="pl-en"> </span><span class="pl-v">ah</span><span class="pl-s1">,</span><span class="pl-en"> </span><span class="pl-c1">02h</span>
+<span class="pl-en">    </span><span class="pl-k">mov</span><span class="pl-en"> </span><span class="pl-v">dl</span><span class="pl-s1">,</span><span class="pl-en"> </span><span class="pl-s">'-'</span><span class="pl-en"> </span>
+<span class="pl-en">    </span><span class="pl-k">int</span><span class="pl-en"> </span><span class="pl-c1">021h</span>
+<span class="pl-en">    </span><span class="pl-k">pop</span><span class="pl-en"> </span><span class="pl-v">ax</span>
+<span class="pl-en">    </span><span class="pl-k">not</span><span class="pl-en"> </span><span class="pl-v">ax</span>
+<span class="pl-en">    </span><span class="pl-k">add</span><span class="pl-en"> </span><span class="pl-v">ax</span><span class="pl-s1">,</span><span class="pl-en"> </span><span class="pl-c1">1</span>
+<span class="pl-en">    </span><span class="pl-k">jmp</span><span class="pl-en"> Positive</span>
+<span class="pl-en">Positive:</span>
+<span class="pl-en">    </span><span class="pl-k">mov</span><span class="pl-en"> </span><span class="pl-v">dx</span><span class="pl-s1">,</span><span class="pl-en"> </span><span class="pl-c1">0h</span>
+<span class="pl-en">    </span><span class="pl-k">div</span><span class="pl-en"> </span><span class="pl-v">bx</span>
+<span class="pl-en">    </span><span class="pl-k">or</span><span class="pl-en"> </span><span class="pl-v">al</span><span class="pl-s1">,</span><span class="pl-en"> </span><span class="pl-c1">030h</span><span class="pl-en">  </span>
+<span class="pl-en">    </span><span class="pl-k">push</span><span class="pl-en"> </span><span class="pl-v">dx</span>
+<span class="pl-en">    </span><span class="pl-k">mov</span><span class="pl-en"> </span><span class="pl-v">dl</span><span class="pl-s1">,</span><span class="pl-en"> </span><span class="pl-v">al</span>
+<span class="pl-en">    </span><span class="pl-k">mov</span><span class="pl-en"> </span><span class="pl-v">ah</span><span class="pl-s1">,</span><span class="pl-en"> </span><span class="pl-c1">02h</span>
+<span class="pl-en">    </span><span class="pl-k">int</span><span class="pl-en"> </span><span class="pl-c1">021h</span>
+<span class="pl-en">    </span><span class="pl-k">mov</span><span class="pl-en"> </span><span class="pl-v">dx</span><span class="pl-s1">,</span><span class="pl-en"> </span><span class="pl-c1">0h</span><span class="pl-en"> </span>
+<span class="pl-en">    </span><span class="pl-k">mov</span><span class="pl-en"> </span><span class="pl-v">ax</span><span class="pl-s1">,</span><span class="pl-en"> </span><span class="pl-v">bx</span>
+<span class="pl-en">    </span><span class="pl-k">div</span><span class="pl-en"> ten</span>
+<span class="pl-en">    </span><span class="pl-k">mov</span><span class="pl-en"> </span><span class="pl-v">bx</span><span class="pl-s1">,</span><span class="pl-en"> </span><span class="pl-v">ax</span>
+<span class="pl-en">    </span><span class="pl-k">pop</span><span class="pl-en"> </span><span class="pl-v">ax</span>
+<span class="pl-en">    </span><span class="pl-k">loop</span><span class="pl-en"> Positive</span>
+<span class="pl-en">    </span><span class="pl-k">pop</span><span class="pl-en"> </span><span class="pl-v">dx</span>
+<span class="pl-en">    </span><span class="pl-k">pop</span><span class="pl-en"> </span><span class="pl-v">cx</span>
+<span class="pl-en">    </span><span class="pl-k">pop</span><span class="pl-en"> </span><span class="pl-v">bx</span>
+<span class="pl-en">    </span><span class="pl-k">ret</span>
+<span class="pl-en">END</span></pre></div>
+<h4>字符串</h4>
+<p>字符串是一组用于描述文本的 ASCII 字符</p>
+<ul>
+<li>以 NULL byte=0 字符结尾的字符串，<code class="notranslate">Charles Markham /0</code></li>
+<li>使用第一个字节设置长度的字符串，<code class="notranslate">/15 Charles Markham</code></li>
+</ul>
+<h4>字符串操作</h4>
+<p><code class="notranslate">LEA</code>命令：将有效地址加载到 SI 中，例如：</p>
+<div class="highlight highlight-source-assembly"><pre class="notranslate"><span class="pl-en">msg1 db </span><span class="pl-s">"Hello, world.$"</span><span class="pl-c"> ; 定义字符串</span>
+
+<span class="pl-k">lea</span><span class="pl-en"> </span><span class="pl-v">SI</span><span class="pl-s1">,</span><span class="pl-en"> msg1</span><span class="pl-c"> ; 将 msg1 的地址加载到 SI 中，这里 SI 寄存器将会存储 msg1 在内存中的起始地址</span></pre></div>
+<p><code class="notranslate">MOVSB</code>命令：Move String Byte（移动字符串字节），移动一个字节的数据，将 DS：SI 指向的内存复制到 ES：DI 中指定的地址，通常用于从源字符串复制一个字节到目标字符串，执行 MOVSB 指令后，<strong>SI</strong> 和 <strong>DI</strong> 寄存器的值会自动递增或递减，如果 DF (Direction Flag) 为 0, SI 和 DI 递增，如果 DF 为 1, SI 和 DI 递减，例如：</p>
+<div class="highlight highlight-source-assembly"><pre class="notranslate"><span class="pl-en">msg1 db </span><span class="pl-s">"Hello$"</span><span class="pl-c">  ; 源字符串</span>
+<span class="pl-en">msg2 db </span><span class="pl-s">"     $"</span><span class="pl-c">  ; 目标字符串，预留空间</span>
+
+<span class="pl-k">lea</span><span class="pl-en"> </span><span class="pl-v">SI</span><span class="pl-s1">,</span><span class="pl-en"> msg1</span><span class="pl-c">      ; SI 指向 msg1</span>
+<span class="pl-k">lea</span><span class="pl-en"> </span><span class="pl-v">DI</span><span class="pl-s1">,</span><span class="pl-en"> msg2</span><span class="pl-c">      ; DI 指向 msg2</span>
+
+<span class="pl-k">mov</span><span class="pl-en"> </span><span class="pl-v">cx</span><span class="pl-s1">,</span><span class="pl-en"> </span><span class="pl-c1">5</span><span class="pl-c">         ; 设置循环次数为5， 要复制的字节个数</span>
+
+<span class="pl-k">cld</span><span class="pl-c">               ; DF寄存器置0</span>
+
+<span class="pl-k">rep</span><span class="pl-en"> </span><span class="pl-k">movsb</span><span class="pl-c">         ; 执行 5 次复制</span></pre></div>
+<p><code class="notranslate">CMPSB</code>命令：Compare String Byte（比较字符串字节），这条指令会比较 <strong>SI</strong> 寄存器指向的字节和 <strong>DI</strong> 寄存器指向的字节，并设置相应的标志位（如 ZF、SF 等）。例如：</p>
+<div class="highlight highlight-source-assembly"><pre class="notranslate"><span class="pl-en">msg1 db </span><span class="pl-s">"Hello$"</span><span class="pl-c"> ; 第一个字符串</span>
+<span class="pl-en">msg2 db </span><span class="pl-s">"Hello$"</span><span class="pl-c"> ; 第二个字符串</span>
+
+<span class="pl-k">lea</span><span class="pl-en"> </span><span class="pl-v">SI</span><span class="pl-s1">,</span><span class="pl-en"> msg1</span><span class="pl-c">     ; SI 指向 msg1</span>
+<span class="pl-k">lea</span><span class="pl-en"> </span><span class="pl-v">DI</span><span class="pl-s1">,</span><span class="pl-en"> msg2</span><span class="pl-c">     ; DI 指向 msg2</span>
+
+<span class="pl-k">mov</span><span class="pl-en"> </span><span class="pl-v">cx</span><span class="pl-s1">,</span><span class="pl-en"> </span><span class="pl-c1">5</span><span class="pl-c">        ; 设置循环次数为5， 要比较的字节个数</span>
+
+<span class="pl-k">cld</span><span class="pl-c">              ; DF寄存器置0</span>
+
+<span class="pl-k">rep</span><span class="pl-en"> cmpsb</span><span class="pl-c">        ; 比较字节</span>
+<span class="pl-en">     </span>
+<span class="pl-k">jz</span><span class="pl-en"> equal   </span>
+
+<span class="pl-k">jmp</span><span class="pl-en"> not_equal</span><span class="pl-c">    ; jump if it's not equal</span>
+
+<span class="pl-en">equal:</span>
+<span class="pl-c">  ; foo</span>
+<span class="pl-en">not_equal:</span>
+<span class="pl-c">  ; bar</span></pre></div>
+<div class="markdown-alert markdown-alert-note"><p class="markdown-alert-title"><svg class="octicon octicon-info mr-2" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8Zm8-6.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13ZM6.5 7.75A.75.75 0 0 1 7.25 7h1a.75.75 0 0 1 .75.75v2.75h.25a.75.75 0 0 1 0 1.5h-2a.75.75 0 0 1 0-1.5h.25v-2h-.25a.75.75 0 0 1-.75-.75ZM8 6a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z"></path></svg>Note</p>
+<p>修饰符 <code class="notranslate">REP</code> 可以放在任何字符串指令的前面，并重复指令 CX 次。Rep 代表重复字符串前缀。</p>
+</div>
+<p><code class="notranslate">movsb</code>,<code class="notranslate">CMPSB</code> 是 CISC 的,以下维基百科上关于CISC的介绍：</p>
+<blockquote>
+<p><strong>复杂指令集计算机</strong>（英语：Complex Instruction Set Computer；<a href="https://zh.wikipedia.org/wiki/%E7%B8%AE%E5%AF%AB" rel="nofollow">缩写</a>：<strong>CISC</strong>）是一种<a href="https://zh.wikipedia.org/wiki/%E5%BE%AE%E8%99%95%E7%90%86%E5%99%A8" rel="nofollow">微处理器</a><a href="https://zh.wikipedia.org/wiki/%E6%8C%87%E4%BB%A4%E9%9B%86%E6%9E%B6%E6%A7%8B" rel="nofollow">指令集架构</a>，每个指令可执行若干低端操作，诸如从<a href="https://zh.wikipedia.org/wiki/%E9%9B%BB%E8%85%A6%E8%A8%98%E6%86%B6%E9%AB%94" rel="nofollow">存储器</a>读取、存储、和<a href="https://zh.wikipedia.org/wiki/%E8%A8%88%E7%AE%97" rel="nofollow">计算</a>操作，全部集于单一指令之中。与之相对的是<a href="https://zh.wikipedia.org/wiki/%E7%B2%BE%E7%AE%80%E6%8C%87%E4%BB%A4%E9%9B%86" rel="nofollow">精简指令集</a>。</p>
+<p>复杂指令集的特点是指令数目多而复杂，每条指令字长并不相等，电脑必须加以判读，并为此付出了性能的代价。</p>
+<p>属于复杂指令集的处理器有<a href="https://zh.wikipedia.org/wiki/CDC_6600" rel="nofollow">CDC 6600</a>、<a href="https://zh.wikipedia.org/wiki/System/360" rel="nofollow">System/360</a>、<a href="https://zh.wikipedia.org/wiki/VAX" rel="nofollow">VAX</a>、<a href="https://zh.wikipedia.org/wiki/PDP-11" rel="nofollow">PDP-11</a>、<a href="https://zh.wikipedia.org/wiki/Motorola_68000" rel="nofollow">Motorola 68000</a>家族、<a href="https://zh.wikipedia.org/wiki/X86" rel="nofollow">x86</a>、<a href="https://zh.wikipedia.org/wiki/AMD_Opteron" rel="nofollow">AMD Opteron</a>等。</p>
+</blockquote>
+<h4>CISC和RISC实现乘法</h4>
+<p><strong>RISC实现</strong></p>
+<div class="highlight highlight-source-assembly"><pre class="notranslate"><span class="pl-en">.STARTUP</span>
+
+<span class="pl-k">mov</span><span class="pl-en"> </span><span class="pl-v">ax</span><span class="pl-s1">,</span><span class="pl-c1">0</span>
+<span class="pl-k">mov</span><span class="pl-en"> </span><span class="pl-v">dx</span><span class="pl-s1">,</span><span class="pl-c1">100</span><span class="pl-c">         ;Multiply dl by bl result in ax.</span>
+<span class="pl-k">mov</span><span class="pl-en"> </span><span class="pl-v">bx</span><span class="pl-s1">,</span><span class="pl-c1">123</span>
+<span class="pl-k">mov</span><span class="pl-en"> </span><span class="pl-v">cx</span><span class="pl-s1">,</span><span class="pl-c1">8</span>
+
+<span class="pl-en">back: </span><span class="pl-k">rcr</span><span class="pl-en"> </span><span class="pl-v">dx</span><span class="pl-s1">,</span><span class="pl-c1">1</span><span class="pl-c">     ;move lsb dx into c</span>
+<span class="pl-en">      </span><span class="pl-k">jnc</span><span class="pl-en"> over</span>
+<span class="pl-en">      </span><span class="pl-k">add</span><span class="pl-en"> </span><span class="pl-v">ax</span><span class="pl-s1">,</span><span class="pl-v">bx</span>
+<span class="pl-en">      </span>
+<span class="pl-en">over: </span><span class="pl-k">shl</span><span class="pl-en"> </span><span class="pl-v">bx</span><span class="pl-s1">,</span><span class="pl-c1">1</span><span class="pl-c">     ;multiply bx by 2</span>
+
+<span class="pl-en">      </span><span class="pl-k">loop</span><span class="pl-en"> back</span><span class="pl-c">    ;repeat 8 times</span>
+
+<span class="pl-k">call</span><span class="pl-en"> Print</span>
+<span class="pl-en">.EXIT</span></pre></div>
+<p><strong>CISC实现</strong></p>
+<div class="highlight highlight-source-assembly"><pre class="notranslate"><span class="pl-en">.STARTUP</span>
+
+<span class="pl-k">mov</span><span class="pl-en"> </span><span class="pl-v">dl</span><span class="pl-s1">,</span><span class="pl-c1">100</span><span class="pl-c">    ;Multiply dl by bl result in ax.</span>
+<span class="pl-k">mov</span><span class="pl-en"> </span><span class="pl-v">al</span><span class="pl-s1">,</span><span class="pl-c1">123</span>
+
+<span class="pl-k">mul</span><span class="pl-en"> </span><span class="pl-v">dl</span><span class="pl-c">        ;ax=dl*al</span>
+
+<span class="pl-k">call</span><span class="pl-en"> Print</span>
+
+<span class="pl-en">.EXIT</span></pre></div>
+<p>除法部分就是直接减，不够了就回退，略</p>
+<h4>浮点数</h4>
+<p>浮点数通过<strong>科学计数法</strong>的形式表示实数，通常分为三个部分：</p>
+<ul>
+<li><strong>符号位（Sign）</strong>：表示数的正负。</li>
+<li><strong>指数位（Exponent）</strong>：表示数的规模（即小数点的位置）。</li>
+<li><strong>尾数位（Mantissa 或 Fraction）</strong>：表示数的精度。</li>
+</ul>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/2d839443ebf1bb2d25f6f631c7168193d763b5d21e2c8e1edf79f802cb5a9560/68747470733a2f2f73322e6c6f6c692e6e65742f323032352f30312f31372f716f39785335794a4458736c4f47702e706e67"><img src="https://camo.githubusercontent.com/2d839443ebf1bb2d25f6f631c7168193d763b5d21e2c8e1edf79f802cb5a9560/68747470733a2f2f73322e6c6f6c692e6e65742f323032352f30312f31372f716f39785335794a4458736c4f47702e706e67" alt="img" data-canonical-src="https://s2.loli.net/2025/01/17/qo9xS5yJDXslOGp.png" style="max-width: 100%;"></a></p>
+<p>浮点数的通用表示形式为：<br>
+$$<br>
+\text{Value} = (-1)^{\text{Sign}} \times \text{Mantissa} \times 2^{\text{Exponent}}<br>
+$$<br>
+<strong>规格化浮点数</strong></p>
+<p>规格化浮点数是 IEEE 754 标准中最常见的表示形式，其特点是尾数部分的最高位隐含为 <code class="notranslate">1</code>（即尾数的整数部分为 <code class="notranslate">1</code>）。</p>
+<p><strong>规格化浮点数的表示</strong></p>
+<ul>
+<li>
+<strong>尾数（Mantissa）</strong>：隐含前导 <code class="notranslate">1</code>，实际存储的是小数部分。</li>
+<li>
+<strong>指数（Exponent）</strong>：非全 <code class="notranslate">0</code> 且非全 <code class="notranslate">1</code>（单精度：1 到 254，双精度：1 到 2046）。</li>
+<li>
+<strong>公式</strong>：<br>
+$$<br>
+\text{Value} = (-1)^{\text{Sign}} \times 1.\text{Mantissa} \times 2^{\text{Exponent} - \text{Bias}}<br>
+$$</li>
+</ul>
+<p><strong>示例</strong></p>
+<p>单精度浮点数：</p>
+<ul>
+<li>
+<p>符号位：<code class="notranslate">0</code>（正数）</p>
+</li>
+<li>
+<p>指数位：<code class="notranslate">10000001</code>（129，偏移量 127，实际指数为 2）</p>
+</li>
+<li>
+<p>尾数位：<code class="notranslate">10100000000000000000000</code>（隐含前导 <code class="notranslate">1</code>，实际尾数为 <code class="notranslate">1.101</code>）</p>
+</li>
+</ul>
+<p>值：</p>
+<p>$$
+\text{Value} = 1.101_2 \times 2^2 = 110.1_2 = 6.5_{10}
+$$</p>
+<hr>
+<p><strong>非规格化浮点数</strong><br>
+非规格化浮点数用于表示非常接近于零的数值，其特点是尾数部分的最高位为 <code class="notranslate">0</code>（即尾数的整数部分为 <code class="notranslate">0</code>）。</p>
+<p><strong>非规格化浮点数的表示</strong></p>
+<ul>
+<li>
+<strong>尾数（Mantissa）</strong>：没有隐含前导 <code class="notranslate">1</code>，实际存储的是小数部分。</li>
+<li>
+<strong>指数（Exponent）</strong>：全 <code class="notranslate">0</code>（单精度：0，双精度：0）。</li>
+<li>
+<strong>公式</strong>：<br>
+$$<br>
+\text{Value} = (-1)^{\text{Sign}} \times 0.\text{Mantissa} \times 2^{1 - \text{Bias}}<br>
+$$</li>
+</ul>
+<p><strong>示例</strong></p>
+<ul>
+<li>单精度浮点数：
+<ul>
+<li>符号位：<code class="notranslate">0</code>（正数）</li>
+<li>指数位：<code class="notranslate">00000000</code>（0，偏移量 127，实际指数为 -126）</li>
+<li>尾数位：<code class="notranslate">00000000000000000000001</code>（没有隐含前导 <code class="notranslate">1</code>，实际尾数为 <code class="notranslate">0.00000000000000000000001</code>）</li>
+<li>值：<br>
+$$<br>
+\text{Value} = 0.00000000000000000000001_2 \times 2^{-126} \approx 1.4 \times 10^{-45}<br>
+$$</li>
+</ul>
+</li>
+</ul>
+<p><a href="https://www.bilibili.com/video/BV1VK4y1f7o6/" rel="nofollow">视频讲解</a></p>
+<h4>浮点数的计算</h4>
+<p>浮点数做加减法运算遵循一个原则，那就是<strong>先对齐，再计算</strong>。</p>
+<p>「对齐」指的是对齐指数位 e。两个浮点数相加时，如果 e 不一样，就要先把 e 对齐再做加法运算。如何对齐呢？对齐的原则就是把 e 都统一成其中较大的一个。</p>
+<p>比如 0.5 与 0.125 相加，这两个数表示成浮点数分别是$$(-1)^0\times1.0\times2^{-1}$$ 和 $$(-1)^0\times1.0\times2^{-3}$$，由于 0.5 的指数大于 0.125 的指数，所以要把 0.125 的指数统一成和 0.5 一样的 -1，指数增大，那么有效数位要右移，因为 f 前面默认有个 1，所以右移之后，0.125 的有效数位变成了 0.01，然后将 0.5 的有效数位与 0.125 的有效数位相加，结果是 1.01，最终表示成浮点数就是$$(-1)^0\times1.01\times2^{-1}$$。</p></div>
+<div style="font-size:small;margin-top:8px;float:right;"></div>
+
+<button class="btn btn-block" type="button" onclick="openComments()" id="cmButton">评论</button>
+<div class="comments" id="comments"></div>
+
+</div>
+    <div id="footer"><div id="footer1">Copyright © <span id="copyrightYear"></span> <a href="https://koolcandy.github.io">win8!</a></div>
+<div id="footer2">
+    <span id="runday"></span><span>Powered by <a href="https://meekdai.com/Gmeek.html" target="_blank">Gmeek</a></span>
+</div>
+
+<script>
+var now=new Date();
+document.getElementById("copyrightYear").innerHTML=now.getFullYear();
+
+if(""!=""){
+    var startSite=new Date("");
+    var diff=now.getTime()-startSite.getTime();
+    var diffDay=Math.floor(diff/(1000*60*60*24));
+    document.getElementById("runday").innerHTML="网站运行"+diffDay+"天"+" • ";
+}
+</script></div>
+</body>
+<script>
+var IconList={'sun': 'M8 10.5a2.5 2.5 0 100-5 2.5 2.5 0 000 5zM8 12a4 4 0 100-8 4 4 0 000 8zM8 0a.75.75 0 01.75.75v1.5a.75.75 0 01-1.5 0V.75A.75.75 0 018 0zm0 13a.75.75 0 01.75.75v1.5a.75.75 0 01-1.5 0v-1.5A.75.75 0 018 13zM2.343 2.343a.75.75 0 011.061 0l1.06 1.061a.75.75 0 01-1.06 1.06l-1.06-1.06a.75.75 0 010-1.06zm9.193 9.193a.75.75 0 011.06 0l1.061 1.06a.75.75 0 01-1.06 1.061l-1.061-1.06a.75.75 0 010-1.061zM16 8a.75.75 0 01-.75.75h-1.5a.75.75 0 010-1.5h1.5A.75.75 0 0116 8zM3 8a.75.75 0 01-.75.75H.75a.75.75 0 010-1.5h1.5A.75.75 0 013 8zm10.657-5.657a.75.75 0 010 1.061l-1.061 1.06a.75.75 0 11-1.06-1.06l1.06-1.06a.75.75 0 011.06 0zm-9.193 9.193a.75.75 0 010 1.06l-1.06 1.061a.75.75 0 11-1.061-1.06l1.06-1.061a.75.75 0 011.061 0z', 'moon': 'M9.598 1.591a.75.75 0 01.785-.175 7 7 0 11-8.967 8.967.75.75 0 01.961-.96 5.5 5.5 0 007.046-7.046.75.75 0 01.175-.786zm1.616 1.945a7 7 0 01-7.678 7.678 5.5 5.5 0 107.678-7.678z', 'sync': 'M1.705 8.005a.75.75 0 0 1 .834.656 5.5 5.5 0 0 0 9.592 2.97l-1.204-1.204a.25.25 0 0 1 .177-.427h3.646a.25.25 0 0 1 .25.25v3.646a.25.25 0 0 1-.427.177l-1.38-1.38A7.002 7.002 0 0 1 1.05 8.84a.75.75 0 0 1 .656-.834ZM8 2.5a5.487 5.487 0 0 0-4.131 1.869l1.204 1.204A.25.25 0 0 1 4.896 6H1.25A.25.25 0 0 1 1 5.75V2.104a.25.25 0 0 1 .427-.177l1.38 1.38A7.002 7.002 0 0 1 14.95 7.16a.75.75 0 0 1-1.49.178A5.5 5.5 0 0 0 8 2.5Z', 'home': 'M6.906.664a1.749 1.749 0 0 1 2.187 0l5.25 4.2c.415.332.657.835.657 1.367v7.019A1.75 1.75 0 0 1 13.25 15h-3.5a.75.75 0 0 1-.75-.75V9H7v5.25a.75.75 0 0 1-.75.75h-3.5A1.75 1.75 0 0 1 1 13.25V6.23c0-.531.242-1.034.657-1.366l5.25-4.2Zm1.25 1.171a.25.25 0 0 0-.312 0l-5.25 4.2a.25.25 0 0 0-.094.196v7.019c0 .138.112.25.25.25H5.5V8.25a.75.75 0 0 1 .75-.75h3.5a.75.75 0 0 1 .75.75v5.25h2.75a.25.25 0 0 0 .25-.25V6.23a.25.25 0 0 0-.094-.195Z', 'github': 'M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 0 1-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27-.68 0-1.36.09-2 .27-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.34.19.73.9.82 1.13.16.45.68 1.31 2.69.94 0 .67.01 1.3.01 1.49 0 .21-.15.45-.55.38A7.995 7.995 0 0 1 0 8c0-4.42 3.58-8 8-8Z', 'copy': 'M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 0 1 0 1.5h-1.5a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-1.5a.75.75 0 0 1 1.5 0v1.5A1.75 1.75 0 0 1 9.25 16h-7.5A1.75 1.75 0 0 1 0 14.25Z M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0 1 14.25 11h-7.5A1.75 1.75 0 0 1 5 9.25Zm1.75-.25a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-7.5a.25.25 0 0 0-.25-.25Z', 'check': 'M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0Z'};
+var utterancesLoad=0;
+
+let themeSettings={
+    "dark": ["dark","moon","#00f0ff","dark-blue"],
+    "light": ["light","sun","#ff5000","github-light"],
+    "auto": ["auto","sync","","preferred-color-scheme"]
+};
+function changeTheme(mode, icon, color, utheme){
+    document.documentElement.setAttribute("data-color-mode",mode);
+    document.getElementById("themeSwitch").setAttribute("d",value=IconList[icon]);
+    document.getElementById("themeSwitch").parentNode.style.color=color;
+    if(utterancesLoad==1){utterancesTheme(utheme);}
+}
+function modeSwitch(){
+    let currentMode=document.documentElement.getAttribute('data-color-mode');
+    let newMode = currentMode === "light" ? "dark" : currentMode === "dark" ? "auto" : "light";
+    localStorage.setItem("meek_theme", newMode);
+    if(themeSettings[newMode]){
+        changeTheme(...themeSettings[newMode]);
+    }
+}
+function utterancesTheme(theme){
+    const message={type:'set-theme',theme: theme};
+    const iframe=document.getElementsByClassName('utterances-frame')[0];
+    iframe.contentWindow.postMessage(message,'https://utteranc.es');
+}
+if(themeSettings[theme]){changeTheme(...themeSettings[theme]);}
+console.log("\n %c Gmeek last https://github.com/Meekdai/Gmeek \n","padding:5px 0;background:#02d81d;color:#fff");
+</script>
+
+<script>
+document.getElementById("pathHome").setAttribute("d",IconList["home"]);
+document.getElementById("pathIssue").setAttribute("d",IconList["github"]);
+
+
+
+function openComments(){
+    cm=document.getElementById("comments");
+    cmButton=document.getElementById("cmButton");
+    cmButton.innerHTML="loading";
+    span=document.createElement("span");
+    span.setAttribute("class","AnimatedEllipsis");
+    cmButton.appendChild(span);
+
+    script=document.createElement("script");
+    script.setAttribute("src","https://utteranc.es/client.js");
+    script.setAttribute("repo","koolcandy/koolcandy.github.io");
+    script.setAttribute("issue-term","title");
+    
+    if(localStorage.getItem("meek_theme")=="dark"){script.setAttribute("theme","dark-blue");}
+    else if(localStorage.getItem("meek_theme")=="light") {script.setAttribute("theme","github-light");}
+    else{script.setAttribute("theme","preferred-color-scheme");}
+    
+    script.setAttribute("crossorigin","anonymous");
+    script.setAttribute("async","");
+    cm.appendChild(script);
+
+    int=self.setInterval("iFrameLoading()",200);
+}
+
+function iFrameLoading(){
+    var utterances=document.getElementsByClassName('utterances');
+    if(utterances.length==1){
+        if(utterances[0].style.height!=""){
+            utterancesLoad=1;
+            int=window.clearInterval(int);
+            document.getElementById("cmButton").style.display="none";
+            console.log("utterances Load OK");
+        }
+    }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    const createClipboardHTML = (codeContent, additionalClasses = '') => `
+        <pre class="notranslate"><code class="notranslate">${codeContent}</code></pre>
+        <div class="clipboard-container position-absolute right-0 top-0 ${additionalClasses}">
+            <clipboard-copy class="ClipboardButton btn m-2 p-0" role="button" style="display: inherit;">
+                <svg height="16" width="16" class="octicon octicon-copy m-2"><path d="${IconList["copy"]}"></path></svg>
+                <svg height="16" width="16" class="octicon octicon-check color-fg-success m-2 d-none"><path d="${IconList["check"]}"></path></svg>
+            </clipboard-copy>
+            <div class="copy-feedback">Copied!</div>
+        </div>
+    `;
+
+    const handleCodeElements = (selector = '') => {
+        document.querySelectorAll(selector).forEach(codeElement => {
+            const codeContent = codeElement.innerHTML;
+            const newStructure = document.createElement('div');
+            newStructure.className = 'snippet-clipboard-content position-relative overflow-auto';
+            newStructure.innerHTML = createClipboardHTML(codeContent);
+
+            const parentElement = codeElement.parentElement;
+            if (selector.includes('highlight')) {
+                parentElement.insertBefore(newStructure, codeElement.nextSibling);
+                parentElement.removeChild(codeElement);
+            } else {
+                parentElement.parentElement.replaceChild(newStructure, parentElement);
+            }
+        });
+    };
+
+    handleCodeElements('pre.notranslate > code.notranslate');
+    handleCodeElements('div.highlight > pre.notranslate');
+
+    let currentFeedback = null;
+    document.querySelectorAll('clipboard-copy').forEach(copyButton => {
+        copyButton.addEventListener('click', () => {
+            const codeContent = copyButton.closest('.snippet-clipboard-content').innerText;
+            const tempTextArea = document.createElement('textarea');
+            tempTextArea.value = codeContent;
+            document.body.appendChild(tempTextArea);
+            tempTextArea.select();
+            document.execCommand('copy');
+            document.body.removeChild(tempTextArea);
+
+            const copyIcon = copyButton.querySelector('.octicon-copy');
+            const checkIcon = copyButton.querySelector('.octicon-check');
+            const copyFeedback = copyButton.nextElementSibling;
+
+            if (currentFeedback && currentFeedback !== copyFeedback) {currentFeedback.style.display = 'none';}
+            currentFeedback = copyFeedback;
+
+            copyIcon.classList.add('d-none');
+            checkIcon.classList.remove('d-none');
+            copyFeedback.style.display = 'block';
+            copyButton.style.borderColor = 'var(--color-success-fg)';
+
+            setTimeout(() => {
+                copyIcon.classList.remove('d-none');
+                checkIcon.classList.add('d-none');
+                copyFeedback.style.display = 'none';
+                copyButton.style.borderColor = '';
+            }, 2000);
+        });
+    });
+});
+
+</script>
+<script src='https://blog.meekdai.com/Gmeek/plugins/GmeekTOC.js'></script><script>MathJax = {tex: {inlineMath: [["$", "$"]]}};</script><script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+</html>

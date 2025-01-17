@@ -9,6 +9,9 @@ on:
 jobs:
   update-or-create-issue:
     runs-on: ubuntu-latest
+    
+    permissions:
+      issues: write
 
     steps:
     - name: Checkout repository
