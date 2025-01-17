@@ -1,6 +1,10 @@
 name: build Gmeek
 
 on:
+  workflow_run:
+    workflows: ["Update or Create Issue from Markdown"]  # 监听第一个工作流的完成
+    types:
+      - completed
   workflow_dispatch:
   issues:
     types: [opened, edited]
