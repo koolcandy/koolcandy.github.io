@@ -1086,7 +1086,28 @@ $$</li>
 <p>「对齐」指的是对齐指数位 e。两个浮点数相加时，如果 e 不一样，就要先把 e 对齐再做加法运算。如何对齐呢？对齐的原则就是把 e 都统一成其中较大的一个。</p>
 <p>比如 0.5 与 0.125 相加，这两个数表示成浮点数分别是$$(-1)^0\times1.0\times2^{-1}$$ 和 $$(-1)^0\times1.0\times2^{-3}$$，由于 0.5 的指数大于 0.125 的指数，所以要把 0.125 的指数统一成和 0.5 一样的 -1，指数增大，那么有效数位要右移，因为 f 前面默认有个 1，所以右移之后，0.125 的有效数位变成了 0.01，然后将 0.5 的有效数位与 0.125 的有效数位相加，结果是 1.01，最终表示成浮点数就是$$(-1)^0\times1.01\times2^{-1}$$。</p>
 <h4>8087 协处理器</h4>
-<p>比如 8087 协处理器，FPU 用来处理浮点数</p></div>
+<blockquote>
+<p>处理器都有CP了 (╯‵□′)╯︵┻━┻</p>
+</blockquote>
+<p>8087 是一种 <strong>数学协处理器</strong>，也被称为 <strong>浮点处理器</strong> 或 <strong>数字数据处理器 (Numeric Data Processor, NDP)</strong>。 它不是一个独立的中央处理器 (CPU)，而是被设计用来与 Intel 的 8086、8088 等 CPU 一起工作，以加速浮点运算。</p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/3eda98c28ba58a4ae8f08817c28ba16c19dcc59fc258e6d83f5632ef79f320f6/68747470733a2f2f73322e6c6f6c692e6e65742f323032352f30312f31372f4e716535644c36416e47573462396c2e706e67"><img src="https://camo.githubusercontent.com/3eda98c28ba58a4ae8f08817c28ba16c19dcc59fc258e6d83f5632ef79f320f6/68747470733a2f2f73322e6c6f6c692e6e65742f323032352f30312f31372f4e716535644c36416e47573462396c2e706e67" alt="image-20250117下午40544444" data-canonical-src="https://s2.loli.net/2025/01/17/Nqe5dL6AnGW4b9l.png" style="max-width: 100%;"></a></p>
+<p><strong>状态字组</strong></p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/4504fe4f2d0218021c599cef92f4b55945d81f5af1ef82f2088acd2b50a359e2/68747470733a2f2f73322e6c6f6c692e6e65742f323032352f30312f31372f396b464a74494d59367571336f41372e706e67"><img src="https://camo.githubusercontent.com/4504fe4f2d0218021c599cef92f4b55945d81f5af1ef82f2088acd2b50a359e2/68747470733a2f2f73322e6c6f6c692e6e65742f323032352f30312f31372f396b464a74494d59367571336f41372e706e67" alt="image-20250117下午40632589" data-canonical-src="https://s2.loli.net/2025/01/17/9kFJtIMY6uq3oA7.png" style="max-width: 100%;"></a></p>
+<p><strong>控制字组</strong></p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/741c4f2f3541d34f131fbfc4e35dd600aa07d587dad583f7ea5f830f384641eb/68747470733a2f2f73322e6c6f6c692e6e65742f323032352f30312f31372f4d6f72767539716d3164365a49436b2e706e67"><img src="https://camo.githubusercontent.com/741c4f2f3541d34f131fbfc4e35dd600aa07d587dad583f7ea5f830f384641eb/68747470733a2f2f73322e6c6f6c692e6e65742f323032352f30312f31372f4d6f72767539716d3164365a49436b2e706e67" alt="image-20250117下午40754970" data-canonical-src="https://s2.loli.net/2025/01/17/Morvu9qm1d6ZICk.png" style="max-width: 100%;"></a></p>
+<p><strong>栈</strong></p>
+<p>8087 还自带了一个栈，栈当中每个元素都是 10 字节，栈始终有 8 个位置。<br>
+每次压入新数据到栈当中，栈底数据被覆盖，就和移位运算差不多<br>
+在 MASM 汇编代码当中，<code class="notranslate">ST(0)</code> 始终表示栈顶，<code class="notranslate">ST(1~7)</code> 表示栈中其他元素。</p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/78bea1a9c1d4cddc65ab3fcad5b55672e4ce3ff8d6c4c133368f1790f8febe1a/68747470733a2f2f73322e6c6f6c692e6e65742f323032352f30312f31372f63584a435933785a36723467524e562e706e67"><img src="https://camo.githubusercontent.com/78bea1a9c1d4cddc65ab3fcad5b55672e4ce3ff8d6c4c133368f1790f8febe1a/68747470733a2f2f73322e6c6f6c692e6e65742f323032352f30312f31372f63584a435933785a36723467524e562e706e67" alt="image-20250117下午41054852" data-canonical-src="https://s2.loli.net/2025/01/17/cXJCY3xZ6r4gRNV.png" style="max-width: 100%;"></a></p>
+<p><strong>8087 指令</strong></p>
+<ul>
+<li><code class="notranslate">FADD S1/D, S2</code> 表示把两个 S 进行加法运算，结果存入 D（S1=D）。如果没有指定两个 S，那么就相当于 <code class="notranslate">ST(0) += ST(1)</code></li>
+<li><code class="notranslate">FSUB S1/D, S2</code> 相当于执行 <code class="notranslate">S1 -= S2</code></li>
+<li><code class="notranslate">FSUBR S1/D, S2</code> 与上面相反，相当于 <code class="notranslate">S1 = S2 - S1</code></li>
+<li>此外还有 <code class="notranslate">FMUL</code>，<code class="notranslate">FDIV</code>，<code class="notranslate">FMULP</code>，<code class="notranslate">FIMUL</code>，<code class="notranslate">FDIVR</code>，<code class="notranslate">FDIP</code>，<code class="notranslate">FIDIV</code> 等</li>
+</ul>
+<hr></div>
 <div style="font-size:small;margin-top:8px;float:right;"></div>
 
 <button class="btn btn-block" type="button" onclick="openComments()" id="cmButton">评论</button>
