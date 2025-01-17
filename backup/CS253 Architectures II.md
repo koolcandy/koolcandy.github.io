@@ -352,7 +352,7 @@ das          ; 调整AL为88h (88的压缩BCD格式)
 
 #### 逻辑偏移
 
-![image-20250114194130264](/Users/hitt/Library/Application%20Support/typora-user-images/image-20250114194130264.png)
+![image-20250114194130264](https://s2.loli.net/2025/01/17/SVDghbI2UTnLW8J.png)
 
 | 指令 | 示例 | 含义 |
 |------|------|------|
