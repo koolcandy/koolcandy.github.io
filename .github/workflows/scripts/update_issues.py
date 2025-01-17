@@ -11,7 +11,7 @@ g = Github(GITHUB_TOKEN)
 repo = g.get_repo(REPO_NAME)
 
 # 定义 Markdown 文件所在的目录
-DOCS_DIR = 'docs'
+DOCS_DIR = 'docs/md'
 
 def get_issue_by_title(title):
     """根据标题查找对应的 Issue"""
