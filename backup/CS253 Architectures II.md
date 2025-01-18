@@ -826,7 +826,7 @@ $$
 
 #### 浮点数计算 —— 毕达哥拉斯问题
 
-<img src="https://s2.loli.net/2025/01/18/yO3klJvp1MThsYD.png" alt="image-20250118下午94629825" style="zoom:50%;" />
+<img src="https://s2.loli.net/2025/01/18/yO3klJvp1MThsYD.png" alt="image-20250118下午94629825"  />
 
 使用 FP 处理器 （8087） 执行上述计算
 
