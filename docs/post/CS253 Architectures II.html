@@ -670,10 +670,10 @@ EU包含ALU和控制电路</p>
 </tr>
 <tr>
 <td><code class="notranslate">JC</code></td>
-<td><strong>Carry</strong></td>
+<td>Carry</td>
 <td><code class="notranslate">CF=1</code></td>
 <td><code class="notranslate">JNC</code></td>
-<td><strong>Not Carry</strong></td>
+<td>Not Carry</td>
 <td><code class="notranslate">CF=0</code></td>
 </tr>
 <tr>
@@ -878,6 +878,7 @@ $$<br>
 <span class="pl-en">    </span><span class="pl-k">ret</span>
 
 <span class="pl-en">END</span></pre></div>
+<hr>
 <h3>Lecture 5: Assembly Language (Ⅳ)</h3>
 <h4>打印负数</h4>
 <div class="highlight highlight-source-assembly"><pre class="notranslate"><span class="pl-en">.MODEL medium</span>
@@ -1107,6 +1108,82 @@ $$</li>
 <li><code class="notranslate">FSUBR S1/D, S2</code> 与上面相反，相当于 <code class="notranslate">S1 = S2 - S1</code></li>
 <li>此外还有 <code class="notranslate">FMUL</code>，<code class="notranslate">FDIV</code>，<code class="notranslate">FMULP</code>，<code class="notranslate">FIMUL</code>，<code class="notranslate">FDIVR</code>，<code class="notranslate">FDIP</code>，<code class="notranslate">FIDIV</code> 等</li>
 </ul>
+<h3>Lecture 6: Assembly Language (V)</h3>
+<h4>浮点数计算 —— 毕达哥拉斯问题</h4>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/c893599dba3ce1d596b47d6695eded954071f655b34d52c522bf95b76ac2abc1/68747470733a2f2f73322e6c6f6c692e6e65742f323032352f30312f31382f794f336b6c4a7670314d54687359442e706e67"><img src="https://camo.githubusercontent.com/c893599dba3ce1d596b47d6695eded954071f655b34d52c522bf95b76ac2abc1/68747470733a2f2f73322e6c6f6c692e6e65742f323032352f30312f31382f794f336b6c4a7670314d54687359442e706e67" alt="image-20250118下午94629825" data-canonical-src="https://s2.loli.net/2025/01/18/yO3klJvp1MThsYD.png" style="max-width: 100%;"></a></p>
+<p>使用 FP 处理器 （8087） 执行上述计算</p>
+<div class="highlight highlight-source-assembly"><pre class="notranslate"><span class="pl-en">.</span><span class="pl-c1">8087</span><span class="pl-c">                                ; 告诉 MASM 协处理器存在</span>
+<span class="pl-en">.MODEL medium</span>
+<span class="pl-en">.STACK</span>
+<span class="pl-en">.DATA</span>
+
+<span class="pl-en">SX dd </span><span class="pl-c1">5</span><span class="pl-en">.</span><span class="pl-c1">0</span><span class="pl-c">                            ; 定义短实数（4 字节），初始值为 5.0</span>
+<span class="pl-en">SY dd </span><span class="pl-c1">12</span><span class="pl-en">.</span><span class="pl-c1">0</span><span class="pl-c">                           ; 定义短实数（4 字节），初始值为 12.0</span>
+<span class="pl-en">HY dd </span><span class="pl-c1">0</span><span class="pl-en">.</span><span class="pl-c1">0</span><span class="pl-c">                            ; 定义短实数（4 字节），用于存储结果</span>
+<span class="pl-en">cntrl dw </span><span class="pl-c1">03FFh</span><span class="pl-c">                       ; 定义控制字，用于设置 8087 协处理器的状态</span>
+<span class="pl-en">st</span><span class="pl-c1">at</span> <span class="pl-en">dw </span><span class="pl-c1">0</span><span class="pl-c">                            ; 定义状态字，用于存储 FPU 的状态</span>
+
+<span class="pl-en">.CODE</span>
+<span class="pl-en">.STARTUP</span>
+
+<span class="pl-k">FINIT</span><span class="pl-c">                                ; 初始化 FPU，将其设置为默认状态</span>
+<span class="pl-k">FLDCW</span><span class="pl-en"> cntrl</span><span class="pl-c">                          ; 加载控制字，设置舍入模式为偶数，并屏蔽中断</span>
+
+<span class="pl-k">FLD</span><span class="pl-en"> SX</span><span class="pl-c">                               ; 将 SX 压入 FPU 栈</span>
+<span class="pl-k">FMUL</span><span class="pl-en"> ST</span><span class="pl-s1">,</span><span class="pl-en"> ST(</span><span class="pl-c1">0</span><span class="pl-en">)</span><span class="pl-c">                       ; 将栈顶元素与自身相乘，结果存储在栈顶</span>
+<span class="pl-k">FLD</span><span class="pl-en"> SY</span><span class="pl-c">                               ; 将 SY 压入 FPU 栈</span>
+<span class="pl-k">FMUL</span><span class="pl-en"> ST</span><span class="pl-s1">,</span><span class="pl-en"> ST(</span><span class="pl-c1">0</span><span class="pl-en">)</span><span class="pl-c">                       ; 将栈顶元素与自身相乘，结果存储在栈顶</span>
+<span class="pl-k">FADD</span><span class="pl-c">                                 ; 将栈顶的两个数相加</span>
+<span class="pl-k">FSQRT</span><span class="pl-c">                                ; 计算栈顶元素的平方根</span>
+<span class="pl-k">FSTSW</span><span class="pl-en"> st</span><span class="pl-c1">at</span> <span class="pl-c">                          ; 将 FPU 的状态字加载到 [stat]</span>
+<span class="pl-k">mov</span><span class="pl-en"> </span><span class="pl-v">ax</span><span class="pl-s1">,</span><span class="pl-en"> st</span><span class="pl-c1">at</span> <span class="pl-c">                        ; 将 [stat] 复制到 AX</span>
+<span class="pl-k">and</span><span class="pl-en"> </span><span class="pl-v">al</span><span class="pl-s1">,</span><span class="pl-en"> </span><span class="pl-c1">0BFh</span><span class="pl-c">                         ; 检查所有 6 个状态位</span>
+<span class="pl-k">jnz</span><span class="pl-en"> pass</span><span class="pl-c">                             ; 如果有任何位被设置，则跳转到 pass</span>
+<span class="pl-k">FSTP</span><span class="pl-en"> HY</span><span class="pl-c">                              ; 将栈顶的结果存储到 HY</span>
+<span class="pl-k">jmp</span><span class="pl-en"> print</span><span class="pl-c">                            ; 跳转到打印函数</span>
+
+<span class="pl-en">print:</span>
+<span class="pl-en">    </span><span class="pl-k">mov</span><span class="pl-en"> </span><span class="pl-v">bx</span><span class="pl-s1">,</span><span class="pl-en"> OFFSET HY</span><span class="pl-c">                ; 将 HY 的地址加载到 BX 寄存器</span>
+<span class="pl-en">    </span><span class="pl-k">mov</span><span class="pl-en"> </span><span class="pl-v">ax</span><span class="pl-s1">,</span><span class="pl-en"> </span><span class="pl-s1">[</span><span class="pl-v">bx</span><span class="pl-s1">+</span><span class="pl-c1">2</span><span class="pl-s1">]</span><span class="pl-c">                   ; 将 HY+2 的值加载到 AX 寄存器</span>
+<span class="pl-en">    </span><span class="pl-k">mov</span><span class="pl-en"> </span><span class="pl-v">cx</span><span class="pl-s1">,</span><span class="pl-en"> </span><span class="pl-c1">16</span><span class="pl-c">                       ; 设置循环次数为 16</span>
+<span class="pl-en">    </span><span class="pl-k">call</span><span class="pl-en"> print_num                  </span>
+<span class="pl-en">    </span><span class="pl-k">mov</span><span class="pl-en"> </span><span class="pl-v">ax</span><span class="pl-s1">,</span><span class="pl-en"> </span><span class="pl-s1">[</span><span class="pl-v">bx</span><span class="pl-s1">]</span><span class="pl-c">                     ; 将 HY 的值加载到 AX 寄存器</span>
+<span class="pl-en">    </span><span class="pl-k">mov</span><span class="pl-en"> </span><span class="pl-v">cx</span><span class="pl-s1">,</span><span class="pl-en"> </span><span class="pl-c1">16</span>
+<span class="pl-en">    </span><span class="pl-k">call</span><span class="pl-en"> print_num</span>
+<span class="pl-en">    </span><span class="pl-k">jmp</span><span class="pl-en"> pass</span>
+
+<span class="pl-en">print_num:</span>
+<span class="pl-en">    </span><span class="pl-k">push</span><span class="pl-en"> </span><span class="pl-v">bx</span><span class="pl-c">                          ; 存储 BX 寄存器</span>
+<span class="pl-en">    </span><span class="pl-k">rol</span><span class="pl-en"> </span><span class="pl-v">ax</span><span class="pl-s1">,</span><span class="pl-en"> </span><span class="pl-c1">1</span><span class="pl-c">                        ; 将 AX 寄存器左移一位</span>
+<span class="pl-en">    </span><span class="pl-k">jc</span><span class="pl-en"> set</span><span class="pl-c">                           ; 如果 ZF=1 ，则 DL='1'</span>
+<span class="pl-en">    </span><span class="pl-k">mov</span><span class="pl-en"> </span><span class="pl-v">dl</span><span class="pl-s1">,</span><span class="pl-en"> </span><span class="pl-s">'0'</span><span class="pl-c">                      ; DL='0'</span>
+<span class="pl-en">    </span><span class="pl-k">jmp</span><span class="pl-en"> over</span>
+
+<span class="pl-en">set:</span>
+<span class="pl-en">    </span><span class="pl-k">mov</span><span class="pl-en"> </span><span class="pl-v">dl</span><span class="pl-s1">,</span><span class="pl-en"> </span><span class="pl-s">'1'</span>
+
+<span class="pl-en">over:</span>
+<span class="pl-en">    </span><span class="pl-k">push</span><span class="pl-en"> </span><span class="pl-v">ax</span><span class="pl-c">                          ; 存储 AX 寄存器</span>
+<span class="pl-en">    </span><span class="pl-k">mov</span><span class="pl-en"> </span><span class="pl-v">ah</span><span class="pl-s1">,</span><span class="pl-en"> </span><span class="pl-c1">02h</span>
+<span class="pl-en">    </span><span class="pl-k">int</span><span class="pl-en"> </span><span class="pl-c1">21h</span>
+<span class="pl-en">    </span><span class="pl-k">pop</span><span class="pl-en"> </span><span class="pl-v">ax</span><span class="pl-c">                           ; 恢复 AX 寄存器</span>
+<span class="pl-en">    </span><span class="pl-k">loop</span><span class="pl-en"> print_num</span>
+<span class="pl-en">    </span><span class="pl-k">pop</span><span class="pl-en"> </span><span class="pl-v">bx</span><span class="pl-c">                           ; 恢复 BX 寄存器</span>
+<span class="pl-en">    </span><span class="pl-k">ret</span>
+
+<span class="pl-en">pass: </span>
+<span class="pl-en">    </span><span class="pl-k">nop</span>
+
+<span class="pl-c">; 程序结束</span>
+<span class="pl-k">mov</span><span class="pl-en"> </span><span class="pl-v">ah</span><span class="pl-s1">,</span><span class="pl-en"> </span><span class="pl-c1">4Ch</span><span class="pl-c">        ; 设置 AH 为 4Ch（DOS 功能调用：程序退出）</span>
+<span class="pl-k">int</span><span class="pl-en"> </span><span class="pl-c1">21h</span>
+
+<span class="pl-en">END</span></pre></div>
+<p><code class="notranslate">HY</code>在内存中的排列：</p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/4501f7e6b9d9bc73e989b47e2205dc2d24006bffa29a8cdc0a040dee7bc8674a/68747470733a2f2f73322e6c6f6c692e6e65742f323032352f30312f31382f55486d4c68614f36533542716573622e706e67"><img src="https://camo.githubusercontent.com/4501f7e6b9d9bc73e989b47e2205dc2d24006bffa29a8cdc0a040dee7bc8674a/68747470733a2f2f73322e6c6f6c692e6e65742f323032352f30312f31382f55486d4c68614f36533542716573622e706e67" alt="image-20250118下午104917314" data-canonical-src="https://s2.loli.net/2025/01/18/UHmLhaO6S5Bqesb.png" style="max-width: 100%;"></a></p>
+<blockquote>
+<p>汇编的内容终于结束了 <del>(≧▽≦)/</del></p>
+</blockquote>
 <hr></div>
 <div style="font-size:small;margin-top:8px;float:right;"></div>
 
