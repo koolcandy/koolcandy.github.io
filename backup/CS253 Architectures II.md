@@ -397,7 +397,7 @@ das          ; 调整AL为88h (88的压缩BCD格式)
 | `JAE`  | Above or Equal   | `CF=0`           | `JNAE` | Not Above or Equal   | `CF=1`           |
 | `JB`   | Below            | `CF=1`           | `JNB`  | Not Below            | `CF=0`           |
 | `JBE`  | Below or Equal   | `ZF=1 or CF=1`   | `JNBE` | Not Below or Equal   | `ZF=0 and CF=0`  |
-| `JC`   | **Carry**        | `CF=1`           | `JNC`  | **Not Carry**        | `CF=0`           |
+| `JC`   | Carry            | `CF=1`           | `JNC`  | Not Carry            | `CF=0`           |
 | `JCXZ` | CX is Zero       | `CX=0`           | -      | -                    | -                |
 | `JE`   | Equal            | `ZF=1`           | `JNE`  | Not Equal            | `ZF=0`           |
 | `JG`   | Greater          | `ZF=0 and SF=OF` | `JNG`  | Not Greater          | `ZF=1 or SF!=OF` |
@@ -550,7 +550,7 @@ again:
 END
 ```
 
-
+---
 
 ### Lecture 5: Assembly Language (Ⅳ)
 
@@ -822,5 +822,89 @@ $$
 - `FSUBR S1/D, S2` 与上面相反，相当于 `S1 = S2 - S1`
 - 此外还有 `FMUL`，`FDIV`，`FMULP`，`FIMUL`，`FDIVR`，`FDIP`，`FIDIV` 等
 
----
+### Lecture 6: Assembly Language (V)
+
+#### 浮点数计算 —— 毕达哥拉斯问题
+
+<img src="https://s2.loli.net/2025/01/18/yO3klJvp1MThsYD.png" alt="image-20250118下午94629825" style="zoom:50%;" />
+
+使用 FP 处理器 （8087） 执行上述计算
+
+```assembly
+.8087                                ; 告诉 MASM 协处理器存在
+.MODEL medium
+.STACK
+.DATA
+
+SX dd 5.0                            ; 定义短实数（4 字节），初始值为 5.0
+SY dd 12.0                           ; 定义短实数（4 字节），初始值为 12.0
+HY dd 0.0                            ; 定义短实数（4 字节），用于存储结果
+cntrl dw 03FFh                       ; 定义控制字，用于设置 8087 协处理器的状态
+stat dw 0                            ; 定义状态字，用于存储 FPU 的状态
+
+.CODE
+.STARTUP
+
+FINIT                                ; 初始化 FPU，将其设置为默认状态
+FLDCW cntrl                          ; 加载控制字，设置舍入模式为偶数，并屏蔽中断
+
+FLD SX                               ; 将 SX 压入 FPU 栈
+FMUL ST, ST(0)                       ; 将栈顶元素与自身相乘，结果存储在栈顶
+FLD SY                               ; 将 SY 压入 FPU 栈
+FMUL ST, ST(0)                       ; 将栈顶元素与自身相乘，结果存储在栈顶
+FADD                                 ; 将栈顶的两个数相加
+FSQRT                                ; 计算栈顶元素的平方根
+FSTSW stat                           ; 将 FPU 的状态字加载到 [stat]
+mov ax, stat                         ; 将 [stat] 复制到 AX
+and al, 0BFh                         ; 检查所有 6 个状态位
+jnz pass                             ; 如果有任何位被设置，则跳转到 pass
+FSTP HY                              ; 将栈顶的结果存储到 HY
+jmp print                            ; 跳转到打印函数
+
+print:
+    mov bx, OFFSET HY                ; 将 HY 的地址加载到 BX 寄存器
+    mov ax, [bx+2]                   ; 将 HY+2 的值加载到 AX 寄存器
+    mov cx, 16                       ; 设置循环次数为 16
+    call print_num                  
+    mov ax, [bx]                     ; 将 HY 的值加载到 AX 寄存器
+    mov cx, 16
+    call print_num
+    jmp pass
+
+print_num:
+    push bx                          ; 存储 BX 寄存器
+    rol ax, 1                        ; 将 AX 寄存器左移一位
+    jc set                           ; 如果 ZF=1 ，则 DL='1'
+    mov dl, '0'                      ; DL='0'
+    jmp over
+
+set:
+    mov dl, '1'
+
+over:
+    push ax                          ; 存储 AX 寄存器
+    mov ah, 02h
+    int 21h
+    pop ax                           ; 恢复 AX 寄存器
+    loop print_num
+    pop bx                           ; 恢复 BX 寄存器
+    ret
+
+pass: 
+    nop
+
+; 程序结束
+mov ah, 4Ch        ; 设置 AH 为 4Ch（DOS 功能调用：程序退出）
+int 21h
+
+END
+```
+
+`HY`在内存中的排列：
+
+![image-20250118下午104917314](https://s2.loli.net/2025/01/18/UHmLhaO6S5Bqesb.png)
+
+> 汇编的内容终于结束了 ~\(≧▽≦)/~
+
+------
 
