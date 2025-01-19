@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0"><channel><title>win8!</title><link>https://koolcandy.github.io</link><description>一些碎碎念</description><copyright>win8!</copyright><docs>http://www.rssboard.org/rss-specification</docs><generator>python-feedgen</generator><image><url>https://s2.loli.net/2024/12/26/m9oanbD6ikhuSlN.png</url><title>avatar</title><link>https://koolcandy.github.io</link></image><lastBuildDate>Sun, 19 Jan 2025 06:49:24 +0000</lastBuildDate><managingEditor>win8!</managingEditor><ttl>60</ttl><webMaster>win8!</webMaster><item><title>CS253 Architectures II</title><link>https://koolcandy.github.io/post/CS253%20Architectures%20II.html</link><description>## CS253 Architectures II
+<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0"><channel><title>win8!</title><link>https://koolcandy.github.io</link><description>一些碎碎念</description><copyright>win8!</copyright><docs>http://www.rssboard.org/rss-specification</docs><generator>python-feedgen</generator><image><url>https://s2.loli.net/2024/12/26/m9oanbD6ikhuSlN.png</url><title>avatar</title><link>https://koolcandy.github.io</link></image><lastBuildDate>Sun, 19 Jan 2025 15:43:27 +0000</lastBuildDate><managingEditor>win8!</managingEditor><ttl>60</ttl><webMaster>win8!</webMaster><item><title>CS253 Architectures II</title><link>https://koolcandy.github.io/post/CS253%20Architectures%20II.html</link><description>## CS253 Architectures II
 
 ### Lecture 1: CPU
 
@@ -11,7 +11,7 @@
 
 **冯诺伊曼架构**和**Harvard架构**
 
-![image-20250113150019146](https://s2.loli.net/2025/01/13/sJDwESPr8o4dnvm.png)
+![img](https://s2.loli.net/2025/01/13/sJDwESPr8o4dnvm.png)
 
 冯诺依曼结构的处理器使用**同一个存储器, 经由同一个总线传输**
 
