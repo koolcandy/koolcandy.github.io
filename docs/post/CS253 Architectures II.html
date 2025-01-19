@@ -1264,7 +1264,25 @@ EU包含ALU和控制电路</p>
 <p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/e90473ac428f38f22e0f6c862e67c6315c9c793b164cec0f6733416867196d94/68747470733a2f2f73322e6c6f6c692e6e65742f323032352f30312f31392f7842456362515847345244736557502e706e67"><img src="https://camo.githubusercontent.com/e90473ac428f38f22e0f6c862e67c6315c9c793b164cec0f6733416867196d94/68747470733a2f2f73322e6c6f6c692e6e65742f323032352f30312f31392f7842456362515847345244736557502e706e67" alt="image-20250119下午15738975" data-canonical-src="https://s2.loli.net/2025/01/19/xBEcbQXG4RDseWP.png" style="max-width: 100%;"></a></p>
 <h4>硅的制造</h4>
 <p>应该不重要, 略</p>
-<h3>Lecture 9: Digital I/O</h3></div>
+<h3>Lecture 9: Digital I/O</h3>
+<h4>I/O</h4>
+<p>8086 微处理器使用 20 位地址总线进行内存读写，并支持 16 位的输入/输出（I/O）地址空间。为了实现内存和 I/O 操作的区分，CPU 通过一条额外的控制线来选择是进行内存访问还是 I/O 访问。</p>
+<p><strong>I/O 地址空间</strong></p>
+<ul>
+<li>I/O 空间中的位置被称为端口。</li>
+<li>8086 的 I/O 地址空间为 16 位，可以映射为 64K 的 8 位端口（字节）或 32K 的 16 位端口（字）。</li>
+<li>与控制内存相比，控制 I/O 端口的指令数量较少。</li>
+<li>某些硬件设备（如屏幕）被映射到内存空间，而不是 I/O 空间。</li>
+</ul>
+<p><strong>总线共享</strong></p>
+<p>由于 8086 硬件引脚的局限性，内存总线和数据总线共享相同的引脚。因此，需要一条额外的控制线来区分是访问内存还是 I/O 数据。</p>
+<p><strong>内存访问周期</strong></p>
+<p>8086 需要 <strong>4 个时钟周期</strong>来完成一次内存访问：</p>
+<ol>
+<li><strong>第 1 个周期</strong>：发送地址。</li>
+<li><strong>第 2-3 个周期</strong>：等待内存响应和数据传输。</li>
+<li><strong>第 4 个周期</strong>：结束周期。</li>
+</ol></div>
 <div style="font-size:small;margin-top:8px;float:right;"></div>
 
 <button class="btn btn-block" type="button" onclick="openComments()" id="cmButton">评论</button>
