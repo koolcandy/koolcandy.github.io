@@ -10,7 +10,7 @@
 
 **冯诺伊曼架构**和**Harvard架构**
 
-![image-20250113150019146](https://s2.loli.net/2025/01/13/sJDwESPr8o4dnvm.png)
+![img](https://s2.loli.net/2025/01/13/sJDwESPr8o4dnvm.png)
 
 冯诺依曼结构的处理器使用**同一个存储器, 经由同一个总线传输**
 
@@ -18,7 +18,7 @@
 
 #### 8086的硬件组成
 
-![image-20250113154827835](https://s2.loli.net/2025/01/13/m2kdoTtbw8MYcWz.png)
+![img](https://s2.loli.net/2025/01/13/m2kdoTtbw8MYcWz.png)
 
 **BIU: 总线接口单元**
 BIU发送地址, 从内存中获取指令, 并对端口和内存进行读写操作
@@ -43,11 +43,11 @@ EU包含ALU和控制电路
 - **complement**: 取反  
 - **shift 16-bit binary numbers**: 移位 (16位二进制数 )  
 
-![image-20250113155637195](https://s2.loli.net/2025/01/13/jqoGxpcAhRwQDuS.png)
+![img](https://s2.loli.net/2025/01/13/jqoGxpcAhRwQDuS.png)
 
 左移右移的实现方法:
 
-![image-20250113160040331](https://s2.loli.net/2025/01/13/jq8DOK7XleVby6m.png)
+![img](https://s2.loli.net/2025/01/13/jq8DOK7XleVby6m.png)
 
 ---
 
@@ -59,7 +59,7 @@ EU包含ALU和控制电路
 
 8086 有 8 个通用寄存器, 可以将它们视为 8 个变量, 某些指令可以成对使用 registers, 从而提供 16 位操作, 当用作寄存器对时, 它们被赋予集体名称 AX、BX、CX、DX
 
-![image-20250113160807554](https://s2.loli.net/2025/01/13/6XusCizPvyElda5.png)
+![img](https://s2.loli.net/2025/01/13/6XusCizPvyElda5.png)
 
 **标志位寄存器**
 
@@ -76,13 +76,13 @@ EU包含ALU和控制电路
 - **PF: Parity flag (奇偶校验标志)**  
 - **CF: Carry flag (进位标志)**  
 
-![image-20250113164111767](https://s2.loli.net/2025/01/13/gKDLaGo7bkx8ApV.png)
+![img](https://s2.loli.net/2025/01/13/gKDLaGo7bkx8ApV.png)
 
 #### 8086的分段内存模型
 
 因为8086的寄存器只有16位, 为了让它能访问20位的地址, 需要使用CS 寄存器给出代码段地址, IP 寄存器给出偏移距离, 然后计算出指令的内存地址位置
 
-![image-20250113165505161](https://s2.loli.net/2025/01/13/jVTmYHvgo5yWqn4.png)
+![img](https://s2.loli.net/2025/01/13/jVTmYHvgo5yWqn4.png)
 
 类似的, 这些段寄存器也都是为了使用8086的分段内存模型
 
@@ -116,15 +116,15 @@ EU包含ALU和控制电路
 
 **程序结构**
 
-![image-20250113174933390](https://s2.loli.net/2025/01/13/upM8tPTJZV7G6Ys.png)
+![img](https://s2.loli.net/2025/01/13/upM8tPTJZV7G6Ys.png)
 
 **编译过程**
 
-![image-20250113175235627](https://s2.loli.net/2025/01/13/KgnFof1tA2mGOVy.png)
+![img](https://s2.loli.net/2025/01/13/KgnFof1tA2mGOVy.png)
 
 **运算符和操作数**
 
-![image-20250113175349702](https://s2.loli.net/2025/01/13/xihBSNqcRGupv5V.png)
+![img](https://s2.loli.net/2025/01/13/xihBSNqcRGupv5V.png)
 
 这里的Operand也可以称作`立即数`
 
@@ -209,7 +209,7 @@ END
 
 #### 8086 指令格式
 
-![image-20250113220000605](https://s2.loli.net/2025/01/13/ENAvqQBwh7eMtfO.png)
+![img](https://s2.loli.net/2025/01/13/ENAvqQBwh7eMtfO.png)
 
 **Byte 1: **
 
@@ -231,7 +231,7 @@ END
 
 #### 8086寻址模式
 
-![image-20250113221258650](https://s2.loli.net/2025/01/13/cSqZUoIT2Of1tY4.png)
+![img](https://s2.loli.net/2025/01/13/cSqZUoIT2Of1tY4.png)
 
 **Mod=00**:  **没有偏移量**, 或者仅仅是使用寄存器进行内存间接寻址
 
@@ -282,7 +282,7 @@ END
 
 了解即可, 看不懂, 去死吧！[介绍](https://goo.su/Q3MVxu)
 
-![image-20250114140014523](https://s2.loli.net/2025/01/14/gFcZlVukbrEM7zt.png)
+![img](https://s2.loli.net/2025/01/14/gFcZlVukbrEM7zt.png)
 
 **AAA (加法后的ASCII调整)**
 ```assembly
@@ -336,7 +336,7 @@ das          ; 调整AL为88h (88的压缩BCD格式)
 
 #### 逻辑指令
 
-![image-20250114192610412](https://s2.loli.net/2025/01/14/21jtb5mxlWLsIKk.png)
+![img](https://s2.loli.net/2025/01/14/21jtb5mxlWLsIKk.png)
 
 | 指令  | 示例               | 含义                            |
 | ----- | ------------------ | ------------------------------- |
@@ -352,7 +352,7 @@ das          ; 调整AL为88h (88的压缩BCD格式)
 
 #### 逻辑偏移
 
-![image-20250114194130264](https://s2.loli.net/2025/01/17/SVDghbI2UTnLW8J.png)
+![img](https://s2.loli.net/2025/01/17/SVDghbI2UTnLW8J.png)
 
 | 指令 | 示例 | 含义 |
 |------|------|------|
@@ -807,15 +807,15 @@ $\text{Value} = 0.00000000000000000000001_2 \times 2^{-126} \approx 1.4 \times 1
 
 8087 是一种 **数学协处理器**, 也被称为 **浮点处理器** 或 **数字数据处理器 (Numeric Data Processor, NDP)**。 它不是一个独立的中央处理器 (CPU), 而是被设计用来与 Intel 的 8086、8088 等 CPU 一起工作, 以加速浮点运算。
 
-![image-20250117下午40544444](https://s2.loli.net/2025/01/17/Nqe5dL6AnGW4b9l.png)
+![img](https://s2.loli.net/2025/01/17/Nqe5dL6AnGW4b9l.png)
 
 **状态字组**
 
-![image-20250117下午40632589](https://s2.loli.net/2025/01/17/9kFJtIMY6uq3oA7.png)
+![img](https://s2.loli.net/2025/01/17/9kFJtIMY6uq3oA7.png)
 
 **控制字组**
 
-![image-20250117下午40754970](https://s2.loli.net/2025/01/17/Morvu9qm1d6ZICk.png)
+![img](https://s2.loli.net/2025/01/17/Morvu9qm1d6ZICk.png)
 
 **栈**
 
@@ -823,7 +823,7 @@ $\text{Value} = 0.00000000000000000000001_2 \times 2^{-126} \approx 1.4 \times 1
 每次压入新数据到栈当中, 栈底数据被覆盖, 就和移位运算差不多
 在 MASM 汇编代码当中, `ST(0)` 始终表示栈顶, `ST(1~7)` 表示栈中其他元素。
 
-![image-20250117下午41054852](https://s2.loli.net/2025/01/17/cXJCY3xZ6r4gRNV.png)
+![img](https://s2.loli.net/2025/01/17/cXJCY3xZ6r4gRNV.png)
 
 **8087 指令**
 
@@ -912,7 +912,7 @@ END
 
 `HY`在内存中的排列: 
 
-![image-20250118下午104917314](https://s2.loli.net/2025/01/18/UHmLhaO6S5Bqesb.png)
+![img](https://s2.loli.net/2025/01/18/UHmLhaO6S5Bqesb.png)
 
 > 汇编的内容终于结束了 ~\(≧▽≦)/~
 
@@ -924,13 +924,13 @@ END
 
 原子和固体能级的区别: 
 
-![image-20250119上午111043766](https://s2.loli.net/2025/01/19/m3t47LFRE5oKbPX.png)
+![img](https://s2.loli.net/2025/01/19/m3t47LFRE5oKbPX.png)
 
 > 在原子中, 电子围绕着原子核运动, 并占据着一定的能级。原子的能级结构则直接决定了原子的化学性质和物理性质。原子的能级结构又与能带的性质密切相关, 因此能带和原子能级是密切相关的。
 >
 > 能带是固体物质中电子能量的区间。在一个固体中, 电子不再局限于单个原子, 而是能够在整个固体中自由移动, 因此它们的能量是连续的, 可以形成一段能量区间。能带的性质则取决于原子间的相互作用、晶体结构等因素。
 
-![image-20250119上午111324837](https://s2.loli.net/2025/01/19/JuPEMSqH18OAnl6.png)
+![img](https://s2.loli.net/2025/01/19/JuPEMSqH18OAnl6.png)
 
 - 绝缘体需要大量的能量才能使电子进入导带
 - 导体需要很少的能量
@@ -940,33 +940,33 @@ END
 
 P型硅掺入硼, 空穴导电
 
-![image-20250119上午112530151](https://s2.loli.net/2025/01/19/p4xkj8gN6bMmHPV.png)
+![img](https://s2.loli.net/2025/01/19/p4xkj8gN6bMmHPV.png)
 
 N型硅掺入磷, 电子导电
 
-![image-20250119上午112610308](https://s2.loli.net/2025/01/19/JgZ4YMKTH6GRmku.png)
+![img](https://s2.loli.net/2025/01/19/JgZ4YMKTH6GRmku.png)
 
-![image-20250119上午112837782](https://s2.loli.net/2025/01/19/2mHBKhcOuLRwJ8U.png)
+![img](https://s2.loli.net/2025/01/19/2mHBKhcOuLRwJ8U.png)
 
 #### 二极管
 
 在 P-type Silicon, N-type Silicon 硅的交汇处, 电子和空穴穿过结部移动并结合。这会产生一个称为耗尽区的非导电区域, 于是就会形成 PN 结
 
-![image-20250119下午120821727](https://s2.loli.net/2025/01/19/pmWTBIUyuhcnfQE.png)
+![img](https://s2.loli.net/2025/01/19/pmWTBIUyuhcnfQE.png)
 
 正向偏置 PN 结二极管: 正极排斥空穴, 负极吸引电子, **耗尽区消失, 电流流过电路**
 
-![image-20250119下午121125800](https://s2.loli.net/2025/01/19/zNbQdSlADr8f5FW.png)
+![img](https://s2.loli.net/2025/01/19/zNbQdSlADr8f5FW.png)
 
 反向偏置 PN 结二极管: 正极端子吸引空穴, 负极端子排斥电子, **耗尽区变大, 没有电流流过电路**
 
-![image-20250119下午121943458](https://s2.loli.net/2025/01/19/KnLS6QTxwrVA4ED.png)
+![img](https://s2.loli.net/2025/01/19/KnLS6QTxwrVA4ED.png)
 
 故电子的流动方向是 **N-type Silicon -> P-type Silicon**, 导电方向是 **P -> N**
 
 **二极管的伏安曲线**
 
-![image-20250119下午122254927](https://s2.loli.net/2025/01/19/A1KgNmDIkcO52WG.png)
+![img](https://s2.loli.net/2025/01/19/A1KgNmDIkcO52WG.png)
 
 **二极管的用途**
 
@@ -983,7 +983,7 @@ N型硅掺入磷, 电子导电
 - **输入**：一个小电流 (基极电流, I<sub>B</sub>) 
 - **输出**：一个大电流（集电极电流, I<sub>C</sub>) 
 
-![image-20250119下午124320963](https://s2.loli.net/2025/01/19/xFAEpb9w8lIi2jU.png)
+![img](https://s2.loli.net/2025/01/19/xFAEpb9w8lIi2jU.png)
 
 **电流增益**
 
@@ -1013,7 +1013,7 @@ $I_C=\beta\times I_B=100\times1\text{ mA}=100\text{ mA}$
 
 当且仅当 I<sub>A</sub> = I<sub>B</sub> = 0 时, 此时三极管相当于一个大电阻。于是电流只能流向 Output, 若 I<sub>A</sub> + I<sub>B</sub> ≠ 0, 此时输出线被短路, 电流全部流向 I<sub>E</sub>
 
-![image-20250119下午10438068](https://s2.loli.net/2025/01/19/ZjXD8wz2sflk1mQ.png)
+![img](https://s2.loli.net/2025/01/19/ZjXD8wz2sflk1mQ.png)
 
 #### MOSFET
 
@@ -1024,13 +1024,13 @@ MOS FET由以下几部分组成：
 - **漏极（Drain, D) **：电流的出口。
 - **衬底（Body, B) **：通常是硅材料, 与源极或漏极连接。
 
-![image-20250119下午11846623](https://s2.loli.net/2025/01/19/CvHbphekSDg5JRy.png)
+![img](https://s2.loli.net/2025/01/19/CvHbphekSDg5JRy.png)
 
 更好的例子:
 
 如图, 以下是一个**NMOS**, 这时候我们给这个结构通电. 就会有大量的电子被吸引到这片区域, 在填充空穴的同时还会多出很多自由电子, 达成平衡后, 在这片区域的下方也会因为扩散作用产生新的耗尽层, 这个区域叫做**N沟道**, 电路就被导通了, 这个时候我们就得到了一个电压控制的开关
 
-![image-20250119下午14846425](https://s2.loli.net/2025/01/19/H4j15LMIwV6UeWT.png)
+![img](https://s2.loli.net/2025/01/19/H4j15LMIwV6UeWT.png)
 
 这部分比较抽象了, 建议看这个[视频](https://www.bilibili.com/video/BV1nL411x7jH/)
 
@@ -1039,7 +1039,7 @@ MOS FET由以下几部分组成：
 - 输入高电平时, NMOS 导通, PMOS 截止, 输出低电平
 - 输入低电平时, PMOS 导通, NMOS 截止, 输出高电平
 
-![image-20250119下午15738975](https://s2.loli.net/2025/01/19/xBEcbQXG4RDseWP.png)
+![img](https://s2.loli.net/2025/01/19/xBEcbQXG4RDseWP.png)
 
 #### 硅的制造
 
@@ -1069,3 +1069,89 @@ MOS FET由以下几部分组成：
 1. **第 1 个周期**：发送地址。
 2. **第 2-3 个周期**：等待内存响应和数据传输。
 3. **第 4 个周期**：结束周期。 
+
+#### Z80A CPU 架构
+
+相比 8086，Z80A 的数据总线和地址总线是分开的
+
+![img](https://s2.loli.net/2025/01/19/PXrtv54x8d3UAD2.png)
+
+一个 **AND 门** 作为地址解码器，当 16 个输入与设备地址匹配时输出 **真**，否则输出 **假**。两根控制线（绿色、紫色）指示是否对该设备进行操作
+
+![img](https://s2.loli.net/2025/01/19/oKC2ryEbsckfAG1.jpg)
+
+三个值（地址匹配结果和两根控制线）通过 **AND 门** 组合成一个控制信号，传递给 **三态缓冲器** (具有三种输出状态：高电平（1）, 低电平（0）, 高阻态（High-Z） , 三态缓冲器根据控制信号决定将输入直接传输到输出，还是切换断开连接
+
+![img](https://s2.loli.net/2023/05/23/QC4m9yvVDl1XNYr.png)
+
+对于输出型号，就是三态缓冲器换成了 D 触发器
+
+![img](https://s2.loli.net/2025/01/19/5QW1Opjd7wDyT6U.jpg)
+
+#### 汇编的 I/O
+
+**OUT 指令**
+
+**OUT** 指令用于将数据从 CPU 的寄存器（通常是累加器，如 `AL`、`AX` 或 `EAX`）写入指定的 I/O 端口。
+
+```assembly
+OUT port, acc
+```
+
+- **port**：I/O 端口地址。
+- **acc**：累加器（`AL`、`AX` 或 `EAX`），存储要写入的数据。
+
+**两种模式**
+
+- **立即数模式**：
+  端口地址直接指定为立即数（0-255），只能访问 256 个端口。
+
+   ```assembly
+   OUT AL, 30h  ; 将 AL 中的数据写入端口 30h
+   ```
+
+-  **DX 寄存器模式**：
+   端口地址存储在 `DX` 寄存器中，可以访问 64K 个端口（0-65535）。
+
+   ```assembly
+   OUT DX, AX   ; 将 AX 中的数据写入 DX 指定的端口
+   ```
+
+**IN 指令**
+
+**IN** 指令用于从指定的 I/O 端口读取数据到 CPU 的寄存器（通常是累加器，如 `AL`、`AX` 或 `EAX`）。
+
+```assembly
+IN acc, port
+```
+
+- **acc**：累加器（`AL`、`AX` 或 `EAX`），用于存储从端口读取的数据。
+- **port**：I/O 端口地址。
+
+**两种模式**
+
+- **立即数模式**：
+  端口地址直接指定为立即数（0-255），只能访问 256 个端口。
+
+  ```assembly
+  IN AL, 30h  ; 从端口 30h 读取 8 位数据到 AL
+  ```
+
+- **DX 寄存器模式**：
+  端口地址存储在 `DX` 寄存器中，可以访问 64K 个端口（0-65535）。
+
+  ```assembly
+  IN AX, DX   ; 从 DX 指定的端口读取 16 位数据到 AX
+  ```
+
+> [!NOTE]
+>
+> **IOPL**（I/O Privilege Level，I/O 特权级）是 x86 架构中用于控制 **I/O 端口访问权限** 的机制。它存储在 **EFLAGS 寄存器** 的第 12 和 13 位，定义了执行 I/O 指令（如 `IN`、`OUT`）所需的最低特权级。
+>
+> IOPL 是一个 2 位的值，取值范围为 0 到 3：
+>
+> - **当 CPL ≤ IOPL 时**：程序可以直接执行 I/O 指令（如 `IN`、`OUT`）。
+> - **当 CPL > IOPL 时**：程序无法直接执行 I/O 指令。如果尝试执行，会触发 **一般保护异常**（General Protection Fault, #GP）。
+
+#### 中断
+
