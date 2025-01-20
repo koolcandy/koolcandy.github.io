@@ -156,6 +156,25 @@ EU包含ALU和控制电路</p>
 <p><strong>通用寄存器</strong></p>
 <p>8086 有 8 个通用寄存器, 可以将它们视为 8 个变量, 某些指令可以成对使用 registers, 从而提供 16 位操作, 当用作寄存器对时, 它们被赋予集体名称 AX、BX、CX、DX</p>
 <p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/75278f6b33827f604d991c21a24827751906129b3057703d59c04a1a681637f1/68747470733a2f2f73322e6c6f6c692e6e65742f323032352f30312f31332f3658757343697a507679456c6461352e706e67"><img src="https://camo.githubusercontent.com/75278f6b33827f604d991c21a24827751906129b3057703d59c04a1a681637f1/68747470733a2f2f73322e6c6f6c692e6e65742f323032352f30312f31332f3658757343697a507679456c6461352e706e67" alt="img" data-canonical-src="https://s2.loli.net/2025/01/13/6XusCizPvyElda5.png" style="max-width: 100%;"></a></p>
+<p><strong>指针和变址寄存器</strong></p>
+<ul>
+<li>SP (堆栈指针): 指向堆栈顶部</li>
+<li>BP (基址指针): 用于访问堆栈中的参数和局部变量</li>
+<li>SI (源变址寄存器): 用于字符串操作中的源地址</li>
+<li>DI (目的变址寄存器): 用于字符串操作中的目的地址。</li>
+</ul>
+<p><strong>段寄存器</strong></p>
+<ul>
+<li>CS (代码段): 指向当前代码段</li>
+<li>DS (数据段): 指向当前数据段</li>
+<li>SS (堆栈段): 指向当前堆栈段</li>
+<li>ES (附加段): 指向附加数据段</li>
+</ul>
+<p><strong>控制寄存器</strong></p>
+<ul>
+<li>IP (指令指针): 指向下一条要执行的指令</li>
+<li>FLAGS (标志寄存器): 存储状态和控制标志</li>
+</ul>
 <p><strong>标志位寄存器</strong></p>
 <p>8086 在特殊的 16 位标志寄存器中跟踪某些计算的结果</p>
 <ul>
