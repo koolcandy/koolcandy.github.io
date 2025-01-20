@@ -241,6 +241,25 @@ EU包含ALU和控制电路</p>
 <span class="pl-en">.EXIT</span>
 
 <span class="pl-en">END</span></pre></div>
+<p>当然也可以更简单</p>
+<div class="highlight highlight-source-assembly"><pre class="notranslate"><span class="pl-en">.MODEL small</span>
+<span class="pl-en">.STACK</span>
+<span class="pl-en">.DATA</span>
+<span class="pl-en">    msg DB </span><span class="pl-s">'Hello, World!$'</span><span class="pl-c">    ; 定义字符串，以$结尾</span>
+<span class="pl-en">    </span>
+<span class="pl-en">.CODE</span>
+<span class="pl-en">.STARTUP</span>
+
+<span class="pl-en">    </span><span class="pl-k">mov</span><span class="pl-en"> </span><span class="pl-v">ax</span><span class="pl-s1">,</span><span class="pl-en"> @data</span>
+<span class="pl-en">    </span><span class="pl-k">mov</span><span class="pl-en"> </span><span class="pl-v">ds</span><span class="pl-s1">,</span><span class="pl-en"> </span><span class="pl-v">ax</span>
+
+<span class="pl-en">    </span><span class="pl-k">mov</span><span class="pl-en"> </span><span class="pl-v">ah</span><span class="pl-s1">,</span><span class="pl-en"> </span><span class="pl-c1">09h</span><span class="pl-c">               ; 打印字符串</span>
+<span class="pl-en">    </span><span class="pl-k">lea</span><span class="pl-en"> </span><span class="pl-v">dx</span><span class="pl-s1">,</span><span class="pl-en"> msg</span>
+<span class="pl-en">    </span><span class="pl-k">int</span><span class="pl-en"> </span><span class="pl-c1">21h</span>
+
+<span class="pl-en">.EXIT</span>
+
+<span class="pl-en">END</span></pre></div>
 <p><strong>常用 21h 功能号</strong></p>
 <ul>
 <li><strong>01h:</strong> 从键盘读取一个字符, 并将字符存入 AL 寄存器</li>
@@ -578,43 +597,35 @@ EU包含ALU和控制电路</p>
 <thead>
 <tr>
 <th>指令</th>
-<th>示例</th>
 <th>含义</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td><code class="notranslate">CLC</code></td>
-<td><code class="notranslate">CLC</code></td>
 <td>进位标志置零</td>
 </tr>
 <tr>
-<td><code class="notranslate">STC</code></td>
 <td><code class="notranslate">STC</code></td>
 <td>进位标志设一</td>
 </tr>
 <tr>
 <td><code class="notranslate">CMC</code></td>
-<td><code class="notranslate">CMC</code></td>
 <td>进位标志取反</td>
 </tr>
 <tr>
-<td><code class="notranslate">CLD</code></td>
 <td><code class="notranslate">CLD</code></td>
 <td>方向标志置零</td>
 </tr>
 <tr>
 <td><code class="notranslate">STD</code></td>
-<td><code class="notranslate">STD</code></td>
 <td>方向标志设一</td>
 </tr>
 <tr>
 <td><code class="notranslate">CLI</code></td>
-<td><code class="notranslate">CLI</code></td>
 <td>IF 置零, 关闭中断</td>
 </tr>
 <tr>
-<td><code class="notranslate">STI</code></td>
 <td><code class="notranslate">STI</code></td>
 <td>IF 设一, 打开中断</td>
 </tr>
@@ -1093,6 +1104,7 @@ EU包含ALU和控制电路</p>
 <li><code class="notranslate">FSUBR S1/D, S2</code> 与上面相反, 相当于 <code class="notranslate">S1 = S2 - S1</code></li>
 <li>此外还有 <code class="notranslate">FMUL</code>, <code class="notranslate">FDIV</code>, <code class="notranslate">FMULP</code>, <code class="notranslate">FIMUL</code>, <code class="notranslate">FDIVR</code>, <code class="notranslate">FDIP</code>, <code class="notranslate">FIDIV</code> 等</li>
 </ul>
+<hr>
 <h3>Lecture 6: Assembly Language (V)</h3>
 <h4>浮点数计算 —— 毕达哥拉斯问题</h4>
 <p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/c893599dba3ce1d596b47d6695eded954071f655b34d52c522bf95b76ac2abc1/68747470733a2f2f73322e6c6f6c692e6e65742f323032352f30312f31382f794f336b6c4a7670314d54687359442e706e67"><img src="https://camo.githubusercontent.com/c893599dba3ce1d596b47d6695eded954071f655b34d52c522bf95b76ac2abc1/68747470733a2f2f73322e6c6f6c692e6e65742f323032352f30312f31382f794f336b6c4a7670314d54687359442e706e67" alt="image-20250118下午94629825" data-canonical-src="https://s2.loli.net/2025/01/18/yO3klJvp1MThsYD.png" style="max-width: 100%;"></a></p>
@@ -1206,6 +1218,7 @@ EU包含ALU和控制电路</p>
 <li>电路保护: 防止损坏过电压或极性错误</li>
 <li>逻辑: 搭建逻辑门</li>
 </ul>
+<hr>
 <h3>Lecture 8: Transistors and FETS</h3>
 <h4>结型晶体管</h4>
 <p>下图是一个NPN 类型的结型晶体管 (俗称三极管) , 由三部分构成发射极 (emitter) , 基极 (base) , 集电极 (collector) , 是一种用电流控制电流的半导体器件, 就像一个小阀门：</p>
@@ -1264,84 +1277,382 @@ EU包含ALU和控制电路</p>
 <p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/e90473ac428f38f22e0f6c862e67c6315c9c793b164cec0f6733416867196d94/68747470733a2f2f73322e6c6f6c692e6e65742f323032352f30312f31392f7842456362515847345244736557502e706e67"><img src="https://camo.githubusercontent.com/e90473ac428f38f22e0f6c862e67c6315c9c793b164cec0f6733416867196d94/68747470733a2f2f73322e6c6f6c692e6e65742f323032352f30312f31392f7842456362515847345244736557502e706e67" alt="img" data-canonical-src="https://s2.loli.net/2025/01/19/xBEcbQXG4RDseWP.png" style="max-width: 100%;"></a></p>
 <h4>硅的制造</h4>
 <p>应该不重要, 略</p>
+<hr>
 <h3>Lecture 9: Digital I/O</h3>
 <h4>I/O</h4>
-<p>8086 微处理器使用 20 位地址总线进行内存读写，并支持 16 位的输入/输出（I/O）地址空间。为了实现内存和 I/O 操作的区分，CPU 通过一条额外的控制线来选择是进行内存访问还是 I/O 访问。</p>
+<p>8086 微处理器使用 20 位地址总线进行内存读写，并支持 16 位的 I/O 地址空间, 为了实现内存和 I/O 操作的区分，CPU 通过一条额外的控制线来选择是进行内存访问还是 I/O 访问</p>
 <p><strong>I/O 地址空间</strong></p>
 <ul>
-<li>I/O 空间中的位置被称为端口。</li>
-<li>8086 的 I/O 地址空间为 16 位，可以映射为 64K 的 8 位端口（字节）或 32K 的 16 位端口（字）。</li>
-<li>与控制内存相比，控制 I/O 端口的指令数量较少。</li>
-<li>某些硬件设备（如屏幕）被映射到内存空间，而不是 I/O 空间。</li>
+<li>I/O 空间中的位置被称为端口</li>
+<li>8086 的 I/O 地址空间为 16 位，可以映射为 64K 的 8 位端口 （字节） 或 32K 的 16 位端口 （字）</li>
+<li>与控制内存相比，控制 I/O 端口的指令数量较少</li>
+<li>某些硬件设备 （如屏幕） 被映射到内存空间，而不是 I/O 空间</li>
 </ul>
+<p><strong>常见的 I/O 地址</strong></p>
+<markdown-accessiblity-table><table role="table">
+<thead>
+<tr>
+<th><strong>地址</strong></th>
+<th><strong>名称</strong></th>
+<th align="left"><strong>方向</strong></th>
+<th align="left"><strong>用途</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>0x378</strong></td>
+<td>Parallel Printer Latch</td>
+<td align="left">输出</td>
+<td align="left">并行打印机数据端口，通常用于 LPT1 (Line Printer 1) , 向打印机发送数据</td>
+</tr>
+<tr>
+<td><strong>0x37A</strong></td>
+<td>Printer Control Latch</td>
+<td align="left">输出</td>
+<td align="left">并行打印机控制端口，通常用于 LPT1, 控制打印机的操作 （如初始化，选择打印机等）</td>
+</tr>
+<tr>
+<td><strong>0x379</strong></td>
+<td>Printer Status</td>
+<td align="left">输入</td>
+<td align="left">并行打印机状态端口，通常用于 LPT1, 读取打印机的状态信息 （如是否忙碌，是否有纸等）</td>
+</tr>
+<tr>
+<td><strong>0x3D9</strong></td>
+<td>VDU Colour Register</td>
+<td align="left">输出</td>
+<td align="left">视频显示单元 (VDU) 颜色寄存器，用于设置 DOS 文本模式下的边框颜色</td>
+</tr>
+<tr>
+<td><strong>0x278</strong></td>
+<td>Parallel Printer Latch</td>
+<td align="left">输出</td>
+<td align="left">并行打印机数据端口，通常用于 LPT2 (Line Printer 2) , 向打印机发送数据</td>
+</tr>
+</tbody>
+</table></markdown-accessiblity-table>
 <p><strong>总线共享</strong></p>
-<p>由于 8086 硬件引脚的局限性，内存总线和数据总线共享相同的引脚。因此，需要一条额外的控制线来区分是访问内存还是 I/O 数据。</p>
+<p>由于 8086 硬件引脚的局限性，内存总线和数据总线共享相同的引脚, 因此，需要一条额外的控制线来区分是访问内存还是 I/O 数据</p>
 <p><strong>内存访问周期</strong></p>
 <p>8086 需要 <strong>4 个时钟周期</strong>来完成一次内存访问：</p>
 <ol>
-<li><strong>第 1 个周期</strong>：发送地址。</li>
-<li><strong>第 2-3 个周期</strong>：等待内存响应和数据传输。</li>
-<li><strong>第 4 个周期</strong>：结束周期。</li>
+<li><strong>第 1 个周期</strong>：发送地址</li>
+<li><strong>第 2-3 个周期</strong>：等待内存响应和数据传输</li>
+<li><strong>第 4 个周期</strong>：结束周期,</li>
 </ol>
 <h4>Z80A CPU 架构</h4>
-<p>相比 8086，Z80A 的数据总线和地址总线是分开的</p>
+<p>相比 8086, Z80A 的数据总线和地址总线是分开的</p>
 <p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/8c793589cb9786fe440129e0feb21fb296ee70ae1629a3ed53430f2547e178af/68747470733a2f2f73322e6c6f6c692e6e65742f323032352f30312f31392f5058727476353478386433554144322e706e67"><img src="https://camo.githubusercontent.com/8c793589cb9786fe440129e0feb21fb296ee70ae1629a3ed53430f2547e178af/68747470733a2f2f73322e6c6f6c692e6e65742f323032352f30312f31392f5058727476353478386433554144322e706e67" alt="img" data-canonical-src="https://s2.loli.net/2025/01/19/PXrtv54x8d3UAD2.png" style="max-width: 100%;"></a></p>
-<p>一个 <strong>AND 门</strong> 作为地址解码器，当 16 个输入与设备地址匹配时输出 <strong>真</strong>，否则输出 <strong>假</strong>。两根控制线（绿色、紫色）指示是否对该设备进行操作</p>
+<p>一个 <strong>AND 门</strong> 作为地址解码器，当 16 个输入与设备地址匹配时输出 <strong>真</strong>, 否则输出 <strong>假</strong>, 两根控制线 （绿色，紫色） 指示是否对该设备进行操作</p>
 <p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/a0c832724122eea66291cc3b9c1b5ffa8e82f4b475d3639a25cbe13e05d83905/68747470733a2f2f73322e6c6f6c692e6e65742f323032352f30312f31392f6f4b43327279456273636b664147312e6a7067"><img src="https://camo.githubusercontent.com/a0c832724122eea66291cc3b9c1b5ffa8e82f4b475d3639a25cbe13e05d83905/68747470733a2f2f73322e6c6f6c692e6e65742f323032352f30312f31392f6f4b43327279456273636b664147312e6a7067" alt="img" data-canonical-src="https://s2.loli.net/2025/01/19/oKC2ryEbsckfAG1.jpg" style="max-width: 100%;"></a></p>
-<p>三个值（地址匹配结果和两根控制线）通过 <strong>AND 门</strong> 组合成一个控制信号，传递给 <strong>三态缓冲器</strong> (具有三种输出状态：高电平（1）, 低电平（0）, 高阻态（High-Z） , 三态缓冲器根据控制信号决定将输入直接传输到输出，还是切换断开连接</p>
+<p>三个值 （地址匹配结果和两根控制线） 通过 <strong>AND 门</strong> 组合成一个控制信号，传递给 <strong>三态缓冲器</strong> （具有三种输出状态：高电平 (1) , 低电平 (0) , 高阻态 (High-Z)  , 三态缓冲器根据控制信号决定将输入直接传输到输出，还是切换断开连接</p>
 <p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/8c2715beb884c4b0ebaeeb549cd3abdfd786a2245b7b10af42eefb0f8924185a/68747470733a2f2f73322e6c6f6c692e6e65742f323032332f30352f32332f5143346d39797656446c31584e59722e706e67"><img src="https://camo.githubusercontent.com/8c2715beb884c4b0ebaeeb549cd3abdfd786a2245b7b10af42eefb0f8924185a/68747470733a2f2f73322e6c6f6c692e6e65742f323032332f30352f32332f5143346d39797656446c31584e59722e706e67" alt="img" data-canonical-src="https://s2.loli.net/2023/05/23/QC4m9yvVDl1XNYr.png" style="max-width: 100%;"></a></p>
 <p>对于输出型号，就是三态缓冲器换成了 D 触发器</p>
 <p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/4fe7163d5a784022581d95841fd450568bfb3b89ffa4145f44f715a7631c0ba4/68747470733a2f2f73322e6c6f6c692e6e65742f323032352f30312f31392f355157314f706a64377744795436552e6a7067"><img src="https://camo.githubusercontent.com/4fe7163d5a784022581d95841fd450568bfb3b89ffa4145f44f715a7631c0ba4/68747470733a2f2f73322e6c6f6c692e6e65742f323032352f30312f31392f355157314f706a64377744795436552e6a7067" alt="img" data-canonical-src="https://s2.loli.net/2025/01/19/5QW1Opjd7wDyT6U.jpg" style="max-width: 100%;"></a></p>
 <h4>汇编的 I/O</h4>
 <p><strong>OUT 指令</strong></p>
-<p><strong>OUT</strong> 指令用于将数据从 CPU 的寄存器（通常是累加器，如 <code class="notranslate">AL</code>、<code class="notranslate">AX</code> 或 <code class="notranslate">EAX</code>）写入指定的 I/O 端口。</p>
+<p><strong>OUT</strong> 指令用于将数据从 CPU 的寄存器 （通常是累加器，如 <code class="notranslate">AL</code>, <code class="notranslate">AX</code> 或 <code class="notranslate">EAX</code>) 写入指定的 I/O 端口</p>
 <div class="highlight highlight-source-assembly"><pre class="notranslate"><span class="pl-k">OUT</span><span class="pl-en"> port</span><span class="pl-s1">,</span><span class="pl-en"> acc</span></pre></div>
 <ul>
-<li><strong>port</strong>：I/O 端口地址。</li>
-<li><strong>acc</strong>：累加器（<code class="notranslate">AL</code>、<code class="notranslate">AX</code> 或 <code class="notranslate">EAX</code>），存储要写入的数据。</li>
+<li><strong>port</strong>：I/O 端口地址</li>
+<li><strong>acc</strong>：累加器 (<code class="notranslate">AL</code>, <code class="notranslate">AX</code> 或 <code class="notranslate">EAX</code>) , 存储要写入的数据</li>
 </ul>
 <p><strong>两种模式</strong></p>
 <ul>
 <li>
 <p><strong>立即数模式</strong>：<br>
-端口地址直接指定为立即数（0-255），只能访问 256 个端口。</p>
+端口地址直接指定为立即数 (0-255) , 只能访问 256 个端口</p>
 <div class="highlight highlight-source-assembly"><pre class="notranslate"><span class="pl-k">OUT</span><span class="pl-en"> </span><span class="pl-v">AL</span><span class="pl-s1">,</span><span class="pl-en"> </span><span class="pl-c1">30h</span><span class="pl-c">  ; 将 AL 中的数据写入端口 30h</span></pre></div>
 </li>
 <li>
 <p><strong>DX 寄存器模式</strong>：<br>
-端口地址存储在 <code class="notranslate">DX</code> 寄存器中，可以访问 64K 个端口（0-65535）。</p>
+端口地址存储在 <code class="notranslate">DX</code> 寄存器中，可以访问 64K 个端口 (0-65535)</p>
 <div class="highlight highlight-source-assembly"><pre class="notranslate"><span class="pl-k">OUT</span><span class="pl-en"> </span><span class="pl-v">DX</span><span class="pl-s1">,</span><span class="pl-en"> </span><span class="pl-v">AX</span><span class="pl-c">   ; 将 AX 中的数据写入 DX 指定的端口</span></pre></div>
 </li>
 </ul>
 <p><strong>IN 指令</strong></p>
-<p><strong>IN</strong> 指令用于从指定的 I/O 端口读取数据到 CPU 的寄存器（通常是累加器，如 <code class="notranslate">AL</code>、<code class="notranslate">AX</code> 或 <code class="notranslate">EAX</code>）。</p>
+<p><strong>IN</strong> 指令用于从指定的 I/O 端口读取数据到 CPU 的寄存器 （通常是累加器，如 <code class="notranslate">AL</code>, <code class="notranslate">AX</code> 或 <code class="notranslate">EAX</code>)</p>
 <div class="highlight highlight-source-assembly"><pre class="notranslate"><span class="pl-k">IN</span><span class="pl-en"> acc</span><span class="pl-s1">,</span><span class="pl-en"> port</span></pre></div>
 <ul>
-<li><strong>acc</strong>：累加器（<code class="notranslate">AL</code>、<code class="notranslate">AX</code> 或 <code class="notranslate">EAX</code>），用于存储从端口读取的数据。</li>
-<li><strong>port</strong>：I/O 端口地址。</li>
+<li><strong>acc</strong>：累加器 (<code class="notranslate">AL</code>, <code class="notranslate">AX</code> 或 <code class="notranslate">EAX</code>) , 用于存储从端口读取的数据</li>
+<li><strong>port</strong>：I/O 端口地址</li>
 </ul>
 <p><strong>两种模式</strong></p>
 <ul>
 <li>
 <p><strong>立即数模式</strong>：<br>
-端口地址直接指定为立即数（0-255），只能访问 256 个端口。</p>
+端口地址直接指定为立即数 (0-255) , 只能访问 256 个端口</p>
 <div class="highlight highlight-source-assembly"><pre class="notranslate"><span class="pl-k">IN</span><span class="pl-en"> </span><span class="pl-v">AL</span><span class="pl-s1">,</span><span class="pl-en"> </span><span class="pl-c1">30h</span><span class="pl-c">  ; 从端口 30h 读取 8 位数据到 AL</span></pre></div>
 </li>
 <li>
 <p><strong>DX 寄存器模式</strong>：<br>
-端口地址存储在 <code class="notranslate">DX</code> 寄存器中，可以访问 64K 个端口（0-65535）。</p>
+端口地址存储在 <code class="notranslate">DX</code> 寄存器中，可以访问 64K 个端口 (0-65535)</p>
 <div class="highlight highlight-source-assembly"><pre class="notranslate"><span class="pl-k">IN</span><span class="pl-en"> </span><span class="pl-v">AX</span><span class="pl-s1">,</span><span class="pl-en"> </span><span class="pl-v">DX</span><span class="pl-c">   ; 从 DX 指定的端口读取 16 位数据到 AX</span></pre></div>
 </li>
 </ul>
 <div class="markdown-alert markdown-alert-note"><p class="markdown-alert-title"><svg class="octicon octicon-info mr-2" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8Zm8-6.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13ZM6.5 7.75A.75.75 0 0 1 7.25 7h1a.75.75 0 0 1 .75.75v2.75h.25a.75.75 0 0 1 0 1.5h-2a.75.75 0 0 1 0-1.5h.25v-2h-.25a.75.75 0 0 1-.75-.75ZM8 6a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z"></path></svg>Note</p>
-<p><strong>IOPL</strong>（I/O Privilege Level，I/O 特权级）是 x86 架构中用于控制 <strong>I/O 端口访问权限</strong> 的机制。它存储在 <strong>EFLAGS 寄存器</strong> 的第 12 和 13 位，定义了执行 I/O 指令（如 <code class="notranslate">IN</code>、<code class="notranslate">OUT</code>）所需的最低特权级。</p>
+<p><strong>IOPL</strong> (I/O Privilege Level, I/O 特权级） 是 x86 架构中用于控制 <strong>I/O 端口访问权限</strong> 的机制, 它存储在 <strong>EFLAGS 寄存器</strong> 的第 12 和 13 位，定义了执行 I/O 指令 （如 <code class="notranslate">IN</code>, <code class="notranslate">OUT</code>) 所需的最低特权级</p>
 <p>IOPL 是一个 2 位的值，取值范围为 0 到 3：</p>
 <ul>
-<li><strong>当 CPL ≤ IOPL 时</strong>：程序可以直接执行 I/O 指令（如 <code class="notranslate">IN</code>、<code class="notranslate">OUT</code>）。</li>
-<li><strong>当 CPL &gt; IOPL 时</strong>：程序无法直接执行 I/O 指令。如果尝试执行，会触发 <strong>一般保护异常</strong>（General Protection Fault, #GP）。</li>
+<li><strong>当 CPL ≤ IOPL 时</strong>：程序可以直接执行 I/O 指令 （如 <code class="notranslate">IN</code>, <code class="notranslate">OUT</code>)</li>
+<li><strong>当 CPL &gt; IOPL 时</strong>：程序无法直接执行 I/O 指令, 如果尝试执行，会触发 <strong>一般保护异常</strong> (General Protection Fault, #GP)</li>
 </ul>
 </div>
-<h4>中断</h4></div>
+<h4>中断</h4>
+<p>想象一个场景：CPU 需要从 HDD 读取数据，但等待 HDD 响应需要时间 （例如移动磁头和旋转盘片，通常是毫秒级） , 如果 CPU 采用轮询方案，会造成大量计算资源的浪费, 此时，可以考虑使用中断机制, 当 HDD 就绪时，它会发出中断信号，CPU 从低功耗模式恢复，然后进行数据访问操作</p>
+<p><strong>中断优先级：</strong> 中断服务例程可以嵌套，编号越小的 ISR 优先级越高</p>
+<p><strong>当中断发生的时候：</strong></p>
+<ol>
+<li>暂停主程序的执行</li>
+<li>调用一个服务中断的程序，称为<strong>中断处理程序 (interrupt handler)</strong></li>
+<li>将控制权返回到主程序</li>
+</ol>
+<p><strong>8086 的三种中断类型：</strong></p>
+<ul>
+<li><strong>硬件中断</strong>: 外部信号施加到处理器的 INTR （中断） 引脚或 NMI （非可屏蔽中断） 引脚时引起的中断</li>
+<li><strong>异常中断</strong>: 由内部错误触发，例如除以零，通常用于打印错误信息</li>
+<li><strong>软件中断</strong>: 由执行汇编语言 INT 指令引起, 简单来说，就是调用 BIOS 中的一个函数</li>
+</ul>
+<h4><strong>时间片轮询调度 VS 抢占式调度</strong></h4>
+<p><strong>时间片轮询调度  (Time Slice Scheduling)</strong>：</p>
+<ul>
+<li>操作系统按固定时间片（如 20ms）轮流执行任务,</li>
+<li>CPU 主动轮询硬件，适合简单多任务系统，但可能浪费资源,</li>
+</ul>
+<p><strong>抢占式调度 (Pre-emptive Scheduling)</strong>：</p>
+<ul>
+<li>高优先级任务可以中断低优先级任务，确保重要任务优先执行,</li>
+<li>硬件通过中断通知 CPU，响应速度快，适合实时系统,</li>
+</ul>
+<h4>中断向量表</h4>
+<p>**中断向量表 (Interrupt Vector Table, IVT) <strong>是计算机系统中用于管理和处理中断的关键数据结构, 它包含了</strong>中断服务例程 (Interrupt Service Routine, ISR) **的入口地址, 当中断发生时，CPU 会根据中断号在中断向量表中查找相应的入口地址，并跳转到该地址执行中断处理程序</p>
+<p>中断向量表通常位于 RAM 的<strong>前 1024 字节</strong> （地址范围：0000:0000 到 0000:03FF) , 每个中断向量由 4 个字节组成，其中 **2 个字节用于代码段 (CS) **, 另外 **2 个字节用于指令指针 (IP) **</p>
+<p>假设中断号为 <code class="notranslate">0x21</code>：</p>
+<ul>
+<li>中断向量表的位置为：<code class="notranslate">0x0000:0x0084</code> (<code class="notranslate">0x21 * 4 = 0x84</code>)</li>
+<li>如果 <code class="notranslate">0x0084</code> 处存储的值为 <code class="notranslate">0x1234:0x5678</code>, 则中断处理程序的入口地址为 <code class="notranslate">0x1234:0x5678</code></li>
+</ul>
+<p><strong>中断向量表</strong></p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/a44aefbe7657393adf7f2d1266c595be72b66c41dca9d040d91610244952ad92/68747470733a2f2f73322e6c6f6c692e6e65742f323032352f30312f32302f5458594b3946356347554a493261312e6a7067"><img src="https://camo.githubusercontent.com/a44aefbe7657393adf7f2d1266c595be72b66c41dca9d040d91610244952ad92/68747470733a2f2f73322e6c6f6c692e6e65742f323032352f30312f32302f5458594b3946356347554a493261312e6a7067" alt="img" data-canonical-src="https://s2.loli.net/2025/01/20/TXYK9F5cGUJI2a1.jpg" style="max-width: 100%;"></a></p>
+<h4>中断控制器</h4>
+<p>8259A 是一种优先级中断控制器, 当设备的 IRQ 线被触发时，中断编号会通过 PC 总线传输, 系统随后查找中断向量表，并跳转到相应的向量地址执行中断处理程序,</p>
+<p>8259A #1 负责处理中断 0<del>7，而 8259A #2 负责处理中断 8</del>15, 从芯片（8259A #2）通过 IRQ2 引脚连接到主芯片（8259A #1）,</p>
+<p>8259A #1 的基址为 20H，8259A #2 的基址为 A0H,</p>
+<p>具体中断映射如下：</p>
+<ul>
+<li><strong>8259A #1:</strong> IRQ0 = INT 08H, IRQ1 = INT 09H, …, IRQ7 = INT 0FH</li>
+<li><strong>8259A #2:</strong> IRQ8 = INT 70H, IRQ9 = INT 71H, …, IRQ15 = INT 77H</li>
+</ul>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/948eaa63f6768b357b200f30dd49652f9a6f9d3e9b3e4e24a9af8a7bc9e3de84/68747470733a2f2f73322e6c6f6c692e6e65742f323032352f30312f32302f36456e5a744262704a6d53464f41372e706e67"><img src="https://camo.githubusercontent.com/948eaa63f6768b357b200f30dd49652f9a6f9d3e9b3e4e24a9af8a7bc9e3de84/68747470733a2f2f73322e6c6f6c692e6e65742f323032352f30312f32302f36456e5a744262704a6d53464f41372e706e67" alt="img" data-canonical-src="https://s2.loli.net/2025/01/20/6EnZtBbpJmSFOA7.png" style="max-width: 100%;"></a></p>
+<p>下表从 <strong>INT 8</strong> 开始排序</p>
+<markdown-accessiblity-table><table role="table">
+<thead>
+<tr>
+<th><strong>IRQ</strong></th>
+<th><strong>Description</strong></th>
+<th><strong>IRQ</strong></th>
+<th><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>Timer Tick</td>
+<td>8</td>
+<td>Real-Time Clock (RTC)</td>
+</tr>
+<tr>
+<td>1</td>
+<td>Keyboard</td>
+<td>9</td>
+<td>Available (Legacy: IRQ2)</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Second 8259A</td>
+<td>10</td>
+<td>Available</td>
+</tr>
+<tr>
+<td>3</td>
+<td>COM2 (Serial Port 2)</td>
+<td>11</td>
+<td>Available</td>
+</tr>
+<tr>
+<td>4</td>
+<td>COM1 (Serial Port 1)</td>
+<td>12</td>
+<td>PS/2 Mouse</td>
+</tr>
+<tr>
+<td>5</td>
+<td>Sound Card / LPT2</td>
+<td>13</td>
+<td>Math Coprocessor</td>
+</tr>
+<tr>
+<td>6</td>
+<td>Floppy Disk Controller</td>
+<td>14</td>
+<td>Primary IDE Controller</td>
+</tr>
+<tr>
+<td>7</td>
+<td>LPT1 (Parallel Port)</td>
+<td>15</td>
+<td>Secondary IDE Controller</td>
+</tr>
+</tbody>
+</table></markdown-accessiblity-table>
+<div class="markdown-alert markdown-alert-note"><p class="markdown-alert-title"><svg class="octicon octicon-info mr-2" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8Zm8-6.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13ZM6.5 7.75A.75.75 0 0 1 7.25 7h1a.75.75 0 0 1 .75.75v2.75h.25a.75.75 0 0 1 0 1.5h-2a.75.75 0 0 1 0-1.5h.25v-2h-.25a.75.75 0 0 1-.75-.75ZM8 6a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z"></path></svg>Note</p>
+<p>INT 0-7 不受 8259 控制，用于处理 <strong>异常</strong> 和 <strong>硬件中断</strong></p>
+</div>
+<h4>CPU 处理中断的流程</h4>
+<ol>
+<li>
+<p><strong>中断触发：</strong> 外部设备或内部异常触发中断请求（IRQ），将中断信号发送到 CPU,</p>
+</li>
+<li>
+<p><strong>中断响应：</strong> CPU 在当前指令执行完成后检测到中断请求，并发出中断响应信号（INTA）,</p>
+</li>
+<li>
+<p><strong>保存现场：</strong> CPU 将当前程序状态（包括程序计数器 PC、标志寄存器 FLAGS 等）压入栈中，以便中断处理完成后恢复执行,</p>
+</li>
+<li>
+<p><strong>获取中断向量：</strong> CPU 从中断控制器（如 8259A）获取中断号，并根据中断号查找中断向量表（IVT），找到对应的中断服务例程（ISR）入口地址,</p>
+</li>
+<li>
+<p><strong>跳转到 ISR:</strong> CPU 跳转到中断服务例程的入口地址，开始执行中断处理程序,</p>
+</li>
+<li>
+<p><strong>执行中断处理：</strong> CPU 运行中断服务例程，完成设备或异常的具体处理逻辑,</p>
+</li>
+<li>
+<p><strong>恢复现场：</strong> 中断处理完成后，CPU 从栈中恢复之前保存的程序状态（包括 PC 和 FLAGS）,</p>
+</li>
+<li>
+<p><strong>返回原程序：</strong> CPU 继续执行被中断的程序，从断点处恢复运行,</p>
+</li>
+</ol>
+<h4>8259 操作命令词</h4>
+<p><strong>端口 21H</strong> 是 <strong>8259A 可编程中断控制器（PIC）</strong> 的 <strong>中断屏蔽寄存器（IMR）</strong> 的端口地址, 向该端口写入数据可以设置或清除中断屏蔽位，从而控制哪些中断请求（IRQ）被允许或禁止, 值 <strong>137（89H）</strong> 的二进制形式为 <strong>10001001</strong>，表示屏蔽 IRQ 7, 3, 1</p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/05cff24e65b3440dcdde52f20118aa5df6cc72bd866486c410005fac5883304a/68747470733a2f2f73322e6c6f6c692e6e65742f323032352f30312f32302f69455070774e78524f6834474863362e706e67"><img src="https://camo.githubusercontent.com/05cff24e65b3440dcdde52f20118aa5df6cc72bd866486c410005fac5883304a/68747470733a2f2f73322e6c6f6c692e6e65742f323032352f30312f32302f69455070774e78524f6834474863362e706e67" alt="image-20250120下午35508105" data-canonical-src="https://s2.loli.net/2025/01/20/iEPpwNxROh4GHc6.png" style="max-width: 100%;"></a></p>
+<div class="highlight highlight-source-assembly"><pre class="notranslate"><span class="pl-k">mov</span><span class="pl-en"> </span><span class="pl-v">al</span><span class="pl-s1">,</span><span class="pl-c1">137</span>
+<span class="pl-k">mov</span><span class="pl-en"> </span><span class="pl-v">dx</span><span class="pl-s1">,</span><span class="pl-c1">21h</span><span class="pl-en">		b</span><span class="pl-c">   ; 中断屏蔽寄存器 (IMR) 的端口地址</span>
+<span class="pl-k">out</span><span class="pl-en"> </span><span class="pl-v">dx</span><span class="pl-s1">,</span><span class="pl-v">AL</span></pre></div>
+<h4>中断后重置</h4>
+<p>当调用中断时，中断控制器会记录该中断的活动状态及其优先级。在中断处理完成后，必须通知控制器中断已结束。这是通过在 <strong>IRET</strong> 指令之前，向中断控制器发送一个 <strong>非特定的中断结束（EOI，End of Interrupt）</strong> 命令来实现的。</p>
+<div class="highlight highlight-source-assembly"><pre class="notranslate"><span class="pl-en">EOI:</span>
+<span class="pl-en">    </span><span class="pl-k">mov</span><span class="pl-en"> </span><span class="pl-v">al</span><span class="pl-s1">,</span><span class="pl-en"> </span><span class="pl-c1">20h</span><span class="pl-c">      ; EOI 命令</span>
+<span class="pl-en">    </span><span class="pl-k">out</span><span class="pl-en"> </span><span class="pl-c1">20h</span><span class="pl-s1">,</span><span class="pl-en"> </span><span class="pl-v">al</span><span class="pl-c">      ; 发送到 8259A 的主控制器</span></pre></div>
+<h4>自定义 ISR</h4>
+<p><strong>自定义 ISR</strong> 是程序员自己编写的中断处理程序，用于替代默认的 ISR, 比如 int 08h，每隔 50ms 左右就会自动执行一次， 可以用这个来实现计数器</p>
+<div class="highlight highlight-source-assembly"><pre class="notranslate"><span class="pl-en">.MODEL small</span>
+<span class="pl-en">.STACK </span><span class="pl-c1">100h</span>
+<span class="pl-en">.DATA</span>
+<span class="pl-en">    msg DB </span><span class="pl-s">'食我压路机啦！！！！$'</span>
+<span class="pl-en">    tick_count DW </span><span class="pl-c1">0</span>
+<span class="pl-en">    </span>
+<span class="pl-en">.CODE</span>
+<span class="pl-en">start:</span>
+<span class="pl-en">    </span><span class="pl-k">mov</span><span class="pl-en"> </span><span class="pl-v">ax</span><span class="pl-s1">,</span><span class="pl-en"> @data</span>
+<span class="pl-en">    </span><span class="pl-k">mov</span><span class="pl-en"> </span><span class="pl-v">ds</span><span class="pl-s1">,</span><span class="pl-en"> </span><span class="pl-v">ax</span>
+
+<span class="pl-c">    ; 保存原始中断向量</span>
+<span class="pl-en">    </span><span class="pl-k">cli</span>
+<span class="pl-en">    </span><span class="pl-k">mov</span><span class="pl-en"> </span><span class="pl-v">ax</span><span class="pl-s1">,</span><span class="pl-en"> </span><span class="pl-c1">3508h</span><span class="pl-en">           </span>
+<span class="pl-en">    </span><span class="pl-k">int</span><span class="pl-en"> </span><span class="pl-c1">21h</span>
+<span class="pl-en">    </span><span class="pl-k">mov</span><span class="pl-en"> old_int8_offset</span><span class="pl-s1">,</span><span class="pl-en"> </span><span class="pl-v">bx</span>
+<span class="pl-en">    </span><span class="pl-k">mov</span><span class="pl-en"> old_int8_segment</span><span class="pl-s1">,</span><span class="pl-en"> </span><span class="pl-v">es</span>
+
+<span class="pl-c">    ; 设置新的中断向量</span>
+<span class="pl-en">    </span><span class="pl-k">push</span><span class="pl-en"> </span><span class="pl-v">ds</span>
+<span class="pl-en">    </span><span class="pl-k">mov</span><span class="pl-en"> </span><span class="pl-v">ax</span><span class="pl-s1">,</span><span class="pl-en"> </span><span class="pl-c1">2508h</span><span class="pl-en">           </span>
+<span class="pl-en">    </span><span class="pl-k">mov</span><span class="pl-en"> </span><span class="pl-v">dx</span><span class="pl-s1">,</span><span class="pl-en"> offset new_int8</span>
+<span class="pl-en">    </span><span class="pl-k">push</span><span class="pl-en"> </span><span class="pl-v">cs</span>
+<span class="pl-en">    </span><span class="pl-k">pop</span><span class="pl-en"> </span><span class="pl-v">ds</span>
+<span class="pl-en">    </span><span class="pl-k">int</span><span class="pl-en"> </span><span class="pl-c1">21h</span>
+<span class="pl-en">    </span><span class="pl-k">pop</span><span class="pl-en"> </span><span class="pl-v">ds</span>
+<span class="pl-en">    </span><span class="pl-k">sti</span>
+
+<span class="pl-en">wait_loop:</span>
+<span class="pl-en">    </span><span class="pl-k">cmp</span><span class="pl-en"> tick_count</span><span class="pl-s1">,</span><span class="pl-en"> </span><span class="pl-c1">126</span>
+<span class="pl-en">    </span><span class="pl-k">jl</span><span class="pl-en"> wait_loop</span>
+
+<span class="pl-c">    ; 显示消息</span>
+<span class="pl-en">    </span><span class="pl-k">mov</span><span class="pl-en"> </span><span class="pl-v">ah</span><span class="pl-s1">,</span><span class="pl-en"> </span><span class="pl-c1">09h</span>
+<span class="pl-en">    </span><span class="pl-k">lea</span><span class="pl-en"> </span><span class="pl-v">dx</span><span class="pl-s1">,</span><span class="pl-en"> msg</span>
+<span class="pl-en">    </span><span class="pl-k">int</span><span class="pl-en"> </span><span class="pl-c1">21h</span>
+
+<span class="pl-c">    ; 恢复原始中断向量</span>
+<span class="pl-en">    </span><span class="pl-k">cli</span>
+<span class="pl-en">    </span><span class="pl-k">push</span><span class="pl-en"> </span><span class="pl-v">ds</span>
+<span class="pl-en">    </span><span class="pl-k">mov</span><span class="pl-en"> </span><span class="pl-v">ax</span><span class="pl-s1">,</span><span class="pl-en"> </span><span class="pl-c1">2508h</span>
+<span class="pl-en">    </span><span class="pl-k">mov</span><span class="pl-en"> </span><span class="pl-v">dx</span><span class="pl-s1">,</span><span class="pl-en"> old_int8_offset</span>
+<span class="pl-en">    </span><span class="pl-k">mov</span><span class="pl-en"> </span><span class="pl-v">ds</span><span class="pl-s1">,</span><span class="pl-en"> old_int8_segment</span>
+<span class="pl-en">    </span><span class="pl-k">int</span><span class="pl-en"> </span><span class="pl-c1">21h</span>
+<span class="pl-en">    </span><span class="pl-k">pop</span><span class="pl-en"> </span><span class="pl-v">ds</span>
+<span class="pl-en">    </span><span class="pl-k">sti</span>
+
+<span class="pl-c">    ; 退出程序</span>
+<span class="pl-en">    </span><span class="pl-k">mov</span><span class="pl-en"> </span><span class="pl-v">ax</span><span class="pl-s1">,</span><span class="pl-en"> </span><span class="pl-c1">4c00h</span>
+<span class="pl-en">    </span><span class="pl-k">int</span><span class="pl-en"> </span><span class="pl-c1">21h</span>
+
+<span class="pl-en">new_int8 PROC FAR</span>
+<span class="pl-en">    </span><span class="pl-k">pushf</span>
+<span class="pl-en">    </span><span class="pl-k">call</span><span class="pl-en"> dword ptr </span><span class="pl-v">cs</span><span class="pl-en">:old_int8_offset</span>
+<span class="pl-en">    </span><span class="pl-k">inc</span><span class="pl-en"> tick_count</span>
+<span class="pl-en">    </span><span class="pl-k">iret</span>
+<span class="pl-en">new_int8 ENDP</span>
+
+<span class="pl-en">old_int8_offset DW ?</span>
+<span class="pl-en">old_int8_segment DW ?</span>
+
+<span class="pl-en">END start</span></pre></div>
+<h4>直接访问屏幕内存</h4>
+<p>DOS 屏幕左上角的起始地址为 B800:0000, 每个显示位置占用 2 字节内存，DOS 屏幕宽度为 80 个字符，高度为 25 行，整个屏幕可显示 2000 个字符，共占用 4000 字节内存</p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/fed8907c2f6a0528f140150ca9785d4ebb55049f30afd16e6c84f95ef11d9c42/68747470733a2f2f73322e6c6f6c692e6e65742f323032352f30312f32302f36614b65487a476e797477677833512e706e67"><img src="https://camo.githubusercontent.com/fed8907c2f6a0528f140150ca9785d4ebb55049f30afd16e6c84f95ef11d9c42/68747470733a2f2f73322e6c6f6c692e6e65742f323032352f30312f32302f36614b65487a476e797477677833512e706e67" alt="img" data-canonical-src="https://s2.loli.net/2025/01/20/6aKeHzGnytwgx3Q.png" style="max-width: 100%;"></a></p>
+<p><strong>属性字节</strong> (Attribute Byte) 的结构分为两部分：</p>
+<ul>
+<li>
+<p>**背景色 (Background) **：</p>
+<ul>
+<li><strong>位 7</strong>：F (Flash) , 控制字符是否闪烁</li>
+<li><strong>位 6-4</strong>：R (Red) , G (Green) , B (Blue) , 控制背景颜色</li>
+</ul>
+</li>
+<li>
+<p>**前景色 (Foreground) **：</p>
+<ul>
+<li><strong>位 3</strong>：I (Intensity) , 控制前景色的亮度 （高亮或普通）</li>
+<li><strong>位 2-0</strong>：R (Red) , G (Green) , B (Blue) , 控制前景颜色</li>
+</ul>
+</li>
+</ul>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/58d7606c8411c561aed230c3512311890412e98643b5b94e59d4738534d42ccd/68747470733a2f2f73322e6c6f6c692e6e65742f323032352f30312f32302f347970544538725961466e553532332e6a7067"><img src="https://camo.githubusercontent.com/58d7606c8411c561aed230c3512311890412e98643b5b94e59d4738534d42ccd/68747470733a2f2f73322e6c6f6c692e6e65742f323032352f30312f32302f347970544538725961466e553532332e6a7067" alt="img" data-canonical-src="https://s2.loli.net/2025/01/20/4ypTE8rYaFnU523.jpg" style="max-width: 100%;"></a></p>
+<h4>TSR</h4>
+<p><strong>TSR（Terminate and Stay Resident）</strong> 是一种在 DOS 系统中使用的程序类型，能够在主程序结束后继续驻留在内存中，以便在需要时快速调用。它通常用于实现后台任务或快速访问功能，比如弹出式计算器、剪贴板工具或系统监控程序。</p>
+<div class="highlight highlight-source-assembly"><pre class="notranslate"><span class="pl-c">; 伪代码：检测热键 Ctrl+Alt+X</span>
+<span class="pl-en">check_hotkey:</span>
+<span class="pl-en">    </span><span class="pl-k">mov</span><span class="pl-en"> </span><span class="pl-v">ah</span><span class="pl-s1">,</span><span class="pl-en"> </span><span class="pl-c1">02h</span><span class="pl-c">       ; 读取键盘状态</span>
+<span class="pl-en">    </span><span class="pl-k">int</span><span class="pl-en"> </span><span class="pl-c1">16h</span><span class="pl-c">           ; 调用 BIOS 键盘中断</span>
+<span class="pl-en">    </span><span class="pl-k">and</span><span class="pl-en"> </span><span class="pl-v">al</span><span class="pl-s1">,</span><span class="pl-en"> </span><span class="pl-c1">00001111b</span><span class="pl-c"> ; 检查 Ctrl 和 Alt 键</span>
+<span class="pl-en">    </span><span class="pl-k">cmp</span><span class="pl-en"> </span><span class="pl-v">al</span><span class="pl-s1">,</span><span class="pl-en"> </span><span class="pl-c1">00001100b</span><span class="pl-c"> ; Ctrl+Alt 是否按下</span>
+<span class="pl-en">    </span><span class="pl-k">jne</span><span class="pl-en"> no_hotkey</span><span class="pl-c">     ; 如果不是，跳过</span>
+
+<span class="pl-c">    ; 检测 X 键</span>
+<span class="pl-en">    </span><span class="pl-k">mov</span><span class="pl-en"> </span><span class="pl-v">ah</span><span class="pl-s1">,</span><span class="pl-en"> </span><span class="pl-c1">00h</span><span class="pl-c">       ; 读取键盘输入</span>
+<span class="pl-en">    </span><span class="pl-k">int</span><span class="pl-en"> </span><span class="pl-c1">16h</span>
+<span class="pl-en">    </span><span class="pl-k">cmp</span><span class="pl-en"> </span><span class="pl-v">al</span><span class="pl-s1">,</span><span class="pl-en"> </span><span class="pl-s">'x'</span><span class="pl-c">       ; 是否是 X 键</span>
+<span class="pl-en">    </span><span class="pl-k">je</span><span class="pl-en"> hotkey_pressed</span><span class="pl-c"> ; 如果是，跳转到热键处理程序</span>
+<span class="pl-en">no_hotkey:</span>
+<span class="pl-en">    </span><span class="pl-k">ret</span>
+<span class="pl-en">hotkey_pressed:</span>
+<span class="pl-c">    ; 执行 TSR 程序的功能</span>
+<span class="pl-en">    </span><span class="pl-k">ret</span></pre></div>
+<hr>
+<h3>Lecture10: MASM Code for Interrupts</h3></div>
 <div style="font-size:small;margin-top:8px;float:right;"></div>
 
 <button class="btn btn-block" type="button" onclick="openComments()" id="cmButton">评论</button>
