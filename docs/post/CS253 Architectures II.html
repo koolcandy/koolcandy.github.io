@@ -2546,15 +2546,6 @@ $(-1)^0 \times 1.01_2 \times 2^{-1} = 1.01_2 \times 2^{-1} = 0.101_2 = 0.625_{10
 <p><strong>内存封装类型示意图</strong></p>
 <p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/851f11c3e2d2ae1b5b38e26e16b874a62508bd3875eb319b7f1961ebdac92f85/68747470733a2f2f73322e6c6f6c692e6e65742f323032352f30322f30352f366f7762344a6c38326a6435714b502e706e67"><img src="https://camo.githubusercontent.com/851f11c3e2d2ae1b5b38e26e16b874a62508bd3875eb319b7f1961ebdac92f85/68747470733a2f2f73322e6c6f6c692e6e65742f323032352f30322f30352f366f7762344a6c38326a6435714b502e706e67" alt="img" data-canonical-src="https://s2.loli.net/2025/02/05/6owb4Jl82jd5qKP.png" style="max-width: 100%;"></a></p>
 <hr>
-<p>The user is correct - I over-bolded the previous response. I need to go through the entire document and reduce the amount of bolding.</p>
-<p><strong>Plan:</strong></p>
-<ol>
-<li><strong>Review each section:</strong> Systematically read through the notes and identify instances of bolding that can be reduced or removed.</li>
-<li><strong>Prioritize Core Concepts:</strong> Ensure <em>key</em> concepts are still bolded, but remove unnecessary or less important bolded phrases. Favor bolding individual terms over longer phrases.</li>
-<li><strong>Estimate and Adjust:</strong> While precise calculation isn't feasible, aim to keep bolding visually sparse and ensure it's well under a perceived 10% of the text in each paragraph.  Err on the side of <em>less</em> bolding.</li>
-<li><strong>Prioritize Annotations:</strong> Ensure annotated professional terms remain bolded, as that's a fixed requirement.</li>
-<li><strong>Re-read for Flow:</strong> After reducing bolding, read the notes again to ensure they still flow well and the remaining bolded terms effectively highlight the most important information.好的，根据您的最新指示，我将对笔记内容进行再次调整，大幅度减少加粗的使用，力求控制在10%以内，并确保核心概念仍然突出。</li>
-</ol>
 <h3>Lecture 12: 内存管理与缓存策略</h3>
 <h4>访问局部性</h4>
 <blockquote>
@@ -2613,8 +2604,7 @@ $(-1)^0 \times 1.01_2 \times 2^{-1} = 1.01_2 \times 2^{-1} = 0.101_2 = 0.625_{10
 <h5>缓存组织方式</h5>
 <p>缓存控制器 包含一个 缓存目录 (Cache Directory)，用于管理缓存中的数据。 常见的缓存组织方式包括：</p>
 <ul>
-<li>
-<p><strong>直接映射缓存 (Direct Mapped Cache)</strong>：</p>
+<li><strong>直接映射缓存 (Direct Mapped Cache)</strong>：
 <ul>
 <li><strong>单页映射</strong>：缓存被组织成只包含内存中单个页面的副本。</li>
 <li><strong>地址冲突与抖动 (Thrashing)</strong>：如果处理器频繁地在不同页面之间快速切换，可能会导致 抖动 (Thrashing) 现象。
@@ -2626,16 +2616,14 @@ $(-1)^0 \times 1.01_2 \times 2^{-1} = 1.01_2 \times 2^{-1} = 0.101_2 = 0.625_{10
 <li><strong>性能影响</strong>：抖动会显著降低系统速度。</li>
 </ul>
 </li>
-<li>
-<p><strong>双路组相联缓存 (Two-Way Set Associative Cache)</strong>：</p>
+<li><strong>双路组相联缓存 (Two-Way Set Associative Cache)</strong>：
 <ul>
 <li><strong>双缓存组</strong>：使用两个独立的缓存 (或称为 路 (Way)) 来存储数据。</li>
 <li><strong>页面快速切换</strong>：允许在两个缓存组之间快速切换页面，降低了抖动的可能性。</li>
 <li><strong>提高命中率</strong>：相较于直接映射缓存，组相联缓存 提供了更高的灵活性，可以减少地址冲突，提高缓存命中率。</li>
 </ul>
 </li>
-<li>
-<p><strong>全相联缓存 (Fully Associative Cache)</strong>：</p>
+<li><strong>全相联缓存 (Fully Associative Cache)</strong>：
 <ul>
 <li><strong>任意位置存放</strong>：主存中的任何数据块 可以被放置在缓存中的任何位置。</li>
 <li><strong>缓存目录查找</strong>：每个缓存条目的 缓存目录 需要存储 完整的 DRAM 地址 和 关联的数据。</li>
@@ -2647,7 +2635,6 @@ $(-1)^0 \times 1.01_2 \times 2^{-1} = 1.01_2 \times 2^{-1} = 0.101_2 = 0.625_{10
 <li><strong>最近最少使用 (LRU, Least Recently Used)</strong>：替换最近最少被访问的缓存行。LRU 策略 的实现较为复杂，需要记录每个缓存行的访问历史。</li>
 </ul>
 </li>
-<li><strong>应用局限</strong>：由于成本和复杂性较高，全相联缓存在 PC (个人计算机) 中较少使用 (尤其是在 1995 年左右)。</li>
 </ul>
 </li>
 </ul>
@@ -2657,7 +2644,7 @@ $(-1)^0 \times 1.01_2 \times 2^{-1} = 1.01_2 \times 2^{-1} = 0.101_2 = 0.625_{10
 <li>
 <strong>地址总线</strong>：80386 处理器具有 32 位地址总线，可以访问 $2^{32} = 4$ GBytes 的内存空间。</li>
 <li>
-<strong>数据总线</strong>：数据总线 也是 32 位宽，每 4 个字节 组成一个 行 (Line) (或称为 字 (Word))。</li>
+<strong>数据总线</strong>：数据总线 也是 32 位宽，每 4 个字节 组成一个 行 (Line)。</li>
 <li>
 <strong>缓存容量</strong>：80386 缓存包含 8196 行，总容量为 32KB (8196 行 * 4 字节/行 = 32784 字节 ≈ 32KB)。</li>
 <li>
@@ -2680,22 +2667,27 @@ $(-1)^0 \times 1.01_2 \times 2^{-1} = 1.01_2 \times 2^{-1} = 0.101_2 = 0.625_{10
 <p><strong>内存访问流程</strong>：</p>
 <ol>
 <li>CPU 输出 32 位地址。</li>
-<li>缓存控制器 从地址中提取 标记位 (A15-A31) 和 块索引位 (A5-A14)。</li>
-<li><strong>比较标记</strong>：将地址的 标记位 与 缓存目录中对应块索引位置的标记条目 进行 比较。</li>
-<li><strong>缓存命中 (Cache Hit)</strong>：如果 标记匹配 且 有效位 (Valid Bit) 表明数据有效，则发生 缓存命中。数据 直接从缓存读取。</li>
-<li><strong>缓存未命中 (Cache Miss)</strong>：如果 标记不匹配 或 有效位无效，则发生 缓存未命中。 缓存控制器 需要访问 DRAM 获取数据，并将 数据副本 存储到 缓存 中，更新 缓存目录。</li>
+<li>缓存控制器从地址中提取标记位 (A15-A31) 和 块索引位 (A5-A14)。</li>
+<li><strong>比较标记</strong>：将地址的标记位与缓存目录中对应块索引位置的标记条目进行比较。</li>
+<li><strong>缓存命中 (Cache Hit)</strong>：如果标记匹配且有效位 (Valid Bit) 表明数据有效，则发生缓存命中。数据直接从缓存读取。</li>
+<li><strong>缓存未命中 (Cache Miss)</strong>：如果 标记不匹配或有效位无效，则发生缓存未命中。缓存控制器需要访问 DRAM 获取数据，并将数据副本存储到缓存中，更新缓存目录。</li>
 </ol>
 <h6>抖动 (Thrashing) 问题</h6>
 <p><strong>抖动 (Thrashing)</strong> 问题在 直接映射缓存 中尤为突出。</p>
 <ul>
-<li><strong>抖动场景</strong>：当程序循环重复访问 内存中 不同页面 的 相同块索引位置 时，例如：
-<ul>
-<li>程序访问 页面 0 的 X 块，然后访问 页面 1 的 X 块，如此循环。</li>
-</ul>
+<li>
+<p><strong>抖动场景</strong>：当程序循环重复访问 内存中 不同页面 的 相同块索引位置 时，例如：</p>
+<p>程序访问 页面 0 的 X 块，然后访问 页面 1 的 X 块，如此循环。</p>
 </li>
-<li><strong>缓存冲突</strong>：由于 直接映射缓存 的 映射规则，页面 0 的 X 块 和 页面 1 的 X 块 会 映射到缓存中的相同位置。</li>
-<li><strong>频繁替换</strong>：每次访问都会导致 缓存未命中，需要从 DRAM 重新加载数据到缓存，并 替换 之前缓存的内容。</li>
-<li><strong>性能下降</strong>：导致 每次内存访问 都变成 DRAM 访问，缓存形同虚设，内存访问延迟增大，系统性能 严重下降。</li>
+<li>
+<p><strong>缓存冲突</strong>：由于 直接映射缓存 的 映射规则，页面 0 的 X 块 和 页面 1 的 X 块 会 映射到缓存中的相同位置。</p>
+</li>
+<li>
+<p><strong>频繁替换</strong>：每次访问都会导致 缓存未命中，需要从 DRAM 重新加载数据到缓存，并 替换 之前缓存的内容。</p>
+</li>
+<li>
+<p><strong>性能下降</strong>：导致 每次内存访问 都变成 DRAM 访问，缓存形同虚设，内存访问延迟增大，系统性能 严重下降。</p>
+</li>
 </ul>
 <p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/d9fabdb9f7ce241e5303bbb6f72638d615f77e7965f7a9f8c22945dd8fb508b9/68747470733a2f2f73322e6c6f6c692e6e65742f323032352f30322f30362f48694e6447635a6f4b44354a5146492e706e67"><img src="https://camo.githubusercontent.com/d9fabdb9f7ce241e5303bbb6f72638d615f77e7965f7a9f8c22945dd8fb508b9/68747470733a2f2f73322e6c6f6c692e6e65742f323032352f30322f30362f48694e6447635a6f4b44354a5146492e706e67" alt="img" data-canonical-src="https://s2.loli.net/2025/02/06/HiNdGcZoKD5JQFI.png" style="max-width: 100%;"></a></p>
 <h6>组相联缓存 (Set Associative Cache)</h6>
