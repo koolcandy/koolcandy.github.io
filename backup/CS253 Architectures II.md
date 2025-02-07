@@ -2088,16 +2088,6 @@ END
 
 ---
 
-The user is correct - I over-bolded the previous response. I need to go through the entire document and reduce the amount of bolding.
-
-**Plan:**
-
-1.  **Review each section:** Systematically read through the notes and identify instances of bolding that can be reduced or removed.
-2.  **Prioritize Core Concepts:** Ensure *key* concepts are still bolded, but remove unnecessary or less important bolded phrases. Favor bolding individual terms over longer phrases.
-3.  **Estimate and Adjust:** While precise calculation isn't feasible, aim to keep bolding visually sparse and ensure it's well under a perceived 10% of the text in each paragraph.  Err on the side of *less* bolding.
-4.  **Prioritize Annotations:** Ensure annotated professional terms remain bolded, as that's a fixed requirement.
-5.  **Re-read for Flow:** After reducing bolding, read the notes again to ensure they still flow well and the remaining bolded terms effectively highlight the most important information.好的，根据您的最新指示，我将对笔记内容进行再次调整，大幅度减少加粗的使用，力求控制在10%以内，并确保核心概念仍然突出。
-
 ### Lecture 12: 内存管理与缓存策略
 
 #### 访问局部性
@@ -2165,12 +2155,10 @@ The user is correct - I over-bolded the previous response. I need to go through 
     - 抖动 指的是缓存频繁地被新页面替换，而旧页面又很快被重新访问， 导致缓存命中率极低，系统性能急剧下降。
     - 直接映射缓存容易发生抖动，因为它对每个主存块的缓存位置是固定的。
   - **性能影响**：抖动会显著降低系统速度。
-
 - **双路组相联缓存 (Two-Way Set Associative Cache)**：
   - **双缓存组**：使用两个独立的缓存 (或称为 路 (Way)) 来存储数据。
   - **页面快速切换**：允许在两个缓存组之间快速切换页面，降低了抖动的可能性。
   - **提高命中率**：相较于直接映射缓存，组相联缓存 提供了更高的灵活性，可以减少地址冲突，提高缓存命中率。
-
 - **全相联缓存 (Fully Associative Cache)**：
   - **任意位置存放**：主存中的任何数据块 可以被放置在缓存中的任何位置。
   - **缓存目录查找**：每个缓存条目的 缓存目录 需要存储 完整的 DRAM 地址 和 关联的数据。
@@ -2179,14 +2167,13 @@ The user is correct - I over-bolded the previous response. I need to go through 
     - 随机丢弃 (Random Discard)：随机选择缓存行进行替换。
     - 统一丢弃 (Uniform Discard)：按照某种预定规则丢弃缓存行。
     - **最近最少使用 (LRU, Least Recently Used)**：替换最近最少被访问的缓存行。LRU 策略 的实现较为复杂，需要记录每个缓存行的访问历史。
-  - **应用局限**：由于成本和复杂性较高，全相联缓存在 PC (个人计算机) 中较少使用 (尤其是在 1995 年左右)。
 
 ###### 直接映射缓存的地址映射 (Direct Mapped Cache)
 
 直接映射缓存的地址映射机制如下 (以 80386 处理器为例):
 
 - **地址总线**：80386 处理器具有 32 位地址总线，可以访问 $2^{32} = 4$ GBytes 的内存空间。
-- **数据总线**：数据总线 也是 32 位宽，每 4 个字节 组成一个 行 (Line) (或称为 字 (Word))。
+- **数据总线**：数据总线 也是 32 位宽，每 4 个字节 组成一个 行 (Line)。
 - **缓存容量**：80386 缓存包含 8196 行，总容量为 32KB (8196 行 * 4 字节/行 = 32784 字节 ≈ 32KB)。
 - **缓存块 (Block)**：缓存将 行 组织成 块 (Block)，每 8 行 组成一个 块，每个块大小为 32 字节 (8 行 * 4 字节/行 = 32 字节)。
 - **内存页面划分**：缓存控制器将 4GB 内存空间划分为 $2^{32} / 32768 = 131072$ 个 页面 (Page)，每个页面大小为 32KB。
@@ -2205,17 +2192,18 @@ The user is correct - I over-bolded the previous response. I need to go through 
 **内存访问流程**：
 
 1.  CPU 输出 32 位地址。
-2.  缓存控制器 从地址中提取 标记位 (A15-A31) 和 块索引位 (A5-A14)。
-3.  **比较标记**：将地址的 标记位 与 缓存目录中对应块索引位置的标记条目 进行 比较。
-4.  **缓存命中 (Cache Hit)**：如果 标记匹配 且 有效位 (Valid Bit) 表明数据有效，则发生 缓存命中。数据 直接从缓存读取。
-5.  **缓存未命中 (Cache Miss)**：如果 标记不匹配 或 有效位无效，则发生 缓存未命中。 缓存控制器 需要访问 DRAM 获取数据，并将 数据副本 存储到 缓存 中，更新 缓存目录。
+2.  缓存控制器从地址中提取标记位 (A15-A31) 和 块索引位 (A5-A14)。
+3.  **比较标记**：将地址的标记位与缓存目录中对应块索引位置的标记条目进行比较。
+4.  **缓存命中 (Cache Hit)**：如果标记匹配且有效位 (Valid Bit) 表明数据有效，则发生缓存命中。数据直接从缓存读取。
+5.  **缓存未命中 (Cache Miss)**：如果 标记不匹配或有效位无效，则发生缓存未命中。缓存控制器需要访问 DRAM 获取数据，并将数据副本存储到缓存中，更新缓存目录。
 
 ###### 抖动 (Thrashing) 问题
 
 **抖动 (Thrashing)** 问题在 直接映射缓存 中尤为突出。
 
 - **抖动场景**：当程序循环重复访问 内存中 不同页面 的 相同块索引位置 时，例如：
-  - 程序访问 页面 0 的 X 块，然后访问 页面 1 的 X 块，如此循环。
+  
+  程序访问 页面 0 的 X 块，然后访问 页面 1 的 X 块，如此循环。
 - **缓存冲突**：由于 直接映射缓存 的 映射规则，页面 0 的 X 块 和 页面 1 的 X 块 会 映射到缓存中的相同位置。
 - **频繁替换**：每次访问都会导致 缓存未命中，需要从 DRAM 重新加载数据到缓存，并 替换 之前缓存的内容。
 - **性能下降**：导致 每次内存访问 都变成 DRAM 访问，缓存形同虚设，内存访问延迟增大，系统性能 严重下降。
