@@ -1,11 +1,11 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0"><channel><title>win8!</title><link>https://koolcandy.github.io</link><description>一些碎碎念</description><copyright>win8!</copyright><docs>http://www.rssboard.org/rss-specification</docs><generator>python-feedgen</generator><image><url>https://s2.loli.net/2024/12/26/m9oanbD6ikhuSlN.png</url><title>avatar</title><link>https://koolcandy.github.io</link></image><lastBuildDate>Thu, 06 Feb 2025 05:54:13 +0000</lastBuildDate><managingEditor>win8!</managingEditor><ttl>60</ttl><webMaster>win8!</webMaster><item><title>CS253 Architectures II</title><link>https://koolcandy.github.io/post/CS253%20Architectures%20II.html</link><description>## CS253 Architectures II
+<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0"><channel><title>win8!</title><link>https://koolcandy.github.io</link><description>一些碎碎念</description><copyright>win8!</copyright><docs>http://www.rssboard.org/rss-specification</docs><generator>python-feedgen</generator><image><url>https://s2.loli.net/2024/12/26/m9oanbD6ikhuSlN.png</url><title>avatar</title><link>https://koolcandy.github.io</link></image><lastBuildDate>Fri, 07 Feb 2025 04:19:21 +0000</lastBuildDate><managingEditor>win8!</managingEditor><ttl>60</ttl><webMaster>win8!</webMaster><item><title>CS253 Architectures II</title><link>https://koolcandy.github.io/post/CS253%20Architectures%20II.html</link><description># CS253 Architectures II
 
+---
 
+## Lecture 1: CPU
 
-### Lecture 1: CPU
-
-#### 计算机架构
+### 计算机架构
 
 计算机主要采用两种架构：  
 - **冯诺依曼架构**：使用同一个存储器，经由同一个总线传输指令和数据。</description><guid isPermaLink="true">https://koolcandy.github.io/post/CS253%20Architectures%20II.html</guid><pubDate>Fri, 17 Jan 2025 07:02:26 +0000</pubDate></item><item><title>Math</title><link>https://koolcandy.github.io/post/Math.html</link><description>### L1. Functions of sevral variables
