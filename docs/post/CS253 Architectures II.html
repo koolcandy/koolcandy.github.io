@@ -606,23 +606,9 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 <td><code class="notranslate">RCL AX, 1</code></td>
 <td>将AX寄存器的内容带进位循环左移1位, 进位标志 (CF) 参与循环</td>
 </tr>
-<tr>
-<td>RCR</td>
-<td><code class="notranslate">RCR BX, 1</code></td>
-<td>将BX寄存器的内容带进位循环右移1位, 进位标志 (CF) 参与循环</td>
-</tr>
-<tr>
-<td>SHLD</td>
-<td><code class="notranslate">SHLD AX, BX, 4</code></td>
-<td>将AX和BX寄存器的内容一起逻辑左移4位, AX的高位由BX的低位填充</td>
-</tr>
-<tr>
-<td>SHRD</td>
-<td><code class="notranslate">SHRD CX, DX, 3</code></td>
-<td>将CX和DX寄存器的内容一起逻辑右移3位, CX的低位由DX的高位填充</td>
-</tr>
 </tbody>
 </table></markdown-accessiblity-table>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/df81794cad4610cf8704fe352c71701ed0856d7c9229938a88391ba7f06c20b9/68747470733a2f2f73322e6c6f6c692e6e65742f323032352f30322f31312f523968794151667631534438616a452e706e67"><img src="https://camo.githubusercontent.com/df81794cad4610cf8704fe352c71701ed0856d7c9229938a88391ba7f06c20b9/68747470733a2f2f73322e6c6f6c692e6e65742f323032352f30322f31312f523968794151667631534438616a452e706e67" alt="img" data-canonical-src="https://s2.loli.net/2025/02/11/R9hyAQfv1SD8ajE.png" style="max-width: 100%;"></a></p>
 <div class="markdown-alert markdown-alert-note"><p class="markdown-alert-title"><svg class="octicon octicon-info mr-2" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8Zm8-6.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13ZM6.5 7.75A.75.75 0 0 1 7.25 7h1a.75.75 0 0 1 .75.75v2.75h.25a.75.75 0 0 1 0 1.5h-2a.75.75 0 0 1 0-1.5h.25v-2h-.25a.75.75 0 0 1-.75-.75ZM8 6a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z"></path></svg>Note</p>
 <p><strong>逻辑右移 (SHR )用0填充空出的高位, 而算术右移 (SAR )用符号位填充空出的高位</strong></p>
 </div>
@@ -1085,6 +1071,7 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 <div class="markdown-alert markdown-alert-note"><p class="markdown-alert-title"><svg class="octicon octicon-info mr-2" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8Zm8-6.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13ZM6.5 7.75A.75.75 0 0 1 7.25 7h1a.75.75 0 0 1 .75.75v2.75h.25a.75.75 0 0 1 0 1.5h-2a.75.75 0 0 1 0-1.5h.25v-2h-.25a.75.75 0 0 1-.75-.75ZM8 6a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z"></path></svg>Note</p>
 <p><strong>REP(Repeat)</strong> 修饰符可以放在多种字符串指令 (如 <code class="notranslate">MOVSB</code>, <code class="notranslate">CMPSB</code>, <code class="notranslate">STOSB</code>, <code class="notranslate">LODSB</code> 等) 的前面，用于重复执行该指令 <code class="notranslate">CX</code> 次.<code class="notranslate">REP</code> 代表 <strong>重复字符串前缀</strong>，它可以简化循环控制，提高字符串操作的效率。</p>
 </div>
+<p><a id="user-content-cisc vs risc"></a></p>
 <h4>CISC 与 RISC 指令集对比</h4>
 <p><code class="notranslate">MOVSB</code> 和 <code class="notranslate">CMPSB</code> 等字符串操作指令是 <strong>CISC(复杂指令集计算机)</strong> 架构的特点之一。为了更好理解 CISC 的特点，以下进行 CISC 和 <strong>RISC(精简指令集计算机)</strong> 的对比：</p>
 <ul>
@@ -1127,48 +1114,6 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 </ul>
 </li>
 </ul>
-<h4>CISC 和 RISC 实现乘法对比</h4>
-<p>为了更直观地理解 CISC 和 RISC 的区别，以下通过乘法运算的汇编代码示例进行对比：</p>
-<p><strong>RISC 实现乘法</strong></p>
-<div class="highlight highlight-source-assembly"><pre class="notranslate"><span class="pl-en">.STARTUP</span>
-
-<span class="pl-k">mov</span><span class="pl-en"> </span><span class="pl-v">ax</span><span class="pl-s1">,</span><span class="pl-en"> </span><span class="pl-c1">0</span><span class="pl-c">        ; 初始化结果寄存器 AX 为 0</span>
-<span class="pl-k">mov</span><span class="pl-en"> </span><span class="pl-v">dx</span><span class="pl-s1">,</span><span class="pl-en"> </span><span class="pl-c1">100</span><span class="pl-c">      ; 乘数 100 放入 DX 寄存器</span>
-<span class="pl-k">mov</span><span class="pl-en"> </span><span class="pl-v">bx</span><span class="pl-s1">,</span><span class="pl-en"> </span><span class="pl-c1">123</span><span class="pl-c">      ; 被乘数 123 放入 BX 寄存器</span>
-<span class="pl-k">mov</span><span class="pl-en"> </span><span class="pl-v">cx</span><span class="pl-s1">,</span><span class="pl-en"> </span><span class="pl-c1">8</span><span class="pl-c">        ; 循环次数设置为 8 (假设进行 8 位乘法)</span>
-
-<span class="pl-en">back:</span>
-<span class="pl-en">    </span><span class="pl-k">rcr</span><span class="pl-en"> </span><span class="pl-v">dx</span><span class="pl-s1">,</span><span class="pl-en"> </span><span class="pl-c1">1</span><span class="pl-c">    ; 将 DX 寄存器最低位循环移入 CF (进位标志位)</span>
-<span class="pl-en">    </span><span class="pl-k">jnc</span><span class="pl-en"> over</span><span class="pl-c">     ; 如果 CF = 0 (最低位为 0)，则跳转到 over 标签</span>
-<span class="pl-en">    </span><span class="pl-k">add</span><span class="pl-en"> </span><span class="pl-v">ax</span><span class="pl-s1">,</span><span class="pl-en"> </span><span class="pl-v">bx</span><span class="pl-c">   ; 如果 CF = 1 (最低位为 1)，则将 BX 累加到 AX (部分积)</span>
-
-<span class="pl-en">over:</span>
-<span class="pl-en">    </span><span class="pl-k">shl</span><span class="pl-en"> </span><span class="pl-v">bx</span><span class="pl-s1">,</span><span class="pl-en"> </span><span class="pl-c1">1</span><span class="pl-c">    ; 将 BX 寄存器左移一位，相当于乘以 2</span>
-<span class="pl-en">    </span><span class="pl-k">loop</span><span class="pl-en"> back</span><span class="pl-c">    ; 循环计数器 CX 减 1，如果 CX != 0，则跳转到 back 标签继续循环</span>
-
-<span class="pl-k">call</span><span class="pl-en"> Print</span>
-<span class="pl-en">.EXIT</span></pre></div>
-<p><strong>代码说明</strong>：RISC 实现乘法通常采用移位和加法相结合的方式，通过循环逐步计算乘积。</p>
-<p><strong>CISC 实现乘法</strong></p>
-<div class="highlight highlight-source-assembly"><pre class="notranslate"><span class="pl-en">.STARTUP</span>
-
-<span class="pl-k">mov</span><span class="pl-en"> </span><span class="pl-v">dl</span><span class="pl-s1">,</span><span class="pl-en"> </span><span class="pl-c1">100</span><span class="pl-c">    ; 乘数 100 放入 DL 寄存器</span>
-<span class="pl-k">mov</span><span class="pl-en"> </span><span class="pl-v">al</span><span class="pl-s1">,</span><span class="pl-en"> </span><span class="pl-c1">123</span><span class="pl-c">    ; 被乘数 123 放入 AL 寄存器</span>
-
-<span class="pl-k">mul</span><span class="pl-en"> </span><span class="pl-v">dl</span><span class="pl-c">         ; 执行乘法指令 mul，AL * DL，结果存储在 AX 寄存器</span>
-
-<span class="pl-k">call</span><span class="pl-en"> Print</span>
-<span class="pl-en">.EXIT</span></pre></div>
-<p><strong>代码说明</strong>：CISC 架构的 x86 汇编提供了 <code class="notranslate">mul</code> (<strong>multiply</strong>) 乘法指令，可以直接完成乘法运算，指令简洁高效。</p>
-<p><strong>对比总结</strong>：</p>
-<ul>
-<li>RISC 实现乘法需要多条指令 (移位、判断、加法、循环) ，代码相对复杂。</li>
-<li>CISC 实现乘法只需要一条 <code class="notranslate">mul</code> 指令，代码简洁明了。</li>
-</ul>
-<p>这体现了 CISC 指令集复杂但功能强大，RISC 指令集精简但需要组合使用才能完成复杂操作的特点。</p>
-<div class="markdown-alert markdown-alert-note"><p class="markdown-alert-title"><svg class="octicon octicon-info mr-2" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8Zm8-6.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13ZM6.5 7.75A.75.75 0 0 1 7.25 7h1a.75.75 0 0 1 .75.75v2.75h.25a.75.75 0 0 1 0 1.5h-2a.75.75 0 0 1 0-1.5h.25v-2h-.25a.75.75 0 0 1-.75-.75ZM8 6a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z"></path></svg>Note</p>
-<p>除法运算的 RISC 实现通常也采用类似的思路，通过循环减法和移位操作完成，过程较为复杂，此处省略了除法部分的 RISC 代码示例。</p>
-</div>
 <h3>浮点数</h3>
 <h4>浮点数的概念</h4>
 <p><strong>浮点数</strong> (Floating-point Number) 是一种用<strong>科学计数法</strong>表示实数的方式，用于在计算机中存储和处理小数或非常大/小的数值。浮点数表示方法通常包含三个关键组成部分：</p>
@@ -1650,23 +1595,23 @@ $(-1)^0 \times 1.01_2 \times 2^{-1} = 1.01_2 \times 2^{-1} = 0.101_2 = 0.625_{10
 <li>
 <p><strong>输入高电平</strong>：</p>
 <ul>
-<li>当 <strong>输入端 (Input)</strong> 为<strong>高电平</strong>时，<strong>NMOS 管导通</strong>，<strong>PMOS 管截止</strong>。</li>
-<li>电路相当于 <strong>输出端 (Output) 通过导通的 NMOS 管接地</strong>，因此 <strong>输出为低电平</strong>。</li>
+<li>当 <strong>输入端 (A)</strong> 为<strong>高电平</strong>时，<strong>NMOS 管导通</strong>，<strong>PMOS 管截止</strong>。</li>
+<li>电路相当于 <strong>输出端 (B) 通过导通的 NMOS 管接地</strong>，因此 <strong>输出为低电平</strong>。</li>
 </ul>
 </li>
 <li>
 <p><strong>输入低电平</strong>：</p>
 <ul>
-<li>当 <strong>输入端 (Input)</strong> 为<strong>低电平</strong>时，<strong>PMOS 管导通</strong>，<strong>NMOS 管截止</strong>。</li>
-<li>电路相当于 <strong>输出端 (Output) 通过导通的 PMOS 管连接到电源 (V<sub>DD</sub>)</strong>，因此 <strong>输出为高电平</strong>。</li>
+<li>当 <strong>输入端 (A)</strong> 为<strong>低电平</strong>时，<strong>PMOS 管导通</strong>，<strong>NMOS 管截止</strong>。</li>
+<li>电路相当于 <strong>输出端 (B) 通过导通的 PMOS 管连接到电源 (V<sub>DD</sub>)</strong>，因此 <strong>输出为高电平</strong>。</li>
 </ul>
 </li>
 </ul>
 <p><strong>总结</strong>：CMOS 反相器实现了<strong>输入与输出电平的反转</strong>，是构成更复杂 CMOS 逻辑门的基础。</p>
 <p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/e90473ac428f38f22e0f6c862e67c6315c9c793b164cec0f6733416867196d94/68747470733a2f2f73322e6c6f6c692e6e65742f323032352f30312f31392f7842456362515847345244736557502e706e67"><img src="https://camo.githubusercontent.com/e90473ac428f38f22e0f6c862e67c6315c9c793b164cec0f6733416867196d94/68747470733a2f2f73322e6c6f6c692e6e65742f323032352f30312f31392f7842456362515847345244736557502e706e67" alt="img" data-canonical-src="https://s2.loli.net/2025/01/19/xBEcbQXG4RDseWP.png" style="max-width: 100%;"></a></p>
 <hr>
-<h2>Lecture 9: Digital I/O</h2>
-<h3>I/O 基础</h3>
+<h2>Lecture 9: I/O</h2>
+<h3>I/O</h3>
 <h4>I/O 操作与地址空间</h4>
 <p><strong>I/O (Input/Output)</strong> 操作是计算机系统中 <strong>CPU (中央处理器)</strong> 与外部设备进行数据交换的关键方式。8086 微处理器架构中，I/O 操作的设计特点包括：</p>
 <ul>
@@ -1754,7 +1699,7 @@ $(-1)^0 \times 1.01_2 \times 2^{-1} = 1.01_2 \times 2^{-1} = 0.101_2 = 0.625_{10
 <p>与 8086 的总线复用设计不同，<strong>Z80A CPU</strong> 的 <strong>数据总线</strong> 和 <strong>地址总线</strong> 采用了<strong>分离的设计</strong>，拥有独立的引脚，简化了总线控制逻辑，并可能提升总线操作的效率。</p>
 <p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/8c793589cb9786fe440129e0feb21fb296ee70ae1629a3ed53430f2547e178af/68747470733a2f2f73322e6c6f6c692e6e65742f323032352f30312f31392f5058727476353478386433554144322e706e67"><img src="https://camo.githubusercontent.com/8c793589cb9786fe440129e0feb21fb296ee70ae1629a3ed53430f2547e178af/68747470733a2f2f73322e6c6f6c692e6e65742f323032352f30312f31392f5058727476353478386433554144322e706e67" alt="img" data-canonical-src="https://s2.loli.net/2025/01/19/PXrtv54x8d3UAD2.png" style="max-width: 100%;"></a></p>
 <h4>基于 AND 门的地址解码器</h4>
-<p>为了实现<strong>地址解码</strong>，Z80A 系统中使用了 <strong>AND 门</strong> 作为<strong>地址解码器 (Address Decoder)</strong>。</p>
+<p>为了实现<strong>地址解码</strong>，Z80A 系统中使用了几个巨大的 <strong>AND 门</strong> 作为<strong>地址解码器 (Address Decoder)</strong>。</p>
 <ul>
 <li><strong>地址匹配</strong>：当 <strong>16 个输入信号</strong> 与预设的<strong>设备地址</strong> 完全匹配时，AND 门输出<strong>逻辑真 (高电平)</strong>，否则输出<strong>逻辑假 (低电平)</strong>。</li>
 <li><strong>控制线</strong>：系统使用<strong>两根控制线</strong> (图中绿色和紫色线条) 来指示当前操作是<strong>读取</strong>还是<strong>写入</strong>，以及针对哪个设备。</li>
@@ -1864,6 +1809,7 @@ $(-1)^0 \times 1.01_2 \times 2^{-1} = 1.01_2 \times 2^{-1} = 0.101_2 = 0.625_{10
 <li><strong>调用中断处理程序</strong>：CPU <strong>跳转</strong> 到一个专门<strong>服务中断的程序</strong>，称为 <strong>中断处理程序 (Interrupt Handler)</strong> 或 <strong>中断服务例程 (ISR, Interrupt Service Routine)</strong>。</li>
 <li><strong>返回主程序</strong>：<strong>中断处理程序执行完毕</strong>后，<strong>将控制权返回</strong> 到之前被中断的<strong>主程序</strong>，从断点处继续执行。</li>
 </ol>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/156e4ad5bd5394c8afe5af44259370ca9de9c780053f9bea28cb74f3c09f3d38/68747470733a2f2f73322e6c6f6c692e6e65742f323032352f30322f30382f597039505236694463747768794b612e706e67"><img src="https://camo.githubusercontent.com/156e4ad5bd5394c8afe5af44259370ca9de9c780053f9bea28cb74f3c09f3d38/68747470733a2f2f73322e6c6f6c692e6e65742f323032352f30322f30382f597039505236694463747768794b612e706e67" alt="img" data-canonical-src="https://s2.loli.net/2025/02/08/Yp9PR6iDctwhyKa.png" style="max-width: 100%;"></a></p>
 <h4>8086 的中断类型</h4>
 <p>8086 架构支持多种类型的中断，可以根据<strong>触发来源</strong>进行分类：</p>
 <ul>
@@ -3077,7 +3023,458 @@ $(-1)^0 \times 1.01_2 \times 2^{-1} = 1.01_2 \times 2^{-1} = 0.101_2 = 0.625_{10
 <h3>光盘</h3>
 <p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/540b574f33226e51e07cec4cdb76a4709dee7d4976e88b4c972a82768af2e0c6/68747470733a2f2f73322e6c6f6c692e6e65742f323032352f30322f30372f38456c5533784e5a543941564a677a2e706e67"><img src="https://camo.githubusercontent.com/540b574f33226e51e07cec4cdb76a4709dee7d4976e88b4c972a82768af2e0c6/68747470733a2f2f73322e6c6f6c692e6e65742f323032352f30322f30372f38456c5533784e5a543941564a677a2e706e67" alt="img" data-canonical-src="https://s2.loli.net/2025/02/07/8ElU3xNZT9AVJgz.png" style="max-width: 100%;"></a></p>
 <p>单层DVD的容量为4.7GB，CD的容量为680MB，而双面双层DVD的容量可达17GB，CD既可以通过母盘复制/压制进行批量生产，也可以使用CD-R或CD-RW技术进行单独创建。</p>
-<hr></div>
+<hr>
+<h2>Lecture 13 B: 硬件保护</h2>
+<h3>I/O 结构</h3>
+<p>微处理器 (µP) 通过 UART (通用异步收发器) 与外部设备进行数据传输，UART 里面有一个<strong>缓冲区</strong>能加快数据传输。<a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/84629e586ab01928ff592ed59c612b58fc60446f380a8e691963006934b5e40a/68747470733a2f2f73322e6c6f6c692e6e65742f323032352f30322f30382f4e336e6d32725534536b4267654a702e706e67"><img src="https://camo.githubusercontent.com/84629e586ab01928ff592ed59c612b58fc60446f380a8e691963006934b5e40a/68747470733a2f2f73322e6c6f6c692e6e65742f323032352f30322f30382f4e336e6d32725534536b4267654a702e706e67" alt="img" data-canonical-src="https://s2.loli.net/2025/02/08/N3nm2rU4SkBgeJp.png" style="max-width: 100%;"></a></p>
+<h3>同步 I/O</h3>
+<p>在同步 I/O 中，应用程序发起 I/O 操作后，<strong>必须等待</strong> I/O 操作完成才能继续执行后续代码。 也就是说，应用程序会被 <strong>阻塞</strong> 在 I/O 操作上，直到数据传输完成。</p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/df08b987ecd5eae642d28ac2712ee8f2f0153cf7ab8ee9eb50fb65f55cf79eb8/68747470733a2f2f73322e6c6f6c692e6e65742f323032352f30322f30382f6f314362694f7667754d537a6a77472e706e67"><img src="https://camo.githubusercontent.com/df08b987ecd5eae642d28ac2712ee8f2f0153cf7ab8ee9eb50fb65f55cf79eb8/68747470733a2f2f73322e6c6f6c692e6e65742f323032352f30322f30382f6f314362694f7667754d537a6a77472e706e67" alt="img" data-canonical-src="https://s2.loli.net/2025/02/08/o1CbiOvguMSzjwG.png" style="max-width: 100%;"></a></p>
+<h3>异步 I/O</h3>
+<p>在异步 I/O 中，应用程序发起 I/O 操作后， <strong>无需等待</strong> I/O 操作完成就可以继续执行后续代码。 操作系统或 I/O 设备会在后台执行 I/O 操作，并在操作完成后通过中断等机制通知应用程序。</p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/590d05a14af8e2e2e721cb560ed04fcd082871108783b576591c5191faa1ad29/68747470733a2f2f73322e6c6f6c692e6e65742f323032352f30322f30382f66556d7279317539354e4a646c54532e706e67"><img src="https://camo.githubusercontent.com/590d05a14af8e2e2e721cb560ed04fcd082871108783b576591c5191faa1ad29/68747470733a2f2f73322e6c6f6c692e6e65742f323032352f30322f30382f66556d7279317539354e4a646c54532e706e67" alt="img" data-canonical-src="https://s2.loli.net/2025/02/08/fUmry1u95NJdlTS.png" style="max-width: 100%;"></a></p>
+<h3>硬件保护</h3>
+<p>CPU允许两种操作模式。在寄存器中的一个位设置了CPU正在运行的模式。</p>
+<ul>
+<li>**用户模式 (User Mode): **代表用户运行的代码。</li>
+<li>**监控模式 (Monitor Mode): **代表操作系统运行的代码。</li>
+</ul>
+<p>在用户模式下，应用不能切换到监控模式。操作系统在启动用户程序之前，会先切换到监控模式，然后创建一个新的进程或线程，并将控制权交给该进程或线程。只有在监控模式下才能使用能够危害其他程序的特权指令。因此只有通过操作系统，用户程序才能和硬件交互</p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/9d4d85b19879f4ac46266bb02a818740aee7bfbc093e01b81d96069c25a05312/68747470733a2f2f73322e6c6f6c692e6e65742f323032352f30322f30382f50376b347376656e474c67437a70542e706e67"><img src="https://camo.githubusercontent.com/9d4d85b19879f4ac46266bb02a818740aee7bfbc093e01b81d96069c25a05312/68747470733a2f2f73322e6c6f6c692e6e65742f323032352f30322f30382f50376b347376656e474c67437a70542e706e67" alt="img" data-canonical-src="https://s2.loli.net/2025/02/08/P7k4svenGLgCzpT.png" style="max-width: 100%;"></a></p>
+<h3>内存保护</h3>
+<p>恶意程序在没有内存保护的情况下能直接修改中断向量表，造成严重的系统异常！！！</p>
+<h3>CPU 保护</h3>
+<p>操作系统理念有一个计时器，规定了一个程序最长能占用的CPU周期，防止某个进程霸占 CPU 导致系统崩溃，计时器中断触发会保存当前上下文，然后把控制权交给下一个进程</p>
+<hr>
+<h2>Lecture 14: CISC/RISC 向量处理器与并行处理器</h2>
+<h3>RISC vs CISC</h3>
+<h4>CISC (Complex Instruction Set)</h4>
+<p><strong>核心理念</strong>：通过丰富的指令集和寻址方式，尽可能地用一条指令完成复杂的任务。</p>
+<ul>
+<li><strong>指令集丰富</strong>：指令数量多，包含大量复杂指令，以及多种寻址方式。</li>
+<li><strong>汇编编程友好</strong>：汇编代码编写相对容易，因为高级操作可以通过单条指令完成。</li>
+<li><strong>特定指令执行速度快</strong>：针对特定应用优化的复杂指令，执行效率高。</li>
+<li><strong>指令解码复杂</strong>：由于指令长度不一、格式多样，解码过程复杂，增加硬件开销。</li>
+<li><strong>程序体积较小</strong>：完成相同任务所需的指令数量较少，程序体积相对较小。</li>
+</ul>
+<h4>RISC (Reduced Instruction Set)</h4>
+<p><strong>核心理念</strong>：简化指令集，使用少量、简单、定长的指令，并通过优化指令执行流程来提高整体性能。</p>
+<ul>
+<li><strong>指令集精简</strong>：指令数量少，指令格式统一，寻址方式简单。</li>
+<li><strong>指令执行效率高</strong>：绝大多数指令都可以在一个时钟周期内完成。</li>
+<li><strong>编译器要求高</strong>：生成 RISC 代码的编译器设计难度较高。</li>
+<li><strong>内存性能要求高</strong>：需要快速的内存访问，以保证指令流的持续供应。</li>
+<li><strong>性能更好</strong>：指令执行效率高，流水线优化使得并发执行成为可能。</li>
+<li><strong>通用寄存器多</strong>：依赖大量通用寄存器，减少对内存的访问，提高数据处理速度。</li>
+<li><strong>优化指令流水线</strong>：允许同时执行多条指令。</li>
+</ul>
+<h4>CISC 和 RISC 在追求更好性能时的策略</h4>
+<ul>
+<li><strong>CISC</strong> 的策略 是让机器指令更像高级语言，这样编译器更容易生成代码，程序也更小更快。许多 CISC 编译器实际上只使用指令集中的一部分。</li>
+<li><strong>RISC</strong> 的策略是优化最常用指令的执行效率，减少内存访问，并充分利用指令流水线和寄存器。RISC 设计侧重于通过使用寄存器（可以看作是非常快的本地缓存）和优化指令的执行流程来提高速度。</li>
+</ul>
+<h4>CISC 和 RISC 实现乘法</h4>
+<p><strong>RISC 实现乘法</strong></p>
+<div class="highlight highlight-source-assembly"><pre class="notranslate"><span class="pl-en">.STARTUP</span>
+
+<span class="pl-k">mov</span><span class="pl-en"> </span><span class="pl-v">ax</span><span class="pl-s1">,</span><span class="pl-en"> </span><span class="pl-c1">0</span><span class="pl-c">        ; 初始化结果寄存器 AX 为 0</span>
+<span class="pl-k">mov</span><span class="pl-en"> </span><span class="pl-v">dx</span><span class="pl-s1">,</span><span class="pl-en"> </span><span class="pl-c1">100</span><span class="pl-c">      ; 乘数 100 放入 DX 寄存器</span>
+<span class="pl-k">mov</span><span class="pl-en"> </span><span class="pl-v">bx</span><span class="pl-s1">,</span><span class="pl-en"> </span><span class="pl-c1">123</span><span class="pl-c">      ; 被乘数 123 放入 BX 寄存器</span>
+<span class="pl-k">mov</span><span class="pl-en"> </span><span class="pl-v">cx</span><span class="pl-s1">,</span><span class="pl-en"> </span><span class="pl-c1">8</span><span class="pl-c">        ; 循环次数设置为 8 (假设进行 8 位乘法)</span>
+
+<span class="pl-en">back:</span>
+<span class="pl-en">    </span><span class="pl-k">rcr</span><span class="pl-en"> </span><span class="pl-v">dx</span><span class="pl-s1">,</span><span class="pl-en"> </span><span class="pl-c1">1</span><span class="pl-c">    ; 将 DX 寄存器最低位循环移入 CF (进位标志位)</span>
+<span class="pl-en">    </span><span class="pl-k">jnc</span><span class="pl-en"> over</span><span class="pl-c">     ; 如果 CF = 0 (最低位为 0)，则跳转到 over 标签</span>
+<span class="pl-en">    </span><span class="pl-k">add</span><span class="pl-en"> </span><span class="pl-v">ax</span><span class="pl-s1">,</span><span class="pl-en"> </span><span class="pl-v">bx</span><span class="pl-c">   ; 如果 CF = 1 (最低位为 1)，则将 BX 累加到 AX (部分积)</span>
+
+<span class="pl-en">over:</span>
+<span class="pl-en">    </span><span class="pl-k">shl</span><span class="pl-en"> </span><span class="pl-v">bx</span><span class="pl-s1">,</span><span class="pl-en"> </span><span class="pl-c1">1</span><span class="pl-c">    ; 将 BX 寄存器左移一位，相当于乘以 2</span>
+<span class="pl-en">    </span><span class="pl-k">loop</span><span class="pl-en"> back</span><span class="pl-c">    ; 循环计数器 CX 减 1，如果 CX != 0，则跳转到 back 标签继续循环</span>
+
+<span class="pl-k">call</span><span class="pl-en"> Print</span>
+<span class="pl-en">.EXIT</span></pre></div>
+<p><strong>CISC 实现乘法</strong></p>
+<div class="highlight highlight-source-assembly"><pre class="notranslate"><span class="pl-en">.STARTUP</span>
+
+<span class="pl-k">mov</span><span class="pl-en"> </span><span class="pl-v">dl</span><span class="pl-s1">,</span><span class="pl-en"> </span><span class="pl-c1">100</span><span class="pl-c">    ; 乘数 100 放入 DL 寄存器</span>
+<span class="pl-k">mov</span><span class="pl-en"> </span><span class="pl-v">al</span><span class="pl-s1">,</span><span class="pl-en"> </span><span class="pl-c1">123</span><span class="pl-c">    ; 被乘数 123 放入 AL 寄存器</span>
+
+<span class="pl-k">mul</span><span class="pl-en"> </span><span class="pl-v">dl</span><span class="pl-c">         ; 执行乘法指令 mul，AL * DL，结果存储在 AX 寄存器</span>
+
+<span class="pl-k">call</span><span class="pl-en"> Print</span>
+<span class="pl-en">.EXIT</span></pre></div>
+<h3>流水线</h3>
+<p>早期 CPU 执行一条指令从出生到入土，非得霸占整个逻辑处理单元不撒手。Fetch, Decode, Execute 三兄弟明明能各干各的，非得搞什么"一条龙服务"——结果就是ALU天天摸鱼，寄存器天天加班。图灵的在天之灵振臂高呼：杂鱼 CPU 就应该狠狠的填满🥵，上流水线！</p>
+<h4>流水线执行：时间管理大师の骚操作</h4>
+<ol>
+<li>周期1：Ins.1刚扒上Fetch的窗口，CPU就开始偷瞄下一条</li>
+<li>周期2：Ins.1在Decode里翻来覆去，Ins.2已经蹲在Fetch门口催单</li>
+<li>周期3：Ins.1终于Execute，后面俩小弟Ins.2/3直接卡成贪吃蛇</li>
+<li>周期4：Ins.1 Execute 完了，提起裤子直接跑了，轮到 Ins.2 上场接力</li>
+</ol>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/af8cede97c48c79416c78804aaa02f7b26ae7974ce1f8b3d9cc2cfd0eed85b79/68747470733a2f2f73322e6c6f6c692e6e65742f323032352f30322f31312f41587562786f5333687973507a38462e706e67"><img src="https://camo.githubusercontent.com/af8cede97c48c79416c78804aaa02f7b26ae7974ce1f8b3d9cc2cfd0eed85b79/68747470733a2f2f73322e6c6f6c692e6e65742f323032352f30322f31312f41587562786f5333687973507a38462e706e67" alt="img" data-canonical-src="https://s2.loli.net/2025/02/11/AXubxoS3hysPz8F.png" style="max-width: 100%;"></a></p>
+<p>【奔腾の骚操作手册】</p>
+<ul>
+<li><strong>分支预测</strong>：我全都要！左手预取老实人指令，右手偷跑分支代码，赌狗の胜利</li>
+<li><strong>双核の野望</strong>：U/V两个执行单元宛如双车道飙车，前提是别碰上"简单指令+无依赖"这种稀有精英怪</li>
+<li><strong>硬连线玄学</strong>：简单指令直接焊死在电路板上，复杂指令？不存在的，RISC正统在Intel（战术后仰）</li>
+<li><strong>写回の艺术</strong>：寄存器更新比微博热搜还快，标志位翻脸比翻书还勤</li>
+</ul>
+<h4>流水线の黑暗面：你以为的效率革命，其实是 CPU 的血泪史</h4>
+<p><strong>1. 资源冲突：CPU版《鱿鱼游戏》</strong></p>
+<ul>
+<li>内存总线就是独木桥，两条指令同时过？直接给你踹下去！ALU、寄存器全特么是限量款，抢不到资源的指令只能蹲在流水线里斗地主</li>
+</ul>
+<p><strong>2. 控制依赖：薛定谔的跳转指令</strong></p>
+<ul>
+<li>分支预测？预测个锤子！当你的jump指令在流水线里蹦迪时，后面跟的一串指令全是开盲盒——猜对了叫"分支预测成功"，猜错了？恭喜喜提"清空流水线大礼包"！</li>
+</ul>
+<p><strong>3. 数据依赖：套娃式死亡连环call</strong></p>
+<ul>
+<li>想算A=B+C？先等B从内存爬出来！</li>
+<li>要搞D=A*2？麻烦前面那个算A的别摸鱼！</li>
+<li>最骚的是进位标志位——这玩意儿就像祖传染色体，少一个bit整个运算家族都得绝后</li>
+</ul>
+<h4>浮点运算の流水线魔法：从牛车到高铁的骚操作</h4>
+<p><strong>标量运算の原始社会：</strong></p>
+<ul>
+<li>24步苦力操作，每个加法都得把C/S/A/N四件套从头撸到尾</li>
+<li>流水线？不存在的！ALU就像单身狗热炕头——每次只能宠幸一个阶段</li>
+<li>寄存器疯狂007：刚伺候完Check又要搞Shift，CPU直接过劳死预警</li>
+</ul>
+<p><strong>流水线の工业革命：</strong></p>
+<markdown-accessiblity-table><table role="table">
+<thead>
+<tr>
+<th align="center">周期</th>
+<th align="center">C (Check if Zero)</th>
+<th align="center">S (Shift)</th>
+<th align="center">A (Add)</th>
+<th align="center">N (Normalize)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">1</td>
+<td align="center">加法 1</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">2</td>
+<td align="center">加法 2</td>
+<td align="center">加法 1</td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">3</td>
+<td align="center">加法 3</td>
+<td align="center">加法 2</td>
+<td align="center">加法 1</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">4</td>
+<td align="center">加法 4</td>
+<td align="center">加法 3</td>
+<td align="center">加法 2</td>
+<td align="center">加法 1</td>
+</tr>
+<tr>
+<td align="center">5</td>
+<td align="center">加法 5</td>
+<td align="center">加法 4</td>
+<td align="center">加法 3</td>
+<td align="center">加法 2</td>
+</tr>
+<tr>
+<td align="center">6</td>
+<td align="center">加法 6</td>
+<td align="center">加法 5</td>
+<td align="center">加法 4</td>
+<td align="center">加法 3</td>
+</tr>
+<tr>
+<td align="center">7</td>
+<td align="center"></td>
+<td align="center">加法 6</td>
+<td align="center">加法 5</td>
+<td align="center">加法 4</td>
+</tr>
+<tr>
+<td align="center">8</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center">加法 6</td>
+<td align="center">加法 5</td>
+</tr>
+<tr>
+<td align="center">9</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center">加法 6</td>
+</tr>
+</tbody>
+</table></markdown-accessiblity-table>
+<p>（拍黑板）看见没？资本家CPU的终极奥义：</p>
+<ul>
+<li><strong>四阶段流水线化身血汗工厂</strong>：Check工人刚摸鱼完，Shift工人立刻接盘</li>
+<li><strong>每个时钟周期都在榨干硬件</strong>：6个加法只付9个周期的工资（6+4-1），比周扒皮还狠</li>
+<li><strong>前戏与收尾の量子纠缠</strong>：前3周期在填流水线（热身），后6-1=5周期疯狂输出（冲业绩）</li>
+</ul>
+<p>假如还有这个屠龙宝剑，计算8个加法甚至只要5周期！</p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/cfc19db94550f81522ef37dcda2c0dc0e9f5bb645e1de9c594ba2cff7b61f839/68747470733a2f2f73322e6c6f6c692e6e65742f323032352f30322f31312f34675052766137634371516d6975652e706e67"><img src="https://camo.githubusercontent.com/cfc19db94550f81522ef37dcda2c0dc0e9f5bb645e1de9c594ba2cff7b61f839/68747470733a2f2f73322e6c6f6c692e6e65742f323032352f30322f31312f34675052766137634371516d6975652e706e67" alt="img" data-canonical-src="https://s2.loli.net/2025/02/11/4gPRva7cCqQmiue.png" style="max-width: 100%;"></a></p>
+<h3>向量处理</h3>
+<p>例如要计算 $\begin{bmatrix}1\2\3\end{bmatrix}+\begin{bmatrix}3\4\5\end{bmatrix}=\begin{bmatrix}4\6\8\end{bmatrix}$ 使用标量处理至少需要3个周期，但是加上流水线和并行处理可能能在一个周期内解决</p>
+<h3>M. Flynn 并行处理器分类</h3>
+<ul>
+<li><strong>SISD (单指令流单数据流)</strong>：使用单个处理器来解释对单个数据块的单条指令。通过流水线技术实现并行。</li>
+<li><strong>SIMD (单指令流多数据流)</strong>：使用单条指令来控制多个处理单元。例如，向量处理器。</li>
+<li><strong>MIMD (多指令流多数据流)</strong>：一组处理器同时执行对不同数据块的不同指令。</li>
+</ul>
+<h3>多处理器</h3>
+<p>共享内存，受限于内存带宽，不能做到很大的规模</p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/f56b03b482610016c220995813b26b8fb0fca8f3f0aa39cef69b6ed1d8fa7d7b/68747470733a2f2f73322e6c6f6c692e6e65742f323032352f30322f31312f516f5a384b437564445835745554342e706e67"><img src="https://camo.githubusercontent.com/f56b03b482610016c220995813b26b8fb0fca8f3f0aa39cef69b6ed1d8fa7d7b/68747470733a2f2f73322e6c6f6c692e6e65742f323032352f30322f31312f516f5a384b437564445835745554342e706e67" alt="img" data-canonical-src="https://s2.loli.net/2025/02/11/QoZ8KCudDX5tUT4.png" style="max-width: 100%;"></a></p>
+<h3>多计算机</h3>
+<p>每个处理器由自己独立的内存，说白了就是分布式系统，通过PVM来交换数据</p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/8149b4199b74a1ed5776ad24bb7ae039dd0bbf2f06a1e783d8e4a44c12cc6754/68747470733a2f2f73322e6c6f6c692e6e65742f323032352f30322f31312f4b63456f5067394e535664617a6a752e706e67"><img src="https://camo.githubusercontent.com/8149b4199b74a1ed5776ad24bb7ae039dd0bbf2f06a1e783d8e4a44c12cc6754/68747470733a2f2f73322e6c6f6c692e6e65742f323032352f30322f31312f4b63456f5067394e535664617a6a752e706e67" alt="img" data-canonical-src="https://s2.loli.net/2025/02/11/KcEoPg9NSVdazju.png" style="max-width: 100%;"></a></p>
+<h3>拓扑架构</h3>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/23df89d37811ae515c062a2e3a72e9be29f1c448b844bbb83f0804f845a16325/68747470733a2f2f73322e6c6f6c692e6e65742f323032352f30322f31312f7773747a694f5552344278764b4a392e706e67"><img src="https://camo.githubusercontent.com/23df89d37811ae515c062a2e3a72e9be29f1c448b844bbb83f0804f845a16325/68747470733a2f2f73322e6c6f6c692e6e65742f323032352f30322f31312f7773747a694f5552344278764b4a392e706e67" alt="img" data-canonical-src="https://s2.loli.net/2025/02/11/wstziOUR4BxvKJ9.png" style="max-width: 100%;"></a></p>
+<ul>
+<li>环形结构 ring，最远距离 n/2</li>
+<li>网状结构 mesh，最远距离 2n-2</li>
+<li>树形结构 tree，一般适用于分治的系统</li>
+<li>超立方体结构，一共有 $2^n$ 个节点，每个节点连出去 $\log_2(n)$ 条边。最远距离 n</li>
+</ul>
+<h3>超标量处理器</h3>
+<p>一次能执行多条指令的 CPU，前提是指令之间不存在依赖或者冲突关系</p>
+<p>好的，我将根据您提供的信息，对并行系统进行重写，力求更清晰、准确和易懂：</p>
+<h3>并行系统</h3>
+<p>并行系统本质上是由多个处理器组成的计算系统，旨在通过同时执行多个任务来提高性能和可靠性。 它们可以被视为多处理器系统，具有以下关键特征：</p>
+<ul>
+<li>
+<p><strong>紧耦合性 (Tightly Coupled)</strong>：</p>
+<ul>
+<li>
+<p>并行系统中的处理器共享相同的物理资源，例如总线、时钟和外围设备。</p>
+</li>
+<li>
+<p>处理器之间通过共享内存进行通信，这意味着它们可以访问相同的内存地址空间。</p>
+</li>
+<li>
+<p><strong>缺点</strong>：这种紧密的集成限制了系统的可扩展性，因为增加处理器的数量会导致资源竞争和通信瓶颈。</p>
+</li>
+<li>
+<p><strong>对比</strong>：与此相反，分布式系统（也称为多计算机系统）中的处理器不共享总线和时钟。它们通过专用的通信链路（例如网络连接）进行通信，并使用消息传递协议来交换数据。这种架构称为松耦合 (loosely coupled)，具有更好的可扩展性。</p>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>容错性 (Fault Tolerance)</strong>：</p>
+<ul>
+<li>
+<p>并行系统设计的一个重要目标是在部分硬件发生故障时仍能继续运行。</p>
+</li>
+<li>
+<p>如果某个处理器出现故障，其他处理器应能够接管其任务，从而确保系统继续提供服务，尽管性能可能会有所降低（这种特性称为<strong>优雅降级</strong> graceful degradation）。</p>
+</li>
+</ul>
+</li>
+</ul>
+<h4>并行系统的分类</h4>
+<p>根据处理器之间的关系和任务分配方式，并行系统可以分为以下几种类型：</p>
+<ul>
+<li>
+<p><strong>串联系统 (Tandem Systems)</strong>：</p>
+<ul>
+<li>
+<p>每个进程复制两份，分别在两个独立的处理器上同时运行。</p>
+</li>
+<li>
+<p>其中一个进程作为主进程 (primary)，另一个作为备份进程 (backup)。</p>
+</li>
+<li>
+<p>在固定时间间隔，主进程的状态和数据被复制到备份进程。</p>
+</li>
+<li>
+<p>如果主进程发生故障，备份进程可以立即接管，从而实现零停机时间。</p>
+</li>
+<li>
+<p><strong>应用场景</strong>：尽管这种方式比较昂贵，但对于需要极高可靠性的关键应用（例如银行系统和证券交易所）至关重要。</p>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>非对称系统 (Asymmetric Systems)</strong>：</p>
+<ul>
+<li>
+<p>有一个主处理器 (master processor) 负责控制和协调其他从处理器 (slave processors)。</p>
+</li>
+<li>
+<p>每个处理器都被分配特定的任务。</p>
+</li>
+<li>
+<p>主处理器负责将任务分配给从处理器，并收集和汇总结果。</p>
+</li>
+<li>
+<p><strong>优点</strong>：易于实现和管理。</p>
+</li>
+<li>
+<p><strong>缺点</strong>：主处理器容易成为瓶颈。</p>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>对称系统 (Symmetric Systems)</strong>：</p>
+<ul>
+<li>
+<p>所有处理器地位相同，运行相同的操作系统副本。</p>
+</li>
+<li>
+<p>处理器之间可以相互通信，并共享系统资源。</p>
+</li>
+<li>
+<p>任务可以动态地分配给任何可用的处理器。</p>
+</li>
+<li>
+<p><strong>优点</strong>：更好的负载均衡和容错性。</p>
+</li>
+<li>
+<p><strong>缺点</strong>：需要更复杂的操作系统和调度算法。</p>
+</li>
+</ul>
+</li>
+</ul>
+<h4>并行系统的优点</h4>
+<ul>
+<li>
+<p><strong>资源共享 (Resource Sharing)</strong>：并行系统允许系统中的处理器共享各种资源，例如打印机、存储设备和网络连接，从而降低成本和提高资源利用率。</p>
+</li>
+<li>
+<p><strong>计算加速 (Computation Speedup)</strong>：通过将计算任务分解成多个子任务，并在多个处理器上并行执行，可以显著缩短计算时间。</p>
+</li>
+<li>
+<p><strong>可靠性 (Reliability)</strong>：并行系统具有内在的冗余性。如果某个处理器发生故障，其他处理器可以继续运行，从而提高系统的可靠性。</p>
+</li>
+<li>
+<p><strong>通信 (Communication)</strong>：并行系统允许系统中的处理器之间进行远距离通信，从而实现协作和数据共享</p>
+</li>
+</ul>
+<hr>
+<h2>Lecture 15: 总线</h2>
+<h3>总线</h3>
+<p>总线 (Buses) 是一组共享的通信线路，用于连接计算机的不同组件，并提供使用该线路的标准。</p>
+<ul>
+<li><strong>系统内通信 (Intrasystem communication)</strong>：连接计算机内部的各种组件，距离小于一米，<strong>通过大量并行的总线来实现。</strong></li>
+<li><strong>系统间通信 (Intersystem communication)</strong>：连接计算机和远距离的硬件，<strong>通常使用串行链路来实现。</strong></li>
+</ul>
+<h4>计算机总线</h4>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/a59b8802d83532219261b1a80c6499a35168d9efc5cae1ec17e421b1db0b4012/68747470733a2f2f73322e6c6f6c692e6e65742f323032352f30322f31322f4b414d7770664f45735235566776482e706e67"><img src="https://camo.githubusercontent.com/a59b8802d83532219261b1a80c6499a35168d9efc5cae1ec17e421b1db0b4012/68747470733a2f2f73322e6c6f6c692e6e65742f323032352f30322f31322f4b414d7770664f45735235566776482e706e67" alt="img" data-canonical-src="https://s2.loli.net/2025/02/12/KAMwpfOEsR5VgvH.png" style="max-width: 100%;"></a></p>
+<ul>
+<li><strong>地址总线 (Address Bus):</strong> 当计算机希望从内存或 I/O 设备读取/写入数据时，地址总线会指定要访问的位置。 它只能输出。</li>
+<li><strong>数据总线 (Data Bus):</strong> 一种双向总线，用于将数据传输到 CPU 和从 CPU 传输数据。</li>
+<li><strong>控制总线 (Control Bus):</strong> 一组输入/输出线路，用于控制读取/写入操作期间的事件序列。</li>
+<li><strong>专用总线 (Dedicated Bus):</strong> 专用总线仅用于连接两个设备。</li>
+<li><strong>共享总线 (Shared Bus):</strong> 在早起计算机系统中，虽然地址总线、数据总线和控制总线在逻辑上是分离的，但在一些早期的、简单的系统中，它们可能会在物理上共享同一组线路。</li>
+</ul>
+<h4>总线时序 (Bus Timing)</h4>
+<p>在任何一个时间点，只能有一个设备可以发送数据，所有其他设备必须监听或忽略数据。 发送控制信息的设备被称为主设备 (master)，其他单元被称为从设备 (slave)，总线会产生瓶颈。</p>
+<ul>
+<li><strong>同步总线 (Synchronous Buses)</strong> 包含一个时钟信号，该信号允许每个项目在主设备和从设备都知道的预定时间段内传输。 可能实现非常快的数据速率。 然而，系统会变得和总线上最慢的设备一样慢。</li>
+<li><strong>异步总线 (Asynchronous Buses)</strong> 不包含时钟信号，要传输的每个项目都伴随一组用于排序传输的控制信号。 这有时涉及握手 (handshaking)。</li>
+</ul>
+<h4>PC 总线</h4>
+<p><strong>PC 中的主要总线类型：ISA 和 PCI</strong></p>
+<p>早期的 PC 中主要有两种总线：ISA 和 PCI。</p>
+<ul>
+<li>
+<p><strong>ISA (Industry Standard Architecture) 总线：</strong></p>
+<ul>
+<li>这是一种较老的总线标准，虽然速度较慢，但具有良好的兼容性，可以连接各种外设。</li>
+<li>最初是 8 位，运行频率 4.8MHz。 后来扩展到 16 位，运行频率 8MHz。</li>
+<li>ISA 设备通过 ISA 连接器与主板相连。 8 位 ISA 设备只使用连接器的一部分，而 16 位设备使用整个连接器。</li>
+</ul>
+</li>
+<li>
+<p><strong>PCI (Peripheral Component Interconnect) 总线：</strong></p>
+<ul>
+<li>随着技术的发展，PCI 总线逐渐取代 ISA，成为目前最常见的 I/O 总线。</li>
+<li>PCI 提供更高的带宽，通常为 32 位宽，运行频率 33MHz。</li>
+<li>通过 PCI 控制器来管理总线上的设备访问和仲裁。</li>
+<li>PCI 的一个重要优势是支持即插即用 (plug and play)，简化了硬件的安装和配置过程。</li>
+</ul>
+<p>不过现在都是用 PCIE 了</p>
+</li>
+</ul>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/b3bd8c885ec97c16b4d35dc7c78aa5c0ef0015e8e79005a82ddfc1b60bca04a3/68747470733a2f2f73322e6c6f6c692e6e65742f323032352f30322f31322f354f47576d735964336b50656f79612e706e67"><img src="https://camo.githubusercontent.com/b3bd8c885ec97c16b4d35dc7c78aa5c0ef0015e8e79005a82ddfc1b60bca04a3/68747470733a2f2f73322e6c6f6c692e6e65742f323032352f30322f31322f354f47576d735964336b50656f79612e706e67" alt="img" data-canonical-src="https://s2.loli.net/2025/02/12/5OGWmsYd3kPeoya.png" style="max-width: 100%;"></a></p>
+<h3>争用</h3>
+<p>像计算机上的地址总线这样的单向总线易于实现。 CPU 产生地址，所有设备监视地址线路。</p>
+<p>但是数据总线这样的一些总线需要双向传输数据。如果两个输出连接在一起，结果称为争用。 小则数据损坏，严重就直接把电路烧了，就像这样：</p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/ae359f7e8b88ab2397cf0e9bbdc619d1efdd45ddf95b714e7fcedeea57fe3d2e/68747470733a2f2f73322e6c6f6c692e6e65742f323032352f30322f31322f796336656d387141487577345264442e706e67"><img src="https://camo.githubusercontent.com/ae359f7e8b88ab2397cf0e9bbdc619d1efdd45ddf95b714e7fcedeea57fe3d2e/68747470733a2f2f73322e6c6f6c692e6e65742f323032352f30322f31322f796336656d387141487577345264442e706e67" alt="img" data-canonical-src="https://s2.loli.net/2025/02/12/yc6em8qAHuw4RdD.png" style="max-width: 100%;"></a></p>
+<h4>电流吸收逻辑</h4>
+<p>当然也可以这样，接一个上拉电阻，限制最大电流，这样就不会烧坏电路了，不过这种方案有速度慢和浪费电力等缺点</p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/ad5c6a52bc59fd0f6bf26fd9109f2bd32f3aa9c86ad8255bf9e13710d89615a3/68747470733a2f2f73322e6c6f6c692e6e65742f323032352f30322f31322f6a62556753414537686371653164442e706e67"><img src="https://camo.githubusercontent.com/ad5c6a52bc59fd0f6bf26fd9109f2bd32f3aa9c86ad8255bf9e13710d89615a3/68747470733a2f2f73322e6c6f6c692e6e65742f323032352f30322f31322f6a62556753414537686371653164442e706e67" alt="img" data-canonical-src="https://s2.loli.net/2025/02/12/jbUgSAE7hcqe1dD.png" style="max-width: 100%;"></a></p>
+<h4>使用三态缓冲器</h4>
+<p>三态设备用另一根控制线来断开设备与总线的连接。当断开连接的时候，它的输入阻抗变得非常大，这样就能避免总线争用的情况了。</p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/d78000112080e71ff661fb56ed2733557963bdf69542507ef657bbbebfb3c7bc/68747470733a2f2f73322e6c6f6c692e6e65742f323032352f30322f31322f416752626d57326f54474e567a61692e706e67"><img src="https://camo.githubusercontent.com/d78000112080e71ff661fb56ed2733557963bdf69542507ef657bbbebfb3c7bc/68747470733a2f2f73322e6c6f6c692e6e65742f323032352f30322f31322f416752626d57326f54474e567a61692e706e67" alt="img" data-canonical-src="https://s2.loli.net/2025/02/12/AgRbmW2oTGNVzai.png" style="max-width: 100%;"></a></p>
+<h3>仲裁</h3>
+<p>不同设备可能希望同时使用总线，这个时候需要总线仲裁用于避免总线上的冲突或竞争。</p>
+<h4>级联</h4>
+<p>当设备想要使用总线时，它会拉高 Request 信号。 如果 Busy 信号为高电平，表示总线正忙，控制器将忽略新的 Request 信号。 反之，如果 Busy 信号为低电平，控制器则发送 Grant 信号给该设备，允许其使用总线。 收到 Grant 信号后，设备会立即拉高 Busy 信号，并将数据放到总线上传输。</p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/2236858fc8daf6f4d1dad3f370e400a091e1bc6c76fd5675af98fc4a5632a143/68747470733a2f2f73322e6c6f6c692e6e65742f323032352f30322f31322f6c6231706a484c66457552775339692e706e67"><img src="https://camo.githubusercontent.com/2236858fc8daf6f4d1dad3f370e400a091e1bc6c76fd5675af98fc4a5632a143/68747470733a2f2f73322e6c6f6c692e6e65742f323032352f30322f31322f6c6231706a484c66457552775339692e706e67" alt="img" data-canonical-src="https://s2.loli.net/2025/02/12/lb1pjHLfEuRwS9i.png" style="max-width: 100%;"></a></p>
+<h4>轮询</h4>
+<p>当设备想要使用总线时，它会拉高 Request 信号。 一旦收到请求，控制单元就开始挨个查看轮询线，看看哪个设备想要用总线。 找到了想用的，就把 Busy 信号拉高，然后把数据线连通，让这个设备用。</p>
+<p>通俗一点来就像点名一样：设备想用总线先举手 (发出请求)。然后控制器一个一个地问：“1 号，你要用总线吗？ 2 号，你要用总线吗？ 3 号，你要用总线吗？...”，一旦点到某个举手的设备，控制单元就说：“好，给你用！” 然后把 Busy 信号设为“忙碌”，并把数据线连通，让这个设备传输数据。“点名”的顺序决定了谁先被服务，也就是谁的优先级最高。 如果 1 号总是先被点到，那么 1 号的优先级就最高。</p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/14074bcff487df4bbc756fd3227aa4ce910498a0ac5d03850535484fb8d19f38/68747470733a2f2f73322e6c6f6c692e6e65742f323032352f30322f31322f31386b784c4f615a71775442674a722e706e67"><img src="https://camo.githubusercontent.com/14074bcff487df4bbc756fd3227aa4ce910498a0ac5d03850535484fb8d19f38/68747470733a2f2f73322e6c6f6c692e6e65742f323032352f30322f31322f31386b784c4f615a71775442674a722e706e67" alt="img" data-canonical-src="https://s2.loli.net/2025/02/12/18kxLOaZqwTBgJr.png" style="max-width: 100%;"></a></p>
+<h4>独立请求</h4>
+<p>每个外设单元都有单独的请求线 (Request) 和授权线 (Grant)。优先级由总线控制单元来决定。不过缺点就是比较复杂，因为每个单元都需要单独的请求线和授权线。</p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/5ad2deac1d4769704971b5267c8a2e9524433efc3a76a37bf370ea44447ba580/68747470733a2f2f73322e6c6f6c692e6e65742f323032352f30322f31322f72626c66746d5938617779647831702e706e67"><img src="https://camo.githubusercontent.com/5ad2deac1d4769704971b5267c8a2e9524433efc3a76a37bf370ea44447ba580/68747470733a2f2f73322e6c6f6c692e6e65742f323032352f30322f31322f72626c66746d5938617779647831702e706e67" alt="img" data-canonical-src="https://s2.loli.net/2025/02/12/rblftmY8awydx1p.png" style="max-width: 100%;"></a></p>
+<hr>
+<h2>闪存与 FPGA</h2>
+<h3>闪存</h3>
+<p><strong>闪存 (Flash)</strong> 的存储单元包含一个带控制栅和浮动栅的存储晶体管。浮动栅通过薄氧化层与晶体管隔离，用于存储电荷并控制电流。</p>
+<ul>
+<li><strong>写入</strong>：在高电场下，通过在源极和漏极施加强负电荷，在控制栅上施加强正电荷，使电子穿过薄氧化层进入浮动栅。此时 FET 源极和漏极之间的 p 掺杂沟道可以轻松地流动电流，表示 <code class="notranslate">1</code>。</li>
+<li><strong>擦除</strong>：在控制栅上施加强负电荷，迫使电子进入具有强正电荷的沟道，减少 p 掺杂沟道中的空穴，导致电导率大幅下降。表示 <code class="notranslate">0</code>。</li>
+<li><strong>数据保持</strong>：由于氧化层的电隔离，浮动栅中捕获的电子不依赖于 Flash 存储单元是否接收电源。Flash RAM 可以无需电源即可保存内容多年，因此可用作计算机的存储介质。</li>
+</ul>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/a7d6ceb6d626454ed14f581a9708cdcc6190ad360b5737514f31dcb5f9b48c3e/68747470733a2f2f73322e6c6f6c692e6e65742f323032352f30322f31322f70794c436e505a4437664274624b352e706e67"><img src="https://camo.githubusercontent.com/a7d6ceb6d626454ed14f581a9708cdcc6190ad360b5737514f31dcb5f9b48c3e/68747470733a2f2f73322e6c6f6c692e6e65742f323032352f30322f31322f70794c436e505a4437664274624b352e706e67" alt="img" data-canonical-src="https://s2.loli.net/2025/02/12/pyLCnPZD7fBtbK5.png" style="max-width: 100%;"></a></p>
+<h4>NAND Flash VS NOR Flash</h4>
+<p>Flash RAM 分为 NOR 和 NAND Flash 存储器。</p>
+<ul>
+<li><strong>NOR Flash</strong>：不使用共享组件，可以并行连接各个存储单元，从而可以单独随机访问所有数据。</li>
+<li><strong>NAND Flash</strong>：单元更紧凑，位线更少，浮动栅晶体管串在一起以增加存储密度。更适合串行数据访问。</li>
+<li><strong>编程方式</strong>：NOR Flash 按字节级别编程数据，NAND Flash 按页级别编程数据（大于字节但小于块）。</li>
+<li><strong>读写速度</strong>：NOR Flash 读取数据速度快，但在擦除和写入方面通常比 NAND 慢。</li>
+<li><strong>功耗</strong>：NAND Flash 在写入密集型应用中比 NOR Flash 消耗更少的功率。</li>
+<li><strong>成本</strong>：NOR Flash 存储器通常生产成本更高。</li>
+</ul>
+<h4>SSD</h4>
+<p>基于 Flash 的介质基于硅基板，因此被称为固态设备。有很多种接口：2.5"SATA, mSATA, M.2, PCle Add-In Card</p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/a29cf9c6855158a6879f7069abf96f716c02ed7e9785fb4de8b5e193e342d877/68747470733a2f2f73322e6c6f6c692e6e65742f323032352f30322f31322f5132544c647670464d444e677366682e706e67"><img src="https://camo.githubusercontent.com/a29cf9c6855158a6879f7069abf96f716c02ed7e9785fb4de8b5e193e342d877/68747470733a2f2f73322e6c6f6c692e6e65742f323032352f30322f31322f5132544c647670464d444e677366682e706e67" alt="img" data-canonical-src="https://s2.loli.net/2025/02/12/Q2TLdvpFMDNgsfh.png" style="max-width: 100%;"></a></p>
+<h3>FPGA</h3>
+<blockquote>
+<p><strong>现场可编程逻辑门阵列</strong>（英语：field-programmable gate array，缩写为<strong>FPGA</strong>）以PAL、GAL、CPLD等可编程逻辑器件为技术基础发展而成。作为特殊应用集成电路中的一种半定制电路，它既弥补全定制电路不足，又克服原有可编程逻辑控制器逻辑门数有限的缺点。可以利用逻辑合成和布局、布线工具软件，快速地刻录至FPGA上进行测试，这一过程是现代集成电路设计验证的技术主流。这些可编程逻辑组件可以被用来实现一些基本的逻辑门数字电路（比如与门、或门、异或门、非门）或者更复杂一些的组合逻辑功能，比如译码器等。在大多数的FPGA里面，这些可编辑的组件里也包含记忆组件，例如触发器（Flip－flop）或者其他更加完整的记忆块，从而构成时序逻辑电路。</p>
+<p>系统设计师可以根据需要，通过可编辑的连接，把FPGA内部的逻辑块连接起来。这就好像一个电路试验板被放在了一个芯片里。一个出厂后的成品FPGA的逻辑块和连接可以按照设计者的需要而改变，所以FPGA可以完成所需要的逻辑功能。</p>
+<p>FPGA一般来说比特殊应用集成电路（ASIC）的速度要慢，无法完成更复杂的设计，并且会消耗更多的电能。但是，FPGA具有很多优点，比如可以快速成品，而且其内部逻辑可以被设计者反复修改，从而改正程序中的错误，此外，使用FPGA进行调试的成本较低。厂商也可能会提供便宜、但是编辑能力有限的FPGA产品。因为这些芯片有的可编辑能力较差，所以这些设计的开发是在普通的FPGA上完成的，然后将设计转移到一个类似于专用集成电路的芯片上。在一些技术更新比较快的行业，FPGA几乎是电子系统中的必要部件，因为在大批量供货前，必须迅速抢占市场，这时FPGA方便灵活的优势就显得很重要。</p>
+</blockquote>
+<p>FPGA (Field Programmable Gate Array) 是一种 SSD 设备。通过硬件描述语言 (HDL) 描述的电路，可以烧录到FPGA上，在原型设计产品（如微波炉或洗衣机）时，工程师可以为 FPGA 编写软件来测试系统的功能，对于大众消费产品，使用 FPGA 进行原型设计更便宜，因为 HDL 程序可用于设置掩模以构建特定应用集成电路 (ASIC) 芯片，该芯片的生产成本非常低。</p>
+<h4>FPGA 结构</h4>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/c7ef8d6334184ac6ea16c1ff003d2f5b75dfc1f39a1331246d297e334ce4ad1f/68747470733a2f2f73322e6c6f6c692e6e65742f323032352f30322f31322f46445a3748526a4e58476f74316e7a2e706e67"><img src="https://camo.githubusercontent.com/c7ef8d6334184ac6ea16c1ff003d2f5b75dfc1f39a1331246d297e334ce4ad1f/68747470733a2f2f73322e6c6f6c692e6e65742f323032352f30322f31322f46445a3748526a4e58476f74316e7a2e706e67" alt="img" data-canonical-src="https://s2.loli.net/2025/02/12/FDZ7HRjNXGot1nz.png" style="max-width: 100%;"></a></p>
+<h4>Verilog</h4>
+<p>有几种 HDL，但最常用于教学的是 Verilog。与工业中使用的 VHDL 不同，Verilog 是一种更易于学习的语言，并且可以执行 VHDL 可以执行的几乎所有功能。</p>
+<p>用 Verilog 编写的 SR 锁存器的简单结构描述</p>
+<div class="highlight highlight-source-verilog"><pre class="notranslate"><span class="pl-k">module</span> <span class="pl-en">SRlatch</span>(
+  <span class="pl-k">output</span> Q, Q_bar,
+  <span class="pl-k">input</span> S, R);
+  <span class="pl-ent">nor</span> <span class="pl-ent">N1</span>(Q_bar, S, Q);
+  <span class="pl-ent">nor</span> <span class="pl-ent">N2</span>(Q, R, Q_bar);
+<span class="pl-k">endmodule</span></pre></div>
+<hr>
+<p><strong>The End ～～～ : )</strong></p></div>
 <div style="font-size:small;margin-top:8px;float:right;"></div>
 
 <button class="btn btn-block" type="button" onclick="openComments()" id="cmButton">评论</button>
