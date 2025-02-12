@@ -19,7 +19,12 @@
 ### 计算机架构
 
 计算机主要采用两种架构：  
-- **冯诺依曼架构**：使用同一个存储器，经由同一个总线传输指令和数据。">
+- **冯诺依曼架构**：使用同一个存储器，经由同一个总线传输指令和数据. 
+- **哈佛架构**：使用独立的指令存储器和数据存储器，提升执行效率. 
+
+> [!NOTE]
+>
+> 现代高性能CPU通常结合冯诺依曼和哈佛架构的特点，例如通过“拆分缓存”设计来优化性能。">
 <meta property="og:title" content="CS253 Architectures II">
 <meta property="og:description" content="# CS253 Architectures II
 
@@ -30,7 +35,12 @@
 ### 计算机架构
 
 计算机主要采用两种架构：  
-- **冯诺依曼架构**：使用同一个存储器，经由同一个总线传输指令和数据。">
+- **冯诺依曼架构**：使用同一个存储器，经由同一个总线传输指令和数据. 
+- **哈佛架构**：使用独立的指令存储器和数据存储器，提升执行效率. 
+
+> [!NOTE]
+>
+> 现代高性能CPU通常结合冯诺依曼和哈佛架构的特点，例如通过“拆分缓存”设计来优化性能。">
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://koolcandy.github.io/post/CS253%20Architectures%20II.html">
 <meta property="og:image" content="https://s2.loli.net/2024/12/26/m9oanbD6ikhuSlN.png">
@@ -107,8 +117,8 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 <h3>计算机架构</h3>
 <p>计算机主要采用两种架构：</p>
 <ul>
-<li><strong>冯诺依曼架构</strong>：使用同一个存储器，经由同一个总线传输指令和数据。</li>
-<li><strong>哈佛架构</strong>：使用独立的指令存储器和数据存储器，提升执行效率。</li>
+<li><strong>冯诺依曼架构</strong>：使用同一个存储器，经由同一个总线传输指令和数据.</li>
+<li><strong>哈佛架构</strong>：使用独立的指令存储器和数据存储器，提升执行效率.</li>
 </ul>
 <div class="markdown-alert markdown-alert-note"><p class="markdown-alert-title"><svg class="octicon octicon-info mr-2" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8Zm8-6.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13ZM6.5 7.75A.75.75 0 0 1 7.25 7h1a.75.75 0 0 1 .75.75v2.75h.25a.75.75 0 0 1 0 1.5h-2a.75.75 0 0 1 0-1.5h.25v-2h-.25a.75.75 0 0 1-.75-.75ZM8 6a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z"></path></svg>Note</p>
 <p>现代高性能CPU通常结合冯诺依曼和哈佛架构的特点，例如通过“拆分缓存”设计来优化性能。</p>
@@ -116,27 +126,27 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 <p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/e427bca9d059866bcc4c78e09c1b0d204f60ccf1c0a17b93f3c94028c7903edd/68747470733a2f2f73322e6c6f6c692e6e65742f323032352f30312f31332f734a447745535072386f34646e766d2e706e67"><img src="https://camo.githubusercontent.com/e427bca9d059866bcc4c78e09c1b0d204f60ccf1c0a17b93f3c94028c7903edd/68747470733a2f2f73322e6c6f6c692e6e65742f323032352f30312f31332f734a447745535072386f34646e766d2e706e67" alt="img" data-canonical-src="https://s2.loli.net/2025/01/13/sJDwESPr8o4dnvm.png" style="max-width: 100%;"></a></p>
 <p>具体而言，冯诺依曼架构和哈佛架构的区别体现在以下几点：</p>
 <ol>
-<li><strong>存储器结构</strong>：冯诺依曼架构使用统一存储器，而哈佛架构使用独立的指令和数据存储器。</li>
-<li><strong>总线设计</strong>：冯诺依曼架构使用单条总线，哈佛架构使用多条独立总线。</li>
+<li><strong>存储器结构</strong>：冯诺依曼架构使用统一存储器，而哈佛架构使用独立的指令和数据存储器.</li>
+<li><strong>总线设计</strong>：冯诺依曼架构使用单条总线，哈佛架构使用多条独立总线.</li>
 </ol>
 <h3>8086的硬件组成</h3>
 <p>8086 CPU主要由以下两部分组成：</p>
 <p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/25e6c0c3effcff54b360ede4676b1396e31ef53818f85e4764b43a238456c047/68747470733a2f2f73322e6c6f6c692e6e65742f323032352f30312f31332f6d326b646f54746277384d5963577a2e706e67"><img src="https://camo.githubusercontent.com/25e6c0c3effcff54b360ede4676b1396e31ef53818f85e4764b43a238456c047/68747470733a2f2f73322e6c6f6c692e6e65742f323032352f30312f31332f6d326b646f54746277384d5963577a2e706e67" alt="img" data-canonical-src="https://s2.loli.net/2025/01/13/m2kdoTtbw8MYcWz.png" style="max-width: 100%;"></a></p>
 <h4>BIU: 总线接口单元</h4>
 <ul>
-<li><strong>功能</strong>：负责发送地址，从内存中获取指令，并执行端口和内存的读写操作。</li>
-<li><strong>特点</strong>：BIU通过总线与外部设备通信，是CPU与内存之间的桥梁。</li>
+<li><strong>功能</strong>：负责发送地址，从内存中获取指令，并执行端口和内存的读写操作.</li>
+<li><strong>特点</strong>：BIU通过总线与外部设备通信，是CPU与内存之间的桥梁.</li>
 </ul>
 <h4>EU: 执行单元</h4>
 <ul>
-<li><strong>功能</strong>：解码指令并执行指令，包含算术逻辑单元（ALU）和控制电路。</li>
-<li><strong>特点</strong>：EU是CPU的核心执行模块，负责完成具体的计算任务。</li>
+<li><strong>功能</strong>：解码指令并执行指令，包含算术逻辑单元 (ALU) 和控制电路.</li>
+<li><strong>特点</strong>：EU是CPU的核心执行模块，负责完成具体的计算任务.</li>
 </ul>
 <p><strong>指令周期</strong>是8086 CPU的基本工作单位，具体流程如下：</p>
 <ol>
-<li><strong>Fetch</strong>：从内存中获取指令。</li>
-<li><strong>Decode</strong>：对指令进行解码。</li>
-<li><strong>Execute</strong>：执行解码后的指令。</li>
+<li><strong>Fetch</strong>：从内存中获取指令.</li>
+<li><strong>Decode</strong>：对指令进行解码.</li>
+<li><strong>Execute</strong>：执行解码后的指令.</li>
 </ol>
 <div class="markdown-alert markdown-alert-note"><p class="markdown-alert-title"><svg class="octicon octicon-info mr-2" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8Zm8-6.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13ZM6.5 7.75A.75.75 0 0 1 7.25 7h1a.75.75 0 0 1 .75.75v2.75h.25a.75.75 0 0 1 0 1.5h-2a.75.75 0 0 1 0-1.5h.25v-2h-.25a.75.75 0 0 1-.75-.75ZM8 6a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z"></path></svg>Note</p>
 <p>8086 CPU的指令周期通常占用4个时钟周期，因此1GHz的处理器每秒约可执行2.5亿条指令。</p>
@@ -163,8 +173,8 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 </ul>
 <p>此外，ALU还支持<strong>移位操作</strong>，具体包括：</p>
 <ul>
-<li><strong>逻辑移位</strong>：在移位操作中，空出的位置填充逻辑0。</li>
-<li><strong>算术移位</strong>：在移位操作中，空出的位置填充符号位（最高位）。</li>
+<li><strong>逻辑移位</strong>：在移位操作中，空出的位置填充逻辑0.</li>
+<li><strong>算术移位</strong>：在移位操作中，空出的位置填充符号位 (最高位) .</li>
 </ul>
 <div class="markdown-alert markdown-alert-note"><p class="markdown-alert-title"><svg class="octicon octicon-info mr-2" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8Zm8-6.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13ZM6.5 7.75A.75.75 0 0 1 7.25 7h1a.75.75 0 0 1 .75.75v2.75h.25a.75.75 0 0 1 0 1.5h-2a.75.75 0 0 1 0-1.5h.25v-2h-.25a.75.75 0 0 1-.75-.75ZM8 6a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z"></path></svg>Note</p>
 <p>移位操作在二进制运算中非常重要，常用于快速实现乘除法。</p>
@@ -172,8 +182,8 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 <p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/db659fd291b7b98c4d5b576ee74715da5f6cd3c095c0d4332a4eed9284dc317f/68747470733a2f2f73322e6c6f6c692e6e65742f323032352f30312f31332f6a716f4778706341685277514475532e706e67"><img src="https://camo.githubusercontent.com/db659fd291b7b98c4d5b576ee74715da5f6cd3c095c0d4332a4eed9284dc317f/68747470733a2f2f73322e6c6f6c692e6e65742f323032352f30312f31332f6a716f4778706341685277514475532e706e67" alt="img" data-canonical-src="https://s2.loli.net/2025/01/13/jqoGxpcAhRwQDuS.png" style="max-width: 100%;"></a></p>
 <p>左移和右移的实现方法如下：</p>
 <ul>
-<li><strong>左移</strong>：将二进制数的所有位向左移动一位，最低位填充0。</li>
-<li><strong>右移</strong>：将二进制数的所有位向右移动一位，最高位填充符号位（逻辑移位时填充0，算术移位时填充符号位）。</li>
+<li><strong>左移</strong>：将二进制数的所有位向左移动一位，最低位填充0.</li>
+<li><strong>右移</strong>：将二进制数的所有位向右移动一位，最高位填充符号位 (逻辑移位时填充0，算术移位时填充符号位) .</li>
 </ul>
 <h2><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/26c2b7623e17585d1dae26f60c7abc73050a0a9506b9418d0dfcc1ed5d2b3784/68747470733a2f2f73322e6c6f6c692e6e65742f323032352f30312f31332f6a7138444f4b37586c65566279366d2e706e67"><img src="https://camo.githubusercontent.com/26c2b7623e17585d1dae26f60c7abc73050a0a9506b9418d0dfcc1ed5d2b3784/68747470733a2f2f73322e6c6f6c692e6e65742f323032352f30312f31332f6a7138444f4b37586c65566279366d2e706e67" alt="img" data-canonical-src="https://s2.loli.net/2025/01/13/jq8DOK7XleVby6m.png" style="max-width: 100%;"></a></h2>
 <h2>Lecture 2: Assembly Language (Ⅰ)</h2>
@@ -230,15 +240,15 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 <div class="markdown-alert markdown-alert-note"><p class="markdown-alert-title"><svg class="octicon octicon-info mr-2" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8Zm8-6.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13ZM6.5 7.75A.75.75 0 0 1 7.25 7h1a.75.75 0 0 1 .75.75v2.75h.25a.75.75 0 0 1 0 1.5h-2a.75.75 0 0 1 0-1.5h.25v-2h-.25a.75.75 0 0 1-.75-.75ZM8 6a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z"></path></svg>Note</p>
 <p>偏移量的来源包括：</p>
 <ul>
-<li><strong>直接寻址</strong>：偏移量可以是指令中直接给出的一个常量（例如 <code class="notranslate">mov ax, [0x1234]</code>）。</li>
-<li><strong>寄存器寻址</strong>：偏移量可以使用通用寄存器（例如 <code class="notranslate">BX</code>, <code class="notranslate">SI</code>, <code class="notranslate">DI</code>）（例如 <code class="notranslate">mov ax, [bx]</code>）。</li>
-<li><strong>寄存器 + 常量</strong>：偏移量可以是寄存器值 + 常量（例如 <code class="notranslate">mov ax, [bx+0x10]</code>）。</li>
+<li><strong>直接寻址</strong>：偏移量可以是指令中直接给出的一个常量 (例如 <code class="notranslate">mov ax, [0x1234]</code>) 。</li>
+<li><strong>寄存器寻址</strong>：偏移量可以使用通用寄存器 (例如 <code class="notranslate">BX</code>, <code class="notranslate">SI</code>, <code class="notranslate">DI</code>)  (例如 <code class="notranslate">mov ax, [bx]</code>) 。</li>
+<li><strong>寄存器 + 常量</strong>：偏移量可以是寄存器值 + 常量 (例如 <code class="notranslate">mov ax, [bx+0x10]</code>) 。</li>
 </ul>
 </div>
 <h4>堆栈段寄存器 (SS)</h4>
 <ul>
 <li><strong>SS (Stack Segment Register)</strong>：指向堆栈所在的内存段。SS寄存器存储堆栈段的起始地址。</li>
-<li><strong>SP寄存器</strong>：指向当前栈顶的地址，它始终指向栈中最后一个被压入（pushed）的值的位置。</li>
+<li><strong>SP寄存器</strong>：指向当前栈顶的地址，它始终指向栈中最后一个被压入 (pushed) 的值的位置。</li>
 <li><strong>BP寄存器</strong>：通常指向当前栈帧的基地址，主要用途是：
 <ul>
 <li>在函数调用过程中，BP作为访问函数局部变量、函数参数的基址。</li>
@@ -351,7 +361,7 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 </ul>
 <h4>寄存器间接寻址</h4>
 <ul>
-<li><strong>寄存器间接寻址</strong>是把偏移地址存在寄存器（通常是索引寄存器BX, BP, SI或DI）当中。如果是BP，对应的段就是栈段，否则是数据段。</li>
+<li><strong>寄存器间接寻址</strong>是把偏移地址存在寄存器 (通常是索引寄存器BX, BP, SI或DI) 当中。如果是BP，对应的段就是栈段，否则是数据段。</li>
 <li>这种寻址方式与高级语言中的数组访问类似：
 <ul>
 <li><code class="notranslate">mov ax, [bx]</code>表示<code class="notranslate">ax = array[bx]</code></li>
@@ -360,10 +370,10 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 </li>
 </ul>
 <h3>8086 指令格式</h3>
-<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/7e31862b8650fe9acca3ddaafa281faddbcb14223222e0b63dc3bec833d677cb/68747470733a2f2f73322e6c6f6c692e6e65742f323032352f30312f31332f454e4176715142776837654d74664f2e706e67"><img src="https://camo.githubusercontent.com/7e31862b8650fe9acca3ddaafa281faddbcb14223222e0b63dc3bec833d677cb/68747470733a2f2f73322e6c6f6c692e6e65742f323032352f30312f31332f454e4176715142776837654d74664f2e706e67" alt="img" data-canonical-src="https://s2.loli.net/2025/01/13/ENAvqQBwh7eMtfO.png" style="max-width: 100%;"></a></p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/19b1008aecd248ec809156e0de05a7bb80788aa2247dc45e12c0c77f431d1ce5/68747470733a2f2f73322e6c6f6c692e6e65742f323032352f30322f30372f5639734f70517a69776250676848642e706e67"><img src="https://camo.githubusercontent.com/19b1008aecd248ec809156e0de05a7bb80788aa2247dc45e12c0c77f431d1ce5/68747470733a2f2f73322e6c6f6c692e6e65742f323032352f30322f30372f5639734f70517a69776250676848642e706e67" alt="img" data-canonical-src="https://s2.loli.net/2025/02/07/V9sOpQziwbPghHd.png" style="max-width: 100%;"></a></p>
 <h4>Byte 1</h4>
 <ul>
-<li><strong>Opcode (操作码):</strong> 决定指令的具体动作（如<code class="notranslate">MOV</code>）。</li>
+<li><strong>Opcode (操作码):</strong> 决定指令的具体动作 (如<code class="notranslate">MOV</code>) 。</li>
 <li><strong>D (方向旗标):</strong> 指明数据传输的方向，是从源到目标，还是从目标到源。</li>
 </ul>
 <h4>Byte 2</h4>
@@ -380,12 +390,12 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 <h3>8086 寄存器编号</h3>
 <p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/7a7d30653c86fcb12ac109486226b1736d38c972d0683a108da38834419f7bd2/68747470733a2f2f73322e6c6f6c692e6e65742f323032332f30342f30362f6f7368674b4c3661553959494145572e706e67"><img src="https://camo.githubusercontent.com/7a7d30653c86fcb12ac109486226b1736d38c972d0683a108da38834419f7bd2/68747470733a2f2f73322e6c6f6c692e6e65742f323032332f30342f30362f6f7368674b4c3661553959494145572e706e67" alt="img" data-canonical-src="https://s2.loli.net/2023/04/06/oshgKL6aU9YIAEW.png" style="max-width: 100%;"></a></p>
 <h3>8086 寻址模式</h3>
-<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/63fffb1cb732efd7fd31a8461fa974ae14e6b49c8c5b4bbf76f89631d3e46473/68747470733a2f2f73322e6c6f6c692e6e65742f323032352f30312f31332f6353715a556f4954324f66317459342e706e67"><img src="https://camo.githubusercontent.com/63fffb1cb732efd7fd31a8461fa974ae14e6b49c8c5b4bbf76f89631d3e46473/68747470733a2f2f73322e6c6f6c692e6e65742f323032352f30312f31332f6353715a556f4954324f66317459342e706e67" alt="img" data-canonical-src="https://s2.loli.net/2025/01/13/cSqZUoIT2Of1tY4.png" style="max-width: 100%;"></a></p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/61fc46e4c6e4e377fb059b1e5f10583dbe81b5495dacbe0ff2dfdb4b30cb57f7/68747470733a2f2f73322e6c6f6c692e6e65742f323032352f30322f30372f754c626368737779553842355450572e706e67"><img src="https://camo.githubusercontent.com/61fc46e4c6e4e377fb059b1e5f10583dbe81b5495dacbe0ff2dfdb4b30cb57f7/68747470733a2f2f73322e6c6f6c692e6e65742f323032352f30322f30372f754c626368737779553842355450572e706e67" alt="img" data-canonical-src="https://s2.loli.net/2025/02/07/uLbchswyU8B5TPW.png" style="max-width: 100%;"></a></p>
 <h4>寻址模式详解</h4>
 <ul>
 <li><strong>Mod=00:</strong> <strong>没有偏移量</strong>，或只是使用寄存器进行内存间接寻址。</li>
-<li><strong>Mod=01:</strong> <strong>8位偏移量</strong>（d8），需要额外的1个字节来存储偏移量。</li>
-<li><strong>Mod=10:</strong> <strong>16位偏移量</strong>（d16），需要额外的2个字节来存储偏移量。</li>
+<li><strong>Mod=01:</strong> <strong>8位偏移量</strong> (d8) ，需要额外的1个字节来存储偏移量。</li>
+<li><strong>Mod=10:</strong> <strong>16位偏移量</strong> (d16) ，需要额外的2个字节来存储偏移量。</li>
 <li><strong>Mod=11:</strong> <strong>寄存器寻址</strong>，直接使用寄存器作为操作数，不涉及内存访问。</li>
 </ul>
 <h4>示例</h4>
@@ -474,8 +484,7 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 <p><code class="notranslate">MUL</code> 与 <code class="notranslate">IMUL</code>在乘数是word(16bit)的时候, 结果是32位的, 低 16 位保存在 <code class="notranslate">AX</code> 里面, 高 16 位保存到 <code class="notranslate">DX</code> 里面, 导致<code class="notranslate">DX</code>寄存器的值被覆盖</p>
 </div>
 <h3>十进制算数</h3>
-<p>了解即可, 看不懂, 去死吧！<a href="https://goo.su/Q3MVxu" rel="nofollow">介绍</a></p>
-<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/3b90a9531d5df4b5cb0b87a21043055a96fadcf24eb9585cf0f404749aaf42a1/68747470733a2f2f73322e6c6f6c692e6e65742f323032352f30312f31342f6746635a6c56756b6272454d377a742e706e67"><img src="https://camo.githubusercontent.com/3b90a9531d5df4b5cb0b87a21043055a96fadcf24eb9585cf0f404749aaf42a1/68747470733a2f2f73322e6c6f6c692e6e65742f323032352f30312f31342f6746635a6c56756b6272454d377a742e706e67" alt="img" data-canonical-src="https://s2.loli.net/2025/01/14/gFcZlVukbrEM7zt.png" style="max-width: 100%;"></a></p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/1b829e633c8dcc80f2241956d96e0a629419945f53ff18cbcdbe81f379c464e1/68747470733a2f2f73322e6c6f6c692e6e65742f323032352f30322f30372f34433257774b755a7361666474544e2e706e67"><img src="https://camo.githubusercontent.com/1b829e633c8dcc80f2241956d96e0a629419945f53ff18cbcdbe81f379c464e1/68747470733a2f2f73322e6c6f6c692e6e65742f323032352f30322f30372f34433257774b755a7361666474544e2e706e67" alt="img" data-canonical-src="https://s2.loli.net/2025/02/07/4C2WwKuZsafdtTN.png" style="max-width: 100%;"></a></p>
 <h4>ASCII调整指令</h4>
 <div class="highlight highlight-source-assembly"><pre class="notranslate"><span class="pl-k">mov</span><span class="pl-en"> </span><span class="pl-v">al</span><span class="pl-s1">,</span><span class="pl-en"> </span><span class="pl-s">'9'</span><span class="pl-c">  ; AL = 39h ('9'的ASCII码)</span>
 <span class="pl-k">add</span><span class="pl-en"> </span><span class="pl-v">al</span><span class="pl-s1">,</span><span class="pl-en"> </span><span class="pl-s">'8'</span><span class="pl-c">  ; AL = 39h + 38h = 71h</span>
@@ -496,7 +505,6 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 <span class="pl-k">das</span><span class="pl-c">          ; 调整AL为88h (88的压缩BCD格式)</span>
 <span class="pl-c">; 结果: AL = 88h</span></pre></div>
 <h3>逻辑指令</h3>
-<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/8b00d7d065500dcf2b4e99bd317ec0f7337cb0bd6b6b131c0890716dc1fd1b91/68747470733a2f2f73322e6c6f6c692e6e65742f323032352f30312f31342f32316a7462356d786c574c73494b6b2e706e67"><img src="https://camo.githubusercontent.com/8b00d7d065500dcf2b4e99bd317ec0f7337cb0bd6b6b131c0890716dc1fd1b91/68747470733a2f2f73322e6c6f6c692e6e65742f323032352f30312f31342f32316a7462356d786c574c73494b6b2e706e67" alt="img" data-canonical-src="https://s2.loli.net/2025/01/14/21jtb5mxlWLsIKk.png" style="max-width: 100%;"></a></p>
 <markdown-accessiblity-table><table role="table">
 <thead>
 <tr>
@@ -554,7 +562,6 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 </tbody>
 </table></markdown-accessiblity-table>
 <h3>逻辑偏移</h3>
-<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/9f73465e630ed97c1165b5e82f574c3d441ded05b6f61d26da4f01ce87c28daf/68747470733a2f2f73322e6c6f6c692e6e65742f323032352f30312f31372f535644676862493255546e4c57384a2e706e67"><img src="https://camo.githubusercontent.com/9f73465e630ed97c1165b5e82f574c3d441ded05b6f61d26da4f01ce87c28daf/68747470733a2f2f73322e6c6f6c692e6e65742f323032352f30312f31372f535644676862493255546e4c57384a2e706e67" alt="img" data-canonical-src="https://s2.loli.net/2025/01/17/SVDghbI2UTnLW8J.png" style="max-width: 100%;"></a></p>
 <markdown-accessiblity-table><table role="table">
 <thead>
 <tr>
@@ -921,7 +928,7 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 
 <span class="pl-en">END</span></pre></div>
 <hr>
-<h2>Lecture 5: 汇编语言（Ⅳ）</h2>
+<h2>Lecture 5: 汇编语言 (Ⅳ)</h2>
 <h3>打印负数</h3>
 <h4>负数打印的原理</h4>
 <ul>
@@ -984,7 +991,7 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 <p><strong>字符串</strong> (String) 是一组用于描述文本的 <strong>ASCII(美国信息交换标准代码)</strong> 字符序列。在汇编语言中，字符串通常以不同的方式进行定义和存储，常见的表示方法包括：</p>
 <ul>
 <li><strong>NULL 结尾字符串</strong>：以 <strong>NULL 字节</strong> (数值为 0 的字节) 作为字符串的结束符。例如 <code class="notranslate">"Charles Markham /0"</code>。这种方式简单直观，但需要遍历字符串才能确定其长度。</li>
-<li><strong>长度前缀字符串</strong>：字符串的第一个字节用于存储字符串的长度，后续字节存储字符串的内容。例如 <code class="notranslate">"/15 Charles Markham"</code>，其中 <code class="notranslate">/15</code> 表示字符串长度为 15。这种方式可以快速获取字符串长度，但限制了字符串的最大长度（因为长度信息通常只用一个字节存储）。</li>
+<li><strong>长度前缀字符串</strong>：字符串的第一个字节用于存储字符串的长度，后续字节存储字符串的内容。例如 <code class="notranslate">"/15 Charles Markham"</code>，其中 <code class="notranslate">/15</code> 表示字符串长度为 15。这种方式可以快速获取字符串长度，但限制了字符串的最大长度 (因为长度信息通常只用一个字节存储) 。</li>
 </ul>
 <h4>字符串的存储方式</h4>
 <ul>
@@ -996,7 +1003,7 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 <p><code class="notranslate">LEA</code> (<strong>Load Effective Address</strong>) 命令用于将<strong>有效地址</strong>加载到指定的寄存器中，常用于获取变量或内存地址。</p>
 <ul>
 <li>
-<p><strong>功能</strong>：将源操作数（通常是内存地址）的有效地址传送给目的操作数（寄存器）。</p>
+<p><strong>功能</strong>：将源操作数 (通常是内存地址) 的有效地址传送给目的操作数 (寄存器) 。</p>
 </li>
 <li>
 <p><strong>示例</strong>：</p>
@@ -1014,8 +1021,8 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 <li>
 <p><strong>寄存器影响</strong>：执行 <code class="notranslate">MOVSB</code> 指令后，<strong>SI(源变址寄存器)</strong> 和 <strong>DI(目的变址寄存器)</strong> 寄存器的值会自动递增或递减，递增或递减的方向由 <strong>DF(方向标志位)</strong> 决定。</p>
 <ul>
-<li>当 DF = 0 时，SI 和 DI 递增（正向复制）。</li>
-<li>当 DF = 1 时，SI 和 DI 递减（反向复制）。</li>
+<li>当 DF = 0 时，SI 和 DI 递增 (正向复制) 。</li>
+<li>当 DF = 1 时，SI 和 DI 递减 (反向复制) 。</li>
 </ul>
 </li>
 <li>
@@ -1076,7 +1083,7 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 </li>
 </ul>
 <div class="markdown-alert markdown-alert-note"><p class="markdown-alert-title"><svg class="octicon octicon-info mr-2" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8Zm8-6.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13ZM6.5 7.75A.75.75 0 0 1 7.25 7h1a.75.75 0 0 1 .75.75v2.75h.25a.75.75 0 0 1 0 1.5h-2a.75.75 0 0 1 0-1.5h.25v-2h-.25a.75.75 0 0 1-.75-.75ZM8 6a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z"></path></svg>Note</p>
-<p><strong>REP(Repeat)</strong> 修饰符可以放在多种字符串指令（如 <code class="notranslate">MOVSB</code>, <code class="notranslate">CMPSB</code>, <code class="notranslate">STOSB</code>, <code class="notranslate">LODSB</code> 等）的前面，用于重复执行该指令 <code class="notranslate">CX</code> 次。 <code class="notranslate">REP</code> 代表 <strong>重复字符串前缀</strong>，它可以简化循环控制，提高字符串操作的效率。</p>
+<p><strong>REP(Repeat)</strong> 修饰符可以放在多种字符串指令 (如 <code class="notranslate">MOVSB</code>, <code class="notranslate">CMPSB</code>, <code class="notranslate">STOSB</code>, <code class="notranslate">LODSB</code> 等) 的前面，用于重复执行该指令 <code class="notranslate">CX</code> 次.<code class="notranslate">REP</code> 代表 <strong>重复字符串前缀</strong>，它可以简化循环控制，提高字符串操作的效率。</p>
 </div>
 <h4>CISC 与 RISC 指令集对比</h4>
 <p><code class="notranslate">MOVSB</code> 和 <code class="notranslate">CMPSB</code> 等字符串操作指令是 <strong>CISC(复杂指令集计算机)</strong> 架构的特点之一。为了更好理解 CISC 的特点，以下进行 CISC 和 <strong>RISC(精简指令集计算机)</strong> 的对比：</p>
@@ -1155,7 +1162,7 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 <p><strong>代码说明</strong>：CISC 架构的 x86 汇编提供了 <code class="notranslate">mul</code> (<strong>multiply</strong>) 乘法指令，可以直接完成乘法运算，指令简洁高效。</p>
 <p><strong>对比总结</strong>：</p>
 <ul>
-<li>RISC 实现乘法需要多条指令（移位、判断、加法、循环），代码相对复杂。</li>
+<li>RISC 实现乘法需要多条指令 (移位、判断、加法、循环) ，代码相对复杂。</li>
 <li>CISC 实现乘法只需要一条 <code class="notranslate">mul</code> 指令，代码简洁明了。</li>
 </ul>
 <p>这体现了 CISC 指令集复杂但功能强大，RISC 指令集精简但需要组合使用才能完成复杂操作的特点。</p>
@@ -1182,7 +1189,7 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 <h4>规格化浮点数的表示方法</h4>
 <ul>
 <li><strong>尾数 (Mantissa)</strong>：只存储<strong>小数部分</strong>，整数部分的 <code class="notranslate">1</code> 是隐含的。</li>
-<li><strong>指数 (Exponent)</strong>：存储经过<strong>偏移量 (Bias)</strong> 调整后的指数值。对于单精度浮点数，偏移量 Bias 通常为 127；对于双精度浮点数，偏移量 Bias 通常为 1023。指数位不能全为 0 或全为 1（这两种情况有特殊用途，见下文）。
+<li><strong>指数 (Exponent)</strong>：存储经过<strong>偏移量 (Bias)</strong> 调整后的指数值。对于单精度浮点数，偏移量 Bias 通常为 127；对于双精度浮点数，偏移量 Bias 通常为 1023。指数位不能全为 0 或全为 1 (这两种情况有特殊用途，见下文) 。
 <ul>
 <li><strong>单精度浮点数指数范围</strong>：1 到 254 (实际指数范围为 -126 到 127)</li>
 <li><strong>双精度浮点数指数范围</strong>：1 到 2046 (实际指数范围为 -1022 到 1023)</li>
@@ -1231,7 +1238,8 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 </ul>
 <p><strong>计算数值</strong>：</p>
 <p>$\text{Value} = 0.00000000000000000000001_2 \times 2^{-126} \approx 1.4 \times 10^{-45}$</p>
-<p><a href="https://www.bilibili.com/video/BV1VK4y1f7o6/" rel="nofollow">视频讲解 - 浮点数</a></p>
+<p><a href="https://www.bilibili.com/video/BV1VK4y1f7o6/" rel="nofollow">【CSAPP-深入理解计算机系统】2-4.浮点数(上)</a></p>
+<p><a href="https://www.bilibili.com/video/BV1zK4y1j7Cn" rel="nofollow">【CSAPP-深入理解计算机系统】2-4.浮点数(下)</a></p>
 <h3>浮点数的计算</h3>
 <h4>浮点数加减运算的原则</h4>
 <p><strong>浮点数加减运算</strong> 遵循 <strong>先对齐，再计算</strong> 的原则。</p>
@@ -1277,7 +1285,7 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 <p><strong>结果转换为十进制</strong>：</p>
 <ul>
 <li>
-$(-1)^0 \times 1.01_2 \times 2^{-1} = 1.01_2 \times 2^{-1} = 0.101_2 = 0.625_{10}$ （此处计算有误，应为0.5 + 0.125 = 0.625，但示例中0.5+0.125=0.625的二进制表示应为0.101，而示例结果1.01 * 2^-1 = 1.01/2 = 0.505，计算过程需要修正）</li>
+$(-1)^0 \times 1.01_2 \times 2^{-1} = 1.01_2 \times 2^{-1} = 0.101_2 = 0.625_{10}$  (此处计算有误，应为0.5 + 0.125 = 0.625，但示例中0.5+0.125=0.625的二进制表示应为0.101，而示例结果1.01 * 2^-1 = 1.01/2 = 0.505，计算过程需要修正)</li>
 </ul>
 </li>
 </ol>
@@ -1297,17 +1305,17 @@ $(-1)^0 \times 1.01_2 \times 2^{-1} = 1.01_2 \times 2^{-1} = 0.101_2 = 0.625_{10
 <li><strong>作用</strong>：8087 不是一个独立的 <strong>CPU(中央处理器)</strong>，而是作为 <strong>CPU 的辅助单元</strong>，专门用于<strong>加速浮点数运算</strong>。它与 Intel 8086、8088 等 CPU 协同工作，扩展了 CPU 的数值计算能力，尤其是在浮点数运算方面。</li>
 <li><strong>历史背景</strong>：在早期计算机系统中，CPU 的浮点运算能力相对较弱，为了提高浮点运算性能，出现了数学协处理器。8087 是 Intel 公司为 8086/8088 处理器设计的协处理器，显著提升了当时计算机的科学计算能力。</li>
 </ul>
-<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/3eda98c28ba58a4ae8f08817c28ba16c19dcc59fc258e6d83f5632ef79f320f6/68747470733a2f2f73322e6c6f6c692e6e65742f323032352f30312f31372f4e716535644c36416e47573462396c2e706e67"><img src="https://camo.githubusercontent.com/3eda98c28ba58a4ae8f08817c28ba16c19dcc59fc258e6d83f5632ef79f320f6/68747470733a2f2f73322e6c6f6c692e6e65742f323032352f30312f31372f4e716535644c36416e47573462396c2e706e67" alt="img" data-canonical-src="https://s2.loli.net/2025/01/17/Nqe5dL6AnGW4b9l.png" style="max-width: 100%;"></a></p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/ed181f48faa2b8ac3ae0ed9666e79b6a01c5208c2586eba7526c30a6443e8a95/68747470733a2f2f73322e6c6f6c692e6e65742f323032352f30322f30372f6f757172486d3632593339434449342e706e67"><img src="https://camo.githubusercontent.com/ed181f48faa2b8ac3ae0ed9666e79b6a01c5208c2586eba7526c30a6443e8a95/68747470733a2f2f73322e6c6f6c692e6e65742f323032352f30322f30372f6f757172486d3632593339434449342e706e67" alt="img" data-canonical-src="https://s2.loli.net/2025/02/07/ouqrHm62Y39CDI4.png" style="max-width: 100%;"></a></p>
 <h4>8087 的状态字组</h4>
 <p><strong>状态字组 (Status Word)</strong> 是 8087 协处理器中的一个寄存器，用于记录浮点运算的状态和异常信息。</p>
-<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/4504fe4f2d0218021c599cef92f4b55945d81f5af1ef82f2088acd2b50a359e2/68747470733a2f2f73322e6c6f6c692e6e65742f323032352f30312f31372f396b464a74494d59367571336f41372e706e67"><img src="https://camo.githubusercontent.com/4504fe4f2d0218021c599cef92f4b55945d81f5af1ef82f2088acd2b50a359e2/68747470733a2f2f73322e6c6f6c692e6e65742f323032352f30312f31372f396b464a74494d59367571336f41372e706e67" alt="img" data-canonical-src="https://s2.loli.net/2025/01/17/9kFJtIMY6uq3oA7.png" style="max-width: 100%;"></a></p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/cd28d3e4568d9720ef572b5638811e1c32371b2b41ae25ef499ba60d782f0b67/68747470733a2f2f73322e6c6f6c692e6e65742f323032352f30322f30372f4b566c7641734c785a4439646357522e706e67"><img src="https://camo.githubusercontent.com/cd28d3e4568d9720ef572b5638811e1c32371b2b41ae25ef499ba60d782f0b67/68747470733a2f2f73322e6c6f6c692e6e65742f323032352f30322f30372f4b566c7641734c785a4439646357522e706e67" alt="img" data-canonical-src="https://s2.loli.net/2025/02/07/KVlvAsLxZD9dcWR.png" style="max-width: 100%;"></a></p>
 <ul>
 <li><strong>作用</strong>：状态字组中的各个标志位反映了最近一次浮点运算的结果状态，例如是否发生溢出、下溢、除零错误、精度丢失等异常情况，以及运算结果的符号、舍入模式等信息。</li>
 <li><strong>程序应用</strong>：程序员可以通过读取状态字组，检查浮点运算是否发生异常，并根据状态信息进行相应的错误处理或流程控制。</li>
 </ul>
 <h4>8087 的控制字组</h4>
 <p><strong>控制字组 (Control Word)</strong> 是 8087 协处理器中的另一个寄存器，用于控制浮点运算的精度、舍入模式、异常处理方式等。</p>
-<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/741c4f2f3541d34f131fbfc4e35dd600aa07d587dad583f7ea5f830f384641eb/68747470733a2f2f73322e6c6f6c692e6e65742f323032352f30312f31372f4d6f72767539716d3164365a49436b2e706e67"><img src="https://camo.githubusercontent.com/741c4f2f3541d34f131fbfc4e35dd600aa07d587dad583f7ea5f830f384641eb/68747470733a2f2f73322e6c6f6c692e6e65742f323032352f30312f31372f4d6f72767539716d3164365a49436b2e706e67" alt="img" data-canonical-src="https://s2.loli.net/2025/01/17/Morvu9qm1d6ZICk.png" style="max-width: 100%;"></a></p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/7993327e4a237b0c477bdb312e5bef0fc6053d176c1cc36d0615356ad6ff4c0d/68747470733a2f2f73322e6c6f6c692e6e65742f323032352f30322f30372f556f726374546447737538376569612e706e67"><img src="https://camo.githubusercontent.com/7993327e4a237b0c477bdb312e5bef0fc6053d176c1cc36d0615356ad6ff4c0d/68747470733a2f2f73322e6c6f6c692e6e65742f323032352f30322f30372f556f726374546447737538376569612e706e67" alt="img" data-canonical-src="https://s2.loli.net/2025/02/07/UorctTdGsu87eia.png" style="max-width: 100%;"></a></p>
 <ul>
 <li><strong>作用</strong>：通过设置控制字组中的各个控制位，可以配置 8087 的运算行为，例如：
 <ul>
@@ -1320,7 +1328,7 @@ $(-1)^0 \times 1.01_2 \times 2^{-1} = 1.01_2 \times 2^{-1} = 0.101_2 = 0.625_{10
 </ul>
 <h4>8087 的栈结构</h4>
 <p><strong>栈 (Stack)</strong> 是 8087 协处理器内部用于存储浮点数据的存储区域。</p>
-<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/78bea1a9c1d4cddc65ab3fcad5b55672e4ce3ff8d6c4c133368f1790f8febe1a/68747470733a2f2f73322e6c6f6c692e6e65742f323032352f30312f31372f63584a435933785a36723467524e562e706e67"><img src="https://camo.githubusercontent.com/78bea1a9c1d4cddc65ab3fcad5b55672e4ce3ff8d6c4c133368f1790f8febe1a/68747470733a2f2f73322e6c6f6c692e6e65742f323032352f30312f31372f63584a435933785a36723467524e562e706e67" alt="img" data-canonical-src="https://s2.loli.net/2025/01/17/cXJCY3xZ6r4gRNV.png" style="max-width: 100%;"></a></p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/7c7e886df980b747ccdf5f2c573a92c4fcd66f639ad105182cc4f55fad24a73f/68747470733a2f2f73322e6c6f6c692e6e65742f323032352f30322f30372f736735684e3861786562564b6f58742e706e67"><img src="https://camo.githubusercontent.com/7c7e886df980b747ccdf5f2c573a92c4fcd66f639ad105182cc4f55fad24a73f/68747470733a2f2f73322e6c6f6c692e6e65742f323032352f30322f30372f736735684e3861786562564b6f58742e706e67" alt="img" data-canonical-src="https://s2.loli.net/2025/02/07/sg5hN8axebVKoXt.png" style="max-width: 100%;"></a></p>
 <ul>
 <li><strong>特点</strong>：
 <ul>
@@ -1450,7 +1458,7 @@ $(-1)^0 \times 1.01_2 \times 2^{-1} = 1.01_2 \times 2^{-1} = 0.101_2 = 0.625_{10
 </ul>
 </li>
 </ul>
-<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/e9f65306bfd8524fb52628582d4412d9d1bcf1d05aab432ac2bc479ee85ec77f/68747470733a2f2f73322e6c6f6c692e6e65742f323032352f30312f31392f6d337434374c465245356f4b6250582e706e67"><img src="https://camo.githubusercontent.com/e9f65306bfd8524fb52628582d4412d9d1bcf1d05aab432ac2bc479ee85ec77f/68747470733a2f2f73322e6c6f6c692e6e65742f323032352f30312f31392f6d337434374c465245356f4b6250582e706e67" alt="img" data-canonical-src="https://s2.loli.net/2025/01/19/m3t47LFRE5oKbPX.png" style="max-width: 100%;"></a></p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/2ed61c421f943d699287155414555ad36b5e28e5aef7c0bc2c47b2e77b79dcfb/68747470733a2f2f73322e6c6f6c692e6e65742f323032352f30322f30372f66543248655558476e5759434d31712e706e67"><img src="https://camo.githubusercontent.com/2ed61c421f943d699287155414555ad36b5e28e5aef7c0bc2c47b2e77b79dcfb/68747470733a2f2f73322e6c6f6c692e6e65742f323032352f30322f30372f66543248655558476e5759434d31712e706e67" alt="img" data-canonical-src="https://s2.loli.net/2025/02/07/fT2HeUXGnWYCM1q.png" style="max-width: 100%;"></a></p>
 <h4>能带宽度与材料导电性</h4>
 <p>能带理论解释了不同材料的导电性差异，主要通过<strong>禁带宽度</strong>来区分<strong>绝缘体</strong>、<strong>导体</strong>和<strong>半导体</strong>。</p>
 <ul>
@@ -1476,18 +1484,18 @@ $(-1)^0 \times 1.01_2 \times 2^{-1} = 1.01_2 \times 2^{-1} = 0.101_2 = 0.625_{10
 </ul>
 </li>
 </ul>
-<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/e65ee2ea0f304de5cabb32678b91030dd990b25aea0e27c37b5ab026201b8edc/68747470733a2f2f73322e6c6f6c692e6e65742f323032352f30312f31392f4a7550454d53714831384f416e6c362e706e67"><img src="https://camo.githubusercontent.com/e65ee2ea0f304de5cabb32678b91030dd990b25aea0e27c37b5ab026201b8edc/68747470733a2f2f73322e6c6f6c692e6e65742f323032352f30312f31392f4a7550454d53714831384f416e6c362e706e67" alt="img" data-canonical-src="https://s2.loli.net/2025/01/19/JuPEMSqH18OAnl6.png" style="max-width: 100%;"></a></p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/9328491c5185531ec5be0dc3e67a062bcea08ee414f9da89fb57cbfce3989203/68747470733a2f2f73322e6c6f6c692e6e65742f323032352f30322f30372f3469556575614b7a516e786d4273482e706e67"><img src="https://camo.githubusercontent.com/9328491c5185531ec5be0dc3e67a062bcea08ee414f9da89fb57cbfce3989203/68747470733a2f2f73322e6c6f6c692e6e65742f323032352f30322f30372f3469556575614b7a516e786d4273482e706e67" alt="img" data-canonical-src="https://s2.loli.net/2025/02/07/4iUeuaKzQnxmBsH.png" style="max-width: 100%;"></a></p>
 <h3>P型硅与N型硅</h3>
 <p>为了实现半导体的可控导电性，通常需要进行<strong>掺杂</strong>，形成 <strong>P 型半导体</strong> 和 <strong>N 型半导体</strong>。</p>
 <h4>P型硅 (P-type Silicon)</h4>
-<p><strong>P 型硅</strong> (P-type Silicon) 是通过<strong>掺杂</strong> <strong>三价元素</strong>（如<strong>硼</strong> (Boron)）到<strong>本征半导体</strong> (Intrinsic Semiconductor) 硅中形成的。</p>
+<p><strong>P 型硅</strong> (P-type Silicon) 是通过<strong>掺杂</strong> <strong>三价元素</strong> (如<strong>硼</strong> (Boron)) 到<strong>本征半导体</strong> (Intrinsic Semiconductor) 硅中形成的。</p>
 <ul>
 <li><strong>掺杂硼</strong>：硼原子最外层有 3 个电子，取代硅晶格中的硅原子后，会<strong>缺少一个电子</strong>，形成一个<strong>空穴</strong> (Hole)。</li>
 <li><strong>空穴导电</strong>：<strong>空穴</strong>可以被看作是带正电的载流子，在外电场作用下，空穴可以移动，形成<strong>电流</strong>。因此，P 型硅主要依靠<strong>空穴导电</strong>，空穴是 <strong>多数载流子</strong>，电子是 <strong>少数载流子</strong>。</li>
 </ul>
 <p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/85e0475f8bef0bdb1bb5e225a5617765868feffdc3bb843bea820034e98a6cb4/68747470733a2f2f73322e6c6f6c692e6e65742f323032352f30312f31392f7034786b6a38674e36624d6d4850562e706e67"><img src="https://camo.githubusercontent.com/85e0475f8bef0bdb1bb5e225a5617765868feffdc3bb843bea820034e98a6cb4/68747470733a2f2f73322e6c6f6c692e6e65742f323032352f30312f31392f7034786b6a38674e36624d6d4850562e706e67" alt="img" data-canonical-src="https://s2.loli.net/2025/01/19/p4xkj8gN6bMmHPV.png" style="max-width: 100%;"></a></p>
 <h4>N型硅 (N-type Silicon)</h4>
-<p><strong>N 型硅</strong> (N-type Silicon) 是通过<strong>掺杂</strong> <strong>五价元素</strong>（如<strong>磷</strong> (Phosphorus)）到本征半导体硅中形成的。</p>
+<p><strong>N 型硅</strong> (N-type Silicon) 是通过<strong>掺杂</strong> <strong>五价元素</strong> (如<strong>磷</strong> (Phosphorus)) 到本征半导体硅中形成的。</p>
 <ul>
 <li><strong>掺杂磷</strong>：磷原子最外层有 5 个电子，取代硅晶格中的硅原子后，会<strong>多出一个电子</strong>。这个多余的电子很容易挣脱原子核的束缚，成为<strong>自由电子</strong> (Free Electron)。</li>
 <li><strong>电子导电</strong>：N 型硅中<strong>自由电子浓度</strong>大大增加，在外电场作用下，自由电子定向移动形成电流。因此，N 型硅主要依靠<strong>电子导电</strong>，电子是 <strong>多数载流子</strong>，空穴是 <strong>少数载流子</strong>。</li>
@@ -1508,14 +1516,14 @@ $(-1)^0 \times 1.01_2 \times 2^{-1} = 1.01_2 \times 2^{-1} = 0.101_2 = 0.625_{10
 <p><strong>正向偏置</strong> (Forward Bias) 是指将<strong>外部电源的正极</strong>连接到 <strong>P 区</strong>，<strong>负极</strong>连接到 <strong>N 区</strong>。</p>
 <ul>
 <li><strong>耗尽区变窄</strong>：正向电压产生的电场方向与内建电场方向相反，<strong>削弱了势垒</strong>，使得<strong>耗尽区变窄</strong>。</li>
-<li><strong>电流导通</strong>：当正向电压超过一定阈值（<strong>开启电压</strong>或<strong>死区电压</strong>）后，势垒被克服，大量的电子从 N 区注入 P 区，空穴从 P 区注入 N 区，形成<strong>较大的正向电流</strong>，PN 结<strong>导通</strong>。</li>
+<li><strong>电流导通</strong>：当正向电压超过一定阈值 (<strong>开启电压</strong>或<strong>死区电压</strong>) 后，势垒被克服，大量的电子从 N 区注入 P 区，空穴从 P 区注入 N 区，形成<strong>较大的正向电流</strong>，PN 结<strong>导通</strong>。</li>
 </ul>
 <p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/df4b0f5e853700f772484056dc2cd7c1b8c46a74cb41d3b7196bc10eae1f8eb7/68747470733a2f2f73322e6c6f6c692e6e65742f323032352f30312f31392f7a4e625164536c41447238663546572e706e67"><img src="https://camo.githubusercontent.com/df4b0f5e853700f772484056dc2cd7c1b8c46a74cb41d3b7196bc10eae1f8eb7/68747470733a2f2f73322e6c6f6c692e6e65742f323032352f30312f31392f7a4e625164536c41447238663546572e706e67" alt="img" data-canonical-src="https://s2.loli.net/2025/01/19/zNbQdSlADr8f5FW.png" style="max-width: 100%;"></a></p>
 <h4>PN 结的反向偏置</h4>
 <p><strong>反向偏置</strong> (Reverse Bias) 是指将<strong>外部电源的正极</strong>连接到 <strong>N 区</strong>，<strong>负极</strong>连接到 <strong>P 区</strong>。</p>
 <ul>
 <li><strong>耗尽区变宽</strong>：反向电压产生的电场方向与内建电场方向相同，<strong>增强了势垒</strong>，使得<strong>耗尽区变宽</strong>。</li>
-<li><strong>电流截止</strong>：势垒进一步增大，阻止了多数载流子的流动。只有少量的<strong>少数载流子</strong>（P 区的电子和 N 区的空穴）在反向电场作用下漂移，形成<strong>很小的反向饱和电流</strong>，PN 结<strong>截止</strong>。理想情况下，反向电流可以忽略不计。</li>
+<li><strong>电流截止</strong>：势垒进一步增大，阻止了多数载流子的流动。只有少量的<strong>少数载流子</strong> (P 区的电子和 N 区的空穴) 在反向电场作用下漂移，形成<strong>很小的反向饱和电流</strong>，PN 结<strong>截止</strong>。理想情况下，反向电流可以忽略不计。</li>
 </ul>
 <p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/55e91a451c0c58ad34ed481d8e614f1ad2e836e448cf8455b0ca5f6b0546c0f0/68747470733a2f2f73322e6c6f6c692e6e65742f323032352f30312f31392f4b6e4c5336515478777256413445442e706e67"><img src="https://camo.githubusercontent.com/55e91a451c0c58ad34ed481d8e614f1ad2e836e448cf8455b0ca5f6b0546c0f0/68747470733a2f2f73322e6c6f6c692e6e65742f323032352f30312f31392f4b6e4c5336515478777256413445442e706e67" alt="img" data-canonical-src="https://s2.loli.net/2025/01/19/KnLS6QTxwrVA4ED.png" style="max-width: 100%;"></a></p>
 <h4>PN 结电流方向与导电方向</h4>
@@ -1602,7 +1610,7 @@ $(-1)^0 \times 1.01_2 \times 2^{-1} = 1.01_2 \times 2^{-1} = 0.101_2 = 0.625_{10
 <h4>MOSFET 的基本结构</h4>
 <p>MOSFET 主要由以下几个部分构成：</p>
 <ul>
-<li><strong>栅极 (Gate, G)</strong>：通常为<strong>金属层</strong>或<strong>多晶硅层</strong>，通过一层<strong>绝缘层</strong>（通常是<strong>二氧化硅 (SiO<sub>2</sub>)</strong>）与半导体衬底隔离。栅极电压用于控制沟道的导电性。</li>
+<li><strong>栅极 (Gate, G)</strong>：通常为<strong>金属层</strong>或<strong>多晶硅层</strong>，通过一层<strong>绝缘层</strong> (通常是<strong>二氧化硅 (SiO<sub>2</sub>)</strong>) 与半导体衬底隔离。栅极电压用于控制沟道的导电性。</li>
 <li><strong>源极 (Source, S)</strong>：<strong>电流的注入端</strong>，载流子由此进入沟道。</li>
 <li><strong>漏极 (Drain, D)</strong>：<strong>电流的输出端</strong>，载流子由此离开沟道。</li>
 <li><strong>衬底 (Body/Substrate, B)</strong>：<strong>半导体基体</strong>，通常是<strong>硅材料</strong>。衬底的电位通常与<strong>源极</strong>或<strong>漏极</strong>相连，在某些 MOSFET 中，衬底也可以作为独立的控制端。</li>
@@ -1631,7 +1639,7 @@ $(-1)^0 \times 1.01_2 \times 2^{-1} = 1.01_2 \times 2^{-1} = 0.101_2 = 0.625_{10
 </ol>
 <p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/5c2ccf3bbd49b1d0e28e098db489d0d776043b2708c10429a3c8832bc3852cc8/68747470733a2f2f73322e6c6f6c692e6e65742f323032352f30312f31392f48346a31354c4d49775636556557542e706e67"><img src="https://camo.githubusercontent.com/5c2ccf3bbd49b1d0e28e098db489d0d776043b2708c10429a3c8832bc3852cc8/68747470733a2f2f73322e6c6f6c692e6e65742f323032352f30312f31392f48346a31354c4d49775636556557542e706e67" alt="img" data-canonical-src="https://s2.loli.net/2025/01/19/H4j15LMIwV6UeWT.png" style="max-width: 100%;"></a></p>
 <div class="markdown-alert markdown-alert-note"><p class="markdown-alert-title"><svg class="octicon octicon-info mr-2" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8Zm8-6.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13ZM6.5 7.75A.75.75 0 0 1 7.25 7h1a.75.75 0 0 1 .75.75v2.75h.25a.75.75 0 0 1 0 1.5h-2a.75.75 0 0 1 0-1.5h.25v-2h-.25a.75.75 0 0 1-.75-.75ZM8 6a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z"></path></svg>Note</p>
-<p>MOSFET 的工作原理较为抽象，建议参考<a href="https://www.bilibili.com/video/BV1nL411x7jH/" rel="nofollow">视频讲解</a> 以更直观地理解。</p>
+<p>这里MOSFET讲的很抽象，参考<a href="https://www.bilibili.com/video/BV1nL411x7jH/" rel="nofollow">【硬核科普】带你认识CPU第00期——什么是MOSFET</a></p>
 </div>
 <h3>互补金属氧化物半导体 (CMOS)</h3>
 <p><strong>互补金属氧化物半导体 (Complementary Metal-Oxide-Semiconductor, CMOS)</strong> 电路是现代数字电路中最主流的电路形式。CMOS 电路利用 <strong>PMOS (P 沟道 MOSFET)</strong> 和 <strong>NMOS (N 沟道 MOSFET)</strong> 的互补特性，实现低功耗、高性能的逻辑功能。</p>
@@ -1701,31 +1709,31 @@ $(-1)^0 \times 1.01_2 \times 2^{-1} = 1.01_2 \times 2^{-1} = 0.101_2 = 0.625_{10
 <td align="left"><strong>0x378</strong></td>
 <td align="left">Parallel Printer Latch</td>
 <td align="left">输出</td>
-<td align="left"><strong>并行打印机数据端口</strong>，常用于 <strong>LPT1 (Line Printer 1)</strong>，向打印机发送打印数据。</td>
+<td align="left"><strong>并行打印机数据端口</strong>，常用于 <strong>LPT1 (Line Printer 1)</strong>，向打印机发送打印数据.</td>
 </tr>
 <tr>
 <td align="left"><strong>0x37A</strong></td>
 <td align="left">Printer Control Latch</td>
 <td align="left">输出</td>
-<td align="left"><strong>并行打印机控制端口</strong>，常用于 <strong>LPT1</strong>，控制打印机的各种操作，例如初始化、选择打印机等。</td>
+<td align="left"><strong>并行打印机控制端口</strong>，常用于 <strong>LPT1</strong>，控制打印机的各种操作，例如初始化、选择打印机等.</td>
 </tr>
 <tr>
 <td align="left"><strong>0x379</strong></td>
 <td align="left">Printer Status</td>
 <td align="left">输入</td>
-<td align="left"><strong>并行打印机状态端口</strong>，常用于 <strong>LPT1</strong>，读取打印机的状态信息，例如是否忙碌、是否有纸等。</td>
+<td align="left"><strong>并行打印机状态端口</strong>，常用于 <strong>LPT1</strong>，读取打印机的状态信息，例如是否忙碌、是否有纸等.</td>
 </tr>
 <tr>
 <td align="left"><strong>0x3D9</strong></td>
 <td align="left">VDU Colour Register</td>
 <td align="left">输出</td>
-<td align="left"><strong>视频显示单元 (VDU) 颜色寄存器</strong>，用于设置 <strong>DOS 文本模式</strong> 下的边框颜色。</td>
+<td align="left"><strong>视频显示单元 (VDU) 颜色寄存器</strong>，用于设置 <strong>DOS 文本模式</strong> 下的边框颜色.</td>
 </tr>
 <tr>
 <td align="left"><strong>0x278</strong></td>
 <td align="left">Parallel Printer Latch</td>
 <td align="left">输出</td>
-<td align="left"><strong>并行打印机数据端口</strong>，常用于 <strong>LPT2 (Line Printer 2)</strong>，向打印机发送打印数据。</td>
+<td align="left"><strong>并行打印机数据端口</strong>，常用于 <strong>LPT2 (Line Printer 2)</strong>，向打印机发送打印数据.</td>
 </tr>
 </tbody>
 </table></markdown-accessiblity-table>
@@ -1736,7 +1744,7 @@ $(-1)^0 \times 1.01_2 \times 2^{-1} = 1.01_2 \times 2^{-1} = 0.101_2 = 0.625_{10
 <li><strong>内存访问时序</strong>：8086 完成一次<strong>内存访问周期</strong> 通常需要 <strong>4 个时钟周期</strong>， 步骤如下：
 <ol>
 <li><strong>周期 1</strong>：CPU 发送<strong>内存地址</strong>到地址总线上。</li>
-<li><strong>周期 2-3</strong>：CPU <strong>等待内存响应</strong>，并进行<strong>数据传输</strong>（读取或写入）。</li>
+<li><strong>周期 2-3</strong>：CPU <strong>等待内存响应</strong>，并进行<strong>数据传输</strong> (读取或写入) 。</li>
 <li><strong>周期 4</strong>：<strong>结束周期</strong>，完成本次内存访问。</li>
 </ol>
 </li>
@@ -1749,13 +1757,13 @@ $(-1)^0 \times 1.01_2 \times 2^{-1} = 1.01_2 \times 2^{-1} = 0.101_2 = 0.625_{10
 <p>为了实现<strong>地址解码</strong>，Z80A 系统中使用了 <strong>AND 门</strong> 作为<strong>地址解码器 (Address Decoder)</strong>。</p>
 <ul>
 <li><strong>地址匹配</strong>：当 <strong>16 个输入信号</strong> 与预设的<strong>设备地址</strong> 完全匹配时，AND 门输出<strong>逻辑真 (高电平)</strong>，否则输出<strong>逻辑假 (低电平)</strong>。</li>
-<li><strong>控制线</strong>：系统使用<strong>两根控制线</strong>（图中绿色和紫色线条）来指示当前操作是<strong>读取</strong>还是<strong>写入</strong>，以及针对哪个设备。</li>
+<li><strong>控制线</strong>：系统使用<strong>两根控制线</strong> (图中绿色和紫色线条) 来指示当前操作是<strong>读取</strong>还是<strong>写入</strong>，以及针对哪个设备。</li>
 </ul>
 <p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/a0c832724122eea66291cc3b9c1b5ffa8e82f4b475d3639a25cbe13e05d83905/68747470733a2f2f73322e6c6f6c692e6e65742f323032352f30312f31392f6f4b43327279456273636b664147312e6a7067"><img src="https://camo.githubusercontent.com/a0c832724122eea66291cc3b9c1b5ffa8e82f4b475d3639a25cbe13e05d83905/68747470733a2f2f73322e6c6f6c692e6e65742f323032352f30312f31392f6f4b43327279456273636b664147312e6a7067" alt="img" data-canonical-src="https://s2.loli.net/2025/01/19/oKC2ryEbsckfAG1.jpg" style="max-width: 100%;"></a></p>
 <h4>三态缓冲器与数据传输控制</h4>
 <p><strong>三态缓冲器 (Tri-state Buffer)</strong> 在 I/O 接口中扮演着重要的角色，用于控制数据流的方向和连接状态。</p>
 <ul>
-<li><strong>控制信号</strong>：<strong>AND 门</strong> 的输出（地址匹配结果）和<strong>两根控制线</strong> 的信号，通过另一个 <strong>AND 门</strong> 组合成<strong>最终的控制信号</strong>。</li>
+<li><strong>控制信号</strong>：<strong>AND 门</strong> 的输出 (地址匹配结果) 和<strong>两根控制线</strong> 的信号，通过另一个 <strong>AND 门</strong> 组合成<strong>最终的控制信号</strong>。</li>
 <li><strong>三态输出</strong>：<strong>三态缓冲器</strong> 具有三种输出状态：<strong>高电平 (1)</strong>, <strong>低电平 (0)</strong>, 和 <strong>高阻态 (High-Z)</strong>。
 <ul>
 <li>根据 <strong>控制信号</strong> 的状态，三态缓冲器决定是否将 <strong>输入信号</strong> 直接<strong>传输到输出</strong>，或者<strong>切换到高阻态</strong>，相当于断开连接。</li>
@@ -1767,7 +1775,7 @@ $(-1)^0 \times 1.01_2 \times 2^{-1} = 1.01_2 \times 2^{-1} = 0.101_2 = 0.625_{10
 <p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/4fe7163d5a784022581d95841fd450568bfb3b89ffa4145f44f715a7631c0ba4/68747470733a2f2f73322e6c6f6c692e6e65742f323032352f30312f31392f355157314f706a64377744795436552e6a7067"><img src="https://camo.githubusercontent.com/4fe7163d5a784022581d95841fd450568bfb3b89ffa4145f44f715a7631c0ba4/68747470733a2f2f73322e6c6f6c692e6e65742f323032352f30312f31392f355157314f706a64377744795436552e6a7067" alt="img" data-canonical-src="https://s2.loli.net/2025/01/19/5QW1Opjd7wDyT6U.jpg" style="max-width: 100%;"></a></p>
 <h3>汇编语言 I/O 指令</h3>
 <h4>OUT 指令：端口输出</h4>
-<p><strong>OUT 指令</strong> 用于将数据从 <strong>CPU 寄存器</strong> （通常是累加器 <code class="notranslate">AL</code>, <code class="notranslate">AX</code>, <code class="notranslate">EAX</code>） <strong>写入</strong> 到指定的 <strong>I/O 端口</strong>。</p>
+<p><strong>OUT 指令</strong> 用于将数据从 <strong>CPU 寄存器</strong>  (通常是累加器 <code class="notranslate">AL</code>, <code class="notranslate">AX</code>, <code class="notranslate">EAX</code>)  <strong>写入</strong> 到指定的 <strong>I/O 端口</strong>。</p>
 <div class="highlight highlight-source-assembly"><pre class="notranslate"><span class="pl-k">OUT</span><span class="pl-en"> port</span><span class="pl-s1">,</span><span class="pl-en"> acc</span></pre></div>
 <ul>
 <li><strong>port</strong>:  <strong>I/O 端口地址</strong>，可以是立即数或存储在 DX 寄存器中。</li>
@@ -1794,7 +1802,7 @@ $(-1)^0 \times 1.01_2 \times 2^{-1} = 1.01_2 \times 2^{-1} = 0.101_2 = 0.625_{10
 </li>
 </ol>
 <h4>IN 指令：端口输入</h4>
-<p><strong>IN 指令</strong> 用于从指定的 <strong>I/O 端口</strong> <strong>读取数据</strong> 到 <strong>CPU 寄存器</strong> （通常是累加器 <code class="notranslate">AL</code>, <code class="notranslate">AX</code>, <code class="notranslate">EAX</code>）。</p>
+<p><strong>IN 指令</strong> 用于从指定的 <strong>I/O 端口</strong> <strong>读取数据</strong> 到 <strong>CPU 寄存器</strong>  (通常是累加器 <code class="notranslate">AL</code>, <code class="notranslate">AX</code>, <code class="notranslate">EAX</code>) 。</p>
 <div class="highlight highlight-source-assembly"><pre class="notranslate"><span class="pl-k">IN</span><span class="pl-en"> acc</span><span class="pl-s1">,</span><span class="pl-en"> port</span></pre></div>
 <ul>
 <li><strong>acc</strong>: <strong>累加器</strong> (<code class="notranslate">AL</code>, <code class="notranslate">AX</code>, 或 <code class="notranslate">EAX</code>)，用于<strong>存储从端口读取的数据</strong>。</li>
@@ -1822,12 +1830,12 @@ $(-1)^0 \times 1.01_2 \times 2^{-1} = 1.01_2 \times 2^{-1} = 0.101_2 = 0.625_{10
 </ol>
 <blockquote>
 <p>[!NOTE] I/O 特权级 (IOPL)</p>
-<p><strong>IOPL (I/O Privilege Level, I/O 特权级)</strong> 是 <strong>x86 架构</strong> 中用于控制 <strong>I/O 端口访问权限</strong> 的保护机制。它存储在 <strong>EFLAGS 寄存器</strong> 的 <strong>第 12 和 13 位</strong>，定义了程序执行 <strong>I/O 指令</strong> （如 <code class="notranslate">IN</code>, <code class="notranslate">OUT</code>）所需的<strong>最低特权级别 (CPL, Current Privilege Level)</strong>。</p>
+<p><strong>IOPL (I/O Privilege Level, I/O 特权级)</strong> 是 <strong>x86 架构</strong> 中用于控制 <strong>I/O 端口访问权限</strong> 的保护机制。它存储在 <strong>EFLAGS 寄存器</strong> 的 <strong>第 12 和 13 位</strong>，定义了程序执行 <strong>I/O 指令</strong>  (如 <code class="notranslate">IN</code>, <code class="notranslate">OUT</code>) 所需的<strong>最低特权级别 (CPL, Current Privilege Level)</strong>。</p>
 <p><strong>IOPL</strong> 是一个 <strong>2 位</strong> 的值，取值范围为 <strong>0 到 3</strong>，数值越小特权级别越高：</p>
 <ul>
 <li><strong>特权级检查</strong>：在执行 I/O 指令时，CPU 会<strong>比较当前程序</strong>的 <strong>CPL</strong> 和 <strong>IOPL</strong>。
 <ul>
-<li><strong>当 CPL ≤ IOPL 时</strong>：程序<strong>被允许</strong>直接执行 I/O 指令 （如 <code class="notranslate">IN</code>, <code class="notranslate">OUT</code>），可以访问 I/O 端口。</li>
+<li><strong>当 CPL ≤ IOPL 时</strong>：程序<strong>被允许</strong>直接执行 I/O 指令  (如 <code class="notranslate">IN</code>, <code class="notranslate">OUT</code>) ，可以访问 I/O 端口。</li>
 <li><strong>当 CPL &gt; IOPL 时</strong>：程序<strong>没有权限</strong>直接执行 I/O 指令。如果尝试执行，会触发 <strong>一般保护异常 (General Protection Fault, #GP)</strong>，导致程序终止或系统崩溃。</li>
 </ul>
 </li>
@@ -1839,7 +1847,7 @@ $(-1)^0 \times 1.01_2 \times 2^{-1} = 1.01_2 \times 2^{-1} = 0.101_2 = 0.625_{10
 <p><strong>中断 (Interrupt)</strong> 是一种重要的<strong>异步事件处理机制</strong>，允许外部设备或软件事件<strong>打断 CPU 的正常执行流程</strong>，转而处理更紧急或重要的任务。</p>
 <p><strong>应用场景</strong>：考虑 CPU 从 <strong>HDD (硬盘驱动器)</strong> 读取数据的场景。</p>
 <ul>
-<li><strong>传统轮询方式的低效</strong>：若 CPU 采用<strong>轮询 (Polling)</strong> 方式，需要<strong>周期性地查询 HDD</strong> 的状态，等待数据就绪。 <strong>HDD 响应速度</strong>通常较慢（例如<strong>毫秒级</strong>，涉及磁头移动和盘片旋转），CPU 在等待期间会<strong>空耗大量的计算资源</strong>。</li>
+<li><strong>传统轮询方式的低效</strong>：若 CPU 采用<strong>轮询 (Polling)</strong> 方式，需要<strong>周期性地查询 HDD</strong> 的状态，等待数据就绪.<strong>HDD 响应速度</strong>通常较慢 (例如<strong>毫秒级</strong>，涉及磁头移动和盘片旋转) ，CPU 在等待期间会<strong>空耗大量的计算资源</strong>。</li>
 <li><strong>中断机制的优势</strong>：<strong>中断机制</strong> 提供了更高效的方案。
 <ul>
 <li><strong>设备主动通知</strong>：当 HDD <strong>数据就绪</strong>时，<strong>主动向 CPU 发送中断信号</strong>。</li>
@@ -1890,7 +1898,7 @@ $(-1)^0 \times 1.01_2 \times 2^{-1} = 1.01_2 \times 2^{-1} = 0.101_2 = 0.625_{10
 <li>
 <p><strong>时间片轮询调度 (Time Slice Scheduling)</strong>：</p>
 <ul>
-<li><strong>轮流执行</strong>：操作系统将 <strong>CPU 时间</strong> 划分为<strong>固定长度的时间片</strong>（例如 20ms）。</li>
+<li><strong>轮流执行</strong>：操作系统将 <strong>CPU 时间</strong> 划分为<strong>固定长度的时间片</strong> (例如 20ms) 。</li>
 <li><strong>任务切换</strong>：操作系统<strong>轮流</strong> 为每个<strong>就绪任务</strong>分配一个时间片，<strong>顺序执行</strong>。当时间片用完，即使任务未完成，也<strong>强制切换</strong>到下一个任务。</li>
 <li><strong>硬件轮询</strong>：CPU 通常需要<strong>主动轮询硬件设备</strong> 的状态，以确定是否有 I/O 请求需要处理。</li>
 <li><strong>适用场景</strong>：适用于 <strong>简单的多任务系统</strong>。</li>
@@ -1917,7 +1925,7 @@ $(-1)^0 \times 1.01_2 \times 2^{-1} = 1.01_2 \times 2^{-1} = 0.101_2 = 0.625_{10
 <li><strong>编号越小的 ISR，优先级越高</strong>。例如，在某些系统中，<strong>硬件中断</strong> 的优先级通常<strong>高于软件中断</strong>，<strong>NMI</strong> 的优先级<strong>高于 INTR</strong>。</li>
 </ul>
 </li>
-<li><strong>优先级管理</strong>：<strong>中断控制器</strong> （如 8259A）负责<strong>管理中断优先级</strong>，<strong>仲裁</strong> 中断请求，并<strong>决定</strong> 哪个中断应该被<strong>优先响应</strong>。</li>
+<li><strong>优先级管理</strong>：<strong>中断控制器</strong>  (如 8259A) 负责<strong>管理中断优先级</strong>，<strong>仲裁</strong> 中断请求，并<strong>决定</strong> 哪个中断应该被<strong>优先响应</strong>。</li>
 </ul>
 <h3>中断向量表 (IVT)</h3>
 <p><strong>中断向量表 (Interrupt Vector Table, IVT)</strong> 是计算机系统中<strong>管理和处理中断</strong> 的核心数据结构。</p>
@@ -1926,7 +1934,7 @@ $(-1)^0 \times 1.01_2 \times 2^{-1} = 1.01_2 \times 2^{-1} = 0.101_2 = 0.625_{10
 <p><strong>作用</strong>：<strong>存储中断服务例程 (ISR) 的入口地址</strong>。当<strong>中断发生</strong>时，<strong>CPU</strong> 会根据<strong>中断号</strong> 在 <strong>中断向量表</strong> 中<strong>查找</strong> 相应的 <strong>入口地址</strong>，然后 <strong>跳转到该地址</strong> 执行 <strong>中断处理程序</strong>。</p>
 </li>
 <li>
-<p><strong>存储位置</strong>：<strong>中断向量表</strong> 通常位于 <strong>RAM (随机访问存储器)</strong> 的 <strong>起始地址</strong> 区域，即 <strong>前 1024 字节</strong> （地址范围：<strong>0000:0000 到 0000:03FF</strong>）。</p>
+<p><strong>存储位置</strong>：<strong>中断向量表</strong> 通常位于 <strong>RAM (随机访问存储器)</strong> 的 <strong>起始地址</strong> 区域，即 <strong>前 1024 字节</strong>  (地址范围：<strong>0000:0000 到 0000:03FF</strong>) 。</p>
 </li>
 <li>
 <p><strong>条目结构</strong>：<strong>每个中断向量</strong> 在中断向量表中占用 <strong>4 个字节</strong>。</p>
@@ -1951,7 +1959,7 @@ $(-1)^0 \times 1.01_2 \times 2^{-1} = 1.01_2 \times 2^{-1} = 0.101_2 = 0.625_{10
 <h4>8259A 的功能与连接</h4>
 <p><strong>8259A 可编程中断控制器 (Programmable Interrupt Controller, PIC)</strong> 是一种常用的<strong>硬件中断管理芯片</strong>，用于<strong>扩展 CPU 的中断处理能力</strong>，<strong>管理多个中断源</strong>，并实现<strong>中断优先级控制</strong>。</p>
 <ul>
-<li><strong>中断请求处理</strong>：当<strong>外部设备</strong> 的 <strong>IRQ (Interrupt Request)</strong> 线被<strong>触发</strong>（发出中断请求信号）时，<strong>8259A</strong> 会<strong>接收</strong> 这些中断请求，进行<strong>优先级仲裁</strong>，并将<strong>最高优先级的中断请求</strong> <strong>转发给 CPU</strong>。</li>
+<li><strong>中断请求处理</strong>：当<strong>外部设备</strong> 的 <strong>IRQ (Interrupt Request)</strong> 线被<strong>触发</strong> (发出中断请求信号) 时，<strong>8259A</strong> 会<strong>接收</strong> 这些中断请求，进行<strong>优先级仲裁</strong>，并将<strong>最高优先级的中断请求</strong> <strong>转发给 CPU</strong>。</li>
 <li><strong>中断号传输</strong>：<strong>中断编号</strong> 会通过 <strong>PC 总线</strong> 传输给 CPU，作为<strong>中断向量索引</strong>。</li>
 <li><strong>中断向量表查找</strong>：<strong>CPU</strong> 接收到中断号后，会在 <strong>中断向量表 (IVT)</strong> 中<strong>查找</strong> 对应的 <strong>中断服务例程 (ISR) 入口地址</strong>。</li>
 <li><strong>跳转执行 ISR</strong>：CPU <strong>跳转到 ISR 入口地址</strong>，开始执行 <strong>中断处理程序</strong>。</li>
@@ -2111,7 +2119,7 @@ $(-1)^0 \times 1.01_2 \times 2^{-1} = 1.01_2 \times 2^{-1} = 0.101_2 = 0.625_{10
 <p><strong>中断响应 (Interrupt Acknowledge)</strong>：</p>
 <ul>
 <li><strong>CPU</strong> 在<strong>完成当前指令的执行后</strong>，<strong>检测</strong> 到 <strong>中断请求</strong>。</li>
-<li>如果<strong>中断允许</strong>（<strong>中断标志位 IF=1</strong>，且<strong>非屏蔽中断</strong>），CPU 发出 <strong>中断响应信号 (INTA, Interrupt Acknowledge)</strong>。</li>
+<li>如果<strong>中断允许</strong> (<strong>中断标志位 IF=1</strong>，且<strong>非屏蔽中断</strong>) ，CPU 发出 <strong>中断响应信号 (INTA, Interrupt Acknowledge)</strong>。</li>
 </ul>
 </li>
 <li>
@@ -2130,7 +2138,7 @@ $(-1)^0 \times 1.01_2 \times 2^{-1} = 1.01_2 \times 2^{-1} = 0.101_2 = 0.625_{10
 <p><strong>获取中断向量 (Get Interrupt Vector)</strong>：</p>
 <ul>
 <li><strong>CPU</strong> 从 <strong>中断控制器 (如 8259A)</strong> <strong>读取</strong> 或 <strong>直接接收</strong> <strong>中断号</strong> (或称为 <strong>中断向量号</strong>)。</li>
-<li><strong>根据中断号</strong> 在 <strong>中断向量表 (IVT)</strong> 中<strong>查找</strong> 对应的 <strong>中断服务例程 (ISR) 入口地址</strong>（代码段地址 CS 和偏移地址 IP）。</li>
+<li><strong>根据中断号</strong> 在 <strong>中断向量表 (IVT)</strong> 中<strong>查找</strong> 对应的 <strong>中断服务例程 (ISR) 入口地址</strong> (代码段地址 CS 和偏移地址 IP) 。</li>
 </ul>
 </li>
 <li>
@@ -2165,7 +2173,7 @@ $(-1)^0 \times 1.01_2 \times 2^{-1} = 1.01_2 \times 2^{-1} = 0.101_2 = 0.625_{10
 <li>
 <p><strong>返回原程序 (Return to Original Program)</strong>：</p>
 <ul>
-<li><strong>CPU</strong> <strong>恢复执行</strong> 被中断的 <strong>原程序</strong>，从 <strong>断点处</strong> （即 <strong>中断发生时 PC 指向的地址</strong>） <strong>继续运行</strong>。</li>
+<li><strong>CPU</strong> <strong>恢复执行</strong> 被中断的 <strong>原程序</strong>，从 <strong>断点处</strong>  (即 <strong>中断发生时 PC 指向的地址</strong>)  <strong>继续运行</strong>。</li>
 </ul>
 </li>
 </ol>
@@ -2394,7 +2402,7 @@ $(-1)^0 \times 1.01_2 \times 2^{-1} = 1.01_2 \times 2^{-1} = 0.101_2 = 0.625_{10
 <span class="pl-en">.STARTUP</span>
 <span class="pl-k">jmp</span><span class="pl-en"> install_tsr</span><span class="pl-c">    ; 跳过数据区</span>
 
-<span class="pl-c">    ; 变量存储在代码段（保持驻留）</span>
+<span class="pl-c">    ; 变量存储在代码段 (保持驻留) </span>
 <span class="pl-en">    dseg   db </span><span class="pl-s">'0'</span><span class="pl-s1">,</span><span class="pl-c1">0</span><span class="pl-c">    ; 当前显示字符</span>
 <span class="pl-en">    cntr   db </span><span class="pl-c1">0</span><span class="pl-c">        ; 中断计数器</span>
 <span class="pl-en">    old_ip dw </span><span class="pl-c1">0</span><span class="pl-c">        ; 原中断处理程序IP</span>
@@ -2404,8 +2412,8 @@ $(-1)^0 \times 1.01_2 \times 2^{-1} = 1.01_2 \times 2^{-1} = 0.101_2 = 0.625_{10
 <span class="pl-c">    ; 保存原INT 8h中断向量</span>
 <span class="pl-en">    </span><span class="pl-k">cli</span><span class="pl-c">                 ; 禁用中断</span>
 <span class="pl-en">    </span><span class="pl-k">xor</span><span class="pl-en"> </span><span class="pl-v">ax</span><span class="pl-s1">,</span><span class="pl-en"> </span><span class="pl-v">ax</span>
-<span class="pl-en">    </span><span class="pl-k">mov</span><span class="pl-en"> </span><span class="pl-v">es</span><span class="pl-s1">,</span><span class="pl-en"> </span><span class="pl-v">ax</span><span class="pl-c">          ; ES=0000h（中断向量表段）</span>
-<span class="pl-en">    </span><span class="pl-k">mov</span><span class="pl-en"> </span><span class="pl-v">bx</span><span class="pl-s1">,</span><span class="pl-en"> </span><span class="pl-c1">8</span><span class="pl-s1">*</span><span class="pl-c1">4</span><span class="pl-c">         ; INT 8h向量地址（8h*4=20h）</span>
+<span class="pl-en">    </span><span class="pl-k">mov</span><span class="pl-en"> </span><span class="pl-v">es</span><span class="pl-s1">,</span><span class="pl-en"> </span><span class="pl-v">ax</span><span class="pl-c">          ; ES=0000h (中断向量表段) </span>
+<span class="pl-en">    </span><span class="pl-k">mov</span><span class="pl-en"> </span><span class="pl-v">bx</span><span class="pl-s1">,</span><span class="pl-en"> </span><span class="pl-c1">8</span><span class="pl-s1">*</span><span class="pl-c1">4</span><span class="pl-c">         ; INT 8h向量地址 (8h*4=20h) </span>
 
 <span class="pl-c">    ; 保存原处理程序地址</span>
 <span class="pl-en">    </span><span class="pl-k">mov</span><span class="pl-en"> </span><span class="pl-v">ax</span><span class="pl-s1">,</span><span class="pl-en"> </span><span class="pl-v">es</span><span class="pl-en">:</span><span class="pl-s1">[</span><span class="pl-v">bx</span><span class="pl-s1">]</span>
@@ -2423,12 +2431,12 @@ $(-1)^0 \times 1.01_2 \times 2^{-1} = 1.01_2 \times 2^{-1} = 0.101_2 = 0.625_{10
 <span class="pl-c">    ; 计算驻留内存大小并终止驻留</span>
 <span class="pl-en">    </span><span class="pl-k">mov</span><span class="pl-en"> </span><span class="pl-v">dx</span><span class="pl-s1">,</span><span class="pl-en"> OFFSET tsr_end</span><span class="pl-c">  ; DX=程序结束地址</span>
 <span class="pl-en">    </span><span class="pl-k">mov</span><span class="pl-en"> </span><span class="pl-v">cl</span><span class="pl-s1">,</span><span class="pl-en"> </span><span class="pl-c1">4</span>
-<span class="pl-en">    </span><span class="pl-k">shr</span><span class="pl-en"> </span><span class="pl-v">dx</span><span class="pl-s1">,</span><span class="pl-en"> </span><span class="pl-v">cl</span><span class="pl-c">           ; 转换为段落（除以16）</span>
+<span class="pl-en">    </span><span class="pl-k">shr</span><span class="pl-en"> </span><span class="pl-v">dx</span><span class="pl-s1">,</span><span class="pl-en"> </span><span class="pl-v">cl</span><span class="pl-c">           ; 转换为段落 (除以16) </span>
 <span class="pl-en">    </span><span class="pl-k">inc</span><span class="pl-en"> </span><span class="pl-v">dx</span><span class="pl-c">               ; 向上取整</span>
 <span class="pl-en">    </span><span class="pl-k">mov</span><span class="pl-en"> </span><span class="pl-v">ax</span><span class="pl-s1">,</span><span class="pl-en"> </span><span class="pl-c1">3100h</span><span class="pl-c">        ; AH=31h TSR功能，AL=返回码</span>
 <span class="pl-en">    </span><span class="pl-k">int</span><span class="pl-en"> </span><span class="pl-c1">21h</span>
 
-<span class="pl-c">; 中断服务程序（ISR）</span>
+<span class="pl-c">; 中断服务程序 (ISR) </span>
 <span class="pl-en">isr PROC far</span>
 <span class="pl-en">	</span><span class="pl-k">pushf</span>
 <span class="pl-en">    </span><span class="pl-k">push</span><span class="pl-en"> </span><span class="pl-v">di</span>
@@ -2443,7 +2451,7 @@ $(-1)^0 \times 1.01_2 \times 2^{-1} = 1.01_2 \times 2^{-1} = 0.101_2 = 0.625_{10
 
 <span class="pl-c">    ; 更新计数器</span>
 <span class="pl-en">    </span><span class="pl-k">inc</span><span class="pl-en"> </span><span class="pl-v">cs</span><span class="pl-en">:cntr</span>
-<span class="pl-en">    </span><span class="pl-k">cmp</span><span class="pl-en"> </span><span class="pl-v">cs</span><span class="pl-en">:cntr</span><span class="pl-s1">,</span><span class="pl-en"> </span><span class="pl-c1">18</span><span class="pl-c">      ; 约1秒（18.2次/秒）</span>
+<span class="pl-en">    </span><span class="pl-k">cmp</span><span class="pl-en"> </span><span class="pl-v">cs</span><span class="pl-en">:cntr</span><span class="pl-s1">,</span><span class="pl-en"> </span><span class="pl-c1">18</span><span class="pl-c">      ; 约1秒 (18.2次/秒) </span>
 <span class="pl-en">    </span><span class="pl-k">jb</span><span class="pl-en"> chain_int</span>
 
 <span class="pl-c">    ; 重置计数器并更新显示</span>
@@ -2479,7 +2487,7 @@ $(-1)^0 \times 1.01_2 \times 2^{-1} = 1.01_2 \times 2^{-1} = 0.101_2 = 0.625_{10
 <h2>Lecture 11: 内存层次结构：动态与静态随机存储器</h2>
 <h3>内存的层次结构</h3>
 <h4>内存层次结构的重要性</h4>
-<p>现代计算机系统采用<strong>内存层次结构 (Memory Hierarchy)</strong> 以平衡 <strong>速度</strong>、<strong>成本</strong> 和 <strong>容量</strong> 之间的矛盾。  这种结构利用了程序访问数据的局部性原理，通过多层不同特性的存储器协同工作，实现高性能的内存系统。</p>
+<p>现代计算机系统采用<strong>内存层次结构 (Memory Hierarchy)</strong> 以平衡 <strong>速度</strong>、<strong>成本</strong> 和 <strong>容量</strong> 之间的矛盾。这种结构利用了程序访问数据的局部性原理，通过多层不同特性的存储器协同工作，实现高性能的内存系统。</p>
 <ul>
 <li><strong>高速缓存 (Cache)</strong> -&gt; <strong>主存储器 (Main Memory)</strong> -&gt; <strong>辅助存储器 (Secondary Storage)</strong> 构成金字塔结构。</li>
 <li><strong>速度递减</strong>：从高速缓存到辅助存储器，访问速度<strong>依次降低</strong>。</li>
@@ -2489,7 +2497,7 @@ $(-1)^0 \times 1.01_2 \times 2^{-1} = 1.01_2 \times 2^{-1} = 0.101_2 = 0.625_{10
 <p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/5f2251a1d9724f04f5aa19bab237399d68a8e26431e9ec4c49d2d7cd5a37ed3d/68747470733a2f2f73322e6c6f6c692e6e65742f323032352f30322f30352f574650685572636d71486b517766562e706e67"><img src="https://camo.githubusercontent.com/5f2251a1d9724f04f5aa19bab237399d68a8e26431e9ec4c49d2d7cd5a37ed3d/68747470733a2f2f73322e6c6f6c692e6e65742f323032352f30322f30352f574650685572636d71486b517766562e706e67" alt="img" data-canonical-src="https://s2.loli.net/2025/02/05/WFPhUrcmqHkQwfV.png" style="max-width: 100%;"></a></p>
 <h3>主存储器 (Main Memory)</h3>
 <h4>主存的分类：DRAM 与 SRAM</h4>
-<p><strong>主存储器 (Main Memory)</strong>，也常被称为 <strong>内存</strong> 或 <strong>RAM (Random Access Memory)</strong>，是计算机系统中用于 <strong>高速</strong> 存储 <strong>正在运行的程序和数据</strong> 的关键组件。 主存储器主要分为两种类型： <strong>DRAM (动态随机存取存储器)</strong> 和 <strong>SRAM (静态随机存取存储器)</strong>。</p>
+<p><strong>主存储器 (Main Memory)</strong>，也常被称为 <strong>内存</strong> 或 <strong>RAM (Random Access Memory)</strong>，是计算机系统中用于 <strong>高速</strong> 存储 <strong>正在运行的程序和数据</strong> 的关键组件.主存储器主要分为两种类型： <strong>DRAM (动态随机存取存储器)</strong> 和 <strong>SRAM (静态随机存取存储器)</strong>。</p>
 <h4>静态随机存取存储器 (SRAM)</h4>
 <p><strong>静态随机存取存储器 (Static Random Access Memory, SRAM)</strong>  是一种高速的半导体存储器，其特点包括：</p>
 <ul>
@@ -2509,18 +2517,18 @@ $(-1)^0 \times 1.01_2 \times 2^{-1} = 1.01_2 \times 2^{-1} = 0.101_2 = 0.625_{10
 <li><strong>存储密度</strong>：<strong>DRAM 存储单元</strong> 结构简单，<strong>尺寸小</strong>，可以实现 <strong>更高的存储密度</strong> (更大的存储容量)。</li>
 <li><strong>成本</strong>：<strong>DRAM</strong> 的 <strong>制造成本较低</strong>，因此被广泛用作 <strong>主存储器</strong>。</li>
 <li><strong>数据保持与刷新</strong>：<strong>DRAM</strong> 也是 <strong>易失性</strong> 存储器。由于电容会 <strong>漏电</strong>，<strong>DRAM</strong> 存储的数据需要 <strong>定期刷新 (Refresh)</strong> 才能保持。需要 <strong>额外的刷新控制电路</strong> 来完成刷新操作。</li>
-<li><strong>访问速度</strong>：<strong>DRAM</strong> 的 <strong>访问速度相对较慢</strong>，典型的 <strong>DRAM 访问时间</strong> 约为 <strong>60 纳秒 (60ns)</strong>。 在<strong>非访问状态下</strong>，<strong>DRAM 不消耗能量</strong>。 为了提高读取速度，<strong>DRAM</strong> 在读取操作前会对存储单元进行 <strong>预充电 (Precharge)</strong>。 因此，<strong>DRAM 的速度</strong> 通常以 <strong>总周期时间 T</strong> 来衡量，约为 <strong>访问时间的两倍</strong>。</li>
+<li><strong>访问速度</strong>：<strong>DRAM</strong> 的 <strong>访问速度相对较慢</strong>，典型的 <strong>DRAM 访问时间</strong> 约为 <strong>60 纳秒 (60ns)</strong>.在<strong>非访问状态下</strong>，<strong>DRAM 不消耗能量</strong>。.了提高读取速度，<strong>DRAM</strong> 在读取操作前会对存储单元进行 <strong>预充电 (Precharge)</strong>。因.，<strong>DRAM 的速度</strong> 通常以 <strong>总周期时间 T</strong> 来衡量，约为 <strong>访问时间的两倍</strong>。</li>
 </ul>
 <p><strong>DRAM 存储单元结构图</strong></p>
 <p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/ee3b6e9ee3202d120449ae902f2c00345a5938acd142a3fcbcec76aa870c221f/68747470733a2f2f73322e6c6f6c692e6e65742f323032352f30322f30352f316474725156664a68394477656f422e706e67"><img src="https://camo.githubusercontent.com/ee3b6e9ee3202d120449ae902f2c00345a5938acd142a3fcbcec76aa870c221f/68747470733a2f2f73322e6c6f6c692e6e65742f323032352f30322f30352f316474725156664a68394477656f422e706e67" alt="img" data-canonical-src="https://s2.loli.net/2025/02/05/1dtrQVfJh9DweoB.png" style="max-width: 100%;"></a></p>
 <p><strong>4-bit DRAM 结构示意图</strong></p>
-<p><strong>DRAM</strong> 通常以 <strong>阵列形式</strong> 组织，例如 <strong>4 位 DRAM 结构</strong>。 通过 <strong>激活字线 (Word Line)</strong> 来选择 <strong>存储单元行</strong>，然后通过 <strong>列选择 (Column Select)</strong> 来选择 <strong>特定的位</strong> 进行读写操作。</p>
+<p><strong>DRAM</strong> 通常以 <strong>阵列形式</strong> 组织，例如 <strong>4 位 DRAM 结构</strong>.通过 <strong>激活字线 (Word Line)</strong> 来选择 <strong>存储单元行</strong>，然后通过 <strong>列选择 (Column Select)</strong> 来选择 <strong>特定的位</strong> 进行读写操作。</p>
 <p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/2f4b481317b4d8b99e7976ba6d68ff6e1e478c11e5f225363ca210192eedb1ee/68747470733a2f2f73322e6c6f6c692e6e65742f323032352f30322f30352f5359796c6343374f366949665677542e706e67"><img src="https://camo.githubusercontent.com/2f4b481317b4d8b99e7976ba6d68ff6e1e478c11e5f225363ca210192eedb1ee/68747470733a2f2f73322e6c6f6c692e6e65742f323032352f30322f30352f5359796c6343374f366949665677542e706e67" alt="img" data-canonical-src="https://s2.loli.net/2025/02/05/SYylcC7O6iIfVwT.png" style="max-width: 100%;"></a></p>
 <h3>DRAM 读写与刷新周期</h3>
 <h4>DRAM 的读写操作</h4>
 <p><strong>DRAM 的读写操作</strong> 流程如下：</p>
 <ol>
-<li><strong>行激活 (Row Activation)</strong>：通过 <strong>激活字线 (Word Line)</strong> 选择 <strong>存储单元阵列中的一行</strong>。 这会将选定行中 <strong>所有存储单元的数据</strong> <strong>读出</strong> 到 <strong>位线 (Bit Line)</strong>。</li>
+<li><strong>行激活 (Row Activation)</strong>：通过 <strong>激活字线 (Word Line)</strong> 选择 <strong>存储单元阵列中的一行</strong>.这会将选定行中 <strong>所有存储单元的数据</strong> <strong>读出</strong> 到 <strong>位线 (Bit Line)</strong>。</li>
 <li><strong>列选择与数据传输 (Column Select &amp; Data Transfer)</strong>： 通过 <strong>激活列线 (Column Line)</strong> 和 <strong>列选择信号 (CAS, Column Address Select)</strong>， 从选定行中 <strong>选择特定的列</strong> (即 <strong>特定的存储单元</strong>)。</li>
 <li><strong>数据写入 (Write)</strong> 或 <strong>读回 (Readback)</strong>：
 <ul>
@@ -2534,11 +2542,11 @@ $(-1)^0 \times 1.01_2 \times 2^{-1} = 1.01_2 \times 2^{-1} = 0.101_2 = 0.625_{10
 <ul>
 <li><strong>刷新必要性</strong>：由于 <strong>DRAM</strong> 使用 <strong>电容存储数据</strong>，电容上的电荷会 <strong>随时间泄漏</strong>。为了防止数据丢失，<strong>每个存储单元</strong> 必须 <strong>定期重新写入 (刷新)</strong>。</li>
 <li><strong>刷新周期</strong>：通常，<strong>DRAM</strong> 的 <strong>刷新周期</strong> 为 <strong>每 2 毫秒 (2ms)</strong> 左右。这意味着 <strong>每个存储单元</strong> 必须 <strong>每 2ms 内至少刷新一次</strong>。</li>
-<li><strong>刷新机制</strong>：<strong>DRAM 控制器</strong> 负责 <strong>自动执行刷新操作</strong>。 <strong>RAS (Row Address Select)</strong> 和 <strong>CAS (Column Address Select)</strong> 信号线 被用于实现 <strong>刷新控制</strong>。 通常采用 <strong>行刷新 (Row Refresh)</strong> 方式，即 <strong>每次刷新一行存储单元</strong>。</li>
+<li><strong>刷新机制</strong>：<strong>DRAM 控制器</strong> 负责 <strong>自动执行刷新操作</strong>.<strong>RAS (Row Address Select)</strong> 和 <strong>CAS (Column Address Select)</strong> 信号线 被用于实现 <strong>刷新控制</strong>。.常采用 <strong>行刷新 (Row Refresh)</strong> 方式，即 <strong>每次刷新一行存储单元</strong>。</li>
 </ul>
 <h3>内存封装类型</h3>
 <h4>常见内存封装</h4>
-<p><strong>内存芯片</strong> 采用多种 <strong>封装形式 (Package)</strong>，以适应不同的应用场景和安装需求。 常见的内存封装类型包括：</p>
+<p><strong>内存芯片</strong> 采用多种 <strong>封装形式 (Package)</strong>，以适应不同的应用场景和安装需求.常见的内存封装类型包括：</p>
 <ul>
 <li><strong>DIP (Dual In-line Package)</strong>：<strong>双列直插式封装</strong>，引脚呈双行排列，<strong>穿孔安装 (Through-hole)</strong>，体积较大，已较少使用。</li>
 <li><strong>SIMM (Single In-line Memory Module)</strong>：<strong>单列直插式内存模块</strong>，引脚呈单行排列，<strong>表面安装 (Surface-mount)</strong>，体积较小，常用于早期计算机。</li>
@@ -2550,26 +2558,26 @@ $(-1)^0 \times 1.01_2 \times 2^{-1} = 1.01_2 \times 2^{-1} = 0.101_2 = 0.625_{10
 <h2>Lecture 12: 内存管理与缓存策略</h2>
 <h3>访问局部性</h3>
 <blockquote>
-<p>在计算机科学中，<strong>引用局部性</strong>，也称为<strong>局部性原理</strong>，是指处理器在短时间内重复访问同一组内存位置的趋势。引用局部性有两种基本类型——<strong>时间局部性</strong>和<strong>空间局部性</strong>。时间局部性指的是在相对较短的时间内重复使用特定的数据和/或资源。空间局部性（也称为数据局部性）指的是使用相对接近的存储位置中的数据元素。顺序局部性是空间局部性的一种特殊情况，当数据元素以线性方式排列和访问时发生，例如遍历一维数组中的元素。</p>
+<p>在计算机科学中，<strong>引用局部性</strong>，也称为<strong>局部性原理</strong>，是指处理器在短时间内重复访问同一组内存位置的趋势。引用局部性有两种基本类型——<strong>时间局部性</strong>和<strong>空间局部性</strong>。时间局部性指的是在相对较短的时间内重复使用特定的数据和/或资源。空间局部性 (也称为数据局部性) 指的是使用相对接近的存储位置中的数据元素。顺序局部性是空间局部性的一种特殊情况，当数据元素以线性方式排列和访问时发生，例如遍历一维数组中的元素。</p>
 <p>局部性是计算机系统中发生的一种可预测的行为。表现出强引用局部性的系统非常适合通过使用诸如<strong>缓存</strong>、<strong>内存预取</strong>以及处理器核心的高级<strong>分支预测器</strong>之类的技术来进行性能优化。</p>
 </blockquote>
 <h4>引用局部性的类型</h4>
-<p><strong>引用局部性</strong> 是指程序在执行过程中访问存储器的地址倾向于聚集在某些区域的特性。 引用局部性是缓存得以有效工作的理论基础，可以分为两种主要类型：</p>
+<p><strong>引用局部性</strong>是指程序在执行过程中访问存储器的地址倾向于聚集在某些区域的特性。引用局部性是缓存得以有效工作的理论基础，可以分为两种主要类型：</p>
 <ul>
 <li>
 <p><strong>时间局部性 (Temporal Locality)</strong>：</p>
 <ul>
 <li><strong>定义</strong>：如果某个内存地址在当前时刻被访问，那么在不久的将来，该地址很可能再次被访问。</li>
 <li><strong>原理</strong>：程序倾向于重复使用最近访问过的数据和指令。例如，循环、函数调用、计数器等都会导致时间局部性。</li>
-<li><strong>缓存优化</strong>：时间局部性使得将最近访问过的数据 存储在高速缓存 中变得有效，以便后续快速访问。</li>
+<li><strong>缓存优化</strong>：时间局部性使得将最近访问过的数据存储在高速缓存中变得有效，以便后续快速访问。</li>
 </ul>
 </li>
 <li>
 <p><strong>空间局部性 (Spatial Locality)</strong>：</p>
 <ul>
-<li><strong>定义</strong>：如果某个内存地址在当前时刻被访问，那么在不久的将来，其附近的内存地址 也很可能被访问。</li>
+<li><strong>定义</strong>：如果某个内存地址在当前时刻被访问，那么在不久的将来，其附近的内存地址也很可能被访问。</li>
 <li><strong>原理</strong>：程序在访问某个数据时，很可能会访问与其相邻的数据。例如，顺序执行的指令、数组的顺序访问、结构体或对象的成员访问等都表现出空间局部性。</li>
-<li><strong>缓存优化</strong>：空间局部性使得可以预取 当前访问地址附近的数据块 到缓存中，以减少未来访问的延迟。 顺序局部性 可以被看作是空间局部性的一种特殊情况，例如线性访问数组。</li>
+<li><strong>缓存优化</strong>：空间局部性使得可以预取当前访问地址附近的数据块到缓存中，以减少未来访问的延迟。顺序局部性可以被看作是空间局部性的一种特殊情况，例如线性访问数组。</li>
 </ul>
 </li>
 </ul>
@@ -2580,20 +2588,22 @@ $(-1)^0 \times 1.01_2 \times 2^{-1} = 1.01_2 \times 2^{-1} = 0.101_2 = 0.625_{10
 <li>循环体内部的代码和数据访问倾向于展现时间局部性，因为循环会重复执行相同的指令和访问相同的数据。</li>
 </ul>
 <h3>缓存 (Cache)</h3>
+<p><a href="https://www.bilibili.com/video/BV1aN411T7n8" rel="nofollow">理解计算机Cache (一) ：从块到缓存结构，以及逐步推出映射策略</a></p>
+<p><a href="https://www.bilibili.com/video/BV1yg4y1Y7kA" rel="nofollow">理解计算机Cache (二) ：缓存与内存的交互</a></p>
 <h4>缓存的工作原理</h4>
-<p><strong>缓存 (Cache)</strong> 是一种高速、小容量 的存储器，位于 <strong>CPU (中央处理器)</strong> 和 <strong>主存储器 (DRAM)</strong> 之间，用于缓解 CPU 与主存之间速度不匹配 的问题。</p>
+<p>**缓存 (Cache)**是一种高速、小容量的存储器，位于 **CPU (中央处理器) **和 **主存储器 (DRAM) **之间，用于缓解 CPU 与主存之间速度不匹配的问题。</p>
 <ul>
 <li>
-<p><strong>数据复制</strong>：处理器当前正在使用的代码和数据，会从速度较慢的 <strong>D-RAM (动态随机存取存储器)</strong> 中复制 到速度更快的 <strong>S-RAM (静态随机存取存储器)</strong> 缓存中。</p>
+<p><strong>数据复制</strong>：处理器当前正在使用的代码和数据，会从速度较慢的 **D-RAM (动态随机存取存储器) **中复制到速度更快的 **S-RAM (静态随机存取存储器) **缓存中。</p>
 <p>例如，Intel i7 处理器的二级缓存 (L2 Cache) 为 8MB，通常搭配 8GB 的 DRAM 作为主内存。</p>
 </li>
 <li>
 <p><strong>缓存命中 (Cache Hit) 与缓存未命中 (Cache Miss)</strong>：</p>
-<p>当处理器发出内存地址请求 时，缓存控制器 (Cache Controller) 会首先检查 所需数据是否已存在于缓存中，这称为 缓存查找 (Cache Lookup)。</p>
+<p>当处理器发出内存地址请求时，缓存控制器 (Cache Controller) 会首先检查所需数据是否已存在于缓存中，这称为缓存查找 (Cache Lookup)。</p>
 <ul>
-<li><strong>缓存命中 (Cache Hit)</strong>：如果数据已存在于缓存中，则称为 缓存命中。数据会直接从缓存高速传输到处理器，无需访问速度较慢的主内存，从而 减少了访问延迟。</li>
-<li><strong>缓存未命中 (Cache Miss)</strong>：如果数据不在缓存中，则称为 缓存未命中。此时，缓存控制器需要从 主内存读取数据 并 发送给处理器 (速度较慢)。 同时，为了利用局部性原理，缓存控制器会将读取的数据 的 副本 也存入缓存，以便后续可能的访问。</li>
-<li><strong>缓存命中率 (Hit Rate)</strong>：S-RAM 缓存命中次数 占 总读取次数 的 百分比，称为 缓存命中率，是衡量缓存性能的重要指标。 个人电脑的 缓存命中率 通常可以高达 90% 甚至更高。</li>
+<li><strong>缓存命中 (Cache Hit)</strong>：如果数据已存在于缓存中，则称为缓存命中。数据会直接从缓存高速传输到处理器，无需访问速度较慢的主内存，从而减少了访问延迟。</li>
+<li><strong>缓存未命中 (Cache Miss)</strong>：如果数据不在缓存中，则称为缓存未命中。此时，缓存控制器需要从主内存读取数据并发送给处理器 (速度较慢) 。同时，为了利用局部性原理，缓存控制器会将读取的数据的副本也存入缓存，以便后续可能的访问。</li>
+<li><strong>缓存命中率 (Hit Rate)</strong>：S-RAM 缓存命中次数占总读取次数的百分比，称为缓存命中率，是衡量缓存性能的重要指标。个人电脑的缓存命中率通常可以高达 90% 甚至更高。</li>
 </ul>
 </li>
 </ul>
@@ -2603,14 +2613,14 @@ $(-1)^0 \times 1.01_2 \times 2^{-1} = 1.01_2 \times 2^{-1} = 0.101_2 = 0.625_{10
 <p><strong>典型缓存参数</strong></p>
 <p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/25c4b197eec1f105268411d2a7e92cebd4ab1d730184ede213fd36787c33810d/68747470733a2f2f73322e6c6f6c692e6e65742f323032352f30322f30352f694239527a54514832586c764f6f4b2e706e67"><img src="https://camo.githubusercontent.com/25c4b197eec1f105268411d2a7e92cebd4ab1d730184ede213fd36787c33810d/68747470733a2f2f73322e6c6f6c692e6e65742f323032352f30322f30352f694239527a54514832586c764f6f4b2e706e67" alt="img" data-canonical-src="https://s2.loli.net/2025/02/05/iB9RzTQH2XlvOoK.png" style="max-width: 100%;"></a></p>
 <h4>缓存组织方式</h4>
-<p>缓存控制器 包含一个 缓存目录 (Cache Directory)，用于管理缓存中的数据。 常见的缓存组织方式包括：</p>
+<p>缓存控制器包含一个缓存目录 (Cache Directory)，用于管理缓存中的数据。常见的缓存组织方式包括：</p>
 <ul>
 <li><strong>直接映射缓存 (Direct Mapped Cache)</strong>：
 <ul>
 <li><strong>单页映射</strong>：缓存被组织成只包含内存中单个页面的副本。</li>
-<li><strong>地址冲突与抖动 (Thrashing)</strong>：如果处理器频繁地在不同页面之间快速切换，可能会导致 抖动 (Thrashing) 现象。
+<li><strong>地址冲突与抖动 (Thrashing)</strong>：如果处理器频繁地在不同页面之间快速切换，可能会导致抖动 (Thrashing) 现象。
 <ul>
-<li>抖动 指的是缓存频繁地被新页面替换，而旧页面又很快被重新访问， 导致缓存命中率极低，系统性能急剧下降。</li>
+<li>抖动指的是缓存频繁地被新页面替换，而旧页面又很快被重新访问，导致缓存命中率极低，系统性能急剧下降。</li>
 <li>直接映射缓存容易发生抖动，因为它对每个主存块的缓存位置是固定的。</li>
 </ul>
 </li>
@@ -2619,50 +2629,43 @@ $(-1)^0 \times 1.01_2 \times 2^{-1} = 1.01_2 \times 2^{-1} = 0.101_2 = 0.625_{10
 </li>
 <li><strong>双路组相联缓存 (Two-Way Set Associative Cache)</strong>：
 <ul>
-<li><strong>双缓存组</strong>：使用两个独立的缓存 (或称为 路 (Way)) 来存储数据。</li>
+<li><strong>双缓存组</strong>：使用两个独立的缓存 (或称为路 (Way)) 来存储数据。</li>
 <li><strong>页面快速切换</strong>：允许在两个缓存组之间快速切换页面，降低了抖动的可能性。</li>
-<li><strong>提高命中率</strong>：相较于直接映射缓存，组相联缓存 提供了更高的灵活性，可以减少地址冲突，提高缓存命中率。</li>
+<li><strong>提高命中率</strong>：相较于直接映射缓存，组相联缓存提供了更高的灵活性，可以减少地址冲突，提高缓存命中率。</li>
 </ul>
 </li>
 <li><strong>全相联缓存 (Fully Associative Cache)</strong>：
 <ul>
-<li><strong>任意位置存放</strong>：主存中的任何数据块 可以被放置在缓存中的任何位置。</li>
-<li><strong>缓存目录查找</strong>：每个缓存条目的 缓存目录 需要存储 完整的 DRAM 地址 和 关联的数据。</li>
-<li><strong>查找开销</strong>：由于需要搜索整个缓存目录 来查找数据，查找速度可能较慢。</li>
-<li><strong>数据替换策略</strong>：需要复杂的数据替换策略 来决定当缓存满时，如何丢弃旧数据。例如：
+<li><strong>任意位置存放</strong>：主存中的任何数据块可以被放置在缓存中的任何位置。</li>
+<li><strong>缓存目录查找</strong>：每个缓存条目的缓存目录需要存储完整的 DRAM 地址和关联的数据。</li>
+<li><strong>查找开销</strong>：由于需要搜索整个缓存目录来查找数据，查找速度可能较慢。</li>
+<li><strong>数据替换策略</strong>：需要复杂的数据替换策略来决定当缓存满时，如何丢弃旧数据。例如：
 <ul>
 <li>随机丢弃 (Random Discard)：随机选择缓存行进行替换。</li>
 <li>统一丢弃 (Uniform Discard)：按照某种预定规则丢弃缓存行。</li>
-<li><strong>最近最少使用 (LRU, Least Recently Used)</strong>：替换最近最少被访问的缓存行。LRU 策略 的实现较为复杂，需要记录每个缓存行的访问历史。</li>
+<li><strong>最近最少使用 (LRU, Least Recently Used)</strong>：替换最近最少被访问的缓存行。LRU 策略的实现较为复杂，需要记录每个缓存行的访问历史。</li>
 </ul>
 </li>
 </ul>
 </li>
 </ul>
-<h4>直接映射缓存的地址映射 (Direct Mapped Cache)</h4>
-<p>直接映射缓存的地址映射机制如下 (以 80386 处理器为例):</p>
+<h4>直接映射缓存 (Direct Mapped Cache)</h4>
+<p>直接映射缓存的地址映射机制如下 (以 80386 处理器为例)：</p>
 <ul>
-<li>
-<strong>地址总线</strong>：80386 处理器具有 32 位地址总线，可以访问 $2^{32} = 4$ GBytes 的内存空间。</li>
-<li>
-<strong>数据总线</strong>：数据总线 也是 32 位宽，每 4 个字节 组成一个 行 (Line)。</li>
-<li>
-<strong>缓存容量</strong>：80386 缓存包含 8196 行，总容量为 32KB (8196 行 * 4 字节/行 = 32784 字节 ≈ 32KB)。</li>
-<li>
-<strong>缓存块 (Block)</strong>：缓存将 行 组织成 块 (Block)，每 8 行 组成一个 块，每个块大小为 32 字节 (8 行 * 4 字节/行 = 32 字节)。</li>
-<li>
-<strong>内存页面划分</strong>：缓存控制器将 4GB 内存空间划分为 $2^{32} / 32768 = 131072$ 个 页面 (Page)，每个页面大小为 32KB。</li>
-<li>
-<strong>直接映射规则</strong>：主内存 的 特定行 总是 映射到缓存中的相同行位置。</li>
-<li>
-<strong>缓存目录 (Tag Directory)</strong>：缓存目录 存储 每个缓存行 对应的 主内存页面位置 (称为 标记 (Tag))。 标记 用于区分缓存行中存储的数据来自主内存的哪个页面。</li>
+<li><strong>地址总线</strong>：80386 处理器具有 32 位地址总线，可以访问 2³²＝4 GBytes 的内存空间。</li>
+<li><strong>数据总线</strong>：数据总线也是 32 位宽，每 4 个字节组成一个行 (Line)。</li>
+<li><strong>缓存容量</strong>：80386 缓存包含 8196 行，总容量为 32KB (8196 行 * 4 字节/行 = 32784 字节 ≈ 32KB)。</li>
+<li><strong>缓存块 (Block)</strong>：缓存将行组织成块 (Block)，每 8 行组成一个块，每个块大小为 32 字节 (8 行 * 4 字节/行 = 32 字节)。</li>
+<li><strong>内存页面划分</strong>：缓存控制器将 4GB 内存空间划分为 2³²/32768＝131072 个页面 (Page)，每个页面大小为 32KB。</li>
+<li><strong>直接映射规则</strong>：主内存的特定行总是映射到缓存中的相同行位置。</li>
+<li><strong>缓存目录 (Tag Directory)</strong>：缓存目录存储每个缓存行对应的主内存页面位置 (称为标记 (Tag)).标记用于区分缓存行中存储的数据来自主内存的哪个页面。</li>
 </ul>
-<p><strong>内存地址分解（虚拟地址）</strong></p>
+<p>**内存地址分解 (虚拟地址) **</p>
 <ul>
-<li>A15-A31 (高 17 位)：标记 (Tag) 位，用于 设置主内存中的页面。</li>
-<li>A5-A14 (中间 10 位)：块索引 (Block Index) 位，用于 设置缓存中的块号。</li>
-<li>A2-A4 (低 3 位)：行索引 (Line Index) 位，用于 设置块内的行号。</li>
-<li>A0-A1 (最低 2 位)：字节偏移 (Byte Offset) 位，用于 选择行内的特定字节。</li>
+<li>A15-A31 (高 17 位)：标记 (Tag) 位，用于设置主内存中的页面。</li>
+<li>A5-A14 (中间 10 位)：块索引 (Block Index) 位，用于设置缓存中的块号。</li>
+<li>A2-A4 (低 3 位)：行索引 (Line Index) 位，用于设置块内的行号。</li>
+<li>A0-A1 (最低 2 位)：字节偏移 (Byte Offset) 位，用于选择行内的特定字节。</li>
 </ul>
 <p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/c2fdd62546ba549b518c80da111b785b5ac333585330693384cab52c76a45820/68747470733a2f2f73322e6c6f6c692e6e65742f323032352f30322f30362f46354f5a6f346b74567038636579442e706e67"><img src="https://camo.githubusercontent.com/c2fdd62546ba549b518c80da111b785b5ac333585330693384cab52c76a45820/68747470733a2f2f73322e6c6f6c692e6e65742f323032352f30322f30362f46354f5a6f346b74567038636579442e706e67" alt="img" data-canonical-src="https://s2.loli.net/2025/02/06/F5OZo4ktVp8ceyD.png" style="max-width: 100%;"></a></p>
 <p><strong>内存访问流程</strong>：</p>
@@ -2670,18 +2673,18 @@ $(-1)^0 \times 1.01_2 \times 2^{-1} = 1.01_2 \times 2^{-1} = 0.101_2 = 0.625_{10
 <ol>
 <li><strong>CPU 生成虚拟地址：</strong> CPU 在执行指令时，生成一个 32 位 (或其他位数) 的虚拟地址，用于访问内存中的数据。</li>
 <li><strong>缓存控制器接收虚拟地址：</strong> 缓存控制器拦截 CPU 发出的虚拟地址。</li>
-<li><strong>缓存查找（使用虚拟地址）：</strong> 缓存控制器从虚拟地址中提取：
+<li><strong>缓存查找 (使用虚拟地址) ：</strong> 缓存控制器从虚拟地址中提取：
 <ul>
 <li><strong>标记位 (Tag Bits)：</strong> 用于与缓存目录中的标记进行比较。</li>
 <li><strong>块索引位 (Index Bits)：</strong> 用于在缓存目录中选择对应的条目。</li>
 <li><strong>块内偏移 (Offset Bits)：</strong> 用于在缓存块中选择特定的字节。<br>
-缓存控制器使用索引位在缓存目录中找到对应的条目，并将提取的标记位与该条目中的标记进行比较。 同时，检查该缓存行的有效位。</li>
+缓存控制器使用索引位在缓存目录中找到对应的条目，并将提取的标记位与该条目中的标记进行比较.同时，检查该缓存行的有效位。</li>
 </ul>
 </li>
 <li><strong>缓存命中/未命中判断：</strong>
 <ul>
-<li>**缓存命中 (Cache Hit)：**如果标记匹配且有效位为真，则发生缓存命中。</li>
-<li><strong>数据读取：</strong> 缓存控制器使用偏移位从缓存块中读取对应的数据，并将数据返回给 CPU。 地址转换到此为止不需要进行。</li>
+<li><strong>缓存命中 (Cache Hit)：</strong> 如果标记匹配且有效位为真，则发生缓存命中。</li>
+<li><strong>数据读取：</strong> 缓存控制器使用偏移位从缓存块中读取对应的数据，并将数据返回给 CPU.地址转换到此为止不需要进行。</li>
 <li><strong>缓存未命中 (Cache Miss)：</strong> 如果标记不匹配或有效位为假，则发生缓存未命中。</li>
 </ul>
 </li>
@@ -2699,288 +2702,382 @@ $(-1)^0 \times 1.01_2 \times 2^{-1} = 1.01_2 \times 2^{-1} = 0.101_2 = 0.625_{10
 </li>
 <li><strong>缓存更新 (在缓存未命中时)：</strong>
 <ul>
-<li>缓存控制器将从 DRAM 中获取的数据存储到缓存中。 这可能涉及到缓存行的替换 (Eviction)，例如使用 LRU (Least Recently Used) 算法。</li>
+<li>缓存控制器将从 DRAM 中获取的数据存储到缓存中.这可能涉及到缓存行的替换 (Eviction)，例如使用 LRU (Least Recently Used) 算法。</li>
 <li>缓存控制器更新缓存目录中的标记位和有效位。</li>
 </ul>
 </li>
 <li><strong>数据返回给 CPU：</strong> 缓存控制器将从缓存中读取的数据 (现在数据已经在缓存中了) 返回给 CPU。</li>
 </ol>
 <h4>抖动 (Thrashing) 问题</h4>
-<p><strong>抖动 (Thrashing)</strong> 问题在 直接映射缓存 中尤为突出。</p>
+<p>**抖动 (Thrashing)**问题在直接映射缓存中尤为突出。</p>
 <ul>
-<li>
-<p><strong>抖动场景</strong>：当程序循环重复访问 内存中 不同页面 的 相同块索引位置 时，例如：</p>
-<p>程序访问 页面 0 的 X 块，然后访问 页面 1 的 X 块，如此循环。</p>
-</li>
-<li>
-<p><strong>缓存冲突</strong>：由于 直接映射缓存 的 映射规则，页面 0 的 X 块 和 页面 1 的 X 块 会 映射到缓存中的相同位置。</p>
-</li>
-<li>
-<p><strong>频繁替换</strong>：每次访问都会导致 缓存未命中，需要从 DRAM 重新加载数据到缓存，并 替换 之前缓存的内容。</p>
-</li>
-<li>
-<p><strong>性能下降</strong>：导致 每次内存访问 都变成 DRAM 访问，缓存形同虚设，内存访问延迟增大，系统性能 严重下降。</p>
-</li>
+<li><strong>抖动场景</strong>：当程序循环重复访问内存中不同页面的相同块索引位置。</li>
+<li><strong>缓存冲突</strong>：由于直接映射缓存的映射规则，页面 0 的 X 块和页面 1 的 X 块会映射到缓存中的相同位置。</li>
+<li><strong>频繁替换</strong>：每次访问都会导致缓存未命中，需要从 DRAM 重新加载数据到缓存，并替换之前缓存的内容。</li>
+<li><strong>性能下降</strong>：导致每次内存访问都变成 DRAM 访问，缓存形同虚设，内存访问延迟增大，系统性能严重下降。</li>
 </ul>
+<p>例如，如果程序反复调用地址 0 和地址 32,768，则可能发生颠簸 (thrashing) ，导致缓存命中率严重下降！！！</p>
 <p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/d9fabdb9f7ce241e5303bbb6f72638d615f77e7965f7a9f8c22945dd8fb508b9/68747470733a2f2f73322e6c6f6c692e6e65742f323032352f30322f30362f48694e6447635a6f4b44354a5146492e706e67"><img src="https://camo.githubusercontent.com/d9fabdb9f7ce241e5303bbb6f72638d615f77e7965f7a9f8c22945dd8fb508b9/68747470733a2f2f73322e6c6f6c692e6e65742f323032352f30322f30362f48694e6447635a6f4b44354a5146492e706e67" alt="img" data-canonical-src="https://s2.loli.net/2025/02/06/HiNdGcZoKD5JQFI.png" style="max-width: 100%;"></a></p>
-<h4>组相联缓存 (Set Associative Cache)</h4>
-<p><strong>组相联缓存</strong> 旨在 缓解直接映射缓存的抖动问题。</p>
-<ul>
-<li><strong>多路缓存</strong>：将缓存 分成多个组 (Set)，每个组包含 多个路 (Way) (例如 双路组相联 就是每个组包含 两条路，即 两个独立的缓存块)。</li>
-<li><strong>灵活映射</strong>：主存中的一个块 可以 映射到 组内任意一路的缓存行。</li>
-<li><strong>地址映射</strong>：内存地址被划分为 标记 (Tag)、组索引 (Set Index) 和 块偏移 (Block Offset) 字段。 组索引 用于 选择缓存组， 标记 用于在 组内 区分不同的主存块。</li>
-</ul>
-<p><strong>双路组相联缓存示意图</strong></p>
-<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/fef431e99fa5e7f7a42f60fe26c283d124f2b27ea0b3376998f6696fc35f92c8/68747470733a2f2f73322e6c6f6c692e6e65742f323032352f30322f30362f6f6a55724d6239353767415931514f2e706e67"><img src="https://camo.githubusercontent.com/fef431e99fa5e7f7a42f60fe26c283d124f2b27ea0b3376998f6696fc35f92c8/68747470733a2f2f73322e6c6f6c692e6e65742f323032352f30322f30362f6f6a55724d6239353767415931514f2e706e67" alt="img" data-canonical-src="https://s2.loli.net/2025/02/06/ojUrMb957gAY1QO.png" style="max-width: 100%;"></a></p>
-<ul>
-<li><strong>抖动缓解</strong>：在 抖动场景 中，例如程序循环访问 页面 0 的 X 块 和 页面 1 的 X 块， 双路组相联缓存 可以将 页面 0 的 X 块 缓存到 Way 0，将 页面 1 的 X 块 缓存到 Way 1。</li>
-<li><strong>减少冲突</strong>：从而 避免了缓存冲突，提高了缓存命中率，改善了性能。</li>
-<li><strong>替换策略</strong>：当缓存组满时，需要替换策略 (如 <strong>LRU (Least Recently Used), 最近最少使用算法</strong>) 来决定替换哪一路的缓存行。 LRU 位 用于 标记每个缓存路 的 最近使用情况，以便 优先替换 最近最少使用 的缓存路。</li>
-</ul>
 <h4>全相联缓存 (Fully Associative Cache)</h4>
-<p><strong>全相联缓存</strong> 提供了 最大的灵活性，但实现成本和复杂度也最高。</p>
+<p><strong>全相联缓存</strong>提供了最大的灵活性，但实现成本和复杂度也最高。</p>
 <ul>
-<li><strong>任意位置映射</strong>：主存中的任何行 可以被写入缓存中的任意位置。</li>
-<li><strong>缓存目录开销</strong>：缓存目录中的每个标记 必须是 完整的 30 位地址 (或其他位数，取决于地址空间大小)，以 唯一标识 缓存行对应的主存地址。</li>
+<li><strong>任意位置映射</strong>：主存中的任何行可以被写入缓存中的任意位置。</li>
+<li><strong>缓存目录开销</strong>：缓存目录中的每个标记必须是完整的 30 位地址 (或其他位数，取决于地址空间大小) ，以唯一标识缓存行对应的主存地址。</li>
 <li><strong>查找开销大</strong>：为了查找数据，必须搜索整个缓存目录，查找时间较长。</li>
 </ul>
 <p><strong>全相联缓存的缺点</strong>：</p>
 <ol>
-<li><strong>查找速度慢</strong>：需要 遍历整个缓存目录 才能确定缓存是否命中。</li>
-<li><strong>替换策略复杂</strong>：当缓存满时，需要复杂的 替换策略 (如 LRU) 来 丢弃旧数据。 LRU 策略 的实现需要维护每个缓存行的 访问历史信息，增加了硬件开销。</li>
+<li><strong>查找速度慢</strong>：需要遍历整个缓存目录才能确定缓存是否命中。</li>
+<li><strong>替换策略复杂</strong>：当缓存满时，需要复杂的替换策略 (如 LRU) 来丢弃旧数据.LRU 策略的实现需要维护每个缓存行的访问历史信息，增加了硬件开销。</li>
 </ol>
-<p>全相联缓存 由于实现复杂，成本高昂，在 PC (个人计算机) 中 不常使用 (尤其是在 1995 年左右)。</p>
+<p>全相联缓存由于实现复杂，成本高昂，在 PC (个人计算机) 中不常使用 (尤其是在 1995 年左右) 。</p>
+<h4>组相联缓存 (Set Associative Cache)</h4>
+<p><strong>组相联缓存</strong>平衡了<strong>直接映射缓存</strong>的抖动问题和<strong>全相联缓存</strong>高成本问题</p>
+<ul>
+<li><strong>多路缓存</strong>：将缓存分成多个组 (Set)，每个组包含多个路 (Way) (例如双路组相联就是每个组包含两条路，即两个独立的缓存块) 。</li>
+<li><strong>灵活映射</strong>：主存中的一个块可以映射到组内任意一路的缓存行。</li>
+<li><strong>地址映射</strong>：内存地址被划分为标记 (Tag)、组索引 (Set Index) 和块偏移 (Block Offset) 字段.组索引用于选择缓存组，标记用于在组内区分不同的主存块。</li>
+</ul>
+<p><strong>双路组相联缓存示意图</strong></p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/fef431e99fa5e7f7a42f60fe26c283d124f2b27ea0b3376998f6696fc35f92c8/68747470733a2f2f73322e6c6f6c692e6e65742f323032352f30322f30362f6f6a55724d6239353767415931514f2e706e67"><img src="https://camo.githubusercontent.com/fef431e99fa5e7f7a42f60fe26c283d124f2b27ea0b3376998f6696fc35f92c8/68747470733a2f2f73322e6c6f6c692e6e65742f323032352f30322f30362f6f6a55724d6239353767415931514f2e706e67" alt="img" data-canonical-src="https://s2.loli.net/2025/02/06/ojUrMb957gAY1QO.png" style="max-width: 100%;"></a></p>
+<ul>
+<li><strong>抖动缓解</strong>：在抖动场景中，例如程序循环访问页面 0 的 X 块和页面 1 的 X 块，双路组相联缓存可以将页面 0 的 X 块缓存到 Way 0，将页面 1 的 X 块缓存到 Way 1。</li>
+<li><strong>减少冲突</strong>：从而避免了缓存冲突，提高了缓存命中率，改善了性能。</li>
+<li><strong>替换策略</strong>：当缓存组满时，需要替换策略 (如 <strong>LRU (Least Recently Used) , 最近最少使用算法</strong>) 来决定替换哪一路的缓存行.LRU 位用于标记每个缓存路的最近使用情况，以便优先替换最近最少使用的缓存路。</li>
+</ul>
 <h4>缓存效率</h4>
-<p>缓存虽然在空间容量上远小于内存，但它比内存快得多，在程序执行速度上起着至关重要的作用。由于缓存的容量有限，只能存储一小部分频繁访问的数据，因此当 CPU 尝试访问的数据不在缓存中时，就会发生缓存未命中（cache miss），此时 CPU 不得不从速度较慢的内存中加载所需数据。</p>
+<p>缓存虽然在空间容量上远小于内存，但它比内存快得多，在程序执行速度上起着至关重要的作用。由于缓存的容量有限，只能存储一小部分频繁访问的数据，因此当 CPU 尝试访问的数据不在缓存中时，就会发生缓存未命中 (cache miss) ，此时 CPU 不得不从速度较慢的内存中加载所需数据。</p>
 <h4>缓存未命中的原因</h4>
 <ul>
 <li><strong>强制性未命中 (Compulsory Miss)</strong>：
 <ul>
-<li><strong>首次访问</strong>：也称为 冷启动未命中 (Cold Start Miss)。当程序第一次访问 某个 内存块 时，该块 不在缓存中， 必须从 DRAM 中读取。 强制性未命中是不可避免的。</li>
+<li><strong>首次访问</strong>：也称为冷启动未命中 (Cold Start Miss)。当程序第一次访问某个内存块时，该块不在缓存中，必须从 DRAM 中读取.强制性未命中是不可避免的。</li>
 </ul>
 </li>
 <li><strong>容量未命中 (Capacity Miss)</strong>：
 <ul>
-<li><strong>缓存容量不足</strong>：如果程序频繁使用 的 内存块数量 超过了缓存的容量，就会发生 容量未命中。 即使缓存已经装满了数据，但程序需要访问的数据仍然不在缓存中，需要从 DRAM 读取并替换缓存中的旧数据。</li>
+<li><strong>缓存容量不足</strong>：如果程序频繁使用的内存块数量超过了缓存的容量，就会发生容量未命中.即使缓存已经装满了数据，但程序需要访问的数据仍然不在缓存中，需要从 DRAM 读取并替换缓存中的旧数据。</li>
 <li>抖动也是容量未命中的一种表现形式。</li>
 </ul>
 </li>
 <li><strong>冲突未命中 (Conflict Miss)</strong>：
 <ul>
-<li><strong>地址冲突</strong>：在 直接映射缓存 或 组相联缓存 中，由于 地址映射的限制，不同的 主存块 可能 映射到缓存中的相同位置 (或 同一个组)。 当程序 频繁访问 映射到 相同缓存位置 的 不同主存块 时，就会发生 冲突未命中。</li>
+<li><strong>地址冲突</strong>：在直接映射缓存或组相联缓存中，由于地址映射的限制，不同的主存块可能映射到缓存中的相同位置 (或同一个组) .当程序频繁访问映射到相同缓存位置的不同主存块时，就会发生冲突未命中。</li>
 </ul>
 </li>
 </ul>
 <h4>缓存的效果评估：Amdahl 定律</h4>
-<p><strong>Amdahl 定律 (Amdahl's Law)</strong> 用于 评估 通过 改进系统资源 (例如使用缓存) 所能获得的 性能提升。</p>
+<p>**Amdahl 定律 (Amdahl's Law)**用于评估通过改进系统资源 (例如使用缓存) 所能获得的性能提升。</p>
 <p><strong>Amdahl 定律公式</strong>：</p>
 <p>$Speedup = \frac{1}{(1-p) + \frac{p}{s}}$</p>
 <p>公式中：</p>
 <ul>
-<li>Speedup (加速比)： 使用改进资源后，系统性能提升的倍数。</li>
-<li>s (资源改进带来的速度提升)： 改进的资源 (例如缓存) 比原有资源 (例如 DRAM) 的速度提升倍数。</li>
-<li>p (可加速部分占比)： 程序执行时间中，可以受益于资源改进的部分 所占的比例。</li>
+<li>Speedup (加速比)：使用改进资源后，系统性能提升的倍数。</li>
+<li>s (资源改进带来的速度提升)：改进的资源 (例如缓存) 比原有资源 (例如 DRAM) 的速度提升倍数。</li>
+<li>p (可加速部分占比)：程序执行时间中，可以受益于资源改进的部分所占的比例。</li>
 </ul>
 <p><strong>缓存性能提升示例</strong>：</p>
 <p>假设：</p>
 <ul>
-<li>缓存将内存访问速度提升 10 倍 (从 100ns DRAM 访问时间 降低到 10ns 缓存访问时间)，即 $s = 10$。</li>
-<li>典型程序的缓存命中率 为 95%，即程序执行时间中有 95% 的时间受益于缓存加速， $p = 0.95$。</li>
+<li>缓存将内存访问速度提升 10 倍 (从 100ns DRAM 访问时间降低到 10ns 缓存访问时间)，即 s＝10。</li>
+<li>典型程序的缓存命中率为 95%，即程序执行时间中有 95% 的时间受益于缓存加速，p＝0.95。</li>
 </ul>
 <p><strong>计算加速比</strong>：</p>
 <p>$Speedup = \frac{1}{(1-0.95) + \frac{0.95}{10}} = \frac{1}{0.05 + 0.095} = \frac{1}{0.145} \approx 6.89$</p>
-<p><strong>结论</strong>： 加入缓存 后，内存访问速度比 仅使用 DRAM 时 提高了约 6.89 倍。</p>
+<p><strong>结论</strong>：加入缓存后，内存访问速度比仅使用 DRAM 时提高了约 6.89 倍。</p>
 <h4>有效访问时间 (EAT) 估算</h4>
-<p><strong>有效访问时间 (Effective Access Time, EAT)</strong> 用于 综合评估 包含 缓存 的 内存系统的平均访问性能。</p>
+<p>**有效访问时间 (Effective Access Time, EAT)**用于综合评估包含缓存的内存系统的平均访问性能。</p>
 <p><strong>EAT 计算公式</strong>：</p>
 <p>$\text{EAT} = (1 - \text{命中率}) \times \text{缓存访问时间} + \text{命中率} \times (\text{缓存访问时间} + \text{未命中惩罚})$</p>
-<p>简化公式 (假设未命中惩罚主要来自 DRAM 访问时间):</p>
-<p>$\text{EAT} \approx (1 - p) \times \text{缓存访问时间} + p \times \text{DRAM 访问时间}$        p: 缓存命中率</p>
 <p><strong>EAT 估算示例</strong>：</p>
 <p>假设：</p>
 <ul>
-<li>缓存访问时间: 10 纳秒 (ns)。</li>
-<li>缓存未命中率: 5% (命中率 95%)， 即 $p = 0.95$, 未命中率 $1-p = 0.05$。</li>
-<li>DRAM 访问时间: 100 纳秒 (ns)。</li>
+<li>缓存访问时间：10 纳秒 (ns)。</li>
+<li>缓存未命中率：5% (命中率 95%)，即 p＝0.95，未命中率 1-p＝0.05。</li>
+<li>DRAM 访问时间：100 纳秒 (ns)。</li>
 </ul>
-<p><strong>计算 EAT</strong>:</p>
+<p><strong>计算 EAT</strong>：</p>
 <p>$\begin{aligned} \text{EAT} &amp;= (1 - 0.95) \times 10 \text{ns} + 0.95 \times 100 \text{ns} \ &amp;= 0.05 \times 10 \text{ns} + 0.95 \times 100 \text{ns} \ &amp;= 0.5 \text{ns} + 95 \text{ns} \ &amp;\approx 14.5 \text{ns} \end{aligned}$</p>
 <p><strong>加速比验证</strong>：</p>
 <p>$\text{加速比} = \frac{\text{DRAM 访问时间}}{\text{EAT}} = \frac{100 \text{ns}}{14.5 \text{ns}} \approx 6.89$</p>
-<p><strong>结论</strong>： 内存系统的 有效访问时间 约为 14.5 纳秒，相较于 100 纳秒的 DRAM 访问时间， 速度提升约为 6.89 倍，与 Amdahl 定律的计算结果一致。</p>
+<p><strong>结论</strong>：内存系统的有效访问时间约为 14.5 纳秒，相较于 100 纳秒的 DRAM 访问时间，速度提升约为 6.89 倍，与 Amdahl 定律的计算结果一致。</p>
 <h4>写策略 (Write Policies)</h4>
-<p><strong>写策略 (Write Policies)</strong> 定义了 数据写入缓存时，如何保证缓存和主内存数据一致性 的策略。</p>
+<p>**写策略 (Write Policies)**定义了数据写入缓存时，如何保证缓存和主内存数据一致性的策略。</p>
 <ul>
 <li>
 <p><strong>写直通 (Write-Through)</strong>：</p>
 <ul>
-<li><strong>同步写入</strong>：每次向缓存写入数据时，同时也 将数据 写入主内存。</li>
+<li><strong>同步写入</strong>：每次向缓存写入数据时，同时也将数据写入主内存。</li>
 <li><strong>数据一致性</strong>：缓存和主内存中的数据始终保持一致。</li>
-<li><strong>写操作延迟</strong>：写操作的速度 受限于 DRAM 的速度， 写入速度较慢。</li>
-<li><strong>读操作高速</strong>：读操作 可以从 高速缓存 中进行，速度较快。</li>
+<li><strong>写操作延迟</strong>：写操作的速度受限于 DRAM 的速度，写入速度较慢。</li>
+<li><strong>读操作高速</strong>：读操作可以从高速缓存中进行，速度较快。</li>
 </ul>
 </li>
 <li>
 <p><strong>写回 (Write-Back)</strong>：</p>
 <ul>
-<li><strong>延迟写入</strong>：数据写入操作 只写入缓存，暂不写入主内存。</li>
-<li><strong>数据标记</strong>：被修改过的缓存行 会被 标记为“脏 (Dirty)”。</li>
-<li><strong>替换时写回</strong>：只有当 脏缓存行 需要被 替换 (例如，缓存满时) 时，才将 脏数据写回主内存。</li>
-<li><strong>写操作高速</strong>：写操作速度 仅受限于 缓存速度， 写入速度较快。</li>
-<li><strong>读操作高速</strong>：读操作 也可以从 高速缓存 中进行，速度较快。</li>
-<li><strong>数据一致性挑战</strong>：缓存和主内存数据 在一段时间内可能 不一致，数据一致性维护较为复杂。 需要更复杂的机制 (例如 监听 (Snooping) 或 目录 (Directory) 协议) 来保证 多处理器系统 中 缓存一致性。</li>
+<li><strong>延迟写入</strong>：数据写入操作只写入缓存，暂不写入主内存。</li>
+<li><strong>数据标记</strong>：被修改过的缓存行会被标记为“脏 (Dirty)”。</li>
+<li><strong>替换时写回</strong>：只有当脏缓存行需要被替换 (例如，缓存满时) 时，才将脏数据写回主内存。</li>
+<li><strong>写操作高速</strong>：写操作速度仅受限于缓存速度，写入速度较快。</li>
+<li><strong>读操作高速</strong>：读操作也可以从高速缓存中进行，速度较快。</li>
+<li><strong>数据一致性挑战</strong>：缓存和主内存数据在一段时间内可能不一致，数据一致性维护较为复杂.需要更复杂的机制 (例如监听 (Snooping) 或目录 (Directory) 协议) 来保证多处理器系统中缓存一致性。</li>
 <li><strong>优点</strong>：减少了对主内存的写操作次数，提高了写性能。</li>
 </ul>
 </li>
 </ul>
 <p><strong>DMA (直接内存访问) 与缓存一致性</strong>：</p>
-<p><strong>DMA (Direct Memory Access, 直接内存访问)</strong> 允许 某些硬件设备 (例如 DMA 控制器) 直接 读写主存储器， 无需 CPU 的参与。 DMA 操作可能导致 缓存与主内存之间的数据不一致 问题。</p>
+<p>**DMA (Direct Memory Access, 直接内存访问) **允许某些硬件设备 (例如 DMA 控制器) 直接读写主存储器，无需 CPU 的参与.DMA 操作可能导致缓存与主内存之间的数据不一致问题。</p>
 <ul>
-<li><strong>写直通缓存</strong>：写直通缓存在一定程度上可以 缓解 DMA 缓存一致性问题，因为 每次缓存写入 都会 同步更新主内存。</li>
-<li><strong>写回缓存</strong>：写回缓存 需要 更复杂的机制 来处理 DMA 缓存一致性，例如 缓存刷新 (Cache Flush) 操作，强制将 脏缓存行写回主内存，以确保 DMA 设备读取到最新的数据。</li>
+<li><strong>写直通缓存</strong>：写直通缓存在一定程度上可以缓解 DMA 缓存一致性问题，因为每次缓存写入都会同步更新主内存。</li>
+<li><strong>写回缓存</strong>：写回缓存需要更复杂的机制来处理 DMA 缓存一致性，例如缓存刷新 (Cache Flush) 操作，强制将脏缓存行写回主内存，以确保 DMA 设备读取到最新的数据。</li>
 </ul>
 <h4>多级缓存 (Multilevel Caches)</h4>
-<p><strong>多级缓存 (Multilevel Caches)</strong> 是现代高性能处理器中常用的缓存组织方式。</p>
+<p>**多级缓存 (Multilevel Caches)**是现代高性能处理器中常用的缓存组织方式。</p>
 <ul>
-<li><strong>分级结构</strong>：采用 多层缓存 结构，例如 L1 缓存 (一级缓存)、 L2 缓存 (二级缓存)、 L3 缓存 (三级缓存) 等。</li>
+<li><strong>分级结构</strong>：采用多层缓存结构，例如 L1 缓存 (一级缓存) 、L2 缓存 (二级缓存) 、L3 缓存 (三级缓存) 等。</li>
 <li><strong>速度与容量平衡</strong>：
 <ul>
-<li><strong>L1 缓存 (一级缓存)</strong>： 容量最小，速度最快，通常 集成在 CPU 核心内部。 L1 缓存 追求 最低的访问延迟，通常可以实现 零等待状态 (Zero Wait State) 访问，即 <code class="notranslate">mov ax,[bx]</code> 指令 可以在 最少的时钟周期内完成。 典型容量为 1KB - 32KB。</li>
-<li><strong>L2 缓存 (二级缓存)</strong>： 容量比 L1 大，速度比 L1 慢，但比主存快。通常 集成在 CPU 芯片上，但不一定在核心内部。 典型容量为 2MB - 8MB。</li>
-<li><strong>L3 缓存 (三级缓存)</strong>： 容量最大，速度最慢 (但仍比主存快)。 通常 多个 CPU 核心共享 L3 缓存。 典型容量可以达到 数 MB 到 数十 MB。</li>
+<li>**L1 缓存 (一级缓存) **：容量最小，速度最快，通常集成在 CPU 核心内部.L1 缓存追求最低的访问延迟，通常可以实现零等待状态 (Zero Wait State) 访问，即 <code class="notranslate">mov ax,[bx]</code> 指令可以在最少的时钟周期内完成。.型容量为 1KB - 32KB。</li>
+<li>**L2 缓存 (二级缓存) **：容量比 L1 大，速度比 L1 慢，但比主存快.通常集成在 CPU 芯片上，但不一定在核心内部。.型容量为 2MB - 8MB。</li>
+<li>**L3 缓存 (三级缓存) **：容量最大，速度最慢 (但仍比主存快).通常多个 CPU 核心共享 L3 缓存。.型容量可以达到数 MB 到数十 MB。</li>
 </ul>
 </li>
-<li><strong>访问顺序</strong>：CPU 访问内存时，首先查找 L1 缓存，如果 L1 未命中，则 查找 L2 缓存， 依此类推，直到 最后一级缓存 或 主内存。</li>
+<li><strong>访问顺序</strong>：CPU 访问内存时，首先查找 L1 缓存，如果 L1 未命中，则查找 L2 缓存，依此类推，直到最后一级缓存或主内存。</li>
 </ul>
 <p><strong>示例参数</strong>：</p>
 <ul>
-<li><strong>一级缓存 (L1 Cache)</strong>: 例如 1KB - 32KB， 零等待状态。</li>
-<li><strong>二级缓存 (L2 Cache)</strong>: 例如 2MB， 500MHz 运行频率。</li>
-<li><strong>主存储器 (Main Memory)</strong>: 例如 最大 64GB 容量。</li>
+<li><strong>一级缓存 (L1 Cache)</strong>: 例如 1KB - 32KB，零等待状态。</li>
+<li><strong>二级缓存 (L2 Cache)</strong>: 例如 2MB，500MHz 运行频率。</li>
+<li><strong>主存储器 (Main Memory)</strong>: 例如最大 64GB 容量。</li>
 </ul>
 <h4>DMA</h4>
-<p><strong>DMA (Direct Memory Access, 直接内存访问)</strong> 技术允许 某些硬件设备 (例如 DMA 控制器) 直接 读写主存储器， 无需 CPU 的参与。</p>
+<p>**DMA (Direct Memory Access, 直接内存访问) **技术允许某些硬件设备 (例如 DMA 控制器) 直接读写主存储器，无需 CPU 的参与。</p>
 <ul>
-<li><strong>CPU 解放</strong>：DMA 技术 可以 解放 CPU， 使 CPU 可以 并行处理其他任务， 提高系统整体效率。</li>
-<li><strong>高速数据传输</strong>：DMA 适用于 高速数据传输 的场景，例如 硬盘数据读取、 图形图像数据传输、 音频数据传输 等。</li>
-<li><strong>应用设备</strong>：DMA 常用于 帧捕获卡 (Frame Grabber)、 声卡 (Sound Card) 等设备。</li>
+<li><strong>CPU 解放</strong>：DMA 技术可以解放 CPU，使 CPU 可以并行处理其他任务，提高系统整体效率。</li>
+<li><strong>高速数据传输</strong>：DMA 适用于高速数据传输的场景，例如硬盘数据读取、图形图像数据传输、音频数据传输等。</li>
+<li><strong>应用设备</strong>：DMA 常用于帧捕获卡 (Frame Grabber)、声卡 (Sound Card) 等设备。</li>
 </ul>
 <h4>DMA 控制器 (DMA Controller)</h4>
-<p><strong>DMA 控制器 (DMA Controller)</strong> 是 实现 DMA 传输的关键硬件组件。</p>
+<p>**DMA 控制器 (DMA Controller) **是实现 DMA 传输的关键硬件组件。</p>
 <p><strong>DMA 控制器结构示意图</strong></p>
-<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/30587d858947a48af542a91c8c0b8036ec868d460381baf66c5ab1f508a61f7d/68747470733a2f2f73322e6c6f6c692e6e65742f323032352f30322f30362f6f434f62525658716d6472326c41762e706e67"><img src="https://camo.githubusercontent.com/30587d858947a48af542a91c8c0b8036ec868d460381baf66c5ab1f508a61f7d/68747470733a2f2f73322e6c6f6c692e6e65742f323032352f30322f30362f6f434f62525658716d6472326c41762e706e67" alt="img" data-canonical-src="https://s2.loli.net/2025/02/06/oCObRVXqmdr2lAv.png" style="max-width: 100%;"></a><strong>DMA 传输序列 (DMA Sequence)</strong></p>
-<p>DMA 控制器 通过一系列 握手信号 与 CPU 和 外围设备 协同工作，完成 DMA 数据传输。</p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/30587d858947a48af542a91c8c0b8036ec868d460381baf66c5ab1f508a61f7d/68747470733a2f2f73322e6c6f6c692e6e65742f323032352f30322f30362f6f434f62525658716d6472326c41762e706e67"><img src="https://camo.githubusercontent.com/30587d858947a48af542a91c8c0b8036ec868d460381baf66c5ab1f508a61f7d/68747470733a2f2f73322e6c6f6c692e6e65742f323032352f30322f30362f6f434f62525658716d6472326c41762e706e67" alt="img" data-canonical-src="https://s2.loli.net/2025/02/06/oCObRVXqmdr2lAv.png" style="max-width: 100%;"></a></p>
+<p><strong>DMA 传输序列 (DMA Sequence)</strong></p>
+<p>DMA 控制器通过一系列握手信号与 CPU 和外围设备协同工作，完成 DMA 数据传输。</p>
 <ol>
-<li><strong>DMA 请求 (DREQ, DMA Request)</strong>：
-<ul>
-<li>外围设备 (例如 智能磁盘控制器) 准备好数据 后， 设置 DREQ 信号线为高电平， 请求 DMA 传输。</li>
-</ul>
-</li>
-<li><strong>HOLD 请求 (HOLD Request)</strong>：
-<ul>
-<li>DMA 控制器 接收到 DREQ 信号 后，向 CPU 发送 HOLD 请求信号 (HOLD)。</li>
-</ul>
-</li>
-<li><strong>HOLD 响应 (HLDA, HOLD Acknowledge)</strong>：
-<ul>
-<li>CPU 在 完成当前总线周期 后，释放总线控制权，并将 HLDA 信号线拉高， 响应 DMA 请求。</li>
-</ul>
-</li>
-<li><strong>总线控制权转移</strong>：
-<ul>
-<li>DMA 控制器 接管 数据总线、 地址总线 和 控制总线 的 控制权。 CPU 暂时与内存断开连接。</li>
-</ul>
-</li>
-<li><strong>DMA 确认 (DACK, DMA Acknowledge)</strong>：
-<ul>
-<li>DMA 控制器 向 外围设备 发送 DMA 确认信号 (DACK)， 允许设备开始 DMA 传输。</li>
-</ul>
-</li>
-<li><strong>数据传输</strong>：
-<ul>
-<li>外围设备 (例如 智能磁盘驱动器) 通过 DMA 控制器 直接向主内存写入数据 或 从主内存读取数据。</li>
-</ul>
-</li>
-<li><strong>HOLD 释放</strong>：
-<ul>
-<li>DMA 传输完成后， DMA 控制器 释放 HOLD 请求。</li>
-</ul>
-</li>
-<li><strong>CPU 恢复总线控制</strong>：
-<ul>
-<li>CPU 重新获得总线控制权， HLDA 信号线被拉低。</li>
-</ul>
-</li>
+<li>**DMA 请求：外围设备 (例如智能磁盘控制器) 准备好数据后，设置 DREQ 信号线为高电平，请求 DMA 传输。</li>
+<li>**HOLD 请求：DMA 控制器接收到 DREQ 信号后，向 CPU 发送 HOLD 请求信号 (HOLD)。</li>
+<li><strong>HOLD 响应</strong>：CPU 在完成当前总线周期后，释放总线控制权，并将 HLDA 信号线拉高，响应 DMA 请求。</li>
+<li><strong>总线控制权转移</strong>：DMA 控制器接管数据总线、地址总线和控制总线的控制权.CPU 暂时与内存断开连接。</li>
+<li><strong>DMA 确认</strong>：DMA 控制器向外围设备发送 DMA 确认信号 (DACK)，允许设备开始 DMA 传输。</li>
+<li><strong>数据传输</strong>：外围设备 (例如智能磁盘驱动器) 通过 DMA 控制器直接向主内存写入数据或从主内存读取数据。</li>
+<li><strong>HOLD 释放</strong>：DMA 传输完成后，DMA 控制器释放 HOLD 请求。</li>
+<li><strong>CPU 恢复总线控制</strong>：CPU 重新获得总线控制权，HLDA 信号线被拉低。</li>
 </ol>
-<p><strong>总结</strong>： DMA 传输过程 无需 CPU 的持续干预， 数据传输 在 DMA 控制器 和 外围设备 之间 直接进行， 提高了数据传输效率， 减轻了 CPU 负担。</p>
 <h3>ROM (只读存储器)</h3>
-<p><strong>ROM (Read-Only Memory, 只读存储器)</strong> 是一种 非易失性存储器， 断电后数据不会丢失。 ROM 通常用于 存储 固件 (Firmware) 和 引导代码 (Boot Sequence Code)，例如 BIOS (基本输入/输出系统)。</p>
+<p>**ROM (Read-Only Memory, 只读存储器) **是一种非易失性存储器，断电后数据不会丢失.ROM 通常用于存储固件 (Firmware) 和引导代码 (Boot Sequence Code)，例如 BIOS (基本输入/输出系统)。</p>
 <h4>ROM 的类型</h4>
 <ul>
 <li>
 <p><strong>掩膜 ROM (Mask Programmed ROM)</strong>：</p>
 <ul>
-<li><strong>制造时编程</strong>：程序 在 ROM 芯片制造过程中 被 永久写入， 出厂后无法更改。</li>
+<li><strong>制造时编程</strong>：程序在 ROM 芯片制造过程中被永久写入，出厂后无法更改。</li>
 <li><strong>成本高，适用于大批量生产</strong>。</li>
 </ul>
 </li>
 <li>
-<p><strong>PROM (可编程 ROM, Programmable ROM)</strong>：</p>
+<p>**PROM (可编程 ROM, Programmable ROM) **：</p>
 <ul>
-<li><strong>一次性编程</strong>：用户 可以使用 PROM 编程器 写入程序 一次。 编程过程 通常通过 熔断器件内部的熔丝 (Fusible Links) 来实现。 一旦编程，无法修改。</li>
+<li><strong>一次性编程</strong>：用户可以使用 PROM 编程器写入程序一次.编程过程通常通过熔断器件内部的熔丝 (Fusible Links) 来实现。.旦编程，无法修改。</li>
 </ul>
 </li>
 <li>
-<p><strong>EPROM (可擦除可编程 ROM, Erasable Programmable ROM)</strong>：</p>
+<p>**EPROM (可擦除可编程 ROM, Erasable Programmable ROM) **：</p>
 <ul>
-<li><strong>多次编程</strong>：用户 可以 多次擦除和重写程序。</li>
-<li><strong>紫外线擦除</strong>：EPROM 通过 紫外线 (UV Light) 照射 擦除 存储的数据。 擦除过程 需要 将芯片从电路板上取下，并 使用紫外线擦除器照射一段时间。</li>
-<li><strong>电荷存储</strong>：EPROM 使用 FET (场效应晶体管) 栅极上的电荷 存储数据。 高电压编程 会在 绝缘栅极 上 注入电荷， 改变 FET 的阈值电压，从而表示不同的数据状态。</li>
+<li><strong>多次编程</strong>：用户可以多次擦除和重写程序。</li>
+<li><strong>紫外线擦除</strong>：EPROM 通过紫外线 (UV Light) 照射擦除存储的数据.擦除过程需要将芯片从电路板上取下，并使用紫外线擦除器照射一段时间。</li>
+<li><strong>电荷存储</strong>：EPROM 使用 FET (场效应晶体管) 栅极上的电荷存储数据.高电压编程会在绝缘栅极上注入电荷，改变 FET 的阈值电压，从而表示不同的数据状态。</li>
 </ul>
 </li>
 </ul>
 <p><strong>EPROM 编程与擦除原理示意图</strong></p>
 <p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/a08adb745664566fcd44f28fd1ae78eef2425c905ef17d6d23c6896d19f41d26/68747470733a2f2f73322e6c6f6c692e6e65742f323032352f30322f30362f516a533166454c696155686446735a2e706e67"><img src="https://camo.githubusercontent.com/a08adb745664566fcd44f28fd1ae78eef2425c905ef17d6d23c6896d19f41d26/68747470733a2f2f73322e6c6f6c692e6e65742f323032352f30322f30362f516a533166454c696155686446735a2e706e67" alt="img" data-canonical-src="https://s2.loli.net/2025/02/06/QjS1fELiaUhdFsZ.png" style="max-width: 100%;"></a></p>
 <ul>
-<li><strong>EEPROM (电可擦除可编程 ROM, Electrically Erasable Programmable ROM)</strong>：
+<li>**EEPROM (电可擦除可编程 ROM, Electrically Erasable Programmable ROM) **：
 <ul>
-<li><strong>电可擦除和编程</strong>：EEPROM 可以通过 电信号 进行 擦除和重写， 无需紫外线照射， 也无需从电路板上取下芯片。</li>
-<li><strong>字节或块擦除</strong>：EEPROM 可以 按字节 (Byte) 或 按块 (Block) 进行 擦除， 灵活性更高。</li>
-<li><strong>应用广泛</strong>：EEPROM 常用于 存储 BIOS 设置、 固件升级 等。 Flash 存储器 (闪存) 是 EEPROM 的一种发展，具有 更高的擦除和写入速度， 更大的存储容量。</li>
+<li><strong>电可擦除和编程</strong>：EEPROM 可以通过电信号进行擦除和重写，无需紫外线照射，也无需从电路板上取下芯片。</li>
+<li><strong>字节或块擦除</strong>：EEPROM 可以按字节 (Byte) 或按块 (Block) 进行擦除，灵活性更高。</li>
+<li><strong>应用广泛</strong>：EEPROM 常用于存储 BIOS 设置、固件升级等.Flash 存储器 (闪存) 是 EEPROM 的一种发展，具有更高的擦除和写入速度，更大的存储容量。</li>
 </ul>
 </li>
 </ul>
 <p><strong>2716 EPROM 引脚图</strong></p>
 <p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/3d8e3447fba6a95471b3aa70d7ae5a43973322ec73840b34cf02096c425c8801/68747470733a2f2f73322e6c6f6c692e6e65742f323032352f30322f30362f5553353666637031427969496277502e706e67"><img src="https://camo.githubusercontent.com/3d8e3447fba6a95471b3aa70d7ae5a43973322ec73840b34cf02096c425c8801/68747470733a2f2f73322e6c6f6c692e6e65742f323032352f30322f30362f5553353666637031427969496277502e706e67" alt="img" data-canonical-src="https://s2.loli.net/2025/02/06/US56fcp1ByiIbwP.png" style="max-width: 100%;"></a></p>
 <h4>ROM 组合 (或与其他类型存储器组合)</h4>
-<p>ROM 芯片 (或 其他类型的存储器芯片) 可以通过 芯片选择 (CS, Chip Select) 信号线 和 多路复用器 (Demultiplexer) 组合 在 同一内存空间 中。</p>
+<p>ROM 芯片 (或其他类型的存储器芯片) 可以通过芯片选择 (CS, Chip Select) 信号线和多路复用器 (Demultiplexer) 组合在同一内存空间中。</p>
 <ul>
-<li><strong>地址解码</strong>：多路复用器 根据 高位地址线 译码 产生 不同的 CS 信号。</li>
-<li><strong>芯片选择</strong>：每个 ROM 芯片 的 CS 引脚 连接到 多路复用器 的 不同输出端。</li>
-<li><strong>内存扩展</strong>：通过 控制 CS 信号， 可以 选择访问特定的 ROM 芯片，从而 扩展内存空间。</li>
+<li><strong>地址解码</strong>：多路复用器根据高位地址线译码产生不同的 CS 信号。</li>
+<li><strong>芯片选择</strong>：每个 ROM 芯片的 CS 引脚连接到多路复用器的不同输出端。</li>
+<li><strong>内存扩展</strong>：通过控制 CS 信号，可以选择访问特定的 ROM 芯片，从而扩展内存空间。</li>
 </ul>
 <p><strong>ROM 组合应用示意图</strong></p>
 <p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/947e049cae86ea6ca36355a9240af7e0f09b2a95580beb972c75f26baa1f7dcb/68747470733a2f2f73322e6c6f6c692e6e65742f323032352f30322f30362f53565068334c544b6932514d4a52422e706e67"><img src="https://camo.githubusercontent.com/947e049cae86ea6ca36355a9240af7e0f09b2a95580beb972c75f26baa1f7dcb/68747470733a2f2f73322e6c6f6c692e6e65742f323032352f30322f30362f53565068334c544b6932514d4a52422e706e67" alt="img" data-canonical-src="https://s2.loli.net/2025/02/06/SVPh3LTKi2QMJRB.png" style="max-width: 100%;"></a></p>
 <h3>虚拟内存 (Virtual Memory)</h3>
-<h4>虚拟内存的概念与作用</h4>
-<p><strong>虚拟内存 (Virtual Memory)</strong> 是一种 内存管理技术， 将 磁盘 (硬盘) 的一部分 作为 内存 的扩展 来使用， 使得程序可以 访问比实际物理内存更大的地址空间。</p>
+<p><a href="https://www.bilibili.com/video/BV1Ea411s7YT" rel="nofollow">【CSAPP-深入理解计算机系统】9-1. 虚拟内存</a></p>
+<h4>虚拟内存的概念</h4>
+<p>**虚拟内存 (Virtual Memory)**是一种内存管理技术，将磁盘 (硬盘) 的一部分作为内存的扩展来使用，使得程序可以访问比实际物理内存更大的地址空间。</p>
 <ul>
-<li><strong>虚拟地址空间 (Virtual Address Space)</strong>： CPU 寻址 的 地址空间 称为 虚拟地址空间。 在 典型的 PC 系统 中， 虚拟地址空间 可以是 64GB 甚至更大。</li>
-<li><strong>物理内存 (Physical Memory)</strong>： 实际安装在计算机上的 RAM 容量 称为 物理内存 (或 主内存)。 例如 4GB RAM。</li>
-<li><strong>地址映射</strong>： 虚拟内存系统 负责 将 虚拟地址 映射到 物理地址。 并非所有虚拟地址 都 映射到物理内存。</li>
-<li><strong>页面交换 (Paging)</strong>： 虚拟内存系统 将 虚拟地址空间 和 物理内存 都 划分成固定大小的块， 称为 页面 (Page)。 数据 以 页面为单位 在 物理内存 和 外部存储器 (硬盘) 之间 交换。</li>
+<li>**虚拟地址空间 (Virtual Address Space) **：CPU 寻址的地址空间称为虚拟地址空间.在典型的 PC 系统中，虚拟地址空间可以是 64GB 甚至更大。</li>
+<li>**物理内存 (Physical Memory) **：实际安装在计算机上的 RAM 容量称为物理内存 (或主内存) .例如 4GB RAM。</li>
+<li><strong>地址映射</strong>：虚拟内存系统负责将虚拟地址映射到物理地址.并非所有虚拟地址都映射到物理内存。</li>
+<li>**页面交换 (Paging) **：虚拟内存系统将虚拟地址空间和物理内存都划分成固定大小的块，称为页面 (Page).数据以页面为单位在物理内存和外部存储器 (硬盘) 之间交换。</li>
 </ul>
 <h4>虚拟内存的工作原理</h4>
 <ul>
-<li><strong>外存扩展</strong>：虚拟内存系统 使用 外部存储器 (硬盘) 作为 主内存的扩展。 不常用的数据页面 被 换出 (Swap Out) 到 硬盘 上， 释放物理内存空间。</li>
-<li><strong>按需调入</strong>： 当 CPU 需要访问 不在物理内存中的数据页面 (称为 缺页 fault, Page Fault) 时， 操作系统 负责将 所需页面 从 硬盘 调入 (Swap In) 物理内存。 如果 物理内存已满， 则需要 替换 物理内存中 暂时不用的页面 到 硬盘 上， 腾出空间 加载新页面。</li>
-<li><strong>缓存相似性</strong>： 虚拟内存 的 页面交换机制 与 缓存的工作方式 类似。 物理内存 可以看作是 硬盘数据 的 缓存。</li>
+<li><strong>外存扩展</strong>：虚拟内存系统使用外部存储器 (硬盘) 作为主内存的扩展.不常用的数据页面被换出 (Swap Out) 到硬盘上，释放物理内存空间。</li>
+<li><strong>按需调入</strong>：当 CPU 需要访问不在物理内存中的数据页面 (称为缺页 fault, Page Fault) 时，操作系统负责将所需页面从硬盘调入 (Swap In) 物理内存.如果物理内存已满，则需要替换物理内存中暂时不用的页面到硬盘上，腾出空间加载新页面。</li>
+<li><strong>缓存相似性</strong>：虚拟内存的页面交换机制与缓存的工作方式类似.物理内存可以看作是硬盘数据的缓存。</li>
 </ul>
 <h4>虚拟内存的性能</h4>
 <ul>
-<li><strong>性能影响</strong>：虚拟内存的性能 严重依赖于 页面交换的效率。 如果程序 频繁发生缺页 fault， 导致 频繁的硬盘读写操作， 系统性能会 大幅下降， 这被称为 “磁盘抖动 (Disk Thrashing)”。 虚拟内存的 未命中惩罚 (Miss Penalty) 非常高， 可能高达 100,000 个 CPU 时钟周期。</li>
-<li><strong>内存不足与虚拟内存</strong>： 在 Windows 等操作系统 中， 如果 同时打开多个应用程序， 容易 耗尽物理内存。 此时， 操作系统 会 开始使用虚拟内存。 系统性能 会 显著降低， 运行速度 变得非常缓慢。</li>
-</ul></div>
+<li><strong>性能影响</strong>：虚拟内存的性能严重依赖于页面交换的效率.如果程序频繁发生缺页 fault，导致频繁的硬盘读写操作，系统性能会大幅下降，这被称为“磁盘抖动 (Disk Thrashing)”。拟内存的未命中惩罚 (Miss Penalty) 非常高，可能高达 100,000 个 CPU 时钟周期。</li>
+<li><strong>内存不足与虚拟内存</strong>：在 Windows 等操作系统中，如果同时打开多个应用程序，容易耗尽物理内存.此时，操作系统会开始使用虚拟内存。系统性能会显著降低，运行速度变得非常缓慢。</li>
+</ul>
+<hr>
+<h2>Lecture 13 A: 磁盘与CD-ROM</h2>
+<h3>机械硬盘的结构</h3>
+<ul>
+<li>
+<p><strong>盘片 (Platters):</strong></p>
+<ul>
+<li>
+<p>这是存储数据的载体，通常由铝合金或玻璃制成，表面涂有磁性材料。</p>
+</li>
+<li>
+<p>一个硬盘中可能包含多个盘片，增加存储容量。</p>
+</li>
+<li>
+<p>盘片正反两面都可以用来存储数据。</p>
+</li>
+<li>
+<p>盘片被格式化成磁道 (Tracks) 和扇区 (Sectors)。</p>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>磁头 (Heads):</strong></p>
+<ul>
+<li>
+<p>用于读取和写入盘片上的数据。</p>
+</li>
+<li>
+<p>每个盘片的每个面都有一个对应的磁头。</p>
+</li>
+<li>
+<p>磁头通过电磁感应原理，改变盘片表面的磁性方向来写入数据，或者感应磁性方向来读取数据。</p>
+</li>
+<li>
+<p>磁头悬浮在盘片表面上方极小的距离 (几纳米) ，高速旋转时不会直接接触盘片，依靠气垫效应 (air bearing) 来维持。</p>
+</li>
+</ul>
+</li>
+</ul>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/20193ceb0c7b96b303510a57daf19261765c226dbc35443fdc67d82996e42525/68747470733a2f2f73322e6c6f6c692e6e65742f323032352f30322f30372f5557726d76694d4e7468584464426f2e706e67"><img src="https://camo.githubusercontent.com/20193ceb0c7b96b303510a57daf19261765c226dbc35443fdc67d82996e42525/68747470733a2f2f73322e6c6f6c692e6e65742f323032352f30322f30372f5557726d76694d4e7468584464426f2e706e67" alt="img" data-canonical-src="https://s2.loli.net/2025/02/07/UWrmviMNthXDdBo.png" style="max-width: 100%;"></a></p>
+<p>在每一个盘片上有多个磁道，每个磁道可以分为多个扇区，通常情况下，每个扇区可以存储 512 byte 的数据</p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/fd88c66b5bf79a21812d5a26048edd191448393f2a71488f53438bdb9666ddc1/68747470733a2f2f73322e6c6f6c692e6e65742f323032352f30322f30372f71564f706c356448654b75595451582e706e67"><img src="https://camo.githubusercontent.com/fd88c66b5bf79a21812d5a26048edd191448393f2a71488f53438bdb9666ddc1/68747470733a2f2f73322e6c6f6c692e6e65742f323032352f30322f30372f71564f706c356448654b75595451582e706e67" alt="img" data-canonical-src="https://s2.loli.net/2025/02/07/qVOpl5dHeKuYTQX.png" style="max-width: 100%;"></a></p>
+<h3>编码方式</h3>
+<p><strong>两个事实：</strong></p>
+<ul>
+<li>磁记录介质通过改变磁极方向 (即磁通转换) 来存储数据。 磁通转换越频繁，单位面积内能存储的信息量就越少。</li>
+<li>限制连续 0 的数量可以优化磁记录过程。 长时间没有磁通转换可能会导致时钟同步困难和信号衰减。 通过控制游程长度，可以避免这些问题，并提高存储密度。</li>
+</ul>
+<h4>FM 编码</h4>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/b62a927b43b5ef7b9e38577c0de52ca6dea4321fea3f8c0a23536dc656e9b0b8/68747470733a2f2f73322e6c6f6c692e6e65742f323032352f30322f30372f6b457831593979577252465a5875442e706e67"><img src="https://camo.githubusercontent.com/b62a927b43b5ef7b9e38577c0de52ca6dea4321fea3f8c0a23536dc656e9b0b8/68747470733a2f2f73322e6c6f6c692e6e65742f323032352f30322f30372f6b457831593979577252465a5875442e706e67" alt="img" data-canonical-src="https://s2.loli.net/2025/02/07/kEx1Y9yWrRFZXuD.png" style="max-width: 100%;"></a></p>
+<p>在 FM 编码中，每个位周期 (Bit Cell) 都包含一个时钟转换 (Clock Transition) ，位于位周期的起始位置。</p>
+<ul>
+<li><strong>0</strong> 在位周期中间<strong>没有</strong>数据转换。</li>
+<li><strong>1</strong> 在位周期中间<strong>有</strong>数据转换。</li>
+</ul>
+<h4>锁相环</h4>
+<p>一个能从数据信号中提取时钟信号的装置</p>
+<h4>MFM 编码</h4>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/923722782953a1c673104b8fe52034ca44f269daed9a4044782bbfdb71aebd76/68747470733a2f2f73322e6c6f6c692e6e65742f323032352f30322f30372f763957435545696b787a51726d4a362e706e67"><img src="https://camo.githubusercontent.com/923722782953a1c673104b8fe52034ca44f269daed9a4044782bbfdb71aebd76/68747470733a2f2f73322e6c6f6c692e6e65742f323032352f30322f30372f763957435545696b787a51726d4a362e706e67" alt="img" data-canonical-src="https://s2.loli.net/2025/02/07/v9WCUEikxzQrmJ6.png" style="max-width: 100%;"></a></p>
+<p>MFM 编码减少了磁通转换的次数，这意味着在单位时间内需要写入的磁通变化更少。这降低了对磁记录系统的带宽要求，并减少了因频繁转换而引起的信号失真。</p>
+<ul>
+<li>
+<p><strong>0</strong> 如果前一位是 0，则在位周期开始处进行转换；如果前一位是 1，则不进行转换。</p>
+</li>
+<li>
+<p><strong>1</strong> 在位周期开始处进行转换。</p>
+</li>
+</ul>
+<h4>RLL 编码</h4>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/1d7eeff763094004cb56fe79100548ce3889648e634f26c12f015b50fa2336af/68747470733a2f2f73322e6c6f6c692e6e65742f323032352f30322f30372f7275676c5136355a44565945326e612e706e67"><img src="https://camo.githubusercontent.com/1d7eeff763094004cb56fe79100548ce3889648e634f26c12f015b50fa2336af/68747470733a2f2f73322e6c6f6c692e6e65742f323032352f30322f30372f7275676c5136355a44565945326e612e706e67" alt="img" data-canonical-src="https://s2.loli.net/2025/02/07/ruglQ65ZDVYE2na.png" style="max-width: 100%;"></a></p>
+<p>RLL 编码通过限制连续的 0 (零) 的数量来优化磁记录过程。说是比 MFM 编码好 40%</p>
+<h3>性能参数</h3>
+<p><strong>访问时间 (Access Time):</strong> 从请求数据到接收到数据之间的时间，通常为 20 mS。</p>
+<p><strong>寻道时间 (Seek Time):</strong> 磁头移动到特定位置所需的时间，通常为 12 mS。</p>
+<p><strong>延迟时间 (Latency Time):</strong>  例如锁相环 (PLL) 等开始从磁道读取数据所需的时间，为 8 mS。</p>
+<p><strong>传输速率 (Transfer Rate):</strong> 从磁盘以持续速率读取数据的速率。10 Mbits/Sec (硬盘 HD)，1 Mbit/sec (软盘 Floppy)。</p>
+<h3>磁道/扇区格式</h3>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/1230f30cb2f9a97726a6e0db9a8560d59e56965e70f2eefcf62aac903277182f/68747470733a2f2f73322e6c6f6c692e6e65742f323032352f30322f30372f44574f6c676b5375504e794c4169632e706e67"><img src="https://camo.githubusercontent.com/1230f30cb2f9a97726a6e0db9a8560d59e56965e70f2eefcf62aac903277182f/68747470733a2f2f73322e6c6f6c692e6e65742f323032352f30322f30372f44574f6c676b5375504e794c4169632e706e67" alt="img" data-canonical-src="https://s2.loli.net/2025/02/07/DWOlgkSuPNyLAic.png" style="max-width: 100%;"></a></p>
+<p>磁道，扇区上面会存储一些控制信息</p>
+<h3>磁盘控制器</h3>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/7620fecdb846992b3df2ca47cf071ed2b706eef22b70f8690d3204dbf6ac5688/68747470733a2f2f73322e6c6f6c692e6e65742f323032352f30322f30372f6b3432466576706a6144505a6748372e706e67"><img src="https://camo.githubusercontent.com/7620fecdb846992b3df2ca47cf071ed2b706eef22b70f8690d3204dbf6ac5688/68747470733a2f2f73322e6c6f6c692e6e65742f323032352f30322f30372f6b3432466576706a6144505a6748372e706e67" alt="img" data-canonical-src="https://s2.loli.net/2025/02/07/k42FevpjaDPZgH7.png" style="max-width: 100%;"></a></p>
+<p>磁盘有一个自己的控制器来响应 CPU 的 I/O 操作，并且维护磁盘逻辑块号和物理磁盘扇区的关系</p>
+<h3>差错检测与纠正</h3>
+<p>最简单的就是直接记录 <strong>校验和</strong>，复杂一点就上 <strong>CRC</strong> 或者 <strong>汉明码</strong></p>
+<h3>磁盘格式</h3>
+<ol>
+<li>磁盘引导</li>
+<li>文件分配表</li>
+<li>文件分配表副本</li>
+<li>根目录</li>
+<li>数据区</li>
+</ol>
+<h3>FAT/簇</h3>
+<p>FAT 是一种简单且广泛使用的文件系统，簇是 FAT 文件系统用于存储数据的最小单位。 一个簇由一个或多个连续的扇区组成。其硬盘大小限制是 <strong>2GB</strong>，簇大小限制是 <strong>32,768 bytes</strong>，至少需要一个簇来存储文件，所以假如簇很大却存了一个很小的文件，会导致浪费</p>
+<p>FAT 32 是 FAT 16 的升级，最大支持 268435456 个簇，适用于较大的硬盘</p>
+<p>FAT 32 有回收站机制</p>
+<h3>根目录</h3>
+<p><strong>字节编号 (Byte Number)</strong></p>
+<ul>
+<li>0-7:   文件名 (Filename)</li>
+<li>8-10:  扩展名 (Extension)</li>
+<li>11:   文件属性 (File Attribute), 1 读取 (Read), 2 隐藏 (Hidden), 4 系统文件 (System file), ....</li>
+<li>12-21:  保留 (Reserved)</li>
+<li>22-23:  文件创建时间 (Time file was created)</li>
+<li>24-25:  文件创建日期 (Date the file was created)</li>
+<li>26-27:  起始簇号 (Starting cluster number)</li>
+<li>28-31:  文件大小 (字节)  (File size in bytes)</li>
+</ul>
+<p>根目录标识特定文件的 FAT 中的第一个簇，FAT 的第一个簇入口将包含第二个簇的簇号。此过程会持续进行，直到链接足够的簇以包含文件大小。 (很像链表)</p>
+<p>长这样：</p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/7b6e71ec0464bd96df3afd04360b16396bc010e481eb7cfcd6315be46653dc21/68747470733a2f2f73322e6c6f6c692e6e65742f323032352f30322f30372f6163624734334b554c66535a5954562e706e67"><img src="https://camo.githubusercontent.com/7b6e71ec0464bd96df3afd04360b16396bc010e481eb7cfcd6315be46653dc21/68747470733a2f2f73322e6c6f6c692e6e65742f323032352f30322f30372f6163624734334b554c66535a5954562e706e67" alt="img" data-canonical-src="https://s2.loli.net/2025/02/07/acbG43KULfSZYTV.png" style="max-width: 100%;"></a></p>
+<h3>连接方式</h3>
+<p><strong>IDE (Integrated Disk Electronics)</strong></p>
+<ul>
+<li>增强型 IDE (EIDE，也称为 ATA-2) 支持更大的硬盘，并允许连接四个设备，包括磁盘、磁带和 CD-ROM。</li>
+<li>传统的 IDE 支持两个容量小于或等于 528MB 的硬盘。</li>
+</ul>
+<p><strong>SCSI (Small Computer Systems Interface)</strong></p>
+<ul>
+<li>SCSI 使用 50 芯电缆，被 Macintosh 计算机、RISC 工作站、小型机甚至某些大型机使用，也可用于 PC。</li>
+<li>SCSI 允许将多个设备链接在一起 (<del>菊花链</del>) ，且在硬盘备份到磁带机时，微处理器无需运行。SCSI 电缆需要端接 (terminating)。</li>
+</ul>
+<h3>RAID 磁盘阵列</h3>
+<ul>
+<li>RAID Level 0: 数据条带化 (Striping) 跨越四个磁盘，提高速度，但不提供数据完整性改进 (没有冗余)。</li>
+<li>RAID Level 1: 磁盘镜像 (Mirroring)，没有条带化，在一个磁盘上维护另一个磁盘的副本。</li>
+<li>RAID Level 3: 条带化，带有一个额外的专用奇偶校验磁盘 (parity disk)。 只有 20% 的磁盘用于存储冗余信息。</li>
+<li>RAID Level 5: 数据和奇偶校验条带化跨越 5 个磁盘。</li>
+<li>RAID Level 10: 数据条带化跨越两个磁盘，磁盘进行镜像。</li>
+</ul>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/ec496d310388ec05fd7a046c6719ff198c482d31d7bc64a76d2f61a7399b7206/68747470733a2f2f73322e6c6f6c692e6e65742f323032352f30322f30372f46576c724e6549516d3975366932562e706e67"><img src="https://camo.githubusercontent.com/ec496d310388ec05fd7a046c6719ff198c482d31d7bc64a76d2f61a7399b7206/68747470733a2f2f73322e6c6f6c692e6e65742f323032352f30322f30372f46576c724e6549516d3975366932562e706e67" alt="img" data-canonical-src="https://s2.loli.net/2025/02/07/FWlrNeIQm9u6i2V.png" style="max-width: 100%;"></a></p>
+<h3>光盘</h3>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/540b574f33226e51e07cec4cdb76a4709dee7d4976e88b4c972a82768af2e0c6/68747470733a2f2f73322e6c6f6c692e6e65742f323032352f30322f30372f38456c5533784e5a543941564a677a2e706e67"><img src="https://camo.githubusercontent.com/540b574f33226e51e07cec4cdb76a4709dee7d4976e88b4c972a82768af2e0c6/68747470733a2f2f73322e6c6f6c692e6e65742f323032352f30322f30372f38456c5533784e5a543941564a677a2e706e67" alt="img" data-canonical-src="https://s2.loli.net/2025/02/07/8ElU3xNZT9AVJgz.png" style="max-width: 100%;"></a></p>
+<p>单层DVD的容量为4.7GB，CD的容量为680MB，而双面双层DVD的容量可达17GB，CD既可以通过母盘复制/压制进行批量生产，也可以使用CD-R或CD-RW技术进行单独创建。</p>
+<hr></div>
 <div style="font-size:small;margin-top:8px;float:right;"></div>
 
 <button class="btn btn-block" type="button" onclick="openComments()" id="cmButton">评论</button>
