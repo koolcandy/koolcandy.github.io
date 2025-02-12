@@ -1,7 +1,3 @@
-# CS253 Architectures II
-
----
-
 ## Lecture 1: CPU
 
 ### 计算机架构
