@@ -141,7 +141,7 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 <div class="markdown-alert markdown-alert-note"><p class="markdown-alert-title"><svg class="octicon octicon-info mr-2" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8Zm8-6.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13ZM6.5 7.75A.75.75 0 0 1 7.25 7h1a.75.75 0 0 1 .75.75v2.75h.25a.75.75 0 0 1 0 1.5h-2a.75.75 0 0 1 0-1.5h.25v-2h-.25a.75.75 0 0 1-.75-.75ZM8 6a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z"></path></svg>Note</p>
 <p>8086 CPU的指令周期通常占用4个时钟周期，因此1GHz的处理器每秒约可执行2.5亿条指令。</p>
 </div>
-<h3>ALU: 算术逻辑单元</h3>
+<h4>ALU: 算术逻辑单元</h4>
 <p>8086的ALU支持以下基本操作：</p>
 <ul>
 <li><strong>算术运算</strong>：
@@ -641,10 +641,109 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 </tr>
 </tbody>
 </table></markdown-accessiblity-table>
+<h3>比较指令</h3>
+<p><code class="notranslate">CMP</code> 命令（Compare，比较）是 8086 汇编语言中的一个非常重要的指令。它用于 <strong>比较两个操作数的大小关系</strong>，但 <strong>不会修改任何操作数的值</strong>。 <code class="notranslate">CMP</code> 命令的 <strong>“结果”</strong> 不是直接返回一个数值，而是 <strong>设置 CPU 的标志寄存器 (Flags Register) 中的某些标志位</strong>。 这些标志位反映了比较的结果，然后可以被后续的条件跳转指令（如 <code class="notranslate">JE</code>, <code class="notranslate">JNE</code>, <code class="notranslate">JL</code>, <code class="notranslate">JG</code> 等）使用，以实现程序的分支控制。</p>
+<p><strong><code class="notranslate">CMP</code> 指令的基本格式:</strong></p>
+<div class="highlight highlight-source-assembly"><pre class="notranslate"><span class="pl-k">cmp</span><span class="pl-en"> destination</span><span class="pl-s1">,</span><span class="pl-en"> source</span></pre></div>
+<p><strong><code class="notranslate">CMP</code> 指令的操作:</strong></p>
+<p><code class="notranslate">CMP destination, source</code> 指令 <strong>在内部执行的操作是 <code class="notranslate">destination - source</code> (目的操作数减去源操作数)</strong>。  <strong>但是，减法的结果不会被存储到任何寄存器或内存位置，而是直接被丢弃。</strong>  <code class="notranslate">CMP</code> 指令的 <strong>唯一作用</strong> 就是根据这次减法运算的结果 <strong>设置标志寄存器中的标志位</strong>。</p>
+<p><strong><code class="notranslate">CMP</code> 指令影响的标志位 (Flags):</strong></p>
+<p><code class="notranslate">CMP</code> 指令主要影响以下几个标志位：</p>
+<ol>
+<li>
+<p><strong>零标志位 (Zero Flag, ZF)</strong>:</p>
+<ul>
+<li><strong>ZF = 1</strong>:  如果 <code class="notranslate">destination - source = 0</code>，即 <strong><code class="notranslate">destination</code> 等于 <code class="notranslate">source</code></strong>，则 ZF 被设置为 1。</li>
+<li><strong>ZF = 0</strong>:  如果 <code class="notranslate">destination - source ≠ 0</code>，即 <strong><code class="notranslate">destination</code> 不等于 <code class="notranslate">source</code></strong>，则 ZF 被设置为 0。</li>
+</ul>
+</li>
+<li>
+<p><strong>符号标志位 (Sign Flag, SF)</strong>:</p>
+<ul>
+<li><strong>SF = 1</strong>:  如果 <code class="notranslate">destination - source</code> 的结果为 <strong>负数</strong> (结果的最高位为 1，在有符号数表示中)，则 SF 被设置为 1。 这通常意味着在 <strong>有符号数比较</strong> 中，<code class="notranslate">destination</code> 小于 <code class="notranslate">source</code>。</li>
+<li><strong>SF = 0</strong>:  如果 <code class="notranslate">destination - source</code> 的结果为 <strong>非负数</strong> (结果的最高位为 0)，则 SF 被设置为 0。 这通常意味着在 <strong>有符号数比较</strong> 中，<code class="notranslate">destination</code> 大于等于 <code class="notranslate">source</code>。</li>
+</ul>
+</li>
+<li>
+<p><strong>进位标志位 (Carry Flag, CF)</strong>:</p>
+<ul>
+<li><strong>CF = 1</strong>:  如果在 <strong>无符号数减法</strong> 中，发生了 <strong>借位</strong> (borrow)，则 CF 被设置为 1。 这通常意味着在 <strong>无符号数比较</strong> 中，<code class="notranslate">destination</code> 小于 <code class="notranslate">source</code>。</li>
+<li><strong>CF = 0</strong>:  如果在 <strong>无符号数减法</strong> 中，没有发生借位，则 CF 被设置为 0。 这通常意味着在 <strong>无符号数比较</strong> 中，<code class="notranslate">destination</code> 大于等于 <code class="notranslate">source</code>。</li>
+</ul>
+</li>
+<li>
+<p><strong>溢出标志位 (Overflow Flag, OF)</strong>:</p>
+<ul>
+<li><strong>OF = 1</strong>:  如果在 <strong>有符号数减法</strong> 中，发生了 <strong>溢出</strong> (结果超出了有符号数的表示范围)，则 OF 被设置为 1。  溢出标志用于判断 <strong>有符号数运算结果是否溢出</strong>。  在比较有符号数大小时，OF 需要和 SF 一起考虑。</li>
+<li><strong>OF = 0</strong>:  如果在 <strong>有符号数减法</strong> 中，没有发生溢出，则 OF 被设置为 0。</li>
+</ul>
+</li>
+</ol>
+<p><strong>常用的条件跳转指令和 <code class="notranslate">CMP</code> 结果的关系:</strong></p>
+<markdown-accessiblity-table><table role="table">
+<thead>
+<tr>
+<th>条件跳转指令</th>
+<th>含义 (通常用于)</th>
+<th>检查的标志位</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code class="notranslate">JE</code> 或 <code class="notranslate">JZ</code></td>
+<td>等于 (Equal) 或 结果为零 (Zero)</td>
+<td>ZF = 1</td>
+</tr>
+<tr>
+<td><code class="notranslate">JNE</code> 或 <code class="notranslate">JNZ</code></td>
+<td>不等于 (Not Equal) 或 结果非零 (Not Zero)</td>
+<td>ZF = 0</td>
+</tr>
+<tr>
+<td><code class="notranslate">JG</code> 或 <code class="notranslate">JNLE</code></td>
+<td>大于 (Greater) (有符号数) 或 不小于等于 (Not Less or Equal)</td>
+<td>ZF = 0 且 SF = OF</td>
+</tr>
+<tr>
+<td><code class="notranslate">JGE</code> 或 <code class="notranslate">JNL</code></td>
+<td>大于等于 (Greater or Equal) (有符号数) 或 不小于 (Not Less)</td>
+<td>SF = OF</td>
+</tr>
+<tr>
+<td><code class="notranslate">JL</code> 或 <code class="notranslate">JNGE</code></td>
+<td>小于 (Less) (有符号数) 或 不大于等于 (Not Greater or Equal)</td>
+<td>SF ≠ OF</td>
+</tr>
+<tr>
+<td><code class="notranslate">JLE</code> 或 <code class="notranslate">JNG</code></td>
+<td>小于等于 (Less or Equal) (有符号数) 或 不大于 (Not Greater)</td>
+<td>ZF = 1 或 SF ≠ OF</td>
+</tr>
+<tr>
+<td><code class="notranslate">JA</code> 或 <code class="notranslate">JNBE</code></td>
+<td>大于 (Above) (无符号数) 或 不小于等于 (Not Below or Equal)</td>
+<td>CF = 0 且 ZF = 0</td>
+</tr>
+<tr>
+<td><code class="notranslate">JAE</code> 或 <code class="notranslate">JNB</code> 或 <code class="notranslate">JNC</code></td>
+<td>大于等于 (Above or Equal) (无符号数) 或 不小于 (Not Below) 或 无进位 (No Carry)</td>
+<td>CF = 0</td>
+</tr>
+<tr>
+<td><code class="notranslate">JB</code> 或 <code class="notranslate">JNAE</code> 或 <code class="notranslate">JC</code></td>
+<td>小于 (Below) (无符号数) 或 不大于等于 (Not Above or Equal) 或 进位 (Carry)</td>
+<td>CF = 1</td>
+</tr>
+<tr>
+<td><code class="notranslate">JBE</code> 或 <code class="notranslate">JNA</code></td>
+<td>小于等于 (Below or Equal) (无符号数) 或 不大于 (Not Above)</td>
+<td>CF = 1 或 ZF = 1</td>
+</tr>
+</tbody>
+</table></markdown-accessiblity-table>
 <h3>分支控制</h3>
 <p>条件跳转是短跳转, 操作数是一个字节, 允许向后跳转 -128 或向前跳转 +127</p>
 <p>无条件跳跃可以跳得更远, 可以直接地址跳转, 允许 +/-32K 的跳转, 甚至允许跳转到AX寄存器！</p>
-<h4>常用指令</h4>
 <markdown-accessiblity-table><table role="table">
 <thead>
 <tr>
@@ -864,7 +963,7 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 &amp;C_T = 1.8 \times 10^{10} \text{ Clock cycles}<br>
 \end{flalign*}$</p>
 <p>实际上程序只花了15s来运行, 计算出来的时钟频率是1200MHz, 是目标机器的时钟频率(300MHz)的4倍,原因是现代处理器使用 <strong>指令并行</strong> 技术</p>
-<h3>打印数字的方法</h3>
+<h3>打印数字</h3>
 <p>基于栈的实现:</p>
 <div class="highlight highlight-source-assembly"><pre class="notranslate"><span class="pl-en">.MODEL medium</span>
 <span class="pl-en">.STACK</span>
@@ -1576,6 +1675,11 @@ $(-1)^0 \times 1.01_2 \times 2^{-1} = 1.01_2 \times 2^{-1} = 0.101_2 = 0.625_{10
 <div class="markdown-alert markdown-alert-note"><p class="markdown-alert-title"><svg class="octicon octicon-info mr-2" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8Zm8-6.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13ZM6.5 7.75A.75.75 0 0 1 7.25 7h1a.75.75 0 0 1 .75.75v2.75h.25a.75.75 0 0 1 0 1.5h-2a.75.75 0 0 1 0-1.5h.25v-2h-.25a.75.75 0 0 1-.75-.75ZM8 6a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z"></path></svg>Note</p>
 <p>这里MOSFET讲的很抽象，参考<a href="https://www.bilibili.com/video/BV1nL411x7jH/" rel="nofollow">【硬核科普】带你认识CPU第00期——什么是MOSFET</a></p>
 </div>
+<h3>区分</h3>
+<ul>
+<li><strong>N 型 (N-channel) MOSFET:</strong>  载流子是<strong>电子 (Electrons)</strong> - 记住 <strong>N 代表 Negative (负)</strong>，电子带负电，需要 <strong>正栅极电压 (Positive Gate Voltage)</strong> 才能导通。</li>
+<li><strong>N 型 (N-channel) MOSFET:</strong>  载流子是<strong>空穴 (Holes)</strong> - 记住 <strong>P 代表 Positive (正)</strong>，空穴可以被认为是带正电的，需要 <strong>负栅极电压 (Negative Gate Voltage)</strong> 才能导通。</li>
+</ul>
 <h3>互补金属氧化物半导体 (CMOS)</h3>
 <p><strong>互补金属氧化物半导体 (Complementary Metal-Oxide-Semiconductor, CMOS)</strong> 电路是现代数字电路中最主流的电路形式。CMOS 电路利用 <strong>PMOS (P 沟道 MOSFET)</strong> 和 <strong>NMOS (N 沟道 MOSFET)</strong> 的互补特性，实现低功耗、高性能的逻辑功能。</p>
 <h4>CMOS 反相器的工作原理</h4>
@@ -1805,7 +1909,7 @@ $(-1)^0 \times 1.01_2 \times 2^{-1} = 1.01_2 \times 2^{-1} = 0.101_2 = 0.625_{10
 <ul>
 <li><strong>硬件中断 (Hardware Interrupt)</strong>：
 <ul>
-<li>由<strong>外部硬件设备</strong>通过<strong>处理器的引脚</strong>发出中断请求信号。
+<li>由外部硬件设备通过<strong>处理器的引脚</strong>发出中断请求信号。
 <ul>
 <li><strong>INTR (Interrupt Request)</strong> 引脚：<strong>可屏蔽中断</strong>，可以通过设置<strong>中断标志位 (IF)</strong> 来<strong>屏蔽</strong>或<strong>使能</strong>。</li>
 <li><strong>NMI (Non-Maskable Interrupt)</strong> 引脚：<strong>非可屏蔽中断</strong>，<strong>优先级高于 INTR</strong>，通常用于处理<strong>更紧急的硬件错误</strong>，如电源故障或内存奇偶校验错误。</li>
@@ -1867,10 +1971,10 @@ $(-1)^0 \times 1.01_2 \times 2^{-1} = 1.01_2 \times 2^{-1} = 0.101_2 = 0.625_{10
 <p><strong>中断向量表 (Interrupt Vector Table, IVT)</strong> 是计算机系统中<strong>管理和处理中断</strong> 的核心数据结构。</p>
 <ul>
 <li>
-<p><strong>作用</strong>：<strong>存储中断服务例程 (ISR) 的入口地址</strong>。当<strong>中断发生</strong>时，<strong>CPU</strong> 会根据<strong>中断号</strong> 在 <strong>中断向量表</strong> 中<strong>查找</strong> 相应的 <strong>入口地址</strong>，然后 <strong>跳转到该地址</strong> 执行 <strong>中断处理程序</strong>。</p>
+<p><strong>作用</strong>：<strong>存储中断服务例程 (ISR) 的入口地址</strong>。当<strong>中断发生</strong>时，CPU会根据<strong>中断号</strong> 在 <strong>中断向量表</strong> 中查找相应的入口地址，然后<strong>跳转到该地址执行中断处理程序</strong>。</p>
 </li>
 <li>
-<p><strong>存储位置</strong>：<strong>中断向量表</strong> 通常位于 <strong>RAM (随机访问存储器)</strong> 的 <strong>起始地址</strong> 区域，即 <strong>前 1024 字节</strong>  (地址范围：<strong>0000:0000 到 0000:03FF</strong>) 。</p>
+<p><strong>存储位置</strong>：<strong>中断向量表</strong> 通常位于RAM (随机访问存储器的起始地址区域，即 <strong>前 1024 字节</strong>  (地址范围：<strong>0000:0000 到 0000:03FF</strong>) 。</p>
 </li>
 <li>
 <p><strong>条目结构</strong>：<strong>每个中断向量</strong> 在中断向量表中占用 <strong>4 个字节</strong>。</p>
@@ -1880,17 +1984,36 @@ $(-1)^0 \times 1.01_2 \times 2^{-1} = 1.01_2 \times 2^{-1} = 0.101_2 = 0.625_{10
 </ul>
 </li>
 <li>
-<p><strong>地址计算</strong>：对于给定的<strong>中断号 <code class="notranslate">n</code></strong>，其在中断向量表中的起始地址可以通过以下公式计算：</p>
+<p><strong>地址计算</strong>：对于给定的中断号 <code class="notranslate">n</code>，其在中断向量表中的起始地址可以通过以下公式计算：</p>
 <p><code class="notranslate">中断向量地址 = 中断号 * 4</code></p>
-<p>例如，假设 <strong>中断号为 <code class="notranslate">0x21</code> (十进制 33)</strong>：</p>
+<p>例如，假设 <strong>中断号为 <code class="notranslate">0x3</code></strong>：</p>
 <ul>
-<li><strong>中断向量表位置</strong>：<code class="notranslate">0x0000:0084</code> (<code class="notranslate">0x21 * 4 = 0x84</code>)</li>
-<li><strong>入口地址解析</strong>：如果 <code class="notranslate">0x0084</code> 处存储的值为 <code class="notranslate">0x1234:0x5678</code>，则表示 <strong>中断处理程序的入口地址</strong> 为 <strong>代码段 <code class="notranslate">0x1234</code>，偏移地址 <code class="notranslate">0x5678</code></strong>。CPU 将跳转到 <strong>物理地址 <code class="notranslate">0x1234 * 16 + 0x5678</code></strong> 处开始执行 ISR 代码。</li>
+<li><strong>中断向量表位置</strong>：<code class="notranslate">0x0C:0x0F</code></li>
+<li><strong>入口地址解析</strong>：例如 <code class="notranslate">0x0C:0x0F</code> 处存储的值为 <code class="notranslate">0x0070:0x06F4</code>，则表示 <strong>中断处理程序的入口地址</strong> 为 代码段 <code class="notranslate">0x0070</code>，偏移地址 <code class="notranslate">0x06F4</code>。CPU 将跳转到 <strong>物理地址 <code class="notranslate">0x0070 &lt;&lt; 4 + 0x06F4</code></strong> 处开始执行 ISR 代码。</li>
 </ul>
 </li>
 </ul>
 <p><strong>中断向量表结构示意图</strong></p>
 <p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/a44aefbe7657393adf7f2d1266c595be72b66c41dca9d040d91610244952ad92/68747470733a2f2f73322e6c6f6c692e6e65742f323032352f30312f32302f5458594b3946356347554a493261312e6a7067"><img src="https://camo.githubusercontent.com/a44aefbe7657393adf7f2d1266c595be72b66c41dca9d040d91610244952ad92/68747470733a2f2f73322e6c6f6c692e6e65742f323032352f30312f32302f5458594b3946356347554a493261312e6a7067" alt="img" data-canonical-src="https://s2.loli.net/2025/01/20/TXYK9F5cGUJI2a1.jpg" style="max-width: 100%;"></a></p>
+<p><strong>重写中断向量表的例子</strong></p>
+<div class="highlight highlight-source-assembly"><pre class="notranslate"><span class="pl-c">    ; 保存原INT 8h中断向量</span>
+<span class="pl-en">    </span><span class="pl-k">cli</span><span class="pl-c">                 ; 禁用中断</span>
+<span class="pl-en">    </span><span class="pl-k">xor</span><span class="pl-en"> </span><span class="pl-v">ax</span><span class="pl-s1">,</span><span class="pl-en"> </span><span class="pl-v">ax</span>
+<span class="pl-en">    </span><span class="pl-k">mov</span><span class="pl-en"> </span><span class="pl-v">es</span><span class="pl-s1">,</span><span class="pl-en"> </span><span class="pl-v">ax</span><span class="pl-c">          ; ES=0000h（中断向量表段）</span>
+<span class="pl-en">    </span><span class="pl-k">mov</span><span class="pl-en"> </span><span class="pl-v">bx</span><span class="pl-s1">,</span><span class="pl-en"> </span><span class="pl-c1">8</span><span class="pl-s1">*</span><span class="pl-c1">4</span><span class="pl-c">         ; INT 8h向量地址（8h*4=20h）</span>
+
+<span class="pl-c">    ; 保存原处理程序地址</span>
+<span class="pl-en">    </span><span class="pl-k">mov</span><span class="pl-en"> </span><span class="pl-v">ax</span><span class="pl-s1">,</span><span class="pl-en"> </span><span class="pl-v">es</span><span class="pl-en">:</span><span class="pl-s1">[</span><span class="pl-v">bx</span><span class="pl-s1">]</span>
+<span class="pl-en">    </span><span class="pl-k">mov</span><span class="pl-en"> old_ip</span><span class="pl-s1">,</span><span class="pl-en"> </span><span class="pl-v">ax</span>
+<span class="pl-en">    </span><span class="pl-k">mov</span><span class="pl-en"> </span><span class="pl-v">ax</span><span class="pl-s1">,</span><span class="pl-en"> </span><span class="pl-v">es</span><span class="pl-en">:</span><span class="pl-s1">[</span><span class="pl-v">bx</span><span class="pl-s1">+</span><span class="pl-c1">2</span><span class="pl-s1">]</span>
+<span class="pl-en">    </span><span class="pl-k">mov</span><span class="pl-en"> old_cs</span><span class="pl-s1">,</span><span class="pl-en"> </span><span class="pl-v">ax</span>
+
+<span class="pl-c">    ; 设置新中断向量</span>
+<span class="pl-en">    </span><span class="pl-k">mov</span><span class="pl-en"> </span><span class="pl-v">ax</span><span class="pl-s1">,</span><span class="pl-en"> OFFSET isr</span>
+<span class="pl-en">    </span><span class="pl-k">mov</span><span class="pl-en"> </span><span class="pl-v">es</span><span class="pl-en">:</span><span class="pl-s1">[</span><span class="pl-v">bx</span><span class="pl-s1">],</span><span class="pl-en"> </span><span class="pl-v">ax</span>
+<span class="pl-en">    </span><span class="pl-k">mov</span><span class="pl-en"> </span><span class="pl-v">ax</span><span class="pl-s1">,</span><span class="pl-en"> </span><span class="pl-v">cs</span>
+<span class="pl-en">    </span><span class="pl-k">mov</span><span class="pl-en"> </span><span class="pl-v">es</span><span class="pl-en">:</span><span class="pl-s1">[</span><span class="pl-v">bx</span><span class="pl-s1">+</span><span class="pl-c1">2</span><span class="pl-s1">],</span><span class="pl-en"> </span><span class="pl-v">ax</span>
+<span class="pl-en">    </span><span class="pl-k">sti</span><span class="pl-c">                 ; 重新启用中断</span></pre></div>
 <h3>中断控制器 8259A</h3>
 <h4>8259A 的功能与连接</h4>
 <p><strong>8259A 可编程中断控制器 (Programmable Interrupt Controller, PIC)</strong> 是一种常用的<strong>硬件中断管理芯片</strong>，用于<strong>扩展 CPU 的中断处理能力</strong>，<strong>管理多个中断源</strong>，并实现<strong>中断优先级控制</strong>。</p>
@@ -2173,13 +2296,9 @@ $(-1)^0 \times 1.01_2 \times 2^{-1} = 1.01_2 \times 2^{-1} = 0.101_2 = 0.625_{10
 <h3>自定义中断服务例程 (ISR)</h3>
 <p><strong>自定义中断服务例程 (ISR)</strong> 是指<strong>程序员</strong> <strong>自己编写</strong> 的 <strong>中断处理程序</strong>，用于<strong>替换</strong> 系统默认的 <strong>ISR</strong>，以实现特定的中断处理逻辑。</p>
 <ul>
-<li><strong>应用场景</strong>：
-<ul>
 <li><strong>硬件驱动程序</strong>：为特定的硬件设备编写 ISR，处理设备发出的中断请求，实现设备的数据传输、控制等功能。</li>
 <li><strong>实时系统</strong>：在实时系统中，需要编写定制化的 ISR，以满足系统对中断响应时间、处理逻辑的特定需求。</li>
 <li><strong>系统功能扩展</strong>：通过自定义 ISR，可以扩展系统的功能，例如实现<strong>自定义的定时器</strong>、<strong>热键检测</strong> 等。</li>
-</ul>
-</li>
 </ul>
 <p><strong>自定义定时器 ISR 的示例</strong>：</p>
 <p><strong>INT 08H (定时器中断)</strong> 是 <strong>IBM PC 架构</strong> 中由 <strong>系统定时器</strong> 周期性触发的 <strong>硬件中断</strong>，<strong>默认情况下</strong>，<strong>INT 08H</strong> 的 <strong>ISR</strong>  通常用于<strong>更新系统时间</strong> 等操作。</p>
@@ -3408,18 +3527,18 @@ $(-1)^0 \times 1.01_2 \times 2^{-1} = 1.01_2 \times 2^{-1} = 0.101_2 = 0.625_{10
 <p>当然也可以这样，接一个上拉电阻，限制最大电流，这样就不会烧坏电路了，不过这种方案有速度慢和浪费电力等缺点</p>
 <p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/ad5c6a52bc59fd0f6bf26fd9109f2bd32f3aa9c86ad8255bf9e13710d89615a3/68747470733a2f2f73322e6c6f6c692e6e65742f323032352f30322f31322f6a62556753414537686371653164442e706e67"><img src="https://camo.githubusercontent.com/ad5c6a52bc59fd0f6bf26fd9109f2bd32f3aa9c86ad8255bf9e13710d89615a3/68747470733a2f2f73322e6c6f6c692e6e65742f323032352f30322f31322f6a62556753414537686371653164442e706e67" alt="img" data-canonical-src="https://s2.loli.net/2025/02/12/jbUgSAE7hcqe1dD.png" style="max-width: 100%;"></a></p>
 <h4>使用三态缓冲器</h4>
-<p>三态设备用另一根控制线来断开设备与总线的连接。当断开连接的时候，它的输入阻抗变得非常大，这样就能避免总线争用的情况了。</p>
+<p>三态设备用另一根控制线来断开设备与总线的连接。当断开连接的时候，它的输入阻抗 (High-impedance) 变得非常大，这样就能避免总线争用的情况了。</p>
 <p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/d78000112080e71ff661fb56ed2733557963bdf69542507ef657bbbebfb3c7bc/68747470733a2f2f73322e6c6f6c692e6e65742f323032352f30322f31322f416752626d57326f54474e567a61692e706e67"><img src="https://camo.githubusercontent.com/d78000112080e71ff661fb56ed2733557963bdf69542507ef657bbbebfb3c7bc/68747470733a2f2f73322e6c6f6c692e6e65742f323032352f30322f31322f416752626d57326f54474e567a61692e706e67" alt="img" data-canonical-src="https://s2.loli.net/2025/02/12/AgRbmW2oTGNVzai.png" style="max-width: 100%;"></a></p>
-<h3>仲裁</h3>
+<h3>仲裁 (Arbitration)</h3>
 <p>不同设备可能希望同时使用总线，这个时候需要总线仲裁用于避免总线上的冲突或竞争。</p>
-<h4>级联</h4>
+<h4>级联 (Cascading)</h4>
 <p>当设备想要使用总线时，它会拉高 Request 信号。 如果 Busy 信号为高电平，表示总线正忙，控制器将忽略新的 Request 信号。 反之，如果 Busy 信号为低电平，控制器则发送 Grant 信号给该设备，允许其使用总线。 收到 Grant 信号后，设备会立即拉高 Busy 信号，并将数据放到总线上传输。</p>
 <p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/2236858fc8daf6f4d1dad3f370e400a091e1bc6c76fd5675af98fc4a5632a143/68747470733a2f2f73322e6c6f6c692e6e65742f323032352f30322f31322f6c6231706a484c66457552775339692e706e67"><img src="https://camo.githubusercontent.com/2236858fc8daf6f4d1dad3f370e400a091e1bc6c76fd5675af98fc4a5632a143/68747470733a2f2f73322e6c6f6c692e6e65742f323032352f30322f31322f6c6231706a484c66457552775339692e706e67" alt="img" data-canonical-src="https://s2.loli.net/2025/02/12/lb1pjHLfEuRwS9i.png" style="max-width: 100%;"></a></p>
-<h4>轮询</h4>
+<h4>轮询 (Polling)</h4>
 <p>当设备想要使用总线时，它会拉高 Request 信号。 一旦收到请求，控制单元就开始挨个查看轮询线，看看哪个设备想要用总线。 找到了想用的，就把 Busy 信号拉高，然后把数据线连通，让这个设备用。</p>
 <p>通俗一点来就像点名一样：设备想用总线先举手 (发出请求)。然后控制器一个一个地问：“1 号，你要用总线吗？ 2 号，你要用总线吗？ 3 号，你要用总线吗？...”，一旦点到某个举手的设备，控制单元就说：“好，给你用！” 然后把 Busy 信号设为“忙碌”，并把数据线连通，让这个设备传输数据。“点名”的顺序决定了谁先被服务，也就是谁的优先级最高。 如果 1 号总是先被点到，那么 1 号的优先级就最高。</p>
 <p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/14074bcff487df4bbc756fd3227aa4ce910498a0ac5d03850535484fb8d19f38/68747470733a2f2f73322e6c6f6c692e6e65742f323032352f30322f31322f31386b784c4f615a71775442674a722e706e67"><img src="https://camo.githubusercontent.com/14074bcff487df4bbc756fd3227aa4ce910498a0ac5d03850535484fb8d19f38/68747470733a2f2f73322e6c6f6c692e6e65742f323032352f30322f31322f31386b784c4f615a71775442674a722e706e67" alt="img" data-canonical-src="https://s2.loli.net/2025/02/12/18kxLOaZqwTBgJr.png" style="max-width: 100%;"></a></p>
-<h4>独立请求</h4>
+<h4>独立请求 (Independent Request)</h4>
 <p>每个外设单元都有单独的请求线 (Request) 和授权线 (Grant)。优先级由总线控制单元来决定。不过缺点就是比较复杂，因为每个单元都需要单独的请求线和授权线。</p>
 <p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/5ad2deac1d4769704971b5267c8a2e9524433efc3a76a37bf370ea44447ba580/68747470733a2f2f73322e6c6f6c692e6e65742f323032352f30322f31322f72626c66746d5938617779647831702e706e67"><img src="https://camo.githubusercontent.com/5ad2deac1d4769704971b5267c8a2e9524433efc3a76a37bf370ea44447ba580/68747470733a2f2f73322e6c6f6c692e6e65742f323032352f30322f31322f72626c66746d5938617779647831702e706e67" alt="img" data-canonical-src="https://s2.loli.net/2025/02/12/rblftmY8awydx1p.png" style="max-width: 100%;"></a></p>
 <hr>
