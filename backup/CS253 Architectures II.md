@@ -2767,6 +2767,8 @@ call Print
 
 ![img](https://s2.loli.net/2025/02/11/AXubxoS3hysPz8F.png)
 
+![img](https://s2.loli.net/2025/02/21/6TzjAMvdmlybWiO.jpg)
+
 【奔腾の骚操作手册】
 
 - **分支预测**：我全都要！左手预取老实人指令，右手偷跑分支代码，赌狗の胜利
