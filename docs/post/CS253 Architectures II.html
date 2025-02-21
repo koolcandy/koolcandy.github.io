@@ -176,6 +176,7 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 <li><strong>右移</strong>：将二进制数的所有位向右移动一位，最高位填充符号位 (逻辑移位时填充0，算术移位时填充符号位) .</li>
 </ul>
 <h2><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/26c2b7623e17585d1dae26f60c7abc73050a0a9506b9418d0dfcc1ed5d2b3784/68747470733a2f2f73322e6c6f6c692e6e65742f323032352f30312f31332f6a7138444f4b37586c65566279366d2e706e67"><img src="https://camo.githubusercontent.com/26c2b7623e17585d1dae26f60c7abc73050a0a9506b9418d0dfcc1ed5d2b3784/68747470733a2f2f73322e6c6f6c692e6e65742f323032352f30312f31332f6a7138444f4b37586c65566279366d2e706e67" alt="img" data-canonical-src="https://s2.loli.net/2025/01/13/jq8DOK7XleVby6m.png" style="max-width: 100%;"></a></h2>
+<hr>
 <h2>Lecture 2: Assembly Language (Ⅰ)</h2>
 <h3>寄存器们</h3>
 <h4>通用寄存器</h4>
@@ -679,213 +680,26 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 </ul>
 </li>
 </ol>
-<p><strong>常用的条件跳转指令和 <code class="notranslate">CMP</code> 结果的关系:</strong></p>
-<markdown-accessiblity-table><table role="table">
-<thead>
-<tr>
-<th>条件跳转指令</th>
-<th>含义 (通常用于)</th>
-<th>检查的标志位</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code class="notranslate">JE</code> 或 <code class="notranslate">JZ</code></td>
-<td>等于 (Equal) 或 结果为零 (Zero)</td>
-<td>ZF = 1</td>
-</tr>
-<tr>
-<td><code class="notranslate">JNE</code> 或 <code class="notranslate">JNZ</code></td>
-<td>不等于 (Not Equal) 或 结果非零 (Not Zero)</td>
-<td>ZF = 0</td>
-</tr>
-<tr>
-<td><code class="notranslate">JG</code> 或 <code class="notranslate">JNLE</code></td>
-<td>大于 (Greater) (有符号数) 或 不小于等于 (Not Less or Equal)</td>
-<td>ZF = 0 且 SF = OF</td>
-</tr>
-<tr>
-<td><code class="notranslate">JGE</code> 或 <code class="notranslate">JNL</code></td>
-<td>大于等于 (Greater or Equal) (有符号数) 或 不小于 (Not Less)</td>
-<td>SF = OF</td>
-</tr>
-<tr>
-<td><code class="notranslate">JL</code> 或 <code class="notranslate">JNGE</code></td>
-<td>小于 (Less) (有符号数) 或 不大于等于 (Not Greater or Equal)</td>
-<td>SF ≠ OF</td>
-</tr>
-<tr>
-<td><code class="notranslate">JLE</code> 或 <code class="notranslate">JNG</code></td>
-<td>小于等于 (Less or Equal) (有符号数) 或 不大于 (Not Greater)</td>
-<td>ZF = 1 或 SF ≠ OF</td>
-</tr>
-<tr>
-<td><code class="notranslate">JA</code> 或 <code class="notranslate">JNBE</code></td>
-<td>大于 (Above) (无符号数) 或 不小于等于 (Not Below or Equal)</td>
-<td>CF = 0 且 ZF = 0</td>
-</tr>
-<tr>
-<td><code class="notranslate">JAE</code> 或 <code class="notranslate">JNB</code> 或 <code class="notranslate">JNC</code></td>
-<td>大于等于 (Above or Equal) (无符号数) 或 不小于 (Not Below) 或 无进位 (No Carry)</td>
-<td>CF = 0</td>
-</tr>
-<tr>
-<td><code class="notranslate">JB</code> 或 <code class="notranslate">JNAE</code> 或 <code class="notranslate">JC</code></td>
-<td>小于 (Below) (无符号数) 或 不大于等于 (Not Above or Equal) 或 进位 (Carry)</td>
-<td>CF = 1</td>
-</tr>
-<tr>
-<td><code class="notranslate">JBE</code> 或 <code class="notranslate">JNA</code></td>
-<td>小于等于 (Below or Equal) (无符号数) 或 不大于 (Not Above)</td>
-<td>CF = 1 或 ZF = 1</td>
-</tr>
-</tbody>
-</table></markdown-accessiblity-table>
 <h3>分支控制</h3>
 <p>条件跳转是短跳转, 操作数是一个字节, 允许向后跳转 -128 或向前跳转 +127</p>
-<p>无条件跳跃可以跳得更远, 可以直接地址跳转, 允许 +/-32K 的跳转, 甚至允许跳转到AX寄存器！</p>
-<markdown-accessiblity-table><table role="table">
-<thead>
-<tr>
-<th>指令</th>
-<th>含义</th>
-<th>flag</th>
-<th>反指令</th>
-<th>反含义</th>
-<th>反 flag</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code class="notranslate">JA</code></td>
-<td>Above</td>
-<td><code class="notranslate">ZF=0 and CF=0</code></td>
-<td><code class="notranslate">JNA</code></td>
-<td>Not Above</td>
-<td><code class="notranslate">ZF=1 or CF=1</code></td>
-</tr>
-<tr>
-<td><code class="notranslate">JAE</code></td>
-<td>Above or Equal</td>
-<td><code class="notranslate">CF=0</code></td>
-<td><code class="notranslate">JNAE</code></td>
-<td>Not Above or Equal</td>
-<td><code class="notranslate">CF=1</code></td>
-</tr>
-<tr>
-<td><code class="notranslate">JB</code></td>
-<td>Below</td>
-<td><code class="notranslate">CF=1</code></td>
-<td><code class="notranslate">JNB</code></td>
-<td>Not Below</td>
-<td><code class="notranslate">CF=0</code></td>
-</tr>
-<tr>
-<td><code class="notranslate">JBE</code></td>
-<td>Below or Equal</td>
-<td><code class="notranslate">ZF=1 or CF=1</code></td>
-<td><code class="notranslate">JNBE</code></td>
-<td>Not Below or Equal</td>
-<td><code class="notranslate">ZF=0 and CF=0</code></td>
-</tr>
-<tr>
-<td><code class="notranslate">JC</code></td>
-<td>Carry</td>
-<td><code class="notranslate">CF=1</code></td>
-<td><code class="notranslate">JNC</code></td>
-<td>Not Carry</td>
-<td><code class="notranslate">CF=0</code></td>
-</tr>
-<tr>
-<td><code class="notranslate">JCXZ</code></td>
-<td>CX is Zero</td>
-<td><code class="notranslate">CX=0</code></td>
-<td>-</td>
-<td>-</td>
-<td>-</td>
-</tr>
-<tr>
-<td><code class="notranslate">JE</code></td>
-<td>Equal</td>
-<td><code class="notranslate">ZF=1</code></td>
-<td><code class="notranslate">JNE</code></td>
-<td>Not Equal</td>
-<td><code class="notranslate">ZF=0</code></td>
-</tr>
-<tr>
-<td><code class="notranslate">JG</code></td>
-<td>Greater</td>
-<td><code class="notranslate">ZF=0 and SF=OF</code></td>
-<td><code class="notranslate">JNG</code></td>
-<td>Not Greater</td>
-<td><code class="notranslate">ZF=1 or SF!=OF</code></td>
-</tr>
-<tr>
-<td><code class="notranslate">JGE</code></td>
-<td>Greater or Equal</td>
-<td><code class="notranslate">SF = OF</code></td>
-<td><code class="notranslate">JNGE</code></td>
-<td>Not Greater or Equal</td>
-<td><code class="notranslate">SF != OF</code></td>
-</tr>
-<tr>
-<td><code class="notranslate">JL</code></td>
-<td>Less</td>
-<td><code class="notranslate">SF != OF</code></td>
-<td><code class="notranslate">JNL</code></td>
-<td>Not Less</td>
-<td><code class="notranslate">SF = OF</code></td>
-</tr>
-<tr>
-<td><code class="notranslate">JLE</code></td>
-<td>Less or Equal</td>
-<td><code class="notranslate">ZF=1 or SF!=OF</code></td>
-<td><code class="notranslate">JNLE</code></td>
-<td>Not Less or Equal</td>
-<td><code class="notranslate">ZF=0 and SF=OF</code></td>
-</tr>
-<tr>
-<td><code class="notranslate">JO</code></td>
-<td>Overflow</td>
-<td><code class="notranslate">OF=1</code></td>
-<td><code class="notranslate">JNO</code></td>
-<td>No Overflow</td>
-<td><code class="notranslate">OF=0</code></td>
-</tr>
-<tr>
-<td><code class="notranslate">JP</code></td>
-<td>Parity</td>
-<td><code class="notranslate">PF=1</code></td>
-<td><code class="notranslate">JNP</code></td>
-<td>Not Parity</td>
-<td><code class="notranslate">PF=0</code></td>
-</tr>
-<tr>
-<td><code class="notranslate">JPE</code></td>
-<td>Parity is Even</td>
-<td><code class="notranslate">PF=1</code></td>
-<td><code class="notranslate">JPO</code></td>
-<td>Parity is Odd</td>
-<td><code class="notranslate">PF=0</code></td>
-</tr>
-<tr>
-<td><code class="notranslate">JS</code></td>
-<td>Signed</td>
-<td><code class="notranslate">SF=1</code></td>
-<td><code class="notranslate">JNS</code></td>
-<td>Not Signed</td>
-<td><code class="notranslate">SF=0</code></td>
-</tr>
-<tr>
-<td><code class="notranslate">JZ</code></td>
-<td>Zero</td>
-<td><code class="notranslate">ZF=1</code></td>
-<td><code class="notranslate">JNZ</code></td>
-<td>Not Zero</td>
-<td><code class="notranslate">ZF=0</code></td>
-</tr>
-</tbody>
-</table></markdown-accessiblity-table>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/b2a514b4a6dc6838db0c301e15320c80e426913861befc305456b0820bddf6c9/68747470733a2f2f73322e6c6f6c692e6e65742f323032352f30322f32312f673735686f52394c506551736e61632e6a7067"><img src="https://camo.githubusercontent.com/b2a514b4a6dc6838db0c301e15320c80e426913861befc305456b0820bddf6c9/68747470733a2f2f73322e6c6f6c692e6e65742f323032352f30322f32312f673735686f52394c506551736e61632e6a7067" alt="img" data-canonical-src="https://s2.loli.net/2025/02/21/g75hoR9LPeQsnac.jpg" style="max-width: 100%;"></a></p>
+<p><strong>编码方式</strong></p>
+<p>最常用都是PC相对的 (PC-relative) 。也就是，<strong>它们会将目标指令的地址与紧跟在跳转指令后面那条指令的地址之间的差作为编码</strong>。这些地址偏移量可以编 码为1、2或4个字节，第二种编码方法是给出“绝对”地址，用4个字节直接指定目标 汇编器和链接器会选择适当的跳转目的编码。</p>
+<p>例如源汇编代码 (x86-64,AT&amp;T) 是：</p>
+<div class="highlight highlight-source-assembly"><pre class="notranslate"><span class="pl-k">movq</span><span class="pl-en">    %</span><span class="pl-v">rdi</span><span class="pl-s1">,</span><span class="pl-en"> %</span><span class="pl-v">rax</span>
+<span class="pl-k">jmp</span><span class="pl-en">     .L3</span>
+<span class="pl-en">.L2:    sarq    %</span><span class="pl-v">rax</span>
+<span class="pl-en">.L3:    testq   %</span><span class="pl-v">rax</span><span class="pl-s1">,</span><span class="pl-en"> %</span><span class="pl-v">rax</span>
+<span class="pl-en">        </span><span class="pl-k">jg</span><span class="pl-en">      .L2</span>
+<span class="pl-k">rep</span><span class="pl-c">; ret</span></pre></div>
+<p>下面是链接后的程序反汇编版本：</p>
+<div class="highlight highlight-source-assembly"><pre class="notranslate"><span class="pl-en">4004d0:  </span><span class="pl-c1">48</span><span class="pl-en"> </span><span class="pl-c1">89</span><span class="pl-en"> f8        </span><span class="pl-k">mov</span><span class="pl-en">    %</span><span class="pl-v">rdi</span><span class="pl-s1">,</span><span class="pl-en">%</span><span class="pl-v">rax</span>
+<span class="pl-en">4004d3:  eb </span><span class="pl-c1">03</span><span class="pl-en">           </span><span class="pl-k">jmp</span><span class="pl-en">    4004d8 &lt;</span><span class="pl-k">loop</span><span class="pl-s1">+</span><span class="pl-c1">0x8</span><span class="pl-en">&gt;</span>
+<span class="pl-en">4004d5:  </span><span class="pl-c1">48</span><span class="pl-en"> d1 f8        </span><span class="pl-k">sar</span><span class="pl-en">    %</span><span class="pl-v">rax</span>
+<span class="pl-en">4004d8:  </span><span class="pl-c1">48</span><span class="pl-en"> </span><span class="pl-c1">85</span><span class="pl-en"> c0        </span><span class="pl-k">test</span><span class="pl-en">   %</span><span class="pl-v">rax</span><span class="pl-s1">,</span><span class="pl-en">%</span><span class="pl-v">rax</span>
+<span class="pl-en">4004db:  7f f8           </span><span class="pl-k">jg</span><span class="pl-en">     4004d5 &lt;</span><span class="pl-k">loop</span><span class="pl-s1">+</span><span class="pl-c1">0x5</span><span class="pl-en">&gt;</span>
+<span class="pl-en">4004dd:  f3 c3           </span><span class="pl-k">repz</span><span class="pl-en"> retq</span></pre></div>
+<p>反汇编器产生的注释中，第2行中跳转指令的跳转目标指明为0xB，第5行中跳转指令的跳转目标是0x5（反汇编器以十六进制格式给出所有的数字）。不过，观察指令的字节编码，会看到第一条跳转指令的目标偏移量（在第二个字节中）为0x03。把它加上0x5，也就是下一条指令的地址，就得到跳转目标地址0x8，也就是第4行指令的地址。类似地，第二个跳转指令的目标偏移量用单字节、补码表示编码为0xf8（十进制-8）。将这个数加上0xD（十进制13），即第6行指令的地址，我们得到0x5，即第3行指令的地址。**当执行PC相对寻址时，程序计数器的值是跳转指令之后的那条指令的地址，而不是跳转指令本身的地址。**这种惯例可以追溯到早期的实现，当时的处理器会在更新程序计数器之后作为执行一条指令的第一步。</p>
 <h3>循环</h3>
 <p>主要有三种:</p>
 <ul>
@@ -2014,6 +1828,9 @@ $(-1)^0 \times 1.01_2 \times 2^{-1} = 1.01_2 \times 2^{-1} = 0.101_2 = 0.625_{10
 <span class="pl-en">    </span><span class="pl-k">mov</span><span class="pl-en"> </span><span class="pl-v">ax</span><span class="pl-s1">,</span><span class="pl-en"> </span><span class="pl-v">cs</span>
 <span class="pl-en">    </span><span class="pl-k">mov</span><span class="pl-en"> </span><span class="pl-v">es</span><span class="pl-en">:</span><span class="pl-s1">[</span><span class="pl-v">bx</span><span class="pl-s1">+</span><span class="pl-c1">2</span><span class="pl-s1">],</span><span class="pl-en"> </span><span class="pl-v">ax</span>
 <span class="pl-en">    </span><span class="pl-k">sti</span><span class="pl-c">                 ; 重新启用中断</span></pre></div>
+<div class="markdown-alert markdown-alert-note"><p class="markdown-alert-title"><svg class="octicon octicon-info mr-2" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8Zm8-6.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13ZM6.5 7.75A.75.75 0 0 1 7.25 7h1a.75.75 0 0 1 .75.75v2.75h.25a.75.75 0 0 1 0 1.5h-2a.75.75 0 0 1 0-1.5h.25v-2h-.25a.75.75 0 0 1-.75-.75ZM8 6a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z"></path></svg>Note</p>
+<p>注意这里由于8086是使用小端法，偏移在低地址，段地址在高地址！</p>
+</div>
 <h3>中断控制器 8259A</h3>
 <h4>8259A 的功能与连接</h4>
 <p><strong>8259A 可编程中断控制器 (Programmable Interrupt Controller, PIC)</strong> 是一种常用的<strong>硬件中断管理芯片</strong>，用于<strong>扩展 CPU 的中断处理能力</strong>，<strong>管理多个中断源</strong>，并实现<strong>中断优先级控制</strong>。</p>
