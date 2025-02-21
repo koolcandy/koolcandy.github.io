@@ -70,6 +70,8 @@
 ![img](https://s2.loli.net/2025/01/13/jq8DOK7XleVby6m.png)
 ---
 
+---
+
 ## Lecture 2: Assembly Language (Ⅰ)
 
 ### 寄存器们
@@ -423,45 +425,39 @@ cmp destination, source
     *   **OF = 1**:  如果在 **有符号数减法** 中，发生了 **溢出** (结果超出了有符号数的表示范围)，则 OF 被设置为 1。  溢出标志用于判断 **有符号数运算结果是否溢出**。  在比较有符号数大小时，OF 需要和 SF 一起考虑。
     *   **OF = 0**:  如果在 **有符号数减法** 中，没有发生溢出，则 OF 被设置为 0。
 
-**常用的条件跳转指令和 `CMP` 结果的关系:**
-
-| 条件跳转指令            | 含义 (通常用于)                                              | 检查的标志位      |
-| ----------------------- | ------------------------------------------------------------ | ----------------- |
-| `JE` 或 `JZ`            | 等于 (Equal) 或 结果为零 (Zero)                              | ZF = 1            |
-| `JNE` 或 `JNZ`          | 不等于 (Not Equal) 或 结果非零 (Not Zero)                    | ZF = 0            |
-| `JG` 或 `JNLE`          | 大于 (Greater) (有符号数) 或 不小于等于 (Not Less or Equal)  | ZF = 0 且 SF = OF |
-| `JGE` 或 `JNL`          | 大于等于 (Greater or Equal) (有符号数) 或 不小于 (Not Less)  | SF = OF           |
-| `JL` 或 `JNGE`          | 小于 (Less) (有符号数) 或 不大于等于 (Not Greater or Equal)  | SF ≠ OF           |
-| `JLE` 或 `JNG`          | 小于等于 (Less or Equal) (有符号数) 或 不大于 (Not Greater)  | ZF = 1 或 SF ≠ OF |
-| `JA` 或 `JNBE`          | 大于 (Above) (无符号数) 或 不小于等于 (Not Below or Equal)   | CF = 0 且 ZF = 0  |
-| `JAE` 或 `JNB` 或 `JNC` | 大于等于 (Above or Equal) (无符号数) 或 不小于 (Not Below) 或 无进位 (No Carry) | CF = 0            |
-| `JB` 或 `JNAE` 或 `JC`  | 小于 (Below) (无符号数) 或 不大于等于 (Not Above or Equal) 或 进位 (Carry) | CF = 1            |
-| `JBE` 或 `JNA`          | 小于等于 (Below or Equal) (无符号数) 或 不大于 (Not Above)   | CF = 1 或 ZF = 1  |
-
 ### 分支控制
 
 条件跳转是短跳转, 操作数是一个字节, 允许向后跳转 -128 或向前跳转 +127
 
-无条件跳跃可以跳得更远, 可以直接地址跳转, 允许 +/-32K 的跳转, 甚至允许跳转到AX寄存器！
+![img](https://s2.loli.net/2025/02/21/g75hoR9LPeQsnac.jpg)
 
-| 指令   | 含义             | flag             | 反指令 | 反含义               | 反 flag          |
-| ------ | ---------------- | ---------------- | ------ | -------------------- | ---------------- |
-| `JA`   | Above            | `ZF=0 and CF=0`  | `JNA`  | Not Above            | `ZF=1 or CF=1`   |
-| `JAE`  | Above or Equal   | `CF=0`           | `JNAE` | Not Above or Equal   | `CF=1`           |
-| `JB`   | Below            | `CF=1`           | `JNB`  | Not Below            | `CF=0`           |
-| `JBE`  | Below or Equal   | `ZF=1 or CF=1`   | `JNBE` | Not Below or Equal   | `ZF=0 and CF=0`  |
-| `JC`   | Carry            | `CF=1`           | `JNC`  | Not Carry            | `CF=0`           |
-| `JCXZ` | CX is Zero       | `CX=0`           | -      | -                    | -                |
-| `JE`   | Equal            | `ZF=1`           | `JNE`  | Not Equal            | `ZF=0`           |
-| `JG`   | Greater          | `ZF=0 and SF=OF` | `JNG`  | Not Greater          | `ZF=1 or SF!=OF` |
-| `JGE`  | Greater or Equal | `SF = OF`        | `JNGE` | Not Greater or Equal | `SF != OF`       |
-| `JL`   | Less             | `SF != OF`       | `JNL`  | Not Less             | `SF = OF`        |
-| `JLE`  | Less or Equal    | `ZF=1 or SF!=OF` | `JNLE` | Not Less or Equal    | `ZF=0 and SF=OF` |
-| `JO`   | Overflow         | `OF=1`           | `JNO`  | No Overflow          | `OF=0`           |
-| `JP`   | Parity           | `PF=1`           | `JNP`  | Not Parity           | `PF=0`           |
-| `JPE`  | Parity is Even   | `PF=1`           | `JPO`  | Parity is Odd        | `PF=0`           |
-| `JS`   | Signed           | `SF=1`           | `JNS`  | Not Signed           | `SF=0`           |
-| `JZ`   | Zero             | `ZF=1`           | `JNZ`  | Not Zero             | `ZF=0`           |
+**编码方式**
+
+最常用都是PC相对的 (PC-relative) 。也就是，**它们会将目标指令的地址与紧跟在跳转指令后面那条指令的地址之间的差作为编码**。这些地址偏移量可以编 码为1、2或4个字节，第二种编码方法是给出“绝对”地址，用4个字节直接指定目标 汇编器和链接器会选择适当的跳转目的编码。
+
+例如源汇编代码 (x86-64,AT&T) 是：
+
+```assembly
+movq    %rdi, %rax
+jmp     .L3
+.L2:    sarq    %rax
+.L3:    testq   %rax, %rax
+        jg      .L2
+rep; ret
+```
+
+下面是链接后的程序反汇编版本： 
+
+```assembly
+4004d0:  48 89 f8        mov    %rdi,%rax
+4004d3:  eb 03           jmp    4004d8 <loop+0x8>
+4004d5:  48 d1 f8        sar    %rax
+4004d8:  48 85 c0        test   %rax,%rax
+4004db:  7f f8           jg     4004d5 <loop+0x5>
+4004dd:  f3 c3           repz retq
+```
+
+反汇编器产生的注释中，第2行中跳转指令的跳转目标指明为0xB，第5行中跳转指令的跳转目标是0x5（反汇编器以十六进制格式给出所有的数字）。不过，观察指令的字节编码，会看到第一条跳转指令的目标偏移量（在第二个字节中）为0x03。把它加上0x5，也就是下一条指令的地址，就得到跳转目标地址0x8，也就是第4行指令的地址。类似地，第二个跳转指令的目标偏移量用单字节、补码表示编码为0xf8（十进制-8）。将这个数加上0xD（十进制13），即第6行指令的地址，我们得到0x5，即第3行指令的地址。**当执行PC相对寻址时，程序计数器的值是跳转指令之后的那条指令的地址，而不是跳转指令本身的地址。**这种惯例可以追溯到早期的实现，当时的处理器会在更新程序计数器之后作为执行一条指令的第一步。
 
 ### 循环
 
@@ -1586,6 +1582,10 @@ IN acc, port
     mov es:[bx+2], ax
     sti                 ; 重新启用中断
 ```
+
+> [!NOTE]
+>
+> 注意这里由于8086是使用小端法，偏移在低地址，段地址在高地址！
 
 ### 中断控制器 8259A
 
