@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html data-color-mode="light" data-dark-theme="dark" data-light-theme="light" lang="zh-CN">
+<head>
+    <meta content="text/html; charset=utf-8" http-equiv="content-type" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link href='https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/Primer/21.0.7/primer.css' rel='stylesheet' />
+    
+    <link rel="icon" href="https://s2.loli.net/2024/12/26/m9oanbD6ikhuSlN.png"><script>
+        let theme = localStorage.getItem("meek_theme") || "light";
+        document.documentElement.setAttribute("data-color-mode", theme);
+    </script>
+<meta name="description" content="## Lecture 1: 操作系统概述
+
+### 操作系统
+
+操作系统 (Operating System) 是一个大型且复杂的软件系统，用于管理计算机的所有硬件资源，并使其易于使用。">
+<meta property="og:title" content="CS240 Operating Systems, Communications & Concurrency">
+<meta property="og:description" content="## Lecture 1: 操作系统概述
+
+### 操作系统
+
+操作系统 (Operating System) 是一个大型且复杂的软件系统，用于管理计算机的所有硬件资源，并使其易于使用。">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://koolcandy.github.io/post/CS240%20Operating%20Systems%2C%20Communications%20%26%20Concurrency.html">
+<meta property="og:image" content="https://s2.loli.net/2024/12/26/m9oanbD6ikhuSlN.png">
+<title>CS240 Operating Systems, Communications & Concurrency</title>
+<link href="//unpkg.com/@wooorm/starry-night@2.1.1/style/both.css" rel="stylesheet" />
+
+
+</head>
+<style>
+body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;padding: 45px;font-size: 16px;font-family: sans-serif;line-height: 1.25;}
+#header{display:flex;padding-bottom:8px;border-bottom: 1px solid var(--borderColor-muted, var(--color-border-muted));margin-bottom: 16px;}
+#footer {margin-top:64px; text-align: center;font-size: small;}
+
+</style>
+
+<style>
+.postTitle{margin: auto 0;font-size:40px;font-weight:bold;}
+.title-right{display:flex;margin:auto 0 0 auto;}
+.title-right .circle{padding: 14px 16px;margin-right:8px;}
+#postBody{border-bottom: 1px solid var(--color-border-default);padding-bottom:36px;}
+#postBody hr{height:2px;}
+#cmButton{height:48px;margin-top:48px;}
+#comments{margin-top:64px;}
+.g-emoji{font-size:24px;}
+@media (max-width: 600px) {
+    body {padding: 8px;}
+    .postTitle{font-size:24px;}
+}
+.copy-feedback {
+    display: none;
+    position: absolute;
+    top: 10px;
+    right: 50px;
+    color: var(--color-fg-on-emphasis);
+    background-color: var(--color-fg-muted);
+    border-radius: 3px;
+    padding: 5px 8px;
+    font-size: 12px;
+}
+</style>
+
+
+
+
+<body>
+    <div id="header">
+<h1 class="postTitle">CS240 Operating Systems, Communications & Concurrency</h1>
+<div class="title-right">
+    <a href="https://koolcandy.github.io" id="buttonHome" class="btn btn-invisible circle" title="首页">
+        <svg class="octicon" width="16" height="16">
+            <path id="pathHome" fill-rule="evenodd"></path>
+        </svg>
+    </a>
+    
+    <a href="https://github.com/koolcandy/koolcandy.github.io/issues/4" target="_blank" class="btn btn-invisible circle" title="Issue">
+        <svg class="octicon" width="16" height="16">
+            <path id="pathIssue" fill-rule="evenodd"></path>
+        </svg>
+    </a>
+    
+
+    <a class="btn btn-invisible circle" onclick="modeSwitch();" title="切换主题">
+        <svg class="octicon" width="16" height="16" >
+            <path id="themeSwitch" fill-rule="evenodd"></path>
+        </svg>
+    </a>
+
+</div>
+</div>
+    <div id="content">
+<div class="markdown-body" id="postBody"><h2>Lecture 1: 操作系统概述</h2>
+<h3>操作系统</h3>
+<p>操作系统 (Operating System) 是一个大型且复杂的软件系统，用于管理计算机的所有硬件资源，并使其易于使用。</p>
+<p><strong>功能</strong>：</p>
+<ul>
+<li><strong>引导系统</strong>：启动机器至可用状态。</li>
+<li><strong>API与系统调用</strong>：应用通过API和系统调用与OS交互。</li>
+<li><strong>并发环境</strong>：处理并发任务，优化资源利用。</li>
+<li><strong>用户交互</strong>：通过GUI或CLI与用户交互。</li>
+</ul>
+<p><strong>操作系统主要任务</strong>：</p>
+<ul>
+<li><strong>资源管理和优化</strong>：在进程间分配和管理资源，最大化资源利用率，提高系统吞吐量。</li>
+<li><strong>提供接口</strong>：提供用户和应用程序接口。</li>
+<li><strong>并发协调</strong>：协调并发活动和设备，处理I/O，保证同步和通信。</li>
+<li><strong>安全保护</strong>：保护系统资源免受恶意或意外滥用。</li>
+</ul>
+<h3>内核 (Kernel)</h3>
+<p>内核是操作系统的核心，负责管理 CPU、内存、进程间通信和底层硬件等关键资源和服务，运行在特权模式下，是不同操作系统发行版的基础。</p>
+<ul>
+<li><strong>核心服务</strong>：管理CPU、内存、进程间通信、底层硬件。</li>
+<li><strong>发行版组件</strong>：包括文件系统、数据库、网络、GUI等。</li>
+</ul>
+<h3>云操作系统</h3>
+<p>云操作系统是指将数据和应用程序远程托管在第三方数据中心，通过租用资源并使用Web界面或API进行访问，比如Office 365。</p>
+<hr>
+<h2>Lecture 2: 进程管理</h2>
+<blockquote>
+<p>教授：现在我们开始讲操作系统的第一部分——虚拟化。</p>
+<p>学生：尊敬的教授，什么是虚拟化？</p>
+<p>教授：想象我们有一个桃子。</p>
+<p>学生：桃子？（不可思议）</p>
+<p>教授：是的，一个桃子，我们称之为物理（physical）桃子。但有很多想吃这个桃子的人，我们希望向每个想吃的人提供一个属于他的桃子，这样才能皆大欢喜。我们把给每个人的桃子称为虚拟（virtual）桃子。我们通过某种方式，从这个物理桃子创造出许多虚拟核子。重要的是，在这种假象中，每个人看起来都有一个物理桃子，但实际上不是。</p>
+<p>学生：所以每个人都不知道他在和别人一起分享一个桃子吗？</p>
+<p>教授：是的。</p>
+<p>学生：但不管怎么样，实际情况就是只有一个桃子啊。</p>
+<p>教授：是的，所以呢？</p>
+<p>学生：所以，如果我和别人分享同一个桃子，我一定会发现这个问题。</p>
+<p>教授：是的！你说得没错。但吃的人多才有这样的问题。多数时间他们都在打盹或者做其他事情，所以，你可以在他们打盹的时候把他手中的桃子拿过来分给其他人，这样我们就创造了有许多虚拟桃子的假象，每人一个桃子！</p>
+<p>学生：这听起来就像糟糕的竞选口号。教授，您是在跟我讲计算机知识吗？</p>
+<p>教授：年轻人，看来需要给你一个更具体的例子。以最基本的计算机资源CPU 为例，假设一个计算机只有一个CPU（尽管现代计算机一般拥有2个、4个或者更多CPU），虚化要做的就是将这个CPU 虚拟成多个虚拟 CPU并分给每一个进程使用，因此，每个应用都以为自己在独占 CPU，但实际上只有一个CPU。这样操作系统就创造了美丽的假象——它虚拟化了CPU。</p>
+<p>学生；听起来好神奇，能再多讲一些吗？它是如何工作的?</p>
+<p>教授：问得很及时，听上去你已经做好开始学习的准备了。</p>
+<p>学生；是的，不过我还真有点担心您又要讲桃子的事情了。</p>
+<p>教授；不用担心，毕竟我也不喜欢吃桃子。那我们开始学习吧……</p>
+</blockquote>
+<h3>进程、程序和处理器</h3>
+<h4>进程 (Processes)</h4>
+<p>人们都常常希望同时运行多个程序。比如：在使用电脑的时候，我们会同时运行浏览器、邮件、游戏、音乐播放器，等等。但是我们的电脑一般只有一个 CPU ，我们需要制造出一个几乎能提供无数 CPU的假象。进程是一个程序的实例 (instance)，是操作系统的一个抽象概念。其包含了一个执行上下文，包含了内核管理的、进程运行时所需的信息集合。</p>
+<h4>程序 (Program)</h4>
+<p>程序是一系列指令的集合，是将算法翻译成编程语言的结果，描述了明确的执行顺序。编译器将程序代码映射为特定处理器的机器指令，并存储在目标文件中，然后使用链接器链接上库文件就变成了可执行文件 (程序)。</p>
+<h4>处理器 (Processor)</h4>
+<p>处理器是执行进程的代理 (agent)，通过执行存储在内存映像中的指令来运行进程。</p>
+<h3>时分共享</h3>
+<p>时分共享 (time sharing) 是操作系统共享资源所使用的最基本的技术之一。通过允许责源由一个实体使用一小段时间，然后由另一个实体使用一小段时间，如此下去，所谓的资源 (例如，CPU或网络链接) 可以被许多人共享。</p>
+<blockquote>
+<p>时分共享的自然对应技术是空分共享，资源在空间上被划分给希望使用它的人。 例如，磁盘空间自然是一个空分共享资源，因为一旦将块分配给文件，在用户删除文件之前，不可能将它分配给其他文件。</p>
+</blockquote>
+<h3>进程抽象表示</h3>
+<h4>进程状态</h4>
+<p>进程在运行过程中会处于不同的状态。以下是三种基本状态：</p>
+<ul>
+<li><strong>运行 (Running)</strong>：进程正在处理器上执行指令。</li>
+<li><strong>就绪 (Ready)</strong>：进程已准备好运行，但操作系统尚未选择它运行。</li>
+<li><strong>阻塞 (Blocked)</strong>：进程因为等待某个事件发生（例如，I/O完成）而暂停运行。 进程发起I/O请求时通常会进入阻塞状态。</li>
+<li><strong>僵尸 (Zombie)</strong>: 进程处于已经退出但是尚未清理的状态，这种状态非常有用，因为它能允许其他进程 (通常是创建进程的父进程) 检查进程的返回代码，并且查看刚刚完成的进程是否正确运行。</li>
+</ul>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/a3974c34f3bf6e8c2ea4c668e8b9441d0b391078a772acfff936300a35916b7d/68747470733a2f2f73322e6c6f6c692e6e65742f323032352f30322f32372f624c475756444d7269336d34534a492e706e67"><img src="https://camo.githubusercontent.com/a3974c34f3bf6e8c2ea4c668e8b9441d0b391078a772acfff936300a35916b7d/68747470733a2f2f73322e6c6f6c692e6e65742f323032352f30322f32372f624c475756444d7269336d34534a492e706e67" alt="img" data-canonical-src="https://s2.loli.net/2025/02/27/bLGWVDMri3m4SJI.png" style="max-width: 100%;"></a></p>
+<h4>进程控制块 (PCB)</h4>
+<p>操作系统是一个程序，和其他程序一样，它有一些关键的数据结构来跟踪各种相关的信息。它的最基础的任务就是进程管理，包含创建、控制、终止、管理执行环境等方面。操作系统还必须以某种方式跟踪被阻塞的进程。当 I/O 事件完成时，操作系统应确保唤醒正确的进程，让它准备好再次运行。因此我们需要一个数据结构 (PCB) 来维护这些数据。当一个进程停止时，它的寄存器将被保存到通过恢复这些寄存器，它被称为<strong>上下文切换 (context switch)</strong>。</p>
+<p>例如 XV6 的proc结构如下：</p>
+<div class="highlight highlight-source-c"><pre class="notranslate"><span class="pl-c">// the registers xv6 will save and restore</span>
+<span class="pl-c">// to stop and subsequently restart a process</span>
+<span class="pl-k">struct</span> <span class="pl-smi">context</span> {
+  <span class="pl-smi">int</span> <span class="pl-c1">eip</span>;
+  <span class="pl-smi">int</span> <span class="pl-c1">esp</span>;
+  <span class="pl-smi">int</span> <span class="pl-c1">ebx</span>;
+  <span class="pl-smi">int</span> <span class="pl-c1">ecx</span>;
+  <span class="pl-smi">int</span> <span class="pl-c1">edx</span>;
+  <span class="pl-smi">int</span> <span class="pl-c1">esi</span>;
+  <span class="pl-smi">int</span> <span class="pl-c1">edi</span>;
+  <span class="pl-smi">int</span> <span class="pl-c1">ebp</span>;
+};
+
+<span class="pl-c">// the different states a process can be in</span>
+<span class="pl-k">enum</span> <span class="pl-smi">proc_state</span> { <span class="pl-c1">UNUSED</span>, <span class="pl-c1">EMBRYO</span>, <span class="pl-c1">SLEEPING</span>, <span class="pl-c1">RUNNABLE</span>, <span class="pl-c1">RUNNING</span>, <span class="pl-c1">ZOMBIE</span> };
+
+<span class="pl-c">// the information xv6 tracks about each process</span>
+<span class="pl-c">// including its register context and state</span>
+<span class="pl-k">struct</span> <span class="pl-smi">proc</span> {
+  <span class="pl-smi">char</span> <span class="pl-c1">*</span><span class="pl-c1">mem</span>;                   <span class="pl-c">// Start of process memory</span>
+  <span class="pl-smi">uint</span> <span class="pl-c1">sz</span>;                     <span class="pl-c">// Size of process memory</span>
+  <span class="pl-smi">char</span> <span class="pl-c1">*</span><span class="pl-c1">kstack</span>;                <span class="pl-c">// Bottom of kernel stack for this process</span>
+  <span class="pl-k">enum</span> <span class="pl-smi">proc_state</span> <span class="pl-c1">state</span>;           <span class="pl-c">// Process state</span>
+  <span class="pl-smi">int</span> <span class="pl-c1">pid</span>;                     <span class="pl-c">// Process ID</span>
+  <span class="pl-k">struct</span> <span class="pl-smi">proc</span> <span class="pl-c1">*</span><span class="pl-c1">parent</span>;             <span class="pl-c">// Parent process</span>
+  <span class="pl-smi">void</span> <span class="pl-c1">*</span><span class="pl-c1">chan</span>;                  <span class="pl-c">// If non-zero, sleeping on chan</span>
+  <span class="pl-smi">int</span> <span class="pl-c1">killed</span>;                  <span class="pl-c">// If non-zero, have been killed</span>
+  <span class="pl-k">struct</span> <span class="pl-smi">file</span> <span class="pl-c1">*</span><span class="pl-c1">ofile</span>[<span class="pl-c1">NOFILE</span>];     <span class="pl-c">// Open files</span>
+  <span class="pl-k">struct</span> <span class="pl-smi">inode</span> <span class="pl-c1">*</span><span class="pl-c1">cwd</span>;                  <span class="pl-c">// Current directory</span>
+  <span class="pl-k">struct</span> <span class="pl-smi">context</span> <span class="pl-c1">context</span>;          <span class="pl-c">// Switch here to run process</span>
+  <span class="pl-k">struct</span> <span class="pl-smi">trapframe</span> <span class="pl-c1">*</span><span class="pl-c1">tf</span>;          <span class="pl-c">// Trap frame for the current interrupt</span>
+};</pre></div>
+<h4>生命周期</h4>
+<p>PCB可以在过程寿命中在不同队列之间移动，具体取决于其执行的优先级或状态。</p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/d19ca35312f7d53b00cd8cd50d3ce511626cb3ff18bff06edd8537c53dadabfa/68747470733a2f2f73322e6c6f6c692e6e65742f323032352f30322f32372f743657334c61716d585450706a41512e706e67"><img src="https://camo.githubusercontent.com/d19ca35312f7d53b00cd8cd50d3ce511626cb3ff18bff06edd8537c53dadabfa/68747470733a2f2f73322e6c6f6c692e6e65742f323032352f30322f32372f743657334c61716d585450706a41512e706e67" alt="img" data-canonical-src="https://s2.loli.net/2025/02/27/t6W3LaqmXTPpjAQ.png" style="max-width: 100%;"></a></p>
+<h4>通信</h4>
+<p>出于安全性和可靠性原因，与OS进行通信，无关过程之间的直接通信只能通过使用特定机制来实现。</p>
+<ul>
+<li>
+<p>进程间通信：操作系统提供了进程间通信的函数，这些函数可以将消息（message） 从一个进程映射到另一个进程。</p>
+</li>
+<li>
+<p>与操作系统通信：是通过系统调用（system call）机制完成的，对于程序来说，操作系统就是上帝，没有操作系统，程序连杀死自己都做不到！</p>
+</li>
+</ul>
+<h3>处理器执行模式</h3>
+<p>为了加强硬件保护，某些处理器指令受到限制，普通用户进程无法执行。</p>
+<p>处理器以两种模式之一执行：用户模式或监管模式。 当执行用户进程时，进程在用户模式下，并且只能执行其指令集的一个子集。 为了执行操作系统代码，必须以受控方式将处理器切换到监管模式，然后才能执行其完整指令集。</p>
+<p>一种称为软件中断的特殊处理器指令可以切换到监管模式。</p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/824c831339e05a054768496548465db8db542dc8e7cbbfb3c516d7ba535f3079/68747470733a2f2f73322e6c6f6c692e6e65742f323032352f30322f32372f6e6d35556c733446766474326f38332e706e67"><img src="https://camo.githubusercontent.com/824c831339e05a054768496548465db8db542dc8e7cbbfb3c516d7ba535f3079/68747470733a2f2f73322e6c6f6c692e6e65742f323032352f30322f32372f6e6d35556c733446766474326f38332e706e67" alt="img" data-canonical-src="https://s2.loli.net/2025/02/27/nm5Uls4Fvdt2o83.png" style="max-width: 100%;"></a></p>
+<h3>系统调用</h3>
+<p>进程自己只能计算，如果要访问硬件、与其他进程通信、创建新进程，必须要先跟操作系统通信，使用系统调用，等进程一觉醒来，自己要的东西就准备好了。</p>
+<ul>
+<li>通常通过与用户空间进程链接的包装器库来访问。</li>
+<li>包装器函数检查是否使用了正确的参数，并将调用软件中断机制。</li>
+<li>系统调用的包装器 API 有助于应用程序代码在不同的内核和语言实现之间实现可移植性。</li>
+</ul>
+<h3>硬件中断</h3>
+<p>硬件中断可用来实现硬件与操作系统的通信。是硬件设备向操作系统发出异步事件通知的主要方式。设备无需等待操作系统主动查询 (轮询) ，而是主动告知。</p>
+<ul>
+<li>
+<p><strong>高效设备管理</strong>：硬件中断机制使得操作系统能够高效地管理大量的硬件设备。操作系统不必定期轮询每个设备的状态，而是只在设备需要关注时才会被中断。这大大提高了系统的效率。</p>
+</li>
+<li>
+<p><strong>防止CPU占用</strong>：定时器（Timer）被用于防止某个用户程序进入死循环而持续占用 CPU 资源。在程序初始化时，定时器被设置为允许程序运行的最大时间。定时器每秒产生一个中断，当倒计时到零时，操作系统强制终止该程序的运行，保证了系统的公平性和稳定性。</p>
+</li>
+</ul></div>
+<div style="font-size:small;margin-top:8px;float:right;"></div>
+
+<button class="btn btn-block" type="button" onclick="openComments()" id="cmButton">评论</button>
+<div class="comments" id="comments"></div>
+
+</div>
+    <div id="footer"><div id="footer1">Copyright © <span id="copyrightYear"></span> <a href="https://koolcandy.github.io">win8!</a></div>
+<div id="footer2">
+    <span id="runday"></span><span>Powered by <a href="https://meekdai.com/Gmeek.html" target="_blank">Gmeek</a></span>
+</div>
+
+<script>
+var now=new Date();
+document.getElementById("copyrightYear").innerHTML=now.getFullYear();
+
+if(""!=""){
+    var startSite=new Date("");
+    var diff=now.getTime()-startSite.getTime();
+    var diffDay=Math.floor(diff/(1000*60*60*24));
+    document.getElementById("runday").innerHTML="网站运行"+diffDay+"天"+" • ";
+}
+</script></div>
+</body>
+<script>
+var IconList={'sun': 'M8 10.5a2.5 2.5 0 100-5 2.5 2.5 0 000 5zM8 12a4 4 0 100-8 4 4 0 000 8zM8 0a.75.75 0 01.75.75v1.5a.75.75 0 01-1.5 0V.75A.75.75 0 018 0zm0 13a.75.75 0 01.75.75v1.5a.75.75 0 01-1.5 0v-1.5A.75.75 0 018 13zM2.343 2.343a.75.75 0 011.061 0l1.06 1.061a.75.75 0 01-1.06 1.06l-1.06-1.06a.75.75 0 010-1.06zm9.193 9.193a.75.75 0 011.06 0l1.061 1.06a.75.75 0 01-1.06 1.061l-1.061-1.06a.75.75 0 010-1.061zM16 8a.75.75 0 01-.75.75h-1.5a.75.75 0 010-1.5h1.5A.75.75 0 0116 8zM3 8a.75.75 0 01-.75.75H.75a.75.75 0 010-1.5h1.5A.75.75 0 013 8zm10.657-5.657a.75.75 0 010 1.061l-1.061 1.06a.75.75 0 11-1.06-1.06l1.06-1.06a.75.75 0 011.06 0zm-9.193 9.193a.75.75 0 010 1.06l-1.06 1.061a.75.75 0 11-1.061-1.06l1.06-1.061a.75.75 0 011.061 0z', 'moon': 'M9.598 1.591a.75.75 0 01.785-.175 7 7 0 11-8.967 8.967.75.75 0 01.961-.96 5.5 5.5 0 007.046-7.046.75.75 0 01.175-.786zm1.616 1.945a7 7 0 01-7.678 7.678 5.5 5.5 0 107.678-7.678z', 'sync': 'M1.705 8.005a.75.75 0 0 1 .834.656 5.5 5.5 0 0 0 9.592 2.97l-1.204-1.204a.25.25 0 0 1 .177-.427h3.646a.25.25 0 0 1 .25.25v3.646a.25.25 0 0 1-.427.177l-1.38-1.38A7.002 7.002 0 0 1 1.05 8.84a.75.75 0 0 1 .656-.834ZM8 2.5a5.487 5.487 0 0 0-4.131 1.869l1.204 1.204A.25.25 0 0 1 4.896 6H1.25A.25.25 0 0 1 1 5.75V2.104a.25.25 0 0 1 .427-.177l1.38 1.38A7.002 7.002 0 0 1 14.95 7.16a.75.75 0 0 1-1.49.178A5.5 5.5 0 0 0 8 2.5Z', 'home': 'M6.906.664a1.749 1.749 0 0 1 2.187 0l5.25 4.2c.415.332.657.835.657 1.367v7.019A1.75 1.75 0 0 1 13.25 15h-3.5a.75.75 0 0 1-.75-.75V9H7v5.25a.75.75 0 0 1-.75.75h-3.5A1.75 1.75 0 0 1 1 13.25V6.23c0-.531.242-1.034.657-1.366l5.25-4.2Zm1.25 1.171a.25.25 0 0 0-.312 0l-5.25 4.2a.25.25 0 0 0-.094.196v7.019c0 .138.112.25.25.25H5.5V8.25a.75.75 0 0 1 .75-.75h3.5a.75.75 0 0 1 .75.75v5.25h2.75a.25.25 0 0 0 .25-.25V6.23a.25.25 0 0 0-.094-.195Z', 'github': 'M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 0 1-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27-.68 0-1.36.09-2 .27-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.34.19.73.9.82 1.13.16.45.68 1.31 2.69.94 0 .67.01 1.3.01 1.49 0 .21-.15.45-.55.38A7.995 7.995 0 0 1 0 8c0-4.42 3.58-8 8-8Z', 'copy': 'M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 0 1 0 1.5h-1.5a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-1.5a.75.75 0 0 1 1.5 0v1.5A1.75 1.75 0 0 1 9.25 16h-7.5A1.75 1.75 0 0 1 0 14.25Z M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0 1 14.25 11h-7.5A1.75 1.75 0 0 1 5 9.25Zm1.75-.25a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-7.5a.25.25 0 0 0-.25-.25Z', 'check': 'M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0Z'};
+var utterancesLoad=0;
+
+let themeSettings={
+    "dark": ["dark","moon","#00f0ff","dark-blue"],
+    "light": ["light","sun","#ff5000","github-light"],
+    "auto": ["auto","sync","","preferred-color-scheme"]
+};
+function changeTheme(mode, icon, color, utheme){
+    document.documentElement.setAttribute("data-color-mode",mode);
+    document.getElementById("themeSwitch").setAttribute("d",value=IconList[icon]);
+    document.getElementById("themeSwitch").parentNode.style.color=color;
+    if(utterancesLoad==1){utterancesTheme(utheme);}
+}
+function modeSwitch(){
+    let currentMode=document.documentElement.getAttribute('data-color-mode');
+    let newMode = currentMode === "light" ? "dark" : currentMode === "dark" ? "auto" : "light";
+    localStorage.setItem("meek_theme", newMode);
+    if(themeSettings[newMode]){
+        changeTheme(...themeSettings[newMode]);
+    }
+}
+function utterancesTheme(theme){
+    const message={type:'set-theme',theme: theme};
+    const iframe=document.getElementsByClassName('utterances-frame')[0];
+    iframe.contentWindow.postMessage(message,'https://utteranc.es');
+}
+if(themeSettings[theme]){changeTheme(...themeSettings[theme]);}
+console.log("\n %c Gmeek last https://github.com/Meekdai/Gmeek \n","padding:5px 0;background:#02d81d;color:#fff");
+</script>
+
+<script>
+document.getElementById("pathHome").setAttribute("d",IconList["home"]);
+document.getElementById("pathIssue").setAttribute("d",IconList["github"]);
+
+
+
+function openComments(){
+    cm=document.getElementById("comments");
+    cmButton=document.getElementById("cmButton");
+    cmButton.innerHTML="loading";
+    span=document.createElement("span");
+    span.setAttribute("class","AnimatedEllipsis");
+    cmButton.appendChild(span);
+
+    script=document.createElement("script");
+    script.setAttribute("src","https://utteranc.es/client.js");
+    script.setAttribute("repo","koolcandy/koolcandy.github.io");
+    script.setAttribute("issue-term","title");
+    
+    if(localStorage.getItem("meek_theme")=="dark"){script.setAttribute("theme","dark-blue");}
+    else if(localStorage.getItem("meek_theme")=="light") {script.setAttribute("theme","github-light");}
+    else{script.setAttribute("theme","preferred-color-scheme");}
+    
+    script.setAttribute("crossorigin","anonymous");
+    script.setAttribute("async","");
+    cm.appendChild(script);
+
+    int=self.setInterval("iFrameLoading()",200);
+}
+
+function iFrameLoading(){
+    var utterances=document.getElementsByClassName('utterances');
+    if(utterances.length==1){
+        if(utterances[0].style.height!=""){
+            utterancesLoad=1;
+            int=window.clearInterval(int);
+            document.getElementById("cmButton").style.display="none";
+            console.log("utterances Load OK");
+        }
+    }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    const createClipboardHTML = (codeContent, additionalClasses = '') => `
+        <pre class="notranslate"><code class="notranslate">${codeContent}</code></pre>
+        <div class="clipboard-container position-absolute right-0 top-0 ${additionalClasses}">
+            <clipboard-copy class="ClipboardButton btn m-2 p-0" role="button" style="display: inherit;">
+                <svg height="16" width="16" class="octicon octicon-copy m-2"><path d="${IconList["copy"]}"></path></svg>
+                <svg height="16" width="16" class="octicon octicon-check color-fg-success m-2 d-none"><path d="${IconList["check"]}"></path></svg>
+            </clipboard-copy>
+            <div class="copy-feedback">Copied!</div>
+        </div>
+    `;
+
+    const handleCodeElements = (selector = '') => {
+        document.querySelectorAll(selector).forEach(codeElement => {
+            const codeContent = codeElement.innerHTML;
+            const newStructure = document.createElement('div');
+            newStructure.className = 'snippet-clipboard-content position-relative overflow-auto';
+            newStructure.innerHTML = createClipboardHTML(codeContent);
+
+            const parentElement = codeElement.parentElement;
+            if (selector.includes('highlight')) {
+                parentElement.insertBefore(newStructure, codeElement.nextSibling);
+                parentElement.removeChild(codeElement);
+            } else {
+                parentElement.parentElement.replaceChild(newStructure, parentElement);
+            }
+        });
+    };
+
+    handleCodeElements('pre.notranslate > code.notranslate');
+    handleCodeElements('div.highlight > pre.notranslate');
+
+    let currentFeedback = null;
+    document.querySelectorAll('clipboard-copy').forEach(copyButton => {
+        copyButton.addEventListener('click', () => {
+            const codeContent = copyButton.closest('.snippet-clipboard-content').innerText;
+            const tempTextArea = document.createElement('textarea');
+            tempTextArea.value = codeContent;
+            document.body.appendChild(tempTextArea);
+            tempTextArea.select();
+            document.execCommand('copy');
+            document.body.removeChild(tempTextArea);
+
+            const copyIcon = copyButton.querySelector('.octicon-copy');
+            const checkIcon = copyButton.querySelector('.octicon-check');
+            const copyFeedback = copyButton.nextElementSibling;
+
+            if (currentFeedback && currentFeedback !== copyFeedback) {currentFeedback.style.display = 'none';}
+            currentFeedback = copyFeedback;
+
+            copyIcon.classList.add('d-none');
+            checkIcon.classList.remove('d-none');
+            copyFeedback.style.display = 'block';
+            copyButton.style.borderColor = 'var(--color-success-fg)';
+
+            setTimeout(() => {
+                copyIcon.classList.remove('d-none');
+                checkIcon.classList.add('d-none');
+                copyFeedback.style.display = 'none';
+                copyButton.style.borderColor = '';
+            }, 2000);
+        });
+    });
+});
+
+</script>
+<script src='https://blog.meekdai.com/Gmeek/plugins/GmeekTOC.js'></script>
+
+</html>
