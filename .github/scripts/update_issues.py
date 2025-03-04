@@ -23,7 +23,7 @@ def get_issue_by_title(title):
 
 def create_issue(title, content):
     """创建新的 Issue"""
-    repo.create_issue(title=title, body=content, labels=['document'])
+    repo.create_issue(title=title, body=content, labels=['documentation'])
 
 def update_issue(issue, content):
     """更新已有的 Issue"""
