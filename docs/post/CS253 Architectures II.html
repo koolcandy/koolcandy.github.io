@@ -37,7 +37,7 @@
 <meta property="og:url" content="https://koolcandy.github.io/post/CS253%20Architectures%20II.html">
 <meta property="og:image" content="https://s2.loli.net/2024/12/26/m9oanbD6ikhuSlN.png">
 <title>CS253 Architectures II</title>
-<link href="//unpkg.com/@wooorm/starry-night@2.1.1/style/both.css" rel="stylesheet" />
+
 
 
 </head>
@@ -61,17 +61,7 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
     body {padding: 8px;}
     .postTitle{font-size:24px;}
 }
-.copy-feedback {
-    display: none;
-    position: absolute;
-    top: 10px;
-    right: 50px;
-    color: var(--color-fg-on-emphasis);
-    background-color: var(--color-fg-muted);
-    border-radius: 3px;
-    padding: 5px 8px;
-    font-size: 12px;
-}
+
 </style>
 <style>.markdown-alert{padding:0.5rem 1rem;margin-bottom:1rem;border-left:.25em solid var(--borderColor-default,var(--color-border-default));}.markdown-alert .markdown-alert-title {display:flex;font-weight:var(--base-text-weight-medium,500);align-items:center;line-height:1;}.markdown-alert>:first-child {margin-top:0;}.markdown-alert>:last-child {margin-bottom:0;}</style><style>.markdown-alert.markdown-alert-note {border-left-color:var(--borderColor-accent-emphasis, var(--color-accent-emphasis));background-color:var(--color-accent-subtle);}.markdown-alert.markdown-alert-note .markdown-alert-title {color: var(--fgColor-accent,var(--color-accent-fg));}</style>
 
@@ -264,55 +254,57 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 </div>
 <h3>Hello, world !</h3>
 <h4>详细实现</h4>
-<div class="highlight highlight-source-assembly"><pre class="notranslate"><span class="pl-en">.MODEL medium</span>
-<span class="pl-en">.STACK</span>
-<span class="pl-en">.DATA</span>
+<pre lang="assembly" class="notranslate"><code class="notranslate">.MODEL medium
+.STACK
+.DATA
 
-<span class="pl-en">msg1 db </span><span class="pl-s">"Hello, world.$"</span>
+msg1 db "Hello, world.$"
 
-<span class="pl-en">.CODE</span>
-<span class="pl-en">.STARTUP</span>
+.CODE
+.STARTUP
 
-<span class="pl-k">mov</span><span class="pl-en"> </span><span class="pl-v">ax</span><span class="pl-s1">,</span><span class="pl-en">@data</span><span class="pl-c">                    ; 将 ax 寄存器的值设置为 @data 段的值</span>
-<span class="pl-k">mov</span><span class="pl-en"> </span><span class="pl-v">ds</span><span class="pl-s1">,</span><span class="pl-v">ax</span><span class="pl-c">                       ; 将 DS 寄存器的值设置为 @data 段的值</span>
-<span class="pl-k">lea</span><span class="pl-en"> </span><span class="pl-v">bx</span><span class="pl-s1">,</span><span class="pl-en">msg1</span><span class="pl-c">                     ; 获得msg1的偏移地址, 在这个情况下(DS&lt;&lt;4+BX)就是实际的存储msg1的地址</span>
+mov ax,@data                    ; 将 ax 寄存器的值设置为 @data 段的值
+mov ds,ax                       ; 将 DS 寄存器的值设置为 @data 段的值
+lea bx,msg1                     ; 获得msg1的偏移地址, 在这个情况下(DS&lt;&lt;4+BX)就是实际的存储msg1的地址
 
-<span class="pl-en">back:</span>
-<span class="pl-en">    </span><span class="pl-k">mov</span><span class="pl-en"> </span><span class="pl-v">dl</span><span class="pl-s1">,[</span><span class="pl-v">bx</span><span class="pl-s1">]</span><span class="pl-c">                 ; 间接寻址, 获取bx寄存器对应的内存地址的第一个值到dx寄存器</span>
-<span class="pl-en">    </span><span class="pl-k">cmp</span><span class="pl-en"> </span><span class="pl-v">dl</span><span class="pl-s1">,</span><span class="pl-s">'$'</span><span class="pl-c">                  ; 将 dl 寄存器中的字符与字符 $ 进行比较</span>
-<span class="pl-en">    </span><span class="pl-k">jz</span><span class="pl-en"> done</span><span class="pl-c">                     ; 如果 dl 寄存器中的字符和$相等 (即 ZF 标志位为 1 ), 则跳转到done执行</span>
+back:
+    mov dl,[bx]                 ; 间接寻址, 获取bx寄存器对应的内存地址的第一个值到dx寄存器
+    cmp dl,'$'                  ; 将 dl 寄存器中的字符与字符 $ 进行比较
+    jz done                     ; 如果 dl 寄存器中的字符和$相等 (即 ZF 标志位为 1 ), 则跳转到done执行
 
-<span class="pl-en">    </span><span class="pl-k">mov</span><span class="pl-en"> </span><span class="pl-v">ah</span><span class="pl-s1">,</span><span class="pl-c1">02h</span><span class="pl-c">                  ; 设置 DOS 中断 21h 的功能号为 02h, 表示调用显示字符的功能</span>
-<span class="pl-en">    </span><span class="pl-k">int</span><span class="pl-en"> </span><span class="pl-c1">21h</span><span class="pl-c">                     ; 调用 DOS 中断 21h, 将 dl 寄存器中的字符显示在屏幕上</span>
+    mov ah,02h                  ; 设置 DOS 中断 21h 的功能号为 02h, 表示调用显示字符的功能
+    int 21h                     ; 调用 DOS 中断 21h, 将 dl 寄存器中的字符显示在屏幕上
 
-<span class="pl-en">    </span><span class="pl-k">inc</span><span class="pl-en"> </span><span class="pl-v">bx</span><span class="pl-c">                      ; 将 bx 寄存器的值加 1, 指向字符串 msg1 的下一个字符</span>
-<span class="pl-en">    </span><span class="pl-k">jmp</span><span class="pl-en"> back</span><span class="pl-c">                    ; 无条件跳转到 back 标签处</span>
+    inc bx                      ; 将 bx 寄存器的值加 1, 指向字符串 msg1 的下一个字符
+    jmp back                    ; 无条件跳转到 back 标签处
 
-<span class="pl-en">done:</span>
-<span class="pl-en">    </span><span class="pl-k">nop</span><span class="pl-c">                         ; 空操作指令</span>
+done:
+    nop                         ; 空操作指令
 
-<span class="pl-en">.EXIT</span>
+.EXIT
 
-<span class="pl-en">END</span></pre></div>
+END
+</code></pre>
 <h4>简洁实现</h4>
-<div class="highlight highlight-source-assembly"><pre class="notranslate"><span class="pl-en">.MODEL small</span>
-<span class="pl-en">.STACK</span>
-<span class="pl-en">.DATA</span>
-<span class="pl-en">    msg DB </span><span class="pl-s">'Hello, World!$'</span><span class="pl-c">    ; 定义字符串，以$结尾</span>
-<span class="pl-en">    </span>
-<span class="pl-en">.CODE</span>
-<span class="pl-en">.STARTUP</span>
+<pre lang="assembly" class="notranslate"><code class="notranslate">.MODEL small
+.STACK
+.DATA
+    msg DB 'Hello, World!$'    ; 定义字符串，以$结尾
+    
+.CODE
+.STARTUP
 
-<span class="pl-en">    </span><span class="pl-k">mov</span><span class="pl-en"> </span><span class="pl-v">ax</span><span class="pl-s1">,</span><span class="pl-en"> @data</span>
-<span class="pl-en">    </span><span class="pl-k">mov</span><span class="pl-en"> </span><span class="pl-v">ds</span><span class="pl-s1">,</span><span class="pl-en"> </span><span class="pl-v">ax</span>
+    mov ax, @data
+    mov ds, ax
 
-<span class="pl-en">    </span><span class="pl-k">mov</span><span class="pl-en"> </span><span class="pl-v">ah</span><span class="pl-s1">,</span><span class="pl-en"> </span><span class="pl-c1">09h</span><span class="pl-c">               ; 打印字符串</span>
-<span class="pl-en">    </span><span class="pl-k">lea</span><span class="pl-en"> </span><span class="pl-v">dx</span><span class="pl-s1">,</span><span class="pl-en"> msg</span>
-<span class="pl-en">    </span><span class="pl-k">int</span><span class="pl-en"> </span><span class="pl-c1">21h</span>
+    mov ah, 09h               ; 打印字符串
+    lea dx, msg
+    int 21h
 
-<span class="pl-en">.EXIT</span>
+.EXIT
 
-<span class="pl-en">END</span></pre></div>
+END
+</code></pre>
 <h4>常用 21h 功能号</h4>
 <ul>
 <li><strong>01h</strong>: 从键盘读取一个字符, 并将字符存入 AL 寄存器</li>
@@ -477,24 +469,26 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 <h3>十进制算数</h3>
 <p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/1b829e633c8dcc80f2241956d96e0a629419945f53ff18cbcdbe81f379c464e1/68747470733a2f2f73322e6c6f6c692e6e65742f323032352f30322f30372f34433257774b755a7361666474544e2e706e67"><img src="https://camo.githubusercontent.com/1b829e633c8dcc80f2241956d96e0a629419945f53ff18cbcdbe81f379c464e1/68747470733a2f2f73322e6c6f6c692e6e65742f323032352f30322f30372f34433257774b755a7361666474544e2e706e67" alt="img" data-canonical-src="https://s2.loli.net/2025/02/07/4C2WwKuZsafdtTN.png" style="max-width: 100%;"></a></p>
 <h4>ASCII调整指令</h4>
-<div class="highlight highlight-source-assembly"><pre class="notranslate"><span class="pl-k">mov</span><span class="pl-en"> </span><span class="pl-v">al</span><span class="pl-s1">,</span><span class="pl-en"> </span><span class="pl-s">'9'</span><span class="pl-c">  ; AL = 39h ('9'的ASCII码)</span>
-<span class="pl-k">add</span><span class="pl-en"> </span><span class="pl-v">al</span><span class="pl-s1">,</span><span class="pl-en"> </span><span class="pl-s">'8'</span><span class="pl-c">  ; AL = 39h + 38h = 71h</span>
-<span class="pl-k">aaa</span><span class="pl-c">          ; 调整AL为09h, AH += 1 (AH = 01h)</span>
-<span class="pl-c">; 结果: AL = 09h, AH = 01h (表示BCD格式的17)</span>
-<span class="pl-k">mov</span><span class="pl-en"> </span><span class="pl-v">ax</span><span class="pl-s1">,</span><span class="pl-en"> </span><span class="pl-c1">0507h</span><span class="pl-c">  ; AH = 05h, AL = 07h (表示未压缩BCD的57)</span>
-<span class="pl-k">aad</span><span class="pl-c">            ; AX = 0037h (37的二进制形式)</span>
-<span class="pl-k">mov</span><span class="pl-en"> </span><span class="pl-v">bl</span><span class="pl-s1">,</span><span class="pl-en"> </span><span class="pl-c1">6</span><span class="pl-c">      ; BL = 6</span>
-<span class="pl-k">div</span><span class="pl-en"> </span><span class="pl-v">bl</span><span class="pl-c">         ; AX / BL, AL = 6 (商), AH = 1 (余数)</span>
-<span class="pl-c">; 结果: AL = 06h, AH = 01h</span></pre></div>
+<pre lang="assembly" class="notranslate"><code class="notranslate">mov al, '9'  ; AL = 39h ('9'的ASCII码)
+add al, '8'  ; AL = 39h + 38h = 71h
+aaa          ; 调整AL为09h, AH += 1 (AH = 01h)
+; 结果: AL = 09h, AH = 01h (表示BCD格式的17)
+mov ax, 0507h  ; AH = 05h, AL = 07h (表示未压缩BCD的57)
+aad            ; AX = 0037h (37的二进制形式)
+mov bl, 6      ; BL = 6
+div bl         ; AX / BL, AL = 6 (商), AH = 1 (余数)
+; 结果: AL = 06h, AH = 01h
+</code></pre>
 <h4>BCD调整指令</h4>
-<div class="highlight highlight-source-assembly"><pre class="notranslate"><span class="pl-k">mov</span><span class="pl-en"> </span><span class="pl-v">al</span><span class="pl-s1">,</span><span class="pl-en"> </span><span class="pl-c1">59h</span><span class="pl-c">  ; AL = 59h (59的压缩BCD格式)</span>
-<span class="pl-k">add</span><span class="pl-en"> </span><span class="pl-v">al</span><span class="pl-s1">,</span><span class="pl-en"> </span><span class="pl-c1">27h</span><span class="pl-c">  ; AL = 59h + 27h = 80h</span>
-<span class="pl-k">daa</span><span class="pl-c">          ; 调整AL为86h (86的压缩BCD格式)</span>
-<span class="pl-c">; 结果: AL = 86h</span>
-<span class="pl-k">mov</span><span class="pl-en"> </span><span class="pl-v">al</span><span class="pl-s1">,</span><span class="pl-en"> </span><span class="pl-c1">47h</span><span class="pl-c">  ; AL = 47h (47的压缩BCD格式)</span>
-<span class="pl-k">sub</span><span class="pl-en"> </span><span class="pl-v">al</span><span class="pl-s1">,</span><span class="pl-en"> </span><span class="pl-c1">59h</span><span class="pl-c">  ; AL = 47h - 59h = EEh (借位发生)</span>
-<span class="pl-k">das</span><span class="pl-c">          ; 调整AL为88h (88的压缩BCD格式)</span>
-<span class="pl-c">; 结果: AL = 88h</span></pre></div>
+<pre lang="assembly" class="notranslate"><code class="notranslate">mov al, 59h  ; AL = 59h (59的压缩BCD格式)
+add al, 27h  ; AL = 59h + 27h = 80h
+daa          ; 调整AL为86h (86的压缩BCD格式)
+; 结果: AL = 86h
+mov al, 47h  ; AL = 47h (47的压缩BCD格式)
+sub al, 59h  ; AL = 47h - 59h = EEh (借位发生)
+das          ; 调整AL为88h (88的压缩BCD格式)
+; 结果: AL = 88h
+</code></pre>
 <h3>逻辑指令</h3>
 <markdown-accessiblity-table><table role="table">
 <thead>
@@ -645,7 +639,8 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 <h3>比较指令</h3>
 <p><code class="notranslate">CMP</code> 命令（Compare，比较）是 8086 汇编语言中的一个非常重要的指令。它用于 <strong>比较两个操作数的大小关系</strong>，但 <strong>不会修改任何操作数的值</strong>。 <code class="notranslate">CMP</code> 命令的 <strong>“结果”</strong> 不是直接返回一个数值，而是 <strong>设置 CPU 的标志寄存器 (Flags Register) 中的某些标志位</strong>。 这些标志位反映了比较的结果，然后可以被后续的条件跳转指令（如 <code class="notranslate">JE</code>, <code class="notranslate">JNE</code>, <code class="notranslate">JL</code>, <code class="notranslate">JG</code> 等）使用，以实现程序的分支控制。</p>
 <p><strong><code class="notranslate">CMP</code> 指令的基本格式:</strong></p>
-<div class="highlight highlight-source-assembly"><pre class="notranslate"><span class="pl-k">cmp</span><span class="pl-en"> destination</span><span class="pl-s1">,</span><span class="pl-en"> source</span></pre></div>
+<pre lang="assembly" class="notranslate"><code class="notranslate">cmp destination, source
+</code></pre>
 <p><strong><code class="notranslate">CMP</code> 指令的操作:</strong></p>
 <p><code class="notranslate">CMP destination, source</code> 指令 <strong>在内部执行的操作是 <code class="notranslate">destination - source</code> (目的操作数减去源操作数)</strong>。  <strong>但是，减法的结果不会被存储到任何寄存器或内存位置，而是直接被丢弃。</strong>  <code class="notranslate">CMP</code> 指令的 <strong>唯一作用</strong> 就是根据这次减法运算的结果 <strong>设置标志寄存器中的标志位</strong>。</p>
 <p><strong><code class="notranslate">CMP</code> 指令影响的标志位 (Flags):</strong></p>
@@ -686,54 +681,60 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 <p><strong>编码方式</strong></p>
 <p>最常用都是PC相对的 (PC-relative) 。也就是，<strong>它们会将目标指令的地址与紧跟在跳转指令后面那条指令的地址之间的差作为编码</strong>。这些地址偏移量可以编 码为1、2或4个字节，第二种编码方法是给出“绝对”地址，用4个字节直接指定目标 汇编器和链接器会选择适当的跳转目的编码。</p>
 <p>例如源汇编代码 (x86-64,AT&amp;T) 是：</p>
-<div class="highlight highlight-source-assembly"><pre class="notranslate"><span class="pl-k">movq</span><span class="pl-en">    %</span><span class="pl-v">rdi</span><span class="pl-s1">,</span><span class="pl-en"> %</span><span class="pl-v">rax</span>
-<span class="pl-k">jmp</span><span class="pl-en">     .L3</span>
-<span class="pl-en">.L2:    sarq    %</span><span class="pl-v">rax</span>
-<span class="pl-en">.L3:    testq   %</span><span class="pl-v">rax</span><span class="pl-s1">,</span><span class="pl-en"> %</span><span class="pl-v">rax</span>
-<span class="pl-en">        </span><span class="pl-k">jg</span><span class="pl-en">      .L2</span>
-<span class="pl-k">rep</span><span class="pl-c">; ret</span></pre></div>
+<pre lang="assembly" class="notranslate"><code class="notranslate">movq    %rdi, %rax
+jmp     .L3
+.L2:    sarq    %rax
+.L3:    testq   %rax, %rax
+        jg      .L2
+rep; ret
+</code></pre>
 <p>下面是链接后的程序反汇编版本：</p>
-<div class="highlight highlight-source-assembly"><pre class="notranslate"><span class="pl-en">4004d0:  </span><span class="pl-c1">48</span><span class="pl-en"> </span><span class="pl-c1">89</span><span class="pl-en"> f8        </span><span class="pl-k">mov</span><span class="pl-en">    %</span><span class="pl-v">rdi</span><span class="pl-s1">,</span><span class="pl-en">%</span><span class="pl-v">rax</span>
-<span class="pl-en">4004d3:  eb </span><span class="pl-c1">03</span><span class="pl-en">           </span><span class="pl-k">jmp</span><span class="pl-en">    4004d8 &lt;</span><span class="pl-k">loop</span><span class="pl-s1">+</span><span class="pl-c1">0x8</span><span class="pl-en">&gt;</span>
-<span class="pl-en">4004d5:  </span><span class="pl-c1">48</span><span class="pl-en"> d1 f8        </span><span class="pl-k">sar</span><span class="pl-en">    %</span><span class="pl-v">rax</span>
-<span class="pl-en">4004d8:  </span><span class="pl-c1">48</span><span class="pl-en"> </span><span class="pl-c1">85</span><span class="pl-en"> c0        </span><span class="pl-k">test</span><span class="pl-en">   %</span><span class="pl-v">rax</span><span class="pl-s1">,</span><span class="pl-en">%</span><span class="pl-v">rax</span>
-<span class="pl-en">4004db:  7f f8           </span><span class="pl-k">jg</span><span class="pl-en">     4004d5 &lt;</span><span class="pl-k">loop</span><span class="pl-s1">+</span><span class="pl-c1">0x5</span><span class="pl-en">&gt;</span>
-<span class="pl-en">4004dd:  f3 c3           </span><span class="pl-k">repz</span><span class="pl-en"> retq</span></pre></div>
+<pre lang="assembly" class="notranslate"><code class="notranslate">4004d0:  48 89 f8        mov    %rdi,%rax
+4004d3:  eb 03           jmp    4004d8 &lt;loop+0x8&gt;
+4004d5:  48 d1 f8        sar    %rax
+4004d8:  48 85 c0        test   %rax,%rax
+4004db:  7f f8           jg     4004d5 &lt;loop+0x5&gt;
+4004dd:  f3 c3           repz retq
+</code></pre>
 <p>反汇编器产生的注释中，第2行中跳转指令的跳转目标指明为0xB，第5行中跳转指令的跳转目标是0x5（反汇编器以十六进制格式给出所有的数字）。不过，观察指令的字节编码，会看到第一条跳转指令的目标偏移量（在第二个字节中）为0x03。把它加上0x5，也就是下一条指令的地址，就得到跳转目标地址0x8，也就是第4行指令的地址。类似地，第二个跳转指令的目标偏移量用单字节、补码表示编码为0xf8（十进制-8）。将这个数加上0xD（十进制13），即第6行指令的地址，我们得到0x5，即第3行指令的地址。**当执行PC相对寻址时，程序计数器的值是跳转指令之后的那条指令的地址，而不是跳转指令本身的地址。**这种惯例可以追溯到早期的实现，当时的处理器会在更新程序计数器之后作为执行一条指令的第一步。</p>
 <h3>循环</h3>
 <p>主要有三种:</p>
 <ul>
 <li>
 <p><code class="notranslate">LOOP</code>, 相当于</p>
-<div class="highlight highlight-source-c"><pre class="notranslate"><span class="pl-k">do</span> {
-    <span class="pl-c">// 循环体代码</span>
-    <span class="pl-c1">CX</span><span class="pl-c1">--</span>;
-} <span class="pl-k">while</span> (<span class="pl-c1">CX</span> <span class="pl-c1">!=</span> <span class="pl-c1">0</span>);</pre></div>
+<pre lang="c" class="notranslate"><code class="notranslate">do {
+    // 循环体代码
+    CX--;
+} while (CX != 0);
+</code></pre>
 </li>
 <li>
 <p><code class="notranslate">LOOPZ</code>, 相当于</p>
-<div class="highlight highlight-source-c"><pre class="notranslate"><span class="pl-k">do</span> {
-    <span class="pl-c">// 循环体代码</span>
-    <span class="pl-c1">CX</span><span class="pl-c1">--</span>;
-} <span class="pl-k">while</span> (<span class="pl-c1">CX</span> <span class="pl-c1">!=</span> <span class="pl-c1">0</span> <span class="pl-c1">&amp;&amp;</span> <span class="pl-c1">ZF</span> <span class="pl-c1">==</span> <span class="pl-c1">1</span>);</pre></div>
+<pre lang="c" class="notranslate"><code class="notranslate">do {
+    // 循环体代码
+    CX--;
+} while (CX != 0 &amp;&amp; ZF == 1);
+</code></pre>
 </li>
 <li>
 <p><code class="notranslate">LOOPNZ</code>, 相当于</p>
-<div class="highlight highlight-source-c"><pre class="notranslate"><span class="pl-k">do</span> {
-    <span class="pl-c">// 循环体代码</span>
-    <span class="pl-c1">CX</span><span class="pl-c1">--</span>;
-} <span class="pl-k">while</span> (<span class="pl-c1">CX</span> <span class="pl-c1">!=</span> <span class="pl-c1">0</span> <span class="pl-c1">&amp;&amp;</span> <span class="pl-c1">ZF</span> <span class="pl-c1">==</span> <span class="pl-c1">0</span>);</pre></div>
+<pre lang="c" class="notranslate"><code class="notranslate">do {
+    // 循环体代码
+    CX--;
+} while (CX != 0 &amp;&amp; ZF == 0);
+</code></pre>
 </li>
 </ul>
 <h3>延迟</h3>
 <p>通过调整运行的语句来延迟特定的时间，和CPU的频率有关</p>
 <h4>短延迟</h4>
 <p>对于如下程序</p>
-<div class="highlight highlight-source-assembly"><pre class="notranslate"><span class="pl-en">  </span><span class="pl-k">mov</span><span class="pl-en"> </span><span class="pl-v">cx</span><span class="pl-s1">,</span><span class="pl-en"> N</span><span class="pl-c">  ; 消耗 4 时钟周期, 这里 N 是字面量, 但是取值还未确定</span>
-<span class="pl-en">tag:</span>
-<span class="pl-en">  </span><span class="pl-k">nop</span><span class="pl-c">        ; 消耗 3 时钟周期</span>
-<span class="pl-en">  </span><span class="pl-k">nop</span><span class="pl-c">        ; 消耗 3 时钟周期</span>
-<span class="pl-en">  </span><span class="pl-k">loop</span><span class="pl-en"> tag</span><span class="pl-c">   ; 消耗 17 个时钟周期, 退出循环时仅 5 个时钟周期</span></pre></div>
+<pre lang="assembly" class="notranslate"><code class="notranslate">  mov cx, N  ; 消耗 4 时钟周期, 这里 N 是字面量, 但是取值还未确定
+tag:
+  nop        ; 消耗 3 时钟周期
+  nop        ; 消耗 3 时钟周期
+  loop tag   ; 消耗 17 个时钟周期, 退出循环时仅 5 个时钟周期
+</code></pre>
 <p>总延迟时间的计算公式为: $C = 4 + N \times 23 - 12$</p>
 <p>假设需要延迟 1000 个时钟周期, 可以通过以下步骤计算循环次数 ( N ):</p>
 <p>$1000 = 4 + N \times 23 - 12$</p>
@@ -742,26 +743,27 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 <p>因此, 设置 ( N = 44 ) 即可实现大约 1000 个时钟周期的延迟</p>
 <h4>长延迟</h4>
 <p>考虑如下程序</p>
-<div class="highlight highlight-source-assembly"><pre class="notranslate"><span class="pl-en">.STARTUP</span>
-<span class="pl-k">mov</span><span class="pl-en"> </span><span class="pl-v">ah</span><span class="pl-s1">,</span><span class="pl-c1">02</span>
-<span class="pl-k">mov</span><span class="pl-en"> </span><span class="pl-v">dl</span><span class="pl-s1">,</span><span class="pl-s">'S'</span>
-<span class="pl-k">int</span><span class="pl-en"> </span><span class="pl-c1">021h</span>
+<pre lang="assembly" class="notranslate"><code class="notranslate">.STARTUP
+mov ah,02
+mov dl,'S'
+int 021h
 
-<span class="pl-k">mov</span><span class="pl-en"> </span><span class="pl-v">bx</span><span class="pl-s1">,</span><span class="pl-en"> </span><span class="pl-c1">30000</span><span class="pl-c"> ;4</span>
+mov bx, 30000 ;4
 
-<span class="pl-en">back2: </span>
-<span class="pl-en">  </span><span class="pl-k">mov</span><span class="pl-en"> </span><span class="pl-v">cx</span><span class="pl-s1">,</span><span class="pl-en"> </span><span class="pl-c1">30000</span><span class="pl-c"> ;4</span>
-<span class="pl-en">back1: </span>
-<span class="pl-en">  </span><span class="pl-k">nop</span><span class="pl-c"> ;3</span>
-<span class="pl-en">  </span><span class="pl-k">loop</span><span class="pl-en"> back1</span>
+back2: 
+  mov cx, 30000 ;4
+back1: 
+  nop ;3
+  loop back1
 
-<span class="pl-en">  </span><span class="pl-k">dec</span><span class="pl-en"> </span><span class="pl-v">bx</span>
-<span class="pl-en">  </span><span class="pl-k">jnz</span><span class="pl-en"> back2</span>
+  dec bx
+  jnz back2
 
-<span class="pl-en">  </span><span class="pl-k">mov</span><span class="pl-en"> </span><span class="pl-v">ah</span><span class="pl-s1">,</span><span class="pl-c1">02</span>
-<span class="pl-en">  </span><span class="pl-k">mov</span><span class="pl-en"> </span><span class="pl-v">dl</span><span class="pl-s1">,</span><span class="pl-s">'F'</span>
-<span class="pl-en">  </span><span class="pl-k">int</span><span class="pl-en"> </span><span class="pl-c1">021h</span>
-<span class="pl-en">EXIT</span></pre></div>
+  mov ah,02
+  mov dl,'F'
+  int 021h
+EXIT
+</code></pre>
 <p>延迟计算公式为:</p>
 <p>$C_{T}=C_{0}+N(C_{BK}){-12}$</p>
 <p>先计算内循环:</p>
@@ -779,43 +781,44 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 <p>实际上程序只花了15s来运行, 计算出来的时钟频率是1200MHz, 是目标机器的时钟频率(300MHz)的4倍,原因是现代处理器使用 <strong>指令并行</strong> 技术</p>
 <h3>打印数字</h3>
 <p>基于栈的实现:</p>
-<div class="highlight highlight-source-assembly"><pre class="notranslate"><span class="pl-en">.MODEL medium</span>
-<span class="pl-en">.STACK</span>
-<span class="pl-en">.DATA</span>
-<span class="pl-en">ten db </span><span class="pl-c1">10</span>
-<span class="pl-en">.CODE</span>
-<span class="pl-en">.STARTUP</span>
-<span class="pl-k">mov</span><span class="pl-en"> </span><span class="pl-v">ax</span><span class="pl-s1">,</span><span class="pl-en"> </span><span class="pl-c1">12345</span>
-<span class="pl-k">call</span><span class="pl-en"> Print</span>
-<span class="pl-en">.EXIT</span>
+<pre lang="assembly" class="notranslate"><code class="notranslate">.MODEL medium
+.STACK
+.DATA
+ten db 10
+.CODE
+.STARTUP
+mov ax, 12345
+call Print
+.EXIT
 
-<span class="pl-en">Print:</span>
-<span class="pl-en">    </span><span class="pl-k">push</span><span class="pl-en"> </span><span class="pl-v">bx</span><span class="pl-c">        ; 函数调用, 储存原来寄存器的值, 固定操作</span>
-<span class="pl-en">    </span><span class="pl-k">push</span><span class="pl-en"> </span><span class="pl-v">cx</span>
-<span class="pl-en">    </span><span class="pl-k">push</span><span class="pl-en"> </span><span class="pl-v">dx</span>
-<span class="pl-en">    </span><span class="pl-k">mov</span><span class="pl-en"> </span><span class="pl-v">cx</span><span class="pl-s1">,</span><span class="pl-en"> </span><span class="pl-c1">5</span><span class="pl-c">      ; 初始化循环计数器为 5</span>
-<span class="pl-en">    </span><span class="pl-k">mov</span><span class="pl-en"> </span><span class="pl-v">bx</span><span class="pl-s1">,</span><span class="pl-en"> </span><span class="pl-c1">10000</span>
+Print:
+    push bx        ; 函数调用, 储存原来寄存器的值, 固定操作
+    push cx
+    push dx
+    mov cx, 5      ; 初始化循环计数器为 5
+    mov bx, 10000
 
-<span class="pl-en">again:</span>
-<span class="pl-en">    </span><span class="pl-k">mov</span><span class="pl-en"> </span><span class="pl-v">dx</span><span class="pl-s1">,</span><span class="pl-en"> </span><span class="pl-c1">0h</span><span class="pl-c">     ; 除法前清空 dx</span>
-<span class="pl-en">    </span><span class="pl-k">div</span><span class="pl-en"> </span><span class="pl-v">bx</span><span class="pl-c">         ; dx:ax /= bx</span>
-<span class="pl-en">    </span><span class="pl-k">or</span><span class="pl-en"> </span><span class="pl-v">al</span><span class="pl-s1">,</span><span class="pl-en"> </span><span class="pl-c1">030h</span><span class="pl-c">    ; 数字转 ASCII</span>
-<span class="pl-en">    </span><span class="pl-k">push</span><span class="pl-en"> </span><span class="pl-v">dx</span><span class="pl-c">        ; 保存余数</span>
-<span class="pl-en">    </span><span class="pl-k">mov</span><span class="pl-en"> </span><span class="pl-v">dl</span><span class="pl-s1">,</span><span class="pl-en"> </span><span class="pl-v">al</span><span class="pl-c">     ; 传参给 21h 中断</span>
-<span class="pl-en">    </span><span class="pl-k">mov</span><span class="pl-en"> </span><span class="pl-v">ah</span><span class="pl-s1">,</span><span class="pl-en"> </span><span class="pl-c1">02h</span><span class="pl-c">    ; 输出字符模式</span>
-<span class="pl-en">    </span><span class="pl-k">int</span><span class="pl-en"> </span><span class="pl-c1">021h</span>
-<span class="pl-en">    </span><span class="pl-k">mov</span><span class="pl-en"> </span><span class="pl-v">dx</span><span class="pl-s1">,</span><span class="pl-en"> </span><span class="pl-c1">0h</span><span class="pl-c">     ; 除法前清空 dx</span>
-<span class="pl-en">    </span><span class="pl-k">mov</span><span class="pl-en"> </span><span class="pl-v">ax</span><span class="pl-s1">,</span><span class="pl-en"> </span><span class="pl-v">bx</span><span class="pl-c">     ; bx /= 10</span>
-<span class="pl-en">    </span><span class="pl-k">div</span><span class="pl-en"> ten</span>
-<span class="pl-en">    </span><span class="pl-k">mov</span><span class="pl-en"> </span><span class="pl-v">bx</span><span class="pl-s1">,</span><span class="pl-en"> </span><span class="pl-v">ax</span>
-<span class="pl-en">    </span><span class="pl-k">pop</span><span class="pl-en"> </span><span class="pl-v">ax</span>
-<span class="pl-en">    </span><span class="pl-k">loop</span><span class="pl-en"> again</span><span class="pl-c">     ; cx 自动减 1, 不为 0 则跳转</span>
-<span class="pl-en">    </span><span class="pl-k">pop</span><span class="pl-en"> </span><span class="pl-v">dx</span><span class="pl-c">         ; 函数调用结束, 恢复原来寄存器的值, 固定操作</span>
-<span class="pl-en">    </span><span class="pl-k">pop</span><span class="pl-en"> </span><span class="pl-v">cx</span>
-<span class="pl-en">    </span><span class="pl-k">pop</span><span class="pl-en"> </span><span class="pl-v">bx</span>
-<span class="pl-en">    </span><span class="pl-k">ret</span>
+again:
+    mov dx, 0h     ; 除法前清空 dx
+    div bx         ; dx:ax /= bx
+    or al, 030h    ; 数字转 ASCII
+    push dx        ; 保存余数
+    mov dl, al     ; 传参给 21h 中断
+    mov ah, 02h    ; 输出字符模式
+    int 021h
+    mov dx, 0h     ; 除法前清空 dx
+    mov ax, bx     ; bx /= 10
+    div ten
+    mov bx, ax
+    pop ax
+    loop again     ; cx 自动减 1, 不为 0 则跳转
+    pop dx         ; 函数调用结束, 恢复原来寄存器的值, 固定操作
+    pop cx
+    pop bx
+    ret
 
-<span class="pl-en">END</span></pre></div>
+END
+</code></pre>
 <hr>
 <h2>Lecture 5: 汇编语言 (Ⅳ)</h2>
 <h3>打印负数</h3>
@@ -826,55 +829,56 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 <li><strong>取绝对值</strong>：对负数取反加一，转换为正数进行打印处理。</li>
 </ul>
 <h4>打印负数的汇编代码实现</h4>
-<div class="highlight highlight-source-assembly"><pre class="notranslate"><span class="pl-en">.MODEL medium</span>
-<span class="pl-en">.STACK</span>
-<span class="pl-en">.DATA</span>
-<span class="pl-en">ten word </span><span class="pl-c1">10</span>
-<span class="pl-en">    .CODE</span>
-<span class="pl-en">    .STARTUP</span>
-<span class="pl-en">    </span><span class="pl-k">mov</span><span class="pl-en"> </span><span class="pl-v">ax</span><span class="pl-s1">,</span><span class="pl-en"> </span><span class="pl-c1">32768</span><span class="pl-c">  ; 将要打印的数值 (示例为 -32768 的补码表示) 放入 AX 寄存器</span>
-<span class="pl-en">    </span><span class="pl-k">call</span><span class="pl-en"> Print</span><span class="pl-c">     ; 调用 Print 子程序进行打印</span>
-<span class="pl-en">    .EXIT</span>
+<pre lang="assembly" class="notranslate"><code class="notranslate">.MODEL medium
+.STACK
+.DATA
+ten word 10
+    .CODE
+    .STARTUP
+    mov ax, 32768  ; 将要打印的数值 (示例为 -32768 的补码表示) 放入 AX 寄存器
+    call Print     ; 调用 Print 子程序进行打印
+    .EXIT
 
-<span class="pl-c">; Print 子程序：负责将 AX 寄存器中的数值以十进制形式打印到屏幕</span>
-<span class="pl-en">Print:</span>
-<span class="pl-en">    </span><span class="pl-k">push</span><span class="pl-en"> </span><span class="pl-v">bx</span><span class="pl-c">       ; 保护寄存器 BX, CX, DX 的值</span>
-<span class="pl-en">    </span><span class="pl-k">push</span><span class="pl-en"> </span><span class="pl-v">cx</span>
-<span class="pl-en">    </span><span class="pl-k">push</span><span class="pl-en"> </span><span class="pl-v">dx</span>
-<span class="pl-en">    </span><span class="pl-k">mov</span><span class="pl-en"> </span><span class="pl-v">cx</span><span class="pl-s1">,</span><span class="pl-en"> </span><span class="pl-c1">5</span><span class="pl-c">       ; 设置循环次数为 5，用于打印五位十进制数</span>
-<span class="pl-en">    </span><span class="pl-k">mov</span><span class="pl-en"> </span><span class="pl-v">bx</span><span class="pl-s1">,</span><span class="pl-en"> </span><span class="pl-c1">10000</span><span class="pl-c">   ; BX 寄存器设置为 10000，用于取出万位数字</span>
-<span class="pl-en">    </span><span class="pl-k">test</span><span class="pl-en"> </span><span class="pl-v">ax</span><span class="pl-s1">,</span><span class="pl-en"> </span><span class="pl-c1">8000h</span><span class="pl-c">  ; 检测 AX 寄存器的最高位 (符号位)</span>
-<span class="pl-en">    </span><span class="pl-k">jz</span><span class="pl-en"> Positive</span><span class="pl-c">     ; 如果符号位为 0 (正数)，跳转到 Positive 标签</span>
-<span class="pl-c">    ; 如果是负数，执行以下代码：</span>
-<span class="pl-en">    </span><span class="pl-k">push</span><span class="pl-en"> </span><span class="pl-v">ax</span><span class="pl-c">       ; 暂时保存 AX 的值</span>
-<span class="pl-en">    </span><span class="pl-k">mov</span><span class="pl-en"> </span><span class="pl-v">ah</span><span class="pl-s1">,</span><span class="pl-en"> </span><span class="pl-c1">02h</span><span class="pl-c">   ; 设置 DOS 功能号为 02h (显示字符)</span>
-<span class="pl-en">    </span><span class="pl-k">mov</span><span class="pl-en"> </span><span class="pl-v">dl</span><span class="pl-s1">,</span><span class="pl-en"> </span><span class="pl-s">'-'</span><span class="pl-c">   ; 将 '-' 字符的 ASCII 码放入 DL 寄存器</span>
-<span class="pl-en">    </span><span class="pl-k">int</span><span class="pl-en"> </span><span class="pl-c1">021h</span><span class="pl-c">      ; 调用 DOS 中断 21h，显示 '-' 字符</span>
-<span class="pl-en">    </span><span class="pl-k">pop</span><span class="pl-en"> </span><span class="pl-v">ax</span><span class="pl-c">        ; 恢复 AX 寄存器的值 (负数)</span>
-<span class="pl-en">    </span><span class="pl-k">not</span><span class="pl-en"> </span><span class="pl-v">ax</span><span class="pl-c">        ; AX 取反 (按位非)</span>
-<span class="pl-en">    </span><span class="pl-k">add</span><span class="pl-en"> </span><span class="pl-v">ax</span><span class="pl-s1">,</span><span class="pl-en"> </span><span class="pl-c1">1</span><span class="pl-c">     ; AX 加 1，得到负数的绝对值 (补码转原码)</span>
-<span class="pl-en">    </span><span class="pl-k">jmp</span><span class="pl-en"> Positive</span><span class="pl-c">    ; 跳转到 Positive 标签，打印绝对值</span>
+; Print 子程序：负责将 AX 寄存器中的数值以十进制形式打印到屏幕
+Print:
+    push bx       ; 保护寄存器 BX, CX, DX 的值
+    push cx
+    push dx
+    mov cx, 5       ; 设置循环次数为 5，用于打印五位十进制数
+    mov bx, 10000   ; BX 寄存器设置为 10000，用于取出万位数字
+    test ax, 8000h  ; 检测 AX 寄存器的最高位 (符号位)
+    jz Positive     ; 如果符号位为 0 (正数)，跳转到 Positive 标签
+    ; 如果是负数，执行以下代码：
+    push ax       ; 暂时保存 AX 的值
+    mov ah, 02h   ; 设置 DOS 功能号为 02h (显示字符)
+    mov dl, '-'   ; 将 '-' 字符的 ASCII 码放入 DL 寄存器
+    int 021h      ; 调用 DOS 中断 21h，显示 '-' 字符
+    pop ax        ; 恢复 AX 寄存器的值 (负数)
+    not ax        ; AX 取反 (按位非)
+    add ax, 1     ; AX 加 1，得到负数的绝对值 (补码转原码)
+    jmp Positive    ; 跳转到 Positive 标签，打印绝对值
 
-<span class="pl-c">; Positive 标签：处理正数和负数的绝对值打印</span>
-<span class="pl-en">Positive:</span>
-<span class="pl-en">    </span><span class="pl-k">mov</span><span class="pl-en"> </span><span class="pl-v">dx</span><span class="pl-s1">,</span><span class="pl-en"> </span><span class="pl-c1">0h</span><span class="pl-c">    ; DX 寄存器清零，为除法运算做准备</span>
-<span class="pl-en">    </span><span class="pl-k">div</span><span class="pl-en"> </span><span class="pl-v">bx</span><span class="pl-c">        ; AX 除以 BX (10000)，商在 AX，余数在 DX。这里用于取出万位数字，但第一次循环BX是10000，实际是取最高位</span>
-<span class="pl-en">    </span><span class="pl-k">or</span><span class="pl-en"> </span><span class="pl-v">al</span><span class="pl-s1">,</span><span class="pl-en"> </span><span class="pl-c1">030h</span><span class="pl-c">   ; 将 AL 寄存器的值与 30h (字符 '0' 的 ASCII 码) 进行按位或运算，将数字转换为 ASCII 字符</span>
-<span class="pl-en">    </span><span class="pl-k">push</span><span class="pl-en"> </span><span class="pl-v">dx</span><span class="pl-c">       ; 余数 DX 入栈，暂存个位/十位/百位/千位数字，后续会依次出栈打印</span>
-<span class="pl-en">    </span><span class="pl-k">mov</span><span class="pl-en"> </span><span class="pl-v">dl</span><span class="pl-s1">,</span><span class="pl-en"> </span><span class="pl-v">al</span><span class="pl-c">    ; 将个位数字的 ASCII 码放入 DL 寄存器</span>
-<span class="pl-en">    </span><span class="pl-k">mov</span><span class="pl-en"> </span><span class="pl-v">ah</span><span class="pl-s1">,</span><span class="pl-en"> </span><span class="pl-c1">02h</span><span class="pl-c">   ; 设置 DOS 功能号为 02h (显示字符)</span>
-<span class="pl-en">    </span><span class="pl-k">int</span><span class="pl-en"> </span><span class="pl-c1">021h</span><span class="pl-c">      ; 调用 DOS 中断 21h，显示当前数字字符</span>
-<span class="pl-en">    </span><span class="pl-k">mov</span><span class="pl-en"> </span><span class="pl-v">dx</span><span class="pl-s1">,</span><span class="pl-en"> </span><span class="pl-c1">0h</span><span class="pl-c">    ; DX 寄存器清零，为下一次除法运算做准备</span>
-<span class="pl-en">    </span><span class="pl-k">mov</span><span class="pl-en"> </span><span class="pl-v">ax</span><span class="pl-s1">,</span><span class="pl-en"> </span><span class="pl-v">bx</span><span class="pl-c">    ; 将 BX 的值 (当前的除数，初始为 10000) 复制到 AX</span>
-<span class="pl-en">    </span><span class="pl-k">div</span><span class="pl-en"> ten</span><span class="pl-c">       ; AX 除以 ten (10)，结果商在 AX，余数在 DX。用于将除数降一位 (10000 -&gt; 1000 -&gt; 100 -&gt; 10 -&gt; 1)</span>
-<span class="pl-en">    </span><span class="pl-k">mov</span><span class="pl-en"> </span><span class="pl-v">bx</span><span class="pl-s1">,</span><span class="pl-en"> </span><span class="pl-v">ax</span><span class="pl-c">    ; 将新的除数 (缩小 10 倍) 更新到 BX 寄存器</span>
-<span class="pl-en">    </span><span class="pl-k">pop</span><span class="pl-en"> </span><span class="pl-v">ax</span><span class="pl-c">        ; 从栈中弹出之前暂存的余数到 AX，为下一次循环做准备 (实际上这里pop出来的是上一次div的余数，但是后面又被mov dx, 0h覆盖了，应该pop到dx才对，这里代码有误)</span>
-<span class="pl-en">    </span><span class="pl-k">loop</span><span class="pl-en"> Positive</span><span class="pl-c">   ; 循环 CX 次，打印剩余的数字</span>
-<span class="pl-en">    </span><span class="pl-k">pop</span><span class="pl-en"> </span><span class="pl-v">dx</span><span class="pl-c">        ; 恢复寄存器 DX, CX, BX 的值</span>
-<span class="pl-en">    </span><span class="pl-k">pop</span><span class="pl-en"> </span><span class="pl-v">cx</span>
-<span class="pl-en">    </span><span class="pl-k">pop</span><span class="pl-en"> </span><span class="pl-v">bx</span>
-<span class="pl-en">    </span><span class="pl-k">ret</span><span class="pl-c">           ; 子程序返回</span>
-<span class="pl-en">END</span></pre></div>
+; Positive 标签：处理正数和负数的绝对值打印
+Positive:
+    mov dx, 0h    ; DX 寄存器清零，为除法运算做准备
+    div bx        ; AX 除以 BX (10000)，商在 AX，余数在 DX。这里用于取出万位数字，但第一次循环BX是10000，实际是取最高位
+    or al, 030h   ; 将 AL 寄存器的值与 30h (字符 '0' 的 ASCII 码) 进行按位或运算，将数字转换为 ASCII 字符
+    push dx       ; 余数 DX 入栈，暂存个位/十位/百位/千位数字，后续会依次出栈打印
+    mov dl, al    ; 将个位数字的 ASCII 码放入 DL 寄存器
+    mov ah, 02h   ; 设置 DOS 功能号为 02h (显示字符)
+    int 021h      ; 调用 DOS 中断 21h，显示当前数字字符
+    mov dx, 0h    ; DX 寄存器清零，为下一次除法运算做准备
+    mov ax, bx    ; 将 BX 的值 (当前的除数，初始为 10000) 复制到 AX
+    div ten       ; AX 除以 ten (10)，结果商在 AX，余数在 DX。用于将除数降一位 (10000 -&gt; 1000 -&gt; 100 -&gt; 10 -&gt; 1)
+    mov bx, ax    ; 将新的除数 (缩小 10 倍) 更新到 BX 寄存器
+    pop ax        ; 从栈中弹出之前暂存的余数到 AX，为下一次循环做准备 (实际上这里pop出来的是上一次div的余数，但是后面又被mov dx, 0h覆盖了，应该pop到dx才对，这里代码有误)
+    loop Positive   ; 循环 CX 次，打印剩余的数字
+    pop dx        ; 恢复寄存器 DX, CX, BX 的值
+    pop cx
+    pop bx
+    ret           ; 子程序返回
+END
+</code></pre>
 <h3>字符串</h3>
 <h4>字符串的定义</h4>
 <p><strong>字符串</strong> (String) 是一组用于描述文本的 <strong>ASCII(美国信息交换标准代码)</strong> 字符序列。在汇编语言中，字符串通常以不同的方式进行定义和存储，常见的表示方法包括：</p>
@@ -896,8 +900,9 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 </li>
 <li>
 <p><strong>示例</strong>：</p>
-<div class="highlight highlight-source-assembly"><pre class="notranslate"><span class="pl-en">msg1 db </span><span class="pl-s">"Hello, world.$"</span><span class="pl-c"> ; 定义字符串 msg1</span>
-<span class="pl-k">lea</span><span class="pl-en"> </span><span class="pl-v">SI</span><span class="pl-s1">,</span><span class="pl-en"> msg1</span><span class="pl-c">          ; 将 msg1 的有效地址加载到 SI 寄存器</span></pre></div>
+<pre lang="assembly" class="notranslate"><code class="notranslate">msg1 db "Hello, world.$" ; 定义字符串 msg1
+lea SI, msg1          ; 将 msg1 的有效地址加载到 SI 寄存器
+</code></pre>
 <p><strong>说明</strong>：上述代码中，<code class="notranslate">lea SI, msg1</code> 将 <code class="notranslate">msg1</code> 字符串在内存中的起始地址加载到 <strong>SI(源变址寄存器)</strong> 寄存器中。此时，SI 寄存器就指向了字符串 <code class="notranslate">msg1</code> 的首地址。</p>
 </li>
 </ul>
@@ -919,15 +924,16 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 </li>
 <li>
 <p><strong>示例</strong>：</p>
-<div class="highlight highlight-source-assembly"><pre class="notranslate"><span class="pl-en">msg1 db </span><span class="pl-s">"Hello$"</span><span class="pl-c">  ; 源字符串 msg1</span>
-<span class="pl-en">msg2 db </span><span class="pl-s">"     $"</span><span class="pl-c">  ; 目标字符串 msg2，预留空间</span>
+<pre lang="assembly" class="notranslate"><code class="notranslate">msg1 db "Hello$"  ; 源字符串 msg1
+msg2 db "     $"  ; 目标字符串 msg2，预留空间
 
-<span class="pl-k">lea</span><span class="pl-en"> </span><span class="pl-v">SI</span><span class="pl-s1">,</span><span class="pl-en"> msg1</span><span class="pl-c">      ; SI 指向源字符串 msg1 的首地址</span>
-<span class="pl-k">lea</span><span class="pl-en"> </span><span class="pl-v">DI</span><span class="pl-s1">,</span><span class="pl-en"> msg2</span><span class="pl-c">      ; DI 指向目标字符串 msg2 的首地址</span>
+lea SI, msg1      ; SI 指向源字符串 msg1 的首地址
+lea DI, msg2      ; DI 指向目标字符串 msg2 的首地址
 
-<span class="pl-k">mov</span><span class="pl-en"> </span><span class="pl-v">cx</span><span class="pl-s1">,</span><span class="pl-en"> </span><span class="pl-c1">5</span><span class="pl-c">         ; 设置循环次数为 5，表示要复制的字节个数</span>
-<span class="pl-k">cld</span><span class="pl-c">               ; 清除方向标志位 DF，设置正向复制 (SI, DI 递增)</span>
-<span class="pl-k">rep</span><span class="pl-en"> </span><span class="pl-k">movsb</span><span class="pl-c">         ; 重复执行 MOVSB 指令 CX 次，完成字符串复制</span></pre></div>
+mov cx, 5         ; 设置循环次数为 5，表示要复制的字节个数
+cld               ; 清除方向标志位 DF，设置正向复制 (SI, DI 递增)
+rep movsb         ; 重复执行 MOVSB 指令 CX 次，完成字符串复制
+</code></pre>
 <p><strong>说明</strong>：这段代码使用 <code class="notranslate">MOVSB</code> 命令将 <code class="notranslate">msg1</code> 的前 5 个字节复制到 <code class="notranslate">msg2</code> 中。<code class="notranslate">rep</code> (<strong>repeat</strong>)  前缀使得 <code class="notranslate">MOVSB</code> 指令重复执行 <code class="notranslate">CX</code> 次，<code class="notranslate">cld</code> (<strong>clear direction flag</strong>) 指令清除方向标志位 DF，确保复制过程地址递增。</p>
 </li>
 </ul>
@@ -952,22 +958,23 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 </li>
 <li>
 <p><strong>示例</strong>：</p>
-<div class="highlight highlight-source-assembly"><pre class="notranslate"><span class="pl-en">msg1 db </span><span class="pl-s">"Hello$"</span><span class="pl-c"> ; 第一个字符串 msg1</span>
-<span class="pl-en">msg2 db </span><span class="pl-s">"Hello$"</span><span class="pl-c"> ; 第二个字符串 msg2</span>
+<pre lang="assembly" class="notranslate"><code class="notranslate">msg1 db "Hello$" ; 第一个字符串 msg1
+msg2 db "Hello$" ; 第二个字符串 msg2
 
-<span class="pl-k">lea</span><span class="pl-en"> </span><span class="pl-v">SI</span><span class="pl-s1">,</span><span class="pl-en"> msg1</span><span class="pl-c">     ; SI 指向字符串 msg1 的首地址</span>
-<span class="pl-k">lea</span><span class="pl-en"> </span><span class="pl-v">DI</span><span class="pl-s1">,</span><span class="pl-en"> msg2</span><span class="pl-c">     ; DI 指向字符串 msg2 的首地址</span>
+lea SI, msg1     ; SI 指向字符串 msg1 的首地址
+lea DI, msg2     ; DI 指向字符串 msg2 的首地址
 
-<span class="pl-k">mov</span><span class="pl-en"> </span><span class="pl-v">cx</span><span class="pl-s1">,</span><span class="pl-en"> </span><span class="pl-c1">5</span><span class="pl-c">        ; 设置循环次数为 5，表示要比较的字节个数</span>
-<span class="pl-k">cld</span><span class="pl-c">              ; 清除方向标志位 DF，设置正向比较 (SI, DI 递增)</span>
-<span class="pl-k">rep</span><span class="pl-en"> cmpsb</span><span class="pl-c">        ; 重复执行 CMPSB 指令 CX 次，比较字符串</span>
-<span class="pl-k">jz</span><span class="pl-en"> equal</span><span class="pl-c">         ; 如果 ZF = 1 (比较结果相等)，跳转到 equal 标签</span>
-<span class="pl-k">jmp</span><span class="pl-en"> not_equal</span><span class="pl-c">    ; 如果 ZF = 0 (比较结果不相等)，跳转到 not_equal 标签</span>
+mov cx, 5        ; 设置循环次数为 5，表示要比较的字节个数
+cld              ; 清除方向标志位 DF，设置正向比较 (SI, DI 递增)
+rep cmpsb        ; 重复执行 CMPSB 指令 CX 次，比较字符串
+jz equal         ; 如果 ZF = 1 (比较结果相等)，跳转到 equal 标签
+jmp not_equal    ; 如果 ZF = 0 (比较结果不相等)，跳转到 not_equal 标签
 
-<span class="pl-en">equal:</span>
-<span class="pl-c">  ; 字符串相等时执行的代码</span>
-<span class="pl-en">not_equal:</span>
-<span class="pl-c">  ; 字符串不相等时执行的代码</span></pre></div>
+equal:
+  ; 字符串相等时执行的代码
+not_equal:
+  ; 字符串不相等时执行的代码
+</code></pre>
 <p><strong>说明</strong>：这段代码使用 <code class="notranslate">CMPSB</code> 命令比较 <code class="notranslate">msg1</code> 和 <code class="notranslate">msg2</code> 的前 5 个字节。<code class="notranslate">rep cmpsb</code> 会重复比较 <code class="notranslate">CX</code> 次，并根据比较结果设置标志位。<code class="notranslate">jz</code> (<strong>jump if zero</strong>) 指令检查 ZF 标志位，判断比较结果是否相等。</p>
 </li>
 </ul>
@@ -1210,73 +1217,74 @@ $(-1)^0 \times 1.01_2 \times 2^{-1} = 1.01_2 \times 2^{-1} = 0.101_2 = 0.625_{10
 <h3>浮点数计算 —— 毕达哥拉斯问题</h3>
 <p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/c893599dba3ce1d596b47d6695eded954071f655b34d52c522bf95b76ac2abc1/68747470733a2f2f73322e6c6f6c692e6e65742f323032352f30312f31382f794f336b6c4a7670314d54687359442e706e67"><img src="https://camo.githubusercontent.com/c893599dba3ce1d596b47d6695eded954071f655b34d52c522bf95b76ac2abc1/68747470733a2f2f73322e6c6f6c692e6e65742f323032352f30312f31382f794f336b6c4a7670314d54687359442e706e67" alt="image-20250118下午94629825" data-canonical-src="https://s2.loli.net/2025/01/18/yO3klJvp1MThsYD.png" style="max-width: 100%;"></a></p>
 <p>使用 FP 处理器  (8087 ) 执行上述计算</p>
-<div class="highlight highlight-source-assembly"><pre class="notranslate"><span class="pl-en">.</span><span class="pl-c1">8087</span><span class="pl-c">                                ; 告诉 MASM 协处理器存在</span>
-<span class="pl-en">.MODEL medium</span>
-<span class="pl-en">.STACK</span>
-<span class="pl-en">.DATA</span>
+<pre lang="assembly" class="notranslate"><code class="notranslate">.8087                                ; 告诉 MASM 协处理器存在
+.MODEL medium
+.STACK
+.DATA
 
-<span class="pl-en">SX dd </span><span class="pl-c1">5</span><span class="pl-en">.</span><span class="pl-c1">0</span><span class="pl-c">                            ; 定义短实数 (4 字节 ), 初始值为 5.0</span>
-<span class="pl-en">SY dd </span><span class="pl-c1">12</span><span class="pl-en">.</span><span class="pl-c1">0</span><span class="pl-c">                           ; 定义短实数 (4 字节 ), 初始值为 12.0</span>
-<span class="pl-en">HY dd </span><span class="pl-c1">0</span><span class="pl-en">.</span><span class="pl-c1">0</span><span class="pl-c">                            ; 定义短实数 (4 字节 ), 用于存储结果</span>
-<span class="pl-en">cntrl dw </span><span class="pl-c1">03FFh</span><span class="pl-c">                       ; 定义控制字, 用于设置 8087 协处理器的状态</span>
-<span class="pl-en">st</span><span class="pl-c1">at</span> <span class="pl-en">dw </span><span class="pl-c1">0</span><span class="pl-c">                            ; 定义状态字, 用于存储 FPU 的状态</span>
+SX dd 5.0                            ; 定义短实数 (4 字节 ), 初始值为 5.0
+SY dd 12.0                           ; 定义短实数 (4 字节 ), 初始值为 12.0
+HY dd 0.0                            ; 定义短实数 (4 字节 ), 用于存储结果
+cntrl dw 03FFh                       ; 定义控制字, 用于设置 8087 协处理器的状态
+stat dw 0                            ; 定义状态字, 用于存储 FPU 的状态
 
-<span class="pl-en">.CODE</span>
-<span class="pl-en">.STARTUP</span>
+.CODE
+.STARTUP
 
-<span class="pl-k">FINIT</span><span class="pl-c">                                ; 初始化 FPU, 将其设置为默认状态</span>
-<span class="pl-k">FLDCW</span><span class="pl-en"> cntrl</span><span class="pl-c">                          ; 加载控制字, 设置舍入模式为偶数, 并屏蔽中断</span>
+FINIT                                ; 初始化 FPU, 将其设置为默认状态
+FLDCW cntrl                          ; 加载控制字, 设置舍入模式为偶数, 并屏蔽中断
 
-<span class="pl-k">FLD</span><span class="pl-en"> SX</span><span class="pl-c">                               ; 将 SX 压入 FPU 栈</span>
-<span class="pl-k">FMUL</span><span class="pl-en"> ST</span><span class="pl-s1">,</span><span class="pl-en"> ST(</span><span class="pl-c1">0</span><span class="pl-en">)</span><span class="pl-c">                       ; 将栈顶元素与自身相乘, 结果存储在栈顶</span>
-<span class="pl-k">FLD</span><span class="pl-en"> SY</span><span class="pl-c">                               ; 将 SY 压入 FPU 栈</span>
-<span class="pl-k">FMUL</span><span class="pl-en"> ST</span><span class="pl-s1">,</span><span class="pl-en"> ST(</span><span class="pl-c1">0</span><span class="pl-en">)</span><span class="pl-c">                       ; 将栈顶元素与自身相乘, 结果存储在栈顶</span>
-<span class="pl-k">FADD</span><span class="pl-c">                                 ; 将栈顶的两个数相加</span>
-<span class="pl-k">FSQRT</span><span class="pl-c">                                ; 计算栈顶元素的平方根</span>
-<span class="pl-k">FSTSW</span><span class="pl-en"> st</span><span class="pl-c1">at</span> <span class="pl-c">                          ; 将 FPU 的状态字加载到 [stat]</span>
-<span class="pl-k">mov</span><span class="pl-en"> </span><span class="pl-v">ax</span><span class="pl-s1">,</span><span class="pl-en"> st</span><span class="pl-c1">at</span> <span class="pl-c">                        ; 将 [stat] 复制到 AX</span>
-<span class="pl-k">and</span><span class="pl-en"> </span><span class="pl-v">al</span><span class="pl-s1">,</span><span class="pl-en"> </span><span class="pl-c1">0BFh</span><span class="pl-c">                         ; 检查所有 6 个状态位</span>
-<span class="pl-k">jnz</span><span class="pl-en"> pass</span><span class="pl-c">                             ; 如果有任何位被设置, 则跳转到 pass</span>
-<span class="pl-k">FSTP</span><span class="pl-en"> HY</span><span class="pl-c">                              ; 将栈顶的结果存储到 HY</span>
-<span class="pl-k">jmp</span><span class="pl-en"> print</span><span class="pl-c">                            ; 跳转到打印函数</span>
+FLD SX                               ; 将 SX 压入 FPU 栈
+FMUL ST, ST(0)                       ; 将栈顶元素与自身相乘, 结果存储在栈顶
+FLD SY                               ; 将 SY 压入 FPU 栈
+FMUL ST, ST(0)                       ; 将栈顶元素与自身相乘, 结果存储在栈顶
+FADD                                 ; 将栈顶的两个数相加
+FSQRT                                ; 计算栈顶元素的平方根
+FSTSW stat                           ; 将 FPU 的状态字加载到 [stat]
+mov ax, stat                         ; 将 [stat] 复制到 AX
+and al, 0BFh                         ; 检查所有 6 个状态位
+jnz pass                             ; 如果有任何位被设置, 则跳转到 pass
+FSTP HY                              ; 将栈顶的结果存储到 HY
+jmp print                            ; 跳转到打印函数
 
-<span class="pl-en">print:</span>
-<span class="pl-en">    </span><span class="pl-k">mov</span><span class="pl-en"> </span><span class="pl-v">bx</span><span class="pl-s1">,</span><span class="pl-en"> OFFSET HY</span><span class="pl-c">                ; 将 HY 的地址加载到 BX 寄存器</span>
-<span class="pl-en">    </span><span class="pl-k">mov</span><span class="pl-en"> </span><span class="pl-v">ax</span><span class="pl-s1">,</span><span class="pl-en"> </span><span class="pl-s1">[</span><span class="pl-v">bx</span><span class="pl-s1">+</span><span class="pl-c1">2</span><span class="pl-s1">]</span><span class="pl-c">                   ; 将 HY+2 的值加载到 AX 寄存器</span>
-<span class="pl-en">    </span><span class="pl-k">mov</span><span class="pl-en"> </span><span class="pl-v">cx</span><span class="pl-s1">,</span><span class="pl-en"> </span><span class="pl-c1">16</span><span class="pl-c">                       ; 设置循环次数为 16</span>
-<span class="pl-en">    </span><span class="pl-k">call</span><span class="pl-en"> print_num                  </span>
-<span class="pl-en">    </span><span class="pl-k">mov</span><span class="pl-en"> </span><span class="pl-v">ax</span><span class="pl-s1">,</span><span class="pl-en"> </span><span class="pl-s1">[</span><span class="pl-v">bx</span><span class="pl-s1">]</span><span class="pl-c">                     ; 将 HY 的值加载到 AX 寄存器</span>
-<span class="pl-en">    </span><span class="pl-k">mov</span><span class="pl-en"> </span><span class="pl-v">cx</span><span class="pl-s1">,</span><span class="pl-en"> </span><span class="pl-c1">16</span>
-<span class="pl-en">    </span><span class="pl-k">call</span><span class="pl-en"> print_num</span>
-<span class="pl-en">    </span><span class="pl-k">jmp</span><span class="pl-en"> pass</span>
+print:
+    mov bx, OFFSET HY                ; 将 HY 的地址加载到 BX 寄存器
+    mov ax, [bx+2]                   ; 将 HY+2 的值加载到 AX 寄存器
+    mov cx, 16                       ; 设置循环次数为 16
+    call print_num                  
+    mov ax, [bx]                     ; 将 HY 的值加载到 AX 寄存器
+    mov cx, 16
+    call print_num
+    jmp pass
 
-<span class="pl-en">print_num:</span>
-<span class="pl-en">    </span><span class="pl-k">push</span><span class="pl-en"> </span><span class="pl-v">bx</span><span class="pl-c">                          ; 存储 BX 寄存器</span>
-<span class="pl-en">    </span><span class="pl-k">rol</span><span class="pl-en"> </span><span class="pl-v">ax</span><span class="pl-s1">,</span><span class="pl-en"> </span><span class="pl-c1">1</span><span class="pl-c">                        ; 将 AX 寄存器左移一位</span>
-<span class="pl-en">    </span><span class="pl-k">jc</span><span class="pl-en"> set</span><span class="pl-c">                           ; 如果 ZF=1 , 则 DL='1'</span>
-<span class="pl-en">    </span><span class="pl-k">mov</span><span class="pl-en"> </span><span class="pl-v">dl</span><span class="pl-s1">,</span><span class="pl-en"> </span><span class="pl-s">'0'</span><span class="pl-c">                      ; DL='0'</span>
-<span class="pl-en">    </span><span class="pl-k">jmp</span><span class="pl-en"> over</span>
+print_num:
+    push bx                          ; 存储 BX 寄存器
+    rol ax, 1                        ; 将 AX 寄存器左移一位
+    jc set                           ; 如果 ZF=1 , 则 DL='1'
+    mov dl, '0'                      ; DL='0'
+    jmp over
 
-<span class="pl-en">set:</span>
-<span class="pl-en">    </span><span class="pl-k">mov</span><span class="pl-en"> </span><span class="pl-v">dl</span><span class="pl-s1">,</span><span class="pl-en"> </span><span class="pl-s">'1'</span>
+set:
+    mov dl, '1'
 
-<span class="pl-en">over:</span>
-<span class="pl-en">    </span><span class="pl-k">push</span><span class="pl-en"> </span><span class="pl-v">ax</span><span class="pl-c">                          ; 存储 AX 寄存器</span>
-<span class="pl-en">    </span><span class="pl-k">mov</span><span class="pl-en"> </span><span class="pl-v">ah</span><span class="pl-s1">,</span><span class="pl-en"> </span><span class="pl-c1">02h</span>
-<span class="pl-en">    </span><span class="pl-k">int</span><span class="pl-en"> </span><span class="pl-c1">21h</span>
-<span class="pl-en">    </span><span class="pl-k">pop</span><span class="pl-en"> </span><span class="pl-v">ax</span><span class="pl-c">                           ; 恢复 AX 寄存器</span>
-<span class="pl-en">    </span><span class="pl-k">loop</span><span class="pl-en"> print_num</span>
-<span class="pl-en">    </span><span class="pl-k">pop</span><span class="pl-en"> </span><span class="pl-v">bx</span><span class="pl-c">                           ; 恢复 BX 寄存器</span>
-<span class="pl-en">    </span><span class="pl-k">ret</span>
+over:
+    push ax                          ; 存储 AX 寄存器
+    mov ah, 02h
+    int 21h
+    pop ax                           ; 恢复 AX 寄存器
+    loop print_num
+    pop bx                           ; 恢复 BX 寄存器
+    ret
 
-<span class="pl-en">pass: </span>
-<span class="pl-en">    </span><span class="pl-k">nop</span>
+pass: 
+    nop
 
-<span class="pl-c">; 程序结束</span>
-<span class="pl-k">mov</span><span class="pl-en"> </span><span class="pl-v">ah</span><span class="pl-s1">,</span><span class="pl-en"> </span><span class="pl-c1">4Ch</span><span class="pl-c">        ; 设置 AH 为 4Ch (DOS 功能调用: 程序退出 )</span>
-<span class="pl-k">int</span><span class="pl-en"> </span><span class="pl-c1">21h</span>
+; 程序结束
+mov ah, 4Ch        ; 设置 AH 为 4Ch (DOS 功能调用: 程序退出 )
+int 21h
 
-<span class="pl-en">END</span></pre></div>
+END
+</code></pre>
 <p><code class="notranslate">HY</code>在内存中的排列:</p>
 <p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/4501f7e6b9d9bc73e989b47e2205dc2d24006bffa29a8cdc0a040dee7bc8674a/68747470733a2f2f73322e6c6f6c692e6e65742f323032352f30312f31382f55486d4c68614f36533542716573622e706e67"><img src="https://camo.githubusercontent.com/4501f7e6b9d9bc73e989b47e2205dc2d24006bffa29a8cdc0a040dee7bc8674a/68747470733a2f2f73322e6c6f6c692e6e65742f323032352f30312f31382f55486d4c68614f36533542716573622e706e67" alt="img" data-canonical-src="https://s2.loli.net/2025/01/18/UHmLhaO6S5Bqesb.png" style="max-width: 100%;"></a></p>
 <blockquote>
@@ -1629,7 +1637,8 @@ $(-1)^0 \times 1.01_2 \times 2^{-1} = 1.01_2 \times 2^{-1} = 0.101_2 = 0.625_{10
 <h3>汇编语言 I/O 指令</h3>
 <h4>OUT 指令：端口输出</h4>
 <p><strong>OUT 指令</strong> 用于将数据从 <strong>CPU 寄存器</strong>  (通常是累加器 <code class="notranslate">AL</code>, <code class="notranslate">AX</code>, <code class="notranslate">EAX</code>)  <strong>写入</strong> 到指定的 <strong>I/O 端口</strong>。</p>
-<div class="highlight highlight-source-assembly"><pre class="notranslate"><span class="pl-k">OUT</span><span class="pl-en"> port</span><span class="pl-s1">,</span><span class="pl-en"> acc</span></pre></div>
+<pre lang="assembly" class="notranslate"><code class="notranslate">OUT port, acc
+</code></pre>
 <ul>
 <li><strong>port</strong>:  <strong>I/O 端口地址</strong>，可以是立即数或存储在 DX 寄存器中。</li>
 <li><strong>acc</strong>: <strong>累加器</strong> (<code class="notranslate">AL</code>, <code class="notranslate">AX</code>, 或 <code class="notranslate">EAX</code>)，存储着要<strong>输出的数据</strong>。</li>
@@ -1642,7 +1651,8 @@ $(-1)^0 \times 1.01_2 \times 2^{-1} = 1.01_2 \times 2^{-1} = 0.101_2 = 0.625_{10
 <li><strong>端口地址</strong> 直接在指令中指定为 <strong>立即数 (0-255)</strong>。</li>
 <li><strong>寻址范围限制</strong>： 这种模式<strong>只能访问 256 个端口</strong> (地址范围 00h-FFh)。</li>
 </ul>
-<div class="highlight highlight-source-assembly"><pre class="notranslate"><span class="pl-k">OUT</span><span class="pl-en"> </span><span class="pl-c1">30h</span><span class="pl-s1">,</span><span class="pl-en"> </span><span class="pl-v">AL</span><span class="pl-c">  ; 将 AL 寄存器中的 8 位数据写入端口地址 30h</span></pre></div>
+<pre lang="assembly" class="notranslate"><code class="notranslate">OUT 30h, AL  ; 将 AL 寄存器中的 8 位数据写入端口地址 30h
+</code></pre>
 </li>
 <li>
 <p><strong>DX 寄存器模式 (Register Mode)</strong>：</p>
@@ -1650,13 +1660,15 @@ $(-1)^0 \times 1.01_2 \times 2^{-1} = 1.01_2 \times 2^{-1} = 0.101_2 = 0.625_{10
 <li><strong>端口地址</strong> 存储在 <strong>DX 寄存器</strong> 中。</li>
 <li><strong>寻址范围扩展</strong>： 这种模式可以访问 <strong>64K 个端口 (0-65535)</strong>，提供了更大的 I/O 空间访问能力。</li>
 </ul>
-<div class="highlight highlight-source-assembly"><pre class="notranslate"><span class="pl-k">mov</span><span class="pl-en"> </span><span class="pl-v">dx</span><span class="pl-s1">,</span><span class="pl-en"> </span><span class="pl-c1">0x378</span><span class="pl-c"> ; 将端口地址 0x378 放入 DX 寄存器</span>
-<span class="pl-k">OUT</span><span class="pl-en"> </span><span class="pl-v">DX</span><span class="pl-s1">,</span><span class="pl-en"> </span><span class="pl-v">AX</span><span class="pl-c">    ; 将 AX 寄存器中的 16 位数据写入 DX 寄存器指定的端口</span></pre></div>
+<pre lang="assembly" class="notranslate"><code class="notranslate">mov dx, 0x378 ; 将端口地址 0x378 放入 DX 寄存器
+OUT DX, AX    ; 将 AX 寄存器中的 16 位数据写入 DX 寄存器指定的端口
+</code></pre>
 </li>
 </ol>
 <h4>IN 指令：端口输入</h4>
 <p><strong>IN 指令</strong> 用于从指定的 <strong>I/O 端口</strong> <strong>读取数据</strong> 到 <strong>CPU 寄存器</strong>  (通常是累加器 <code class="notranslate">AL</code>, <code class="notranslate">AX</code>, <code class="notranslate">EAX</code>) 。</p>
-<div class="highlight highlight-source-assembly"><pre class="notranslate"><span class="pl-k">IN</span><span class="pl-en"> acc</span><span class="pl-s1">,</span><span class="pl-en"> port</span></pre></div>
+<pre lang="assembly" class="notranslate"><code class="notranslate">IN acc, port
+</code></pre>
 <ul>
 <li><strong>acc</strong>: <strong>累加器</strong> (<code class="notranslate">AL</code>, <code class="notranslate">AX</code>, 或 <code class="notranslate">EAX</code>)，用于<strong>存储从端口读取的数据</strong>。</li>
 <li><strong>port</strong>: <strong>I/O 端口地址</strong>，可以是立即数或存储在 DX 寄存器中。</li>
@@ -1669,7 +1681,8 @@ $(-1)^0 \times 1.01_2 \times 2^{-1} = 1.01_2 \times 2^{-1} = 0.101_2 = 0.625_{10
 <li><strong>端口地址</strong> 直接在指令中指定为 <strong>立即数 (0-255)</strong>。</li>
 <li><strong>寻址范围限制</strong>： 这种模式<strong>只能访问 256 个端口</strong> (地址范围 00h-FFh)。</li>
 </ul>
-<div class="highlight highlight-source-assembly"><pre class="notranslate"><span class="pl-k">IN</span><span class="pl-en"> </span><span class="pl-v">AL</span><span class="pl-s1">,</span><span class="pl-en"> </span><span class="pl-c1">30h</span><span class="pl-c">  ; 从端口地址 30h 读取 8 位数据，存储到 AL 寄存器</span></pre></div>
+<pre lang="assembly" class="notranslate"><code class="notranslate">IN AL, 30h  ; 从端口地址 30h 读取 8 位数据，存储到 AL 寄存器
+</code></pre>
 </li>
 <li>
 <p><strong>DX 寄存器模式 (Register Mode)</strong>：</p>
@@ -1677,8 +1690,9 @@ $(-1)^0 \times 1.01_2 \times 2^{-1} = 1.01_2 \times 2^{-1} = 0.101_2 = 0.625_{10
 <li><strong>端口地址</strong> 存储在 <strong>DX 寄存器</strong> 中。</li>
 <li><strong>寻址范围扩展</strong>： 这种模式可以访问 <strong>64K 个端口 (0-65535)</strong>，提供了更大的 I/O 空间访问能力。</li>
 </ul>
-<div class="highlight highlight-source-assembly"><pre class="notranslate"><span class="pl-k">mov</span><span class="pl-en"> </span><span class="pl-v">dx</span><span class="pl-s1">,</span><span class="pl-en"> </span><span class="pl-c1">0x379</span><span class="pl-c"> ; 将端口地址 0x379 放入 DX 寄存器</span>
-<span class="pl-k">IN</span><span class="pl-en"> </span><span class="pl-v">AX</span><span class="pl-s1">,</span><span class="pl-en"> </span><span class="pl-v">DX</span><span class="pl-c">    ; 从 DX 寄存器指定的端口读取 16 位数据，存储到 AX 寄存器</span></pre></div>
+<pre lang="assembly" class="notranslate"><code class="notranslate">mov dx, 0x379 ; 将端口地址 0x379 放入 DX 寄存器
+IN AX, DX    ; 从 DX 寄存器指定的端口读取 16 位数据，存储到 AX 寄存器
+</code></pre>
 </li>
 </ol>
 <blockquote>
@@ -1810,24 +1824,25 @@ $(-1)^0 \times 1.01_2 \times 2^{-1} = 1.01_2 \times 2^{-1} = 0.101_2 = 0.625_{10
 <p><strong>中断向量表结构示意图</strong></p>
 <p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/a44aefbe7657393adf7f2d1266c595be72b66c41dca9d040d91610244952ad92/68747470733a2f2f73322e6c6f6c692e6e65742f323032352f30312f32302f5458594b3946356347554a493261312e6a7067"><img src="https://camo.githubusercontent.com/a44aefbe7657393adf7f2d1266c595be72b66c41dca9d040d91610244952ad92/68747470733a2f2f73322e6c6f6c692e6e65742f323032352f30312f32302f5458594b3946356347554a493261312e6a7067" alt="img" data-canonical-src="https://s2.loli.net/2025/01/20/TXYK9F5cGUJI2a1.jpg" style="max-width: 100%;"></a></p>
 <p><strong>重写中断向量表的例子</strong></p>
-<div class="highlight highlight-source-assembly"><pre class="notranslate"><span class="pl-c">    ; 保存原INT 8h中断向量</span>
-<span class="pl-en">    </span><span class="pl-k">cli</span><span class="pl-c">                 ; 禁用中断</span>
-<span class="pl-en">    </span><span class="pl-k">xor</span><span class="pl-en"> </span><span class="pl-v">ax</span><span class="pl-s1">,</span><span class="pl-en"> </span><span class="pl-v">ax</span>
-<span class="pl-en">    </span><span class="pl-k">mov</span><span class="pl-en"> </span><span class="pl-v">es</span><span class="pl-s1">,</span><span class="pl-en"> </span><span class="pl-v">ax</span><span class="pl-c">          ; ES=0000h（中断向量表段）</span>
-<span class="pl-en">    </span><span class="pl-k">mov</span><span class="pl-en"> </span><span class="pl-v">bx</span><span class="pl-s1">,</span><span class="pl-en"> </span><span class="pl-c1">8</span><span class="pl-s1">*</span><span class="pl-c1">4</span><span class="pl-c">         ; INT 8h向量地址（8h*4=20h）</span>
+<pre lang="assembly" class="notranslate"><code class="notranslate">    ; 保存原INT 8h中断向量
+    cli                 ; 禁用中断
+    xor ax, ax
+    mov es, ax          ; ES=0000h（中断向量表段）
+    mov bx, 8*4         ; INT 8h向量地址（8h*4=20h）
 
-<span class="pl-c">    ; 保存原处理程序地址</span>
-<span class="pl-en">    </span><span class="pl-k">mov</span><span class="pl-en"> </span><span class="pl-v">ax</span><span class="pl-s1">,</span><span class="pl-en"> </span><span class="pl-v">es</span><span class="pl-en">:</span><span class="pl-s1">[</span><span class="pl-v">bx</span><span class="pl-s1">]</span>
-<span class="pl-en">    </span><span class="pl-k">mov</span><span class="pl-en"> old_ip</span><span class="pl-s1">,</span><span class="pl-en"> </span><span class="pl-v">ax</span>
-<span class="pl-en">    </span><span class="pl-k">mov</span><span class="pl-en"> </span><span class="pl-v">ax</span><span class="pl-s1">,</span><span class="pl-en"> </span><span class="pl-v">es</span><span class="pl-en">:</span><span class="pl-s1">[</span><span class="pl-v">bx</span><span class="pl-s1">+</span><span class="pl-c1">2</span><span class="pl-s1">]</span>
-<span class="pl-en">    </span><span class="pl-k">mov</span><span class="pl-en"> old_cs</span><span class="pl-s1">,</span><span class="pl-en"> </span><span class="pl-v">ax</span>
+    ; 保存原处理程序地址
+    mov ax, es:[bx]
+    mov old_ip, ax
+    mov ax, es:[bx+2]
+    mov old_cs, ax
 
-<span class="pl-c">    ; 设置新中断向量</span>
-<span class="pl-en">    </span><span class="pl-k">mov</span><span class="pl-en"> </span><span class="pl-v">ax</span><span class="pl-s1">,</span><span class="pl-en"> OFFSET isr</span>
-<span class="pl-en">    </span><span class="pl-k">mov</span><span class="pl-en"> </span><span class="pl-v">es</span><span class="pl-en">:</span><span class="pl-s1">[</span><span class="pl-v">bx</span><span class="pl-s1">],</span><span class="pl-en"> </span><span class="pl-v">ax</span>
-<span class="pl-en">    </span><span class="pl-k">mov</span><span class="pl-en"> </span><span class="pl-v">ax</span><span class="pl-s1">,</span><span class="pl-en"> </span><span class="pl-v">cs</span>
-<span class="pl-en">    </span><span class="pl-k">mov</span><span class="pl-en"> </span><span class="pl-v">es</span><span class="pl-en">:</span><span class="pl-s1">[</span><span class="pl-v">bx</span><span class="pl-s1">+</span><span class="pl-c1">2</span><span class="pl-s1">],</span><span class="pl-en"> </span><span class="pl-v">ax</span>
-<span class="pl-en">    </span><span class="pl-k">sti</span><span class="pl-c">                 ; 重新启用中断</span></pre></div>
+    ; 设置新中断向量
+    mov ax, OFFSET isr
+    mov es:[bx], ax
+    mov ax, cs
+    mov es:[bx+2], ax
+    sti                 ; 重新启用中断
+</code></pre>
 <div class="markdown-alert markdown-alert-note"><p class="markdown-alert-title"><svg class="octicon octicon-info mr-2" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8Zm8-6.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13ZM6.5 7.75A.75.75 0 0 1 7.25 7h1a.75.75 0 0 1 .75.75v2.75h.25a.75.75 0 0 1 0 1.5h-2a.75.75 0 0 1 0-1.5h.25v-2h-.25a.75.75 0 0 1-.75-.75ZM8 6a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z"></path></svg>Note</p>
 <p>注意这里由于8086是使用小端法，偏移在低地址，段地址在高地址！</p>
 </div>
@@ -2066,11 +2081,12 @@ $(-1)^0 \times 1.01_2 \times 2^{-1} = 1.01_2 \times 2^{-1} = 0.101_2 = 0.625_{10
 </ul>
 <p><strong>设置中断屏蔽的汇编代码示例</strong>：</p>
 <p>以下代码示例演示了如何通过设置 <strong>IMR</strong> 来<strong>屏蔽 IRQ 7, IRQ 3 和 IRQ 1 中断</strong>。</p>
-<div class="highlight highlight-source-assembly"><pre class="notranslate"><span class="pl-k">mov</span><span class="pl-en"> </span><span class="pl-v">al</span><span class="pl-s1">,</span><span class="pl-en"> </span><span class="pl-c1">137</span><span class="pl-c">     ; 十进制 137, 十六进制 89H</span>
-<span class="pl-c">                ; 二进制 10001001B</span>
-<span class="pl-c">                ; 位 7, 3, 0 设置为 1，对应屏蔽 IRQ7, IRQ3, IRQ1</span>
-<span class="pl-k">mov</span><span class="pl-en"> </span><span class="pl-v">dx</span><span class="pl-s1">,</span><span class="pl-en"> </span><span class="pl-c1">21h</span><span class="pl-c">     ; 中断屏蔽寄存器 (IMR) 的端口地址 (主 8259A)</span>
-<span class="pl-k">out</span><span class="pl-en"> </span><span class="pl-v">dx</span><span class="pl-s1">,</span><span class="pl-en"> </span><span class="pl-v">AL</span><span class="pl-c">      ; 将屏蔽值写入 IMR 寄存器</span></pre></div>
+<pre lang="assembly" class="notranslate"><code class="notranslate">mov al, 137     ; 十进制 137, 十六进制 89H
+                ; 二进制 10001001B
+                ; 位 7, 3, 0 设置为 1，对应屏蔽 IRQ7, IRQ3, IRQ1
+mov dx, 21h     ; 中断屏蔽寄存器 (IMR) 的端口地址 (主 8259A)
+out dx, AL      ; 将屏蔽值写入 IMR 寄存器
+</code></pre>
 <p><strong>屏蔽值 137 (89H) 的二进制表示 10001001B 的含义</strong>：</p>
 <p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/05cff24e65b3440dcdde52f20118aa5df6cc72bd866486c410005fac5883304a/68747470733a2f2f73322e6c6f6c692e6e65742f323032352f30312f32302f69455070774e78524f6834474863362e706e67"><img src="https://camo.githubusercontent.com/05cff24e65b3440dcdde52f20118aa5df6cc72bd866486c410005fac5883304a/68747470733a2f2f73322e6c6f6c692e6e65742f323032352f30312f32302f69455070774e78524f6834474863362e706e67" alt="img" data-canonical-src="https://s2.loli.net/2025/01/20/iEPpwNxROh4GHc6.png" style="max-width: 100%;"></a></p>
 <ul>
@@ -2094,9 +2110,10 @@ $(-1)^0 \times 1.01_2 \times 2^{-1} = 1.01_2 \times 2^{-1} = 0.101_2 = 0.625_{10
 </li>
 </ul>
 <p><strong>发送非特定 EOI 命令的汇编代码示例</strong>：</p>
-<div class="highlight highlight-source-assembly"><pre class="notranslate"><span class="pl-en">EOI_command:</span>
-<span class="pl-en">    </span><span class="pl-k">mov</span><span class="pl-en"> </span><span class="pl-v">al</span><span class="pl-s1">,</span><span class="pl-en"> </span><span class="pl-c1">20h</span><span class="pl-c">     ; EOI 命令字 (非特定 EOI)</span>
-<span class="pl-en">    </span><span class="pl-k">out</span><span class="pl-en"> </span><span class="pl-c1">20h</span><span class="pl-s1">,</span><span class="pl-en"> </span><span class="pl-v">al</span><span class="pl-c">     ; 发送到 8259A 的主控制器命令端口 (20H)</span></pre></div>
+<pre lang="assembly" class="notranslate"><code class="notranslate">EOI_command:
+    mov al, 20h     ; EOI 命令字 (非特定 EOI)
+    out 20h, al     ; 发送到 8259A 的主控制器命令端口 (20H)
+</code></pre>
 <div class="markdown-alert markdown-alert-note"><p class="markdown-alert-title"><svg class="octicon octicon-info mr-2" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8Zm8-6.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13ZM6.5 7.75A.75.75 0 0 1 7.25 7h1a.75.75 0 0 1 .75.75v2.75h.25a.75.75 0 0 1 0 1.5h-2a.75.75 0 0 1 0-1.5h.25v-2h-.25a.75.75 0 0 1-.75-.75ZM8 6a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z"></path></svg>Note</p>
 <p><strong>何时发送 EOI 命令</strong>：</p>
 <ul>
@@ -2178,53 +2195,54 @@ $(-1)^0 \times 1.01_2 \times 2^{-1} = 1.01_2 \times 2^{-1} = 0.101_2 = 0.625_{10
 </ul>
 <h4>汇编代码示例：屏幕打印 "Hello, world!"</h4>
 <p>以下汇编代码示例演示了如何在 <strong>DOS 文本模式</strong> 下，<strong>直接访问屏幕内存</strong>，在屏幕上打印字符串 <code class="notranslate">"Hello, world!"</code>。</p>
-<div class="highlight highlight-source-assembly"><pre class="notranslate"><span class="pl-en">.MODEL small</span>
-<span class="pl-en">.STACK</span>
-<span class="pl-en">.DATA</span>
-<span class="pl-en">    msg db </span><span class="pl-s">'Hello, world!'</span>
-<span class="pl-en">.CODE</span>
-<span class="pl-en">start:</span>
-<span class="pl-c">    ; 设置数据段寄存器 DS 指向数据段</span>
-<span class="pl-en">    </span><span class="pl-k">mov</span><span class="pl-en"> </span><span class="pl-v">ax</span><span class="pl-s1">,</span><span class="pl-en"> @data</span>
-<span class="pl-en">    </span><span class="pl-k">mov</span><span class="pl-en"> </span><span class="pl-v">ds</span><span class="pl-s1">,</span><span class="pl-en"> </span><span class="pl-v">ax</span>
+<pre lang="assembly" class="notranslate"><code class="notranslate">.MODEL small
+.STACK
+.DATA
+    msg db 'Hello, world!'
+.CODE
+start:
+    ; 设置数据段寄存器 DS 指向数据段
+    mov ax, @data
+    mov ds, ax
 
-<span class="pl-c">    ; 设置附加段寄存器 ES 指向显存段 (B800h)</span>
-<span class="pl-en">    </span><span class="pl-k">mov</span><span class="pl-en"> </span><span class="pl-v">ax</span><span class="pl-s1">,</span><span class="pl-en"> </span><span class="pl-c1">0B800h</span>
-<span class="pl-en">    </span><span class="pl-k">mov</span><span class="pl-en"> </span><span class="pl-v">es</span><span class="pl-s1">,</span><span class="pl-en"> </span><span class="pl-v">ax</span>
+    ; 设置附加段寄存器 ES 指向显存段 (B800h)
+    mov ax, 0B800h
+    mov es, ax
 
-<span class="pl-c">    ; 清空屏幕</span>
-<span class="pl-en">    </span><span class="pl-k">xor</span><span class="pl-en"> </span><span class="pl-v">dx</span><span class="pl-s1">,</span><span class="pl-en"> </span><span class="pl-v">dx</span><span class="pl-c">            ; DX 寄存器清零，用于存储空格字符和属性</span>
-<span class="pl-en">    </span><span class="pl-k">mov</span><span class="pl-en"> </span><span class="pl-v">cx</span><span class="pl-s1">,</span><span class="pl-en"> </span><span class="pl-c1">2000</span><span class="pl-c">          ; 屏幕字符总数 (80列 * 25行)</span>
-<span class="pl-en">    </span><span class="pl-k">xor</span><span class="pl-en"> </span><span class="pl-v">di</span><span class="pl-s1">,</span><span class="pl-en"> </span><span class="pl-v">di</span><span class="pl-c">            ; DI 寄存器清零，作为显存地址偏移量</span>
-<span class="pl-en">clear_screen:</span>
-<span class="pl-en">    </span><span class="pl-k">mov</span><span class="pl-en"> </span><span class="pl-v">es</span><span class="pl-en">:</span><span class="pl-s1">[</span><span class="pl-v">di</span><span class="pl-s1">],</span><span class="pl-en"> </span><span class="pl-v">dx</span><span class="pl-c">       ; 将空格字符和属性写入显存，清空屏幕</span>
-<span class="pl-en">    </span><span class="pl-k">add</span><span class="pl-en"> </span><span class="pl-v">di</span><span class="pl-s1">,</span><span class="pl-en"> </span><span class="pl-c1">2</span><span class="pl-c">             ; 显存地址偏移量增加 2 (每个字符占 2 字节)</span>
-<span class="pl-en">    </span><span class="pl-k">loop</span><span class="pl-en"> clear_screen</span><span class="pl-c">     ; 循环清空整个屏幕</span>
+    ; 清空屏幕
+    xor dx, dx            ; DX 寄存器清零，用于存储空格字符和属性
+    mov cx, 2000          ; 屏幕字符总数 (80列 * 25行)
+    xor di, di            ; DI 寄存器清零，作为显存地址偏移量
+clear_screen:
+    mov es:[di], dx       ; 将空格字符和属性写入显存，清空屏幕
+    add di, 2             ; 显存地址偏移量增加 2 (每个字符占 2 字节)
+    loop clear_screen     ; 循环清空整个屏幕
 
-<span class="pl-c">    ; 循环写入字符和属性，打印字符串 "Hello, world!"</span>
-<span class="pl-en">    </span><span class="pl-k">mov</span><span class="pl-en"> </span><span class="pl-v">cx</span><span class="pl-s1">,</span><span class="pl-en"> </span><span class="pl-c1">13</span><span class="pl-c">            ; 字符串长度 (13个字符)</span>
-<span class="pl-en">    </span><span class="pl-k">mov</span><span class="pl-en"> </span><span class="pl-v">di</span><span class="pl-s1">,</span><span class="pl-en"> (</span><span class="pl-c1">12</span><span class="pl-en"> </span><span class="pl-s1">*</span><span class="pl-en"> </span><span class="pl-c1">80</span><span class="pl-en"> </span><span class="pl-s1">+</span><span class="pl-en"> </span><span class="pl-c1">33</span><span class="pl-en">) </span><span class="pl-s1">*</span><span class="pl-en"> </span><span class="pl-c1">2</span><span class="pl-en"> </span>
-<span class="pl-en">    </span><span class="pl-k">lea</span><span class="pl-en"> </span><span class="pl-v">bx</span><span class="pl-s1">,</span><span class="pl-en"> msg</span><span class="pl-c">           ; BX 寄存器指向字符串 msg 的首地址</span>
-<span class="pl-en">print_loop:</span>
-<span class="pl-en">    </span><span class="pl-k">mov</span><span class="pl-en"> </span><span class="pl-v">al</span><span class="pl-s1">,</span><span class="pl-en"> </span><span class="pl-s1">[</span><span class="pl-v">bx</span><span class="pl-s1">]</span><span class="pl-c">          ; 从字符串中取出一个字符，放入 AL 寄存器</span>
-<span class="pl-en">    </span><span class="pl-k">mov</span><span class="pl-en"> </span><span class="pl-v">ah</span><span class="pl-s1">,</span><span class="pl-en"> </span><span class="pl-c1">07h</span><span class="pl-c">           ; 设置属性字节为 07h (黑底白字)</span>
-<span class="pl-en">    </span><span class="pl-k">mov</span><span class="pl-en"> </span><span class="pl-v">es</span><span class="pl-en">:</span><span class="pl-s1">[</span><span class="pl-v">di</span><span class="pl-s1">],</span><span class="pl-en"> </span><span class="pl-v">ax</span><span class="pl-c">       ; 将字符和属性字节写入显存</span>
-<span class="pl-en">    </span><span class="pl-k">inc</span><span class="pl-en"> </span><span class="pl-v">bx</span><span class="pl-c">              ; 字符串指针 BX 加 1，指向下一个字符</span>
-<span class="pl-en">    </span><span class="pl-k">add</span><span class="pl-en"> </span><span class="pl-v">di</span><span class="pl-s1">,</span><span class="pl-en"> </span><span class="pl-c1">2</span><span class="pl-c">             ; 显存地址偏移量增加 2</span>
-<span class="pl-en">    </span><span class="pl-k">loop</span><span class="pl-en"> print_loop</span><span class="pl-c">       ; 循环打印整个字符串</span>
+    ; 循环写入字符和属性，打印字符串 "Hello, world!"
+    mov cx, 13            ; 字符串长度 (13个字符)
+    mov di, (12 * 80 + 33) * 2 
+    lea bx, msg           ; BX 寄存器指向字符串 msg 的首地址
+print_loop:
+    mov al, [bx]          ; 从字符串中取出一个字符，放入 AL 寄存器
+    mov ah, 07h           ; 设置属性字节为 07h (黑底白字)
+    mov es:[di], ax       ; 将字符和属性字节写入显存
+    inc bx              ; 字符串指针 BX 加 1，指向下一个字符
+    add di, 2             ; 显存地址偏移量增加 2
+    loop print_loop       ; 循环打印整个字符串
 
-<span class="pl-c">    ; 等待按键按下后退出程序</span>
-<span class="pl-en">wait_for_key:</span>
-<span class="pl-en">    </span><span class="pl-k">mov</span><span class="pl-en"> </span><span class="pl-v">ah</span><span class="pl-s1">,</span><span class="pl-en"> </span><span class="pl-c1">1</span>
-<span class="pl-en">    </span><span class="pl-k">int</span><span class="pl-en"> </span><span class="pl-c1">16h</span><span class="pl-c">             ; BIOS 键盘输入中断，检测是否有按键按下 (不回显)</span>
-<span class="pl-en">    </span><span class="pl-k">jz</span><span class="pl-en"> wait_for_key</span><span class="pl-c">     ; 如果没有按键按下，继续等待</span>
-<span class="pl-en">    </span><span class="pl-k">mov</span><span class="pl-en"> </span><span class="pl-v">ah</span><span class="pl-s1">,</span><span class="pl-en"> </span><span class="pl-c1">0</span>
-<span class="pl-en">    </span><span class="pl-k">int</span><span class="pl-en"> </span><span class="pl-c1">16h</span><span class="pl-c">             ; BIOS 键盘输入中断，读取按键的 ASCII 码 (回显)</span>
+    ; 等待按键按下后退出程序
+wait_for_key:
+    mov ah, 1
+    int 16h             ; BIOS 键盘输入中断，检测是否有按键按下 (不回显)
+    jz wait_for_key     ; 如果没有按键按下，继续等待
+    mov ah, 0
+    int 16h             ; BIOS 键盘输入中断，读取按键的 ASCII 码 (回显)
 
-<span class="pl-c">    ; 退出程序，返回 DOS</span>
-<span class="pl-en">    </span><span class="pl-k">mov</span><span class="pl-en"> </span><span class="pl-v">ax</span><span class="pl-s1">,</span><span class="pl-en"> </span><span class="pl-c1">4C00h</span>
-<span class="pl-en">    </span><span class="pl-k">int</span><span class="pl-en"> </span><span class="pl-c1">21h</span><span class="pl-c">             ; DOS 程序结束中断</span>
-<span class="pl-en">END</span></pre></div>
+    ; 退出程序，返回 DOS
+    mov ax, 4C00h
+    int 21h             ; DOS 程序结束中断
+END
+</code></pre>
 <h3>驻留程序 (TSR)</h3>
 <p><strong>驻留程序 (Terminate and Stay Resident, TSR)</strong> 是一种在 <strong>DOS 系统</strong> 中使用的特殊程序类型。</p>
 <ul>
@@ -2239,122 +2257,124 @@ $(-1)^0 \times 1.01_2 \times 2^{-1} = 1.01_2 \times 2^{-1} = 0.101_2 = 0.625_{10
 <li><strong>定时任务</strong>：利用 <strong>定时器中断</strong>，TSR 程序可以<strong>周期性地执行</strong> 某些<strong>后台任务</strong>，例如 <strong>自动备份</strong>、<strong>数据同步</strong> 等。</li>
 </ul>
 <h4>热键检测</h4>
-<div class="highlight highlight-source-assembly"><pre class="notranslate"><span class="pl-c">; 伪代码：检测热键 Ctrl+Alt+X</span>
-<span class="pl-en">check_hotkey:</span>
-<span class="pl-en">    </span><span class="pl-k">mov</span><span class="pl-en"> </span><span class="pl-v">ah</span><span class="pl-s1">,</span><span class="pl-en"> </span><span class="pl-c1">02h</span><span class="pl-c">       ; BIOS 功能号 02h：读取键盘状态</span>
-<span class="pl-en">    </span><span class="pl-k">int</span><span class="pl-en"> </span><span class="pl-c1">16h</span><span class="pl-c">           ; 调用 BIOS 键盘中断 16h，读取键盘状态字节到 AL 寄存器</span>
-<span class="pl-en">    </span><span class="pl-k">and</span><span class="pl-en"> </span><span class="pl-v">al</span><span class="pl-s1">,</span><span class="pl-en"> </span><span class="pl-c1">00001111b</span><span class="pl-c"> ; 屏蔽 AL 寄存器高 4 位，仅保留低 4 位 (Shift, Ctrl, Alt, Scroll Lock 状态位)</span>
-<span class="pl-en">    </span><span class="pl-k">cmp</span><span class="pl-en"> </span><span class="pl-v">al</span><span class="pl-s1">,</span><span class="pl-en"> </span><span class="pl-c1">00001100b</span><span class="pl-c"> ; 与 00001100b (Ctrl+Alt 键按下) 进行比较</span>
-<span class="pl-en">    </span><span class="pl-k">jne</span><span class="pl-en"> no_hotkey</span><span class="pl-c">     ; 如果比较结果不相等 (Ctrl+Alt 未同时按下)，跳转到 no_hotkey 标签</span>
+<pre lang="assembly" class="notranslate"><code class="notranslate">; 伪代码：检测热键 Ctrl+Alt+X
+check_hotkey:
+    mov ah, 02h       ; BIOS 功能号 02h：读取键盘状态
+    int 16h           ; 调用 BIOS 键盘中断 16h，读取键盘状态字节到 AL 寄存器
+    and al, 00001111b ; 屏蔽 AL 寄存器高 4 位，仅保留低 4 位 (Shift, Ctrl, Alt, Scroll Lock 状态位)
+    cmp al, 00001100b ; 与 00001100b (Ctrl+Alt 键按下) 进行比较
+    jne no_hotkey     ; 如果比较结果不相等 (Ctrl+Alt 未同时按下)，跳转到 no_hotkey 标签
 
-<span class="pl-c">    ; 如果 Ctrl+Alt 键同时按下，继续检测 X 键是否按下</span>
-<span class="pl-en">    </span><span class="pl-k">mov</span><span class="pl-en"> </span><span class="pl-v">ah</span><span class="pl-s1">,</span><span class="pl-en"> </span><span class="pl-c1">00h</span><span class="pl-c">       ; BIOS 功能号 00h：读取键盘输入</span>
-<span class="pl-en">    </span><span class="pl-k">int</span><span class="pl-en"> </span><span class="pl-c1">16h</span><span class="pl-c">           ; 调用 BIOS 键盘输入中断 16h，读取键盘扫描码和 ASCII 码</span>
-<span class="pl-en">    </span><span class="pl-k">cmp</span><span class="pl-en"> </span><span class="pl-v">al</span><span class="pl-s1">,</span><span class="pl-en"> </span><span class="pl-s">'x'</span><span class="pl-c">       ; 比较 AL 寄存器中的 ASCII 码是否为字符 'x' (小写 x)</span>
-<span class="pl-en">    </span><span class="pl-k">je</span><span class="pl-en"> hotkey_pressed</span><span class="pl-c"> ; 如果比较结果相等 (X 键按下)，跳转到 hotkey_pressed 标签</span>
+    ; 如果 Ctrl+Alt 键同时按下，继续检测 X 键是否按下
+    mov ah, 00h       ; BIOS 功能号 00h：读取键盘输入
+    int 16h           ; 调用 BIOS 键盘输入中断 16h，读取键盘扫描码和 ASCII 码
+    cmp al, 'x'       ; 比较 AL 寄存器中的 ASCII 码是否为字符 'x' (小写 x)
+    je hotkey_pressed ; 如果比较结果相等 (X 键按下)，跳转到 hotkey_pressed 标签
 
-<span class="pl-en">no_hotkey:</span>
-<span class="pl-en">    </span><span class="pl-k">ret</span><span class="pl-c">               ; 如果热键未按下，子程序返回</span>
+no_hotkey:
+    ret               ; 如果热键未按下，子程序返回
 
-<span class="pl-en">hotkey_pressed:</span>
-<span class="pl-c">    ; 在这里编写 TSR 程序的功能代码</span>
-<span class="pl-c">    ; 例如：弹出计算器窗口、显示系统信息等</span>
-<span class="pl-en">    </span><span class="pl-k">ret</span><span class="pl-c">               ; 热键处理程序返回</span></pre></div>
+hotkey_pressed:
+    ; 在这里编写 TSR 程序的功能代码
+    ; 例如：弹出计算器窗口、显示系统信息等
+    ret               ; 热键处理程序返回
+</code></pre>
 <hr>
 <h2>Lecture10: MASM Code for Interrupts</h2>
 <h3>一个显示在屏幕右上角的后台计时器</h3>
-<div class="highlight highlight-source-assembly"><pre class="notranslate"><span class="pl-en">.MODEL small</span>
-<span class="pl-en">.STACK </span><span class="pl-c1">100h</span>
+<pre lang="assembly" class="notranslate"><code class="notranslate">.MODEL small
+.STACK 100h
 
-<span class="pl-en">.DATA</span>
-<span class="pl-c">    ; 注意：TSR运行时DS可能改变，变量存储在代码段</span>
-<span class="pl-c">    ; 以下变量通过CS段前缀访问</span>
+.DATA
+    ; 注意：TSR运行时DS可能改变，变量存储在代码段
+    ; 以下变量通过CS段前缀访问
 
-<span class="pl-en">.CODE</span>
-<span class="pl-en">.STARTUP</span>
-<span class="pl-k">jmp</span><span class="pl-en"> install_tsr</span><span class="pl-c">    ; 跳过数据区</span>
+.CODE
+.STARTUP
+jmp install_tsr    ; 跳过数据区
 
-<span class="pl-c">    ; 变量存储在代码段 (保持驻留) </span>
-<span class="pl-en">    dseg   db </span><span class="pl-s">'0'</span><span class="pl-s1">,</span><span class="pl-c1">0</span><span class="pl-c">    ; 当前显示字符</span>
-<span class="pl-en">    cntr   db </span><span class="pl-c1">0</span><span class="pl-c">        ; 中断计数器</span>
-<span class="pl-en">    old_ip dw </span><span class="pl-c1">0</span><span class="pl-c">        ; 原中断处理程序IP</span>
-<span class="pl-en">    old_cs dw </span><span class="pl-c1">0</span><span class="pl-c">        ; 原中断处理程序CS</span>
+    ; 变量存储在代码段 (保持驻留) 
+    dseg   db '0',0    ; 当前显示字符
+    cntr   db 0        ; 中断计数器
+    old_ip dw 0        ; 原中断处理程序IP
+    old_cs dw 0        ; 原中断处理程序CS
 
-<span class="pl-en">install_tsr:</span>
-<span class="pl-c">    ; 保存原INT 8h中断向量</span>
-<span class="pl-en">    </span><span class="pl-k">cli</span><span class="pl-c">                 ; 禁用中断</span>
-<span class="pl-en">    </span><span class="pl-k">xor</span><span class="pl-en"> </span><span class="pl-v">ax</span><span class="pl-s1">,</span><span class="pl-en"> </span><span class="pl-v">ax</span>
-<span class="pl-en">    </span><span class="pl-k">mov</span><span class="pl-en"> </span><span class="pl-v">es</span><span class="pl-s1">,</span><span class="pl-en"> </span><span class="pl-v">ax</span><span class="pl-c">          ; ES=0000h (中断向量表段) </span>
-<span class="pl-en">    </span><span class="pl-k">mov</span><span class="pl-en"> </span><span class="pl-v">bx</span><span class="pl-s1">,</span><span class="pl-en"> </span><span class="pl-c1">8</span><span class="pl-s1">*</span><span class="pl-c1">4</span><span class="pl-c">         ; INT 8h向量地址 (8h*4=20h) </span>
+install_tsr:
+    ; 保存原INT 8h中断向量
+    cli                 ; 禁用中断
+    xor ax, ax
+    mov es, ax          ; ES=0000h (中断向量表段) 
+    mov bx, 8*4         ; INT 8h向量地址 (8h*4=20h) 
 
-<span class="pl-c">    ; 保存原处理程序地址</span>
-<span class="pl-en">    </span><span class="pl-k">mov</span><span class="pl-en"> </span><span class="pl-v">ax</span><span class="pl-s1">,</span><span class="pl-en"> </span><span class="pl-v">es</span><span class="pl-en">:</span><span class="pl-s1">[</span><span class="pl-v">bx</span><span class="pl-s1">]</span>
-<span class="pl-en">    </span><span class="pl-k">mov</span><span class="pl-en"> old_ip</span><span class="pl-s1">,</span><span class="pl-en"> </span><span class="pl-v">ax</span>
-<span class="pl-en">    </span><span class="pl-k">mov</span><span class="pl-en"> </span><span class="pl-v">ax</span><span class="pl-s1">,</span><span class="pl-en"> </span><span class="pl-v">es</span><span class="pl-en">:</span><span class="pl-s1">[</span><span class="pl-v">bx</span><span class="pl-s1">+</span><span class="pl-c1">2</span><span class="pl-s1">]</span>
-<span class="pl-en">    </span><span class="pl-k">mov</span><span class="pl-en"> old_cs</span><span class="pl-s1">,</span><span class="pl-en"> </span><span class="pl-v">ax</span>
+    ; 保存原处理程序地址
+    mov ax, es:[bx]
+    mov old_ip, ax
+    mov ax, es:[bx+2]
+    mov old_cs, ax
 
-<span class="pl-c">    ; 设置新中断向量</span>
-<span class="pl-en">    </span><span class="pl-k">mov</span><span class="pl-en"> </span><span class="pl-v">ax</span><span class="pl-s1">,</span><span class="pl-en"> OFFSET isr</span>
-<span class="pl-en">    </span><span class="pl-k">mov</span><span class="pl-en"> </span><span class="pl-v">es</span><span class="pl-en">:</span><span class="pl-s1">[</span><span class="pl-v">bx</span><span class="pl-s1">],</span><span class="pl-en"> </span><span class="pl-v">ax</span>
-<span class="pl-en">    </span><span class="pl-k">mov</span><span class="pl-en"> </span><span class="pl-v">ax</span><span class="pl-s1">,</span><span class="pl-en"> </span><span class="pl-v">cs</span>
-<span class="pl-en">    </span><span class="pl-k">mov</span><span class="pl-en"> </span><span class="pl-v">es</span><span class="pl-en">:</span><span class="pl-s1">[</span><span class="pl-v">bx</span><span class="pl-s1">+</span><span class="pl-c1">2</span><span class="pl-s1">],</span><span class="pl-en"> </span><span class="pl-v">ax</span>
-<span class="pl-en">    </span><span class="pl-k">sti</span><span class="pl-c">                 ; 重新启用中断</span>
+    ; 设置新中断向量
+    mov ax, OFFSET isr
+    mov es:[bx], ax
+    mov ax, cs
+    mov es:[bx+2], ax
+    sti                 ; 重新启用中断
 
-<span class="pl-c">    ; 计算驻留内存大小并终止驻留</span>
-<span class="pl-en">    </span><span class="pl-k">mov</span><span class="pl-en"> </span><span class="pl-v">dx</span><span class="pl-s1">,</span><span class="pl-en"> OFFSET tsr_end</span><span class="pl-c">  ; DX=程序结束地址</span>
-<span class="pl-en">    </span><span class="pl-k">mov</span><span class="pl-en"> </span><span class="pl-v">cl</span><span class="pl-s1">,</span><span class="pl-en"> </span><span class="pl-c1">4</span>
-<span class="pl-en">    </span><span class="pl-k">shr</span><span class="pl-en"> </span><span class="pl-v">dx</span><span class="pl-s1">,</span><span class="pl-en"> </span><span class="pl-v">cl</span><span class="pl-c">           ; 转换为段落 (除以16) </span>
-<span class="pl-en">    </span><span class="pl-k">inc</span><span class="pl-en"> </span><span class="pl-v">dx</span><span class="pl-c">               ; 向上取整</span>
-<span class="pl-en">    </span><span class="pl-k">mov</span><span class="pl-en"> </span><span class="pl-v">ax</span><span class="pl-s1">,</span><span class="pl-en"> </span><span class="pl-c1">3100h</span><span class="pl-c">        ; AH=31h TSR功能，AL=返回码</span>
-<span class="pl-en">    </span><span class="pl-k">int</span><span class="pl-en"> </span><span class="pl-c1">21h</span>
+    ; 计算驻留内存大小并终止驻留
+    mov dx, OFFSET tsr_end  ; DX=程序结束地址
+    mov cl, 4
+    shr dx, cl           ; 转换为段落 (除以16) 
+    inc dx               ; 向上取整
+    mov ax, 3100h        ; AH=31h TSR功能，AL=返回码
+    int 21h
 
-<span class="pl-c">; 中断服务程序 (ISR) </span>
-<span class="pl-en">isr PROC far</span>
-<span class="pl-en">	</span><span class="pl-k">pushf</span>
-<span class="pl-en">    </span><span class="pl-k">push</span><span class="pl-en"> </span><span class="pl-v">di</span>
-<span class="pl-en">    </span><span class="pl-k">push</span><span class="pl-en"> </span><span class="pl-v">si</span>
-<span class="pl-en">    </span><span class="pl-k">push</span><span class="pl-en"> </span><span class="pl-v">bp</span>
-<span class="pl-en">    </span><span class="pl-k">push</span><span class="pl-en"> </span><span class="pl-v">ds</span>
-<span class="pl-en">    </span><span class="pl-k">push</span><span class="pl-en"> </span><span class="pl-v">es</span>
+; 中断服务程序 (ISR) 
+isr PROC far
+	pushf
+    push di
+    push si
+    push bp
+    push ds
+    push es
 
-<span class="pl-c">    ; 使用CS段访问变量</span>
-<span class="pl-en">    </span><span class="pl-k">mov</span><span class="pl-en"> </span><span class="pl-v">bx</span><span class="pl-s1">,</span><span class="pl-en"> </span><span class="pl-v">cs</span>
-<span class="pl-en">    </span><span class="pl-k">mov</span><span class="pl-en"> </span><span class="pl-v">ds</span><span class="pl-s1">,</span><span class="pl-en"> </span><span class="pl-v">bx</span>
+    ; 使用CS段访问变量
+    mov bx, cs
+    mov ds, bx
 
-<span class="pl-c">    ; 更新计数器</span>
-<span class="pl-en">    </span><span class="pl-k">inc</span><span class="pl-en"> </span><span class="pl-v">cs</span><span class="pl-en">:cntr</span>
-<span class="pl-en">    </span><span class="pl-k">cmp</span><span class="pl-en"> </span><span class="pl-v">cs</span><span class="pl-en">:cntr</span><span class="pl-s1">,</span><span class="pl-en"> </span><span class="pl-c1">18</span><span class="pl-c">      ; 约1秒 (18.2次/秒) </span>
-<span class="pl-en">    </span><span class="pl-k">jb</span><span class="pl-en"> chain_int</span>
+    ; 更新计数器
+    inc cs:cntr
+    cmp cs:cntr, 18      ; 约1秒 (18.2次/秒) 
+    jb chain_int
 
-<span class="pl-c">    ; 重置计数器并更新显示</span>
-<span class="pl-en">    </span><span class="pl-k">mov</span><span class="pl-en"> </span><span class="pl-v">cs</span><span class="pl-en">:cntr</span><span class="pl-s1">,</span><span class="pl-en"> </span><span class="pl-c1">0</span>
-<span class="pl-en">    </span><span class="pl-k">inc</span><span class="pl-en"> </span><span class="pl-v">cs</span><span class="pl-en">:dseg</span>
-<span class="pl-en">    </span><span class="pl-k">cmp</span><span class="pl-en"> </span><span class="pl-v">cs</span><span class="pl-en">:dseg</span><span class="pl-s1">,</span><span class="pl-en"> </span><span class="pl-s">'9'</span>
-<span class="pl-en">    </span><span class="pl-k">jbe</span><span class="pl-en"> update_screen</span>
-<span class="pl-en">    </span><span class="pl-k">mov</span><span class="pl-en"> </span><span class="pl-v">cs</span><span class="pl-en">:dseg</span><span class="pl-s1">,</span><span class="pl-en"> </span><span class="pl-s">'0'</span>
+    ; 重置计数器并更新显示
+    mov cs:cntr, 0
+    inc cs:dseg
+    cmp cs:dseg, '9'
+    jbe update_screen
+    mov cs:dseg, '0'
 
-<span class="pl-en">update_screen:</span>
-<span class="pl-c">    ; 直接写入显存B800h</span>
-<span class="pl-en">    </span><span class="pl-k">mov</span><span class="pl-en"> </span><span class="pl-v">ax</span><span class="pl-s1">,</span><span class="pl-en"> </span><span class="pl-c1">0B800h</span>
-<span class="pl-en">    </span><span class="pl-k">mov</span><span class="pl-en"> </span><span class="pl-v">es</span><span class="pl-s1">,</span><span class="pl-en"> </span><span class="pl-v">ax</span>
-<span class="pl-en">    </span><span class="pl-k">mov</span><span class="pl-en"> </span><span class="pl-v">di</span><span class="pl-s1">,</span><span class="pl-en"> (</span><span class="pl-c1">79</span><span class="pl-en">)</span><span class="pl-s1">*</span><span class="pl-c1">2</span>
-<span class="pl-en">    </span><span class="pl-k">mov</span><span class="pl-en"> </span><span class="pl-v">al</span><span class="pl-s1">,</span><span class="pl-en"> </span><span class="pl-v">cs</span><span class="pl-en">:dseg</span>
-<span class="pl-en">    </span><span class="pl-k">mov</span><span class="pl-en"> </span><span class="pl-v">es</span><span class="pl-en">:</span><span class="pl-s1">[</span><span class="pl-v">di</span><span class="pl-s1">],</span><span class="pl-en"> </span><span class="pl-v">al</span>
+update_screen:
+    ; 直接写入显存B800h
+    mov ax, 0B800h
+    mov es, ax
+    mov di, (79)*2
+    mov al, cs:dseg
+    mov es:[di], al
 
-<span class="pl-en">chain_int:</span>
-<span class="pl-c">    ; 恢复环境并链式调用原中断处理程序</span>
-<span class="pl-en">    </span><span class="pl-k">pop</span><span class="pl-en"> </span><span class="pl-v">es</span>
-<span class="pl-en">    </span><span class="pl-k">pop</span><span class="pl-en"> </span><span class="pl-v">ds</span>
-<span class="pl-en">    </span><span class="pl-k">pop</span><span class="pl-en"> </span><span class="pl-v">bp</span>
-<span class="pl-en">    </span><span class="pl-k">pop</span><span class="pl-en"> </span><span class="pl-v">si</span>
-<span class="pl-en">    </span><span class="pl-k">pop</span><span class="pl-en"> </span><span class="pl-v">di</span>
-<span class="pl-en">    </span><span class="pl-k">popf</span>
-<span class="pl-en">    </span><span class="pl-k">jmp</span><span class="pl-en"> </span><span class="pl-v">cs</span><span class="pl-en">:dword ptr old_ip</span><span class="pl-c">  ; 跳转到原处理程序</span>
+chain_int:
+    ; 恢复环境并链式调用原中断处理程序
+    pop es
+    pop ds
+    pop bp
+    pop si
+    pop di
+    popf
+    jmp cs:dword ptr old_ip  ; 跳转到原处理程序
 
-<span class="pl-en">isr ENDP</span>
+isr ENDP
 
-<span class="pl-en">tsr_end:</span><span class="pl-c">   ; 标记TSR代码结束</span>
-<span class="pl-en">END</span></pre></div>
+tsr_end:   ; 标记TSR代码结束
+END
+</code></pre>
 <hr>
 <h2>Lecture 11: 内存层次结构：动态与静态随机存储器</h2>
 <h3>内存的层次结构</h3>
@@ -3001,34 +3021,36 @@ $(-1)^0 \times 1.01_2 \times 2^{-1} = 1.01_2 \times 2^{-1} = 0.101_2 = 0.625_{10
 </ul>
 <h4>CISC 和 RISC 实现乘法</h4>
 <p><strong>RISC 实现乘法</strong></p>
-<div class="highlight highlight-source-assembly"><pre class="notranslate"><span class="pl-en">.STARTUP</span>
+<pre lang="assembly" class="notranslate"><code class="notranslate">.STARTUP
 
-<span class="pl-k">mov</span><span class="pl-en"> </span><span class="pl-v">ax</span><span class="pl-s1">,</span><span class="pl-en"> </span><span class="pl-c1">0</span><span class="pl-c">        ; 初始化结果寄存器 AX 为 0</span>
-<span class="pl-k">mov</span><span class="pl-en"> </span><span class="pl-v">dx</span><span class="pl-s1">,</span><span class="pl-en"> </span><span class="pl-c1">100</span><span class="pl-c">      ; 乘数 100 放入 DX 寄存器</span>
-<span class="pl-k">mov</span><span class="pl-en"> </span><span class="pl-v">bx</span><span class="pl-s1">,</span><span class="pl-en"> </span><span class="pl-c1">123</span><span class="pl-c">      ; 被乘数 123 放入 BX 寄存器</span>
-<span class="pl-k">mov</span><span class="pl-en"> </span><span class="pl-v">cx</span><span class="pl-s1">,</span><span class="pl-en"> </span><span class="pl-c1">8</span><span class="pl-c">        ; 循环次数设置为 8 (假设进行 8 位乘法)</span>
+mov ax, 0        ; 初始化结果寄存器 AX 为 0
+mov dx, 100      ; 乘数 100 放入 DX 寄存器
+mov bx, 123      ; 被乘数 123 放入 BX 寄存器
+mov cx, 8        ; 循环次数设置为 8 (假设进行 8 位乘法)
 
-<span class="pl-en">back:</span>
-<span class="pl-en">    </span><span class="pl-k">rcr</span><span class="pl-en"> </span><span class="pl-v">dx</span><span class="pl-s1">,</span><span class="pl-en"> </span><span class="pl-c1">1</span><span class="pl-c">    ; 将 DX 寄存器最低位循环移入 CF (进位标志位)</span>
-<span class="pl-en">    </span><span class="pl-k">jnc</span><span class="pl-en"> over</span><span class="pl-c">     ; 如果 CF = 0 (最低位为 0)，则跳转到 over 标签</span>
-<span class="pl-en">    </span><span class="pl-k">add</span><span class="pl-en"> </span><span class="pl-v">ax</span><span class="pl-s1">,</span><span class="pl-en"> </span><span class="pl-v">bx</span><span class="pl-c">   ; 如果 CF = 1 (最低位为 1)，则将 BX 累加到 AX (部分积)</span>
+back:
+    rcr dx, 1    ; 将 DX 寄存器最低位循环移入 CF (进位标志位)
+    jnc over     ; 如果 CF = 0 (最低位为 0)，则跳转到 over 标签
+    add ax, bx   ; 如果 CF = 1 (最低位为 1)，则将 BX 累加到 AX (部分积)
 
-<span class="pl-en">over:</span>
-<span class="pl-en">    </span><span class="pl-k">shl</span><span class="pl-en"> </span><span class="pl-v">bx</span><span class="pl-s1">,</span><span class="pl-en"> </span><span class="pl-c1">1</span><span class="pl-c">    ; 将 BX 寄存器左移一位，相当于乘以 2</span>
-<span class="pl-en">    </span><span class="pl-k">loop</span><span class="pl-en"> back</span><span class="pl-c">    ; 循环计数器 CX 减 1，如果 CX != 0，则跳转到 back 标签继续循环</span>
+over:
+    shl bx, 1    ; 将 BX 寄存器左移一位，相当于乘以 2
+    loop back    ; 循环计数器 CX 减 1，如果 CX != 0，则跳转到 back 标签继续循环
 
-<span class="pl-k">call</span><span class="pl-en"> Print</span>
-<span class="pl-en">.EXIT</span></pre></div>
+call Print
+.EXIT
+</code></pre>
 <p><strong>CISC 实现乘法</strong></p>
-<div class="highlight highlight-source-assembly"><pre class="notranslate"><span class="pl-en">.STARTUP</span>
+<pre lang="assembly" class="notranslate"><code class="notranslate">.STARTUP
 
-<span class="pl-k">mov</span><span class="pl-en"> </span><span class="pl-v">dl</span><span class="pl-s1">,</span><span class="pl-en"> </span><span class="pl-c1">100</span><span class="pl-c">    ; 乘数 100 放入 DL 寄存器</span>
-<span class="pl-k">mov</span><span class="pl-en"> </span><span class="pl-v">al</span><span class="pl-s1">,</span><span class="pl-en"> </span><span class="pl-c1">123</span><span class="pl-c">    ; 被乘数 123 放入 AL 寄存器</span>
+mov dl, 100    ; 乘数 100 放入 DL 寄存器
+mov al, 123    ; 被乘数 123 放入 AL 寄存器
 
-<span class="pl-k">mul</span><span class="pl-en"> </span><span class="pl-v">dl</span><span class="pl-c">         ; 执行乘法指令 mul，AL * DL，结果存储在 AX 寄存器</span>
+mul dl         ; 执行乘法指令 mul，AL * DL，结果存储在 AX 寄存器
 
-<span class="pl-k">call</span><span class="pl-en"> Print</span>
-<span class="pl-en">.EXIT</span></pre></div>
+call Print
+.EXIT
+</code></pre>
 <h3>流水线</h3>
 <p>早期 CPU 执行一条指令从出生到入土，非得霸占整个逻辑处理单元不撒手。Fetch, Decode, Execute 三兄弟明明能各干各的，非得搞什么"一条龙服务"——结果就是ALU天天摸鱼，寄存器天天加班。图灵的在天之灵振臂高呼：杂鱼 CPU 就应该狠狠的填满🥵，上流水线！</p>
 <h4>流水线执行：时间管理大师の骚操作</h4>
@@ -3394,12 +3416,13 @@ $(-1)^0 \times 1.01_2 \times 2^{-1} = 1.01_2 \times 2^{-1} = 0.101_2 = 0.625_{10
 <h4>Verilog</h4>
 <p>有几种 HDL，但最常用于教学的是 Verilog。与工业中使用的 VHDL 不同，Verilog 是一种更易于学习的语言，并且可以执行 VHDL 可以执行的几乎所有功能。</p>
 <p>用 Verilog 编写的 SR 锁存器的简单结构描述</p>
-<div class="highlight highlight-source-verilog"><pre class="notranslate"><span class="pl-k">module</span> <span class="pl-en">SRlatch</span>(
-  <span class="pl-k">output</span> Q, Q_bar,
-  <span class="pl-k">input</span> S, R);
-  <span class="pl-ent">nor</span> <span class="pl-ent">N1</span>(Q_bar, S, Q);
-  <span class="pl-ent">nor</span> <span class="pl-ent">N2</span>(Q, R, Q_bar);
-<span class="pl-k">endmodule</span></pre></div>
+<pre lang="verilog" class="notranslate"><code class="notranslate">module SRlatch(
+  output Q, Q_bar,
+  input S, R);
+  nor N1(Q_bar, S, Q);
+  nor N2(Q, R, Q_bar);
+endmodule
+</code></pre>
 <hr>
 <p><strong>The End ～～～ : )</strong></p></div>
 <div style="font-size:small;margin-top:8px;float:right;"></div>
@@ -3426,7 +3449,7 @@ if(""!=""){
 </script></div>
 </body>
 <script>
-var IconList={'sun': 'M8 10.5a2.5 2.5 0 100-5 2.5 2.5 0 000 5zM8 12a4 4 0 100-8 4 4 0 000 8zM8 0a.75.75 0 01.75.75v1.5a.75.75 0 01-1.5 0V.75A.75.75 0 018 0zm0 13a.75.75 0 01.75.75v1.5a.75.75 0 01-1.5 0v-1.5A.75.75 0 018 13zM2.343 2.343a.75.75 0 011.061 0l1.06 1.061a.75.75 0 01-1.06 1.06l-1.06-1.06a.75.75 0 010-1.06zm9.193 9.193a.75.75 0 011.06 0l1.061 1.06a.75.75 0 01-1.06 1.061l-1.061-1.06a.75.75 0 010-1.061zM16 8a.75.75 0 01-.75.75h-1.5a.75.75 0 010-1.5h1.5A.75.75 0 0116 8zM3 8a.75.75 0 01-.75.75H.75a.75.75 0 010-1.5h1.5A.75.75 0 013 8zm10.657-5.657a.75.75 0 010 1.061l-1.061 1.06a.75.75 0 11-1.06-1.06l1.06-1.06a.75.75 0 011.06 0zm-9.193 9.193a.75.75 0 010 1.06l-1.06 1.061a.75.75 0 11-1.061-1.06l1.06-1.061a.75.75 0 011.061 0z', 'moon': 'M9.598 1.591a.75.75 0 01.785-.175 7 7 0 11-8.967 8.967.75.75 0 01.961-.96 5.5 5.5 0 007.046-7.046.75.75 0 01.175-.786zm1.616 1.945a7 7 0 01-7.678 7.678 5.5 5.5 0 107.678-7.678z', 'sync': 'M1.705 8.005a.75.75 0 0 1 .834.656 5.5 5.5 0 0 0 9.592 2.97l-1.204-1.204a.25.25 0 0 1 .177-.427h3.646a.25.25 0 0 1 .25.25v3.646a.25.25 0 0 1-.427.177l-1.38-1.38A7.002 7.002 0 0 1 1.05 8.84a.75.75 0 0 1 .656-.834ZM8 2.5a5.487 5.487 0 0 0-4.131 1.869l1.204 1.204A.25.25 0 0 1 4.896 6H1.25A.25.25 0 0 1 1 5.75V2.104a.25.25 0 0 1 .427-.177l1.38 1.38A7.002 7.002 0 0 1 14.95 7.16a.75.75 0 0 1-1.49.178A5.5 5.5 0 0 0 8 2.5Z', 'home': 'M6.906.664a1.749 1.749 0 0 1 2.187 0l5.25 4.2c.415.332.657.835.657 1.367v7.019A1.75 1.75 0 0 1 13.25 15h-3.5a.75.75 0 0 1-.75-.75V9H7v5.25a.75.75 0 0 1-.75.75h-3.5A1.75 1.75 0 0 1 1 13.25V6.23c0-.531.242-1.034.657-1.366l5.25-4.2Zm1.25 1.171a.25.25 0 0 0-.312 0l-5.25 4.2a.25.25 0 0 0-.094.196v7.019c0 .138.112.25.25.25H5.5V8.25a.75.75 0 0 1 .75-.75h3.5a.75.75 0 0 1 .75.75v5.25h2.75a.25.25 0 0 0 .25-.25V6.23a.25.25 0 0 0-.094-.195Z', 'github': 'M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 0 1-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27-.68 0-1.36.09-2 .27-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.34.19.73.9.82 1.13.16.45.68 1.31 2.69.94 0 .67.01 1.3.01 1.49 0 .21-.15.45-.55.38A7.995 7.995 0 0 1 0 8c0-4.42 3.58-8 8-8Z', 'copy': 'M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 0 1 0 1.5h-1.5a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-1.5a.75.75 0 0 1 1.5 0v1.5A1.75 1.75 0 0 1 9.25 16h-7.5A1.75 1.75 0 0 1 0 14.25Z M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0 1 14.25 11h-7.5A1.75 1.75 0 0 1 5 9.25Zm1.75-.25a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-7.5a.25.25 0 0 0-.25-.25Z', 'check': 'M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0Z'};
+var IconList={'sun': 'M8 10.5a2.5 2.5 0 100-5 2.5 2.5 0 000 5zM8 12a4 4 0 100-8 4 4 0 000 8zM8 0a.75.75 0 01.75.75v1.5a.75.75 0 01-1.5 0V.75A.75.75 0 018 0zm0 13a.75.75 0 01.75.75v1.5a.75.75 0 01-1.5 0v-1.5A.75.75 0 018 13zM2.343 2.343a.75.75 0 011.061 0l1.06 1.061a.75.75 0 01-1.06 1.06l-1.06-1.06a.75.75 0 010-1.06zm9.193 9.193a.75.75 0 011.06 0l1.061 1.06a.75.75 0 01-1.06 1.061l-1.061-1.06a.75.75 0 010-1.061zM16 8a.75.75 0 01-.75.75h-1.5a.75.75 0 010-1.5h1.5A.75.75 0 0116 8zM3 8a.75.75 0 01-.75.75H.75a.75.75 0 010-1.5h1.5A.75.75 0 013 8zm10.657-5.657a.75.75 0 010 1.061l-1.061 1.06a.75.75 0 11-1.06-1.06l1.06-1.06a.75.75 0 011.06 0zm-9.193 9.193a.75.75 0 010 1.06l-1.06 1.061a.75.75 0 11-1.061-1.06l1.06-1.061a.75.75 0 011.061 0z', 'moon': 'M9.598 1.591a.75.75 0 01.785-.175 7 7 0 11-8.967 8.967.75.75 0 01.961-.96 5.5 5.5 0 007.046-7.046.75.75 0 01.175-.786zm1.616 1.945a7 7 0 01-7.678 7.678 5.5 5.5 0 107.678-7.678z', 'sync': 'M1.705 8.005a.75.75 0 0 1 .834.656 5.5 5.5 0 0 0 9.592 2.97l-1.204-1.204a.25.25 0 0 1 .177-.427h3.646a.25.25 0 0 1 .25.25v3.646a.25.25 0 0 1-.427.177l-1.38-1.38A7.002 7.002 0 0 1 1.05 8.84a.75.75 0 0 1 .656-.834ZM8 2.5a5.487 5.487 0 0 0-4.131 1.869l1.204 1.204A.25.25 0 0 1 4.896 6H1.25A.25.25 0 0 1 1 5.75V2.104a.25.25 0 0 1 .427-.177l1.38 1.38A7.002 7.002 0 0 1 14.95 7.16a.75.75 0 0 1-1.49.178A5.5 5.5 0 0 0 8 2.5Z', 'home': 'M6.906.664a1.749 1.749 0 0 1 2.187 0l5.25 4.2c.415.332.657.835.657 1.367v7.019A1.75 1.75 0 0 1 13.25 15h-3.5a.75.75 0 0 1-.75-.75V9H7v5.25a.75.75 0 0 1-.75.75h-3.5A1.75 1.75 0 0 1 1 13.25V6.23c0-.531.242-1.034.657-1.366l5.25-4.2Zm1.25 1.171a.25.25 0 0 0-.312 0l-5.25 4.2a.25.25 0 0 0-.094.196v7.019c0 .138.112.25.25.25H5.5V8.25a.75.75 0 0 1 .75-.75h3.5a.75.75 0 0 1 .75.75v5.25h2.75a.25.25 0 0 0 .25-.25V6.23a.25.25 0 0 0-.094-.195Z', 'github': 'M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 0 1-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27-.68 0-1.36.09-2 .27-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.34.19.73.9.82 1.13.16.45.68 1.31 2.69.94 0 .67.01 1.3.01 1.49 0 .21-.15.45-.55.38A7.995 7.995 0 0 1 0 8c0-4.42 3.58-8 8-8Z'};
 var utterancesLoad=0;
 
 let themeSettings={
@@ -3499,70 +3522,7 @@ function iFrameLoading(){
     }
 }
 
-document.addEventListener('DOMContentLoaded', () => {
-    const createClipboardHTML = (codeContent, additionalClasses = '') => `
-        <pre class="notranslate"><code class="notranslate">${codeContent}</code></pre>
-        <div class="clipboard-container position-absolute right-0 top-0 ${additionalClasses}">
-            <clipboard-copy class="ClipboardButton btn m-2 p-0" role="button" style="display: inherit;">
-                <svg height="16" width="16" class="octicon octicon-copy m-2"><path d="${IconList["copy"]}"></path></svg>
-                <svg height="16" width="16" class="octicon octicon-check color-fg-success m-2 d-none"><path d="${IconList["check"]}"></path></svg>
-            </clipboard-copy>
-            <div class="copy-feedback">Copied!</div>
-        </div>
-    `;
 
-    const handleCodeElements = (selector = '') => {
-        document.querySelectorAll(selector).forEach(codeElement => {
-            const codeContent = codeElement.innerHTML;
-            const newStructure = document.createElement('div');
-            newStructure.className = 'snippet-clipboard-content position-relative overflow-auto';
-            newStructure.innerHTML = createClipboardHTML(codeContent);
-
-            const parentElement = codeElement.parentElement;
-            if (selector.includes('highlight')) {
-                parentElement.insertBefore(newStructure, codeElement.nextSibling);
-                parentElement.removeChild(codeElement);
-            } else {
-                parentElement.parentElement.replaceChild(newStructure, parentElement);
-            }
-        });
-    };
-
-    handleCodeElements('pre.notranslate > code.notranslate');
-    handleCodeElements('div.highlight > pre.notranslate');
-
-    let currentFeedback = null;
-    document.querySelectorAll('clipboard-copy').forEach(copyButton => {
-        copyButton.addEventListener('click', () => {
-            const codeContent = copyButton.closest('.snippet-clipboard-content').innerText;
-            const tempTextArea = document.createElement('textarea');
-            tempTextArea.value = codeContent;
-            document.body.appendChild(tempTextArea);
-            tempTextArea.select();
-            document.execCommand('copy');
-            document.body.removeChild(tempTextArea);
-
-            const copyIcon = copyButton.querySelector('.octicon-copy');
-            const checkIcon = copyButton.querySelector('.octicon-check');
-            const copyFeedback = copyButton.nextElementSibling;
-
-            if (currentFeedback && currentFeedback !== copyFeedback) {currentFeedback.style.display = 'none';}
-            currentFeedback = copyFeedback;
-
-            copyIcon.classList.add('d-none');
-            checkIcon.classList.remove('d-none');
-            copyFeedback.style.display = 'block';
-            copyButton.style.borderColor = 'var(--color-success-fg)';
-
-            setTimeout(() => {
-                copyIcon.classList.remove('d-none');
-                checkIcon.classList.add('d-none');
-                copyFeedback.style.display = 'none';
-                copyButton.style.borderColor = '';
-            }, 2000);
-        });
-    });
-});
 
 </script>
 <script src='https://blog.meekdai.com/Gmeek/plugins/GmeekTOC.js'></script><script>MathJax = {tex: {inlineMath: [["$", "$"]]}};</script><script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
