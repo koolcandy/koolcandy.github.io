@@ -698,7 +698,7 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 <span class="pl-en">4004d5:  </span><span class="pl-c1">48</span><span class="pl-en"> d1 f8        </span><span class="pl-k">sar</span><span class="pl-en">    %</span><span class="pl-v">rax</span>
 <span class="pl-en">4004d8:  </span><span class="pl-c1">48</span><span class="pl-en"> </span><span class="pl-c1">85</span><span class="pl-en"> c0        </span><span class="pl-k">test</span><span class="pl-en">   %</span><span class="pl-v">rax</span><span class="pl-s1">,</span><span class="pl-en">%</span><span class="pl-v">rax</span>
 <span class="pl-en">4004db:  7f f8           </span><span class="pl-k">jg</span><span class="pl-en">     4004d5 &lt;</span><span class="pl-k">loop</span><span class="pl-s1">+</span><span class="pl-c1">0x5</span><span class="pl-en">&gt;</span>
-<span class="pl-en">4004dd:  f3 c3           </span><span class="pl-k">repz</span><span class="pl-en"> retq</span></pre></div>
+<span class="pl-en">4004dd:  f3 c3           repz retq</span></pre></div>
 <p>反汇编器产生的注释中，第2行中跳转指令的跳转目标指明为0xB，第5行中跳转指令的跳转目标是0x5（反汇编器以十六进制格式给出所有的数字）。不过，观察指令的字节编码，会看到第一条跳转指令的目标偏移量（在第二个字节中）为0x03。把它加上0x5，也就是下一条指令的地址，就得到跳转目标地址0x8，也就是第4行指令的地址。类似地，第二个跳转指令的目标偏移量用单字节、补码表示编码为0xf8（十进制-8）。将这个数加上0xD（十进制13），即第6行指令的地址，我们得到0x5，即第3行指令的地址。**当执行PC相对寻址时，程序计数器的值是跳转指令之后的那条指令的地址，而不是跳转指令本身的地址。**这种惯例可以追溯到早期的实现，当时的处理器会在更新程序计数器之后作为执行一条指令的第一步。</p>
 <h3>循环</h3>
 <p>主要有三种:</p>
@@ -960,7 +960,7 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 
 <span class="pl-k">mov</span><span class="pl-en"> </span><span class="pl-v">cx</span><span class="pl-s1">,</span><span class="pl-en"> </span><span class="pl-c1">5</span><span class="pl-c">        ; 设置循环次数为 5，表示要比较的字节个数</span>
 <span class="pl-k">cld</span><span class="pl-c">              ; 清除方向标志位 DF，设置正向比较 (SI, DI 递增)</span>
-<span class="pl-k">rep</span><span class="pl-en"> cmpsb</span><span class="pl-c">        ; 重复执行 CMPSB 指令 CX 次，比较字符串</span>
+<span class="pl-k">rep</span><span class="pl-en"> </span><span class="pl-k">cmpsb</span><span class="pl-c">        ; 重复执行 CMPSB 指令 CX 次，比较字符串</span>
 <span class="pl-k">jz</span><span class="pl-en"> equal</span><span class="pl-c">         ; 如果 ZF = 1 (比较结果相等)，跳转到 equal 标签</span>
 <span class="pl-k">jmp</span><span class="pl-en"> not_equal</span><span class="pl-c">    ; 如果 ZF = 0 (比较结果不相等)，跳转到 not_equal 标签</span>
 
